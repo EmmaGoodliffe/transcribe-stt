@@ -1,2 +1,3 @@
 # speech-to-text
-Python app for coverting speech in audio files to text files
+
+Python app for converting speech in audio files to text files

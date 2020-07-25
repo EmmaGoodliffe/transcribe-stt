@@ -1,0 +1,22 @@
+{
+  "name": "speech-to-text",
+  "version": "1.0.0",
+  "description": "Python app for converting speech in audio files to text files",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmmaGoodliffe/speech-to-text.git"
+  },
+  "author": "Emma Goodliffe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EmmaGoodliffe/speech-to-text/issues"
+  },
+  "homepage": "https://github.com/EmmaGoodliffe/speech-to-text#readme",
+  "dependencies": {
+    "electron": "^9.1.1"
+  }
+}

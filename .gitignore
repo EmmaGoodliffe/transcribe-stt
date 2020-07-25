@@ -1,0 +1,4 @@
+sttenv
+node_modules
+__pycache__
+.cache
