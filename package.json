@@ -4,7 +4,7 @@
   "description": "Python app for converting speech in audio files to text files",
   "main": "index.js",
   "scripts": {
-    "start": "electron index.js"
+    "start": "node ."
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/EmmaGoodliffe/speech-to-text#readme",
   "dependencies": {
-    "electron": "^9.1.1"
+    "express": "^4.17.1"
   }
 }

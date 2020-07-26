@@ -2,7 +2,8 @@
 
 from sst import stt
 
-speech = "test.wav"
-text = "test.txt"
+speech = "./test.wav"
+text = "./output.txt"
 
 stt(speech, text)
+print("STT completed")
