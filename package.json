@@ -15,8 +15,5 @@
   "bugs": {
     "url": "https://github.com/EmmaGoodliffe/speech-to-text/issues"
   },
-  "homepage": "https://github.com/EmmaGoodliffe/speech-to-text#readme",
-  "dependencies": {
-    "express": "^4.17.1"
-  }
+  "homepage": "https://github.com/EmmaGoodliffe/speech-to-text#readme"
 }

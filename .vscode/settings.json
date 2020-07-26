@@ -1,5 +1,7 @@
 {
   "cSpell.words": [
     "parens"
-  ]
+  ],
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true
 }
