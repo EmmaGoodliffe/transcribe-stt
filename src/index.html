@@ -7,16 +7,17 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <title>STT</title>
     <style>
-      .invisible {
-        display: none;
-      }
-      #spinner {
-        padding-top: 10px;
-      }
       #result {
         padding: 10px 20px;
+      }
+      #server {
+        padding: 0 10px;
       }
     </style>
   </head>
@@ -34,8 +35,11 @@
       </div>
       <button class="btn blue" id="submit">Submit</button>
 
-      <div class="progress" id="progress-bar">
-        <div class="determinate blue"></div>
+      <div style="display: flex;">
+        <div class="progress" id="progress">
+          <div class="determinate blue"></div>
+        </div>
+        <i class="material-icons blue-text" id="server">settings</i>
       </div>
 
       <div class="blue-grey darken-4 white-text">

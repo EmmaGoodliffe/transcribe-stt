@@ -1,14 +1,20 @@
 import copy from "./copy";
 import download from "./download";
+import Server from "./Server";
+import Progress from "./Progress";
 
 const storage = firebase.storage();
 
 const wavFileInput = document.querySelector("#wav-file") as HTMLInputElement;
 const submitButton = document.querySelector("#submit") as HTMLButtonElement;
 const resultPara = document.querySelector("#result") as HTMLParagraphElement;
-const progressBarDiv = document.querySelector(
-  "#progress-bar .determinate"
+const progressDiv = document.querySelector(
+  "#progress .determinate"
 ) as HTMLDivElement;
+const serverIcon = document.querySelector("#server") as HTMLElement;
+
+const server = new Server(serverIcon);
+const progress = new Progress(progressDiv);
 
 interface STTRequest {
   uri: string;
@@ -47,7 +53,7 @@ submitButton.addEventListener("click", () => {
       // Progress
       const percentage =
         (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      progressBarDiv.style.width = `${percentage}%`;
+      progress.set(percentage);
     },
     err => {
       // Error
@@ -55,6 +61,7 @@ submitButton.addEventListener("click", () => {
     },
     async () => {
       // Complete
+      server.start();
       const response = await post("/stt/uri", { uri });
       const { error } = response;
       if (error) {
@@ -62,6 +69,8 @@ submitButton.addEventListener("click", () => {
         throw `Error in post request: ${error}`;
       }
       const { transcription } = response;
+      server.stop();
+      progress.set(0);
       resultPara.innerText = transcription;
       copy(transcription);
       download("transcript.txt", transcription);

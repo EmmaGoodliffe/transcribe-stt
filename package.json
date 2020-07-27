@@ -4,7 +4,7 @@
   "description": "Python app for converting speech in audio files to text files",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf ./public/*.js && parcel build src/index.html -d public --no-source-maps",
+    "build": "rimraf ./public/*.js && parcel build src/index.html -d public",
     "deploy": "npm run build && firebase deploy",
     "dev": "parcel src/index.html",
     "emulate": "npm run build && firebase serve"
