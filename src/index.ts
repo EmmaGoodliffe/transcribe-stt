@@ -1,4 +1,5 @@
 import copy from "./copy";
+import download from "./download";
 
 const storage = firebase.storage();
 
@@ -31,7 +32,6 @@ const post = async (url: string, data: object): Promise<STTResponse> => {
 };
 
 submitButton.addEventListener("click", () => {
-
   // File
   const [file] = wavFileInput.files;
   const filename = `wav/${Date.now()}.wav`;
@@ -64,6 +64,7 @@ submitButton.addEventListener("click", () => {
       const { transcription } = response;
       resultPara.innerText = transcription;
       copy(transcription);
+      download("transcript.txt", transcription);
     }
   );
 });

@@ -103,7 +103,7 @@ const sttUri = async uri => {
   // Transcribe response
   const transcription = response.results
     .map(result => result.alternatives[0].transcript)
-    .join("\n");
+    .join("\n\n");
   // Return transcription
   return transcription;
 };
