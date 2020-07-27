@@ -23,23 +23,23 @@ const transcribeLocalFile = async filename => {
   return transcription;
 };
 
-const createBase64Request = base64Audio => {
-  // Define audio
-  const audio = {
-    content: base64Audio,
-  };
-  // Define configuration
-  const config = {
-    languageCode: "en-GB",
-  };
-  // Define request
-  const request = {
-    audio,
-    config,
-  };
-  // Return request
-  return request;
-};
+// const createBase64Request = base64Audio => {
+//   // Define audio
+//   const audio = {
+//     content: base64Audio,
+//   };
+//   // Define configuration
+//   const config = {
+//     languageCode: "en-GB",
+//   };
+//   // Define request
+//   const request = {
+//     audio,
+//     config,
+//   };
+//   // Return request
+//   return request;
+// };
 
 const createUriRequest = uri => {
   // Define audio
@@ -74,22 +74,22 @@ const createUriRequest = uri => {
 //   return transcription;
 // };
 
-const sttBase64 = async base64Audio => {
-  // Initialise STT client
-  const client = new speech.SpeechClient();
-  // Create request
-  const request = createBase64Request(base64Audio);
-  // Recognise long speech
-  const [operation] = await client.longRunningRecognize(request);
-  // Generate promise form
-  const [response] = await operation.promise();
-  // Transcribe response
-  const transcription = response.results
-    .map(result => result.alternatives[0].transcript)
-    .join("\n");
-  // Return transcription
-  return transcription;
-};
+// const sttBase64 = async base64Audio => {
+//   // Initialise STT client
+//   const client = new speech.SpeechClient();
+//   // Create request
+//   const request = createBase64Request(base64Audio);
+//   // Recognise long speech
+//   const [operation] = await client.longRunningRecognize(request);
+//   // Generate promise form
+//   const [response] = await operation.promise();
+//   // Transcribe response
+//   const transcription = response.results
+//     .map(result => result.alternatives[0].transcript)
+//     .join("\n");
+//   // Return transcription
+//   return transcription;
+// };
 
 const sttUri = async uri => {
   // Initialise STT client
@@ -116,19 +116,19 @@ app.get("/", (req, res) => {
   res.json({ message: "Working!" });
 });
 
-app.post("/stt/base64", (req, res) => {
-  const { base64 } = req.body;
-  const input = { base64 };
-  sttBase64(base64)
-    .then(transcription => {
-      const result = {
-        input,
-        transcription,
-      };
-      res.json(result);
-    })
-    .catch(err => res.status(500).json({ error: err, input }));
-});
+// app.post("/stt/base64", (req, res) => {
+//   const { base64 } = req.body;
+//   const input = { base64 };
+//   sttBase64(base64)
+//     .then(transcription => {
+//       const result = {
+//         input,
+//         transcription,
+//       };
+//       res.json(result);
+//     })
+//     .catch(err => res.status(500).json({ error: err, input }));
+// });
 
 app.post("/stt/uri", (req, res) => {
   const { uri } = req.body;
