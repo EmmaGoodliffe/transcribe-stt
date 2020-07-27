@@ -4,7 +4,10 @@
   "description": "Python app for converting speech in audio files to text files",
   "main": "index.js",
   "scripts": {
-    "start": "node ."
+    "build": "rimraf ./public/*.js && parcel build src/index.html -d public --no-source-maps",
+    "deploy": "npm run build && firebase deploy",
+    "dev": "parcel src/index.html",
+    "emulate": "npm run build && firebase serve"
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,10 @@
   "bugs": {
     "url": "https://github.com/EmmaGoodliffe/speech-to-text/issues"
   },
-  "homepage": "https://github.com/EmmaGoodliffe/speech-to-text#readme"
+  "homepage": "https://github.com/EmmaGoodliffe/speech-to-text#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4",
+    "rimraf": "^3.0.2",
+    "typescript": "^3.9.7"
+  }
 }

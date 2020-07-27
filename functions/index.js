@@ -59,28 +59,30 @@ app.get("/", (req, res) => {
 
 app.post("/stt/base64", (req, res) => {
   const { base64 } = req.body;
-  stt(base64).then(transcription => {
-    const result = {
-      input: {
-        base64,
-      },
-      transcription,
-    };
-    res.json(result);
-  });
+  const input = { base64 };
+  stt(base64)
+    .then(transcription => {
+      const result = {
+        input,
+        transcription,
+      };
+      res.json(result);
+    })
+    .catch(err => res.status(500).json({ error: err, input }));
 });
 
 app.get("/stt/file/:filename", (req, res) => {
   const { filename } = req.params;
-  transcribeLocalFile(filename).then(transcription => {
-    const result = {
-      input: {
-        file: filename,
-      },
-      transcription,
-    };
-    res.json(result);
-  });
+  const input = { file: filename };
+  transcribeLocalFile(filename)
+    .then(transcription => {
+      const result = {
+        input,
+        transcription,
+      };
+      res.json(result);
+    })
+    .catch(err => res.status(500).json({ error: err, input }));
 });
 
 exports.app = functions.https.onRequest(app);
