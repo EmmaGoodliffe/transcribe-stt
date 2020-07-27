@@ -263,6 +263,7 @@ var __generator = this && this.__generator || function (thisArg, body) {
 
 var wavFileInput = document.querySelector("#wav-file");
 var submitButton = document.querySelector("#submit");
+var resultPara = document.querySelector("#result");
 
 var fileToBase64 = function fileToBase64(file) {
   return new Promise(function (resolve, reject) {
@@ -270,7 +271,8 @@ var fileToBase64 = function fileToBase64(file) {
     reader.readAsDataURL(file);
 
     reader.onloadend = function () {
-      var base64 = reader.result;
+      var base64WithPrefixes = reader.result;
+      var base64 = base64WithPrefixes.replace("data:audio/wav;base64,", "");
       resolve(base64);
     };
 
@@ -328,9 +330,7 @@ submitButton.addEventListener("click", function () {
 
         case 2:
           response = _a.sent();
-          console.log({
-            response: response
-          });
+          resultPara.innerText = response.transcription;
           return [2
           /*return*/
           ];
@@ -366,7 +366,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50064" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64649" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

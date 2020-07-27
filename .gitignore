@@ -4,3 +4,4 @@ __pycache__
 .cache
 lgim-stt-key.json
 .firebase
+dist
