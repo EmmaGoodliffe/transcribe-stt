@@ -57,12 +57,12 @@ app.get("/", (req, res) => {
   res.json({ message: "Working!" });
 });
 
-app.get("/stt/base64/:base64_audio", (req, res) => {
-  const { base64_audio } = req.params;
-  stt(base64_audio).then(transcription => {
+app.post("/stt/base64", (req, res) => {
+  const { base64 } = req.body;
+  stt(base64).then(transcription => {
     const result = {
       input: {
-        base64: base64_audio,
+        base64,
       },
       transcription,
     };
