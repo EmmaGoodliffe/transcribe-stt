@@ -1,3 +1,5 @@
+import copy from "./copy";
+
 const wavFileInput = document.querySelector("#wav-file") as HTMLInputElement;
 const submitButton = document.querySelector("#submit") as HTMLButtonElement;
 const resultPara = document.querySelector("#result") as HTMLParagraphElement;
@@ -56,6 +58,8 @@ submitButton.addEventListener("click", () => {
     const [file] = wavFileInput.files;
     const base64 = await fileToBase64(file);
     const response = await post("/stt/base64", { base64 });
-    resultPara.innerText = response.transcription;
-  });
+    const { transcription } = response;
+    resultPara.innerText = transcription;
+    copy(transcription);
+  }).catch(err => console.error(err));
 });
