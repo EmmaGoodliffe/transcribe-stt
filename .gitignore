@@ -2,3 +2,6 @@ sttenv
 node_modules
 __pycache__
 .cache
+lgim-stt-key.json
+.firebase
+dist

@@ -1,5 +1,9 @@
 {
   "cSpell.words": [
-    "parens"
-  ]
+    "lgim",
+    "parens",
+    "preloader"
+  ],
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true
 }
