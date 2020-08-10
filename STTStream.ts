@@ -1,4 +1,4 @@
-import { createReadStream, appendFile, writeFileSync } from "fs";
+import { appendFile, createReadStream, writeFileSync } from "fs";
 import { SpeechClient } from "@google-cloud/speech";
 import * as ora from "ora";
 
