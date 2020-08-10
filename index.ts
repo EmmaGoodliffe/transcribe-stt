@@ -6,17 +6,6 @@ import * as ora from "ora";
 // Helpers
 const relPathToAbs = (path: string) => resolve(dirname(""), path);
 
-// Prepare environment
-const relGoogleKeyFilename = "./lgim-stt-key.json";
-const absGoogleKeyFilename = relPathToAbs(relGoogleKeyFilename);
-process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
-
-// Define constants
-const SPINNER_START_TEXT = "STT stream running...";
-const SPINNER_SUCCESS_STOP_TEXT = "STT stream done";
-const SPINNER_FAIL_STOP_TEXT = "STT stream failed";
-const FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
-
 const useSpinner = async <T>(promise: Promise<T>, spinner: ora.Ora) => {
   spinner.start();
   try {
@@ -29,6 +18,18 @@ const useSpinner = async <T>(promise: Promise<T>, spinner: ora.Ora) => {
   }
 };
 
+// Prepare environment
+const relGoogleKeyFilename = "./lgim-stt-key.json";
+const absGoogleKeyFilename = relPathToAbs(relGoogleKeyFilename);
+process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
+
+// Define constants
+const SPINNER_START_TEXT = "STT stream running...";
+const SPINNER_SUCCESS_STOP_TEXT = "STT stream done";
+const SPINNER_FAIL_STOP_TEXT = "STT stream failed";
+const FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
+
+// Classes
 class STTStream {
   audioFilename: string;
   textFilename: string;
@@ -118,4 +119,4 @@ const textFilename = `${shortTextFilename}.txt`;
 // Initialise STT stream
 const sttStream = new STTStream(audioFilename, textFilename, 48000);
 // Start STT stream
-sttStream.start(false).catch(console.error);
+sttStream.start().catch(console.error);
