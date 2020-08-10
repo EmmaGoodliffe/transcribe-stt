@@ -1,31 +1,13 @@
 import { appendFile, createReadStream, writeFileSync } from "fs";
 import { SpeechClient } from "@google-cloud/speech";
 import * as ora from "ora";
+import { useSpinner } from "./helpers";
 
 // Define constants
 const SPINNER_START_TEXT = "STT stream running...";
-const SPINNER_SUCCESS_STOP_TEXT = "STT stream done";
-const SPINNER_FAIL_STOP_TEXT = "STT stream failed";
+const SUCCESS_TEXT = "STT stream done";
+const FAIL_TEXT = "STT stream failed";
 const FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
-
-// Helpers
-const useSpinner = async <T>(promise: Promise<T>, spinner: ora.Ora) => {
-  // Start spinner
-  spinner.start();
-  try {
-    // Await promise
-    const result = await promise;
-    // Stop spinner with success
-    spinner.succeed(SPINNER_SUCCESS_STOP_TEXT);
-    // Return result of promise
-    return result;
-  } catch (err) {
-    // Stop spinner with failure
-    spinner.fail(SPINNER_FAIL_STOP_TEXT);
-    // Throw error
-    throw err;
-  }
-};
 
 // Classes
 class STTStream {
@@ -49,12 +31,22 @@ class STTStream {
     this.results = [];
   }
   async start(showSpinner = true): Promise<string[]> {
+    // Initialise results
     let results: string[] = [];
+    // If user wants to show spinner
     if (showSpinner) {
-      results = await useSpinner(this.inner(), this.spinner);
+      // Run function with spinner wrapper
+      results = await useSpinner(
+        this.inner(),
+        this.spinner,
+        SUCCESS_TEXT,
+        FAIL_TEXT
+      );
     } else {
+      // Run function normally
       results = await this.inner();
     }
+    // Return results
     return results;
   }
   inner(): Promise<string[]> {
