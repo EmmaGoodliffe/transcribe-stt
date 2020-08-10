@@ -10,13 +10,21 @@ const FAIL_TEXT = "STT stream failed";
 const FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
 
 // Classes
+/**
+ * Wrapper for an STT stream
+ */
 class STTStream {
   audioFilename: string;
   textFilename: string;
   sampleRateHertz: number;
   append: boolean;
-  spinner: ora.Ora;
   results: string[];
+  /**
+   * @param audioFilename Path to audio file
+   * @param textFilename Path to text file
+   * @param sampleRateHertz Sample rate of audio file in Hertz
+   * @param append When true, text is appended to the existing file. When false, text file is emptied first. Default true.
+   */
   constructor(
     audioFilename: STTStream["audioFilename"],
     textFilename: STTStream["textFilename"],
@@ -27,9 +35,12 @@ class STTStream {
     this.textFilename = textFilename;
     this.sampleRateHertz = sampleRateHertz;
     this.append = append;
-    this.spinner = ora(SPINNER_START_TEXT);
     this.results = [];
   }
+  /**
+   * Start STT stream
+   * @param showSpinner Whether to show a loading spinner in the console during STT stream
+   */
   async start(showSpinner = true): Promise<string[]> {
     // Initialise results
     let results: string[] = [];
@@ -38,7 +49,7 @@ class STTStream {
       // Run function with spinner wrapper
       results = await useSpinner(
         this.inner(),
-        this.spinner,
+        ora(SPINNER_START_TEXT),
         SUCCESS_TEXT,
         FAIL_TEXT
       );
@@ -49,7 +60,7 @@ class STTStream {
     // Return results
     return results;
   }
-  inner(): Promise<string[]> {
+  private inner(): Promise<string[]> {
     return new Promise((resolve, reject) => {
       // If not appending
       if (!this.append) {
