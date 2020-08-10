@@ -15,6 +15,19 @@ process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
 const SPINNER_START_TEXT = "STT stream running...";
 const SPINNER_SUCCESS_STOP_TEXT = "STT stream done";
 const SPINNER_FAIL_STOP_TEXT = "STT stream failed";
+const FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
+
+const useSpinner = async <T>(promise: Promise<T>, spinner: ora.Ora) => {
+  spinner.start();
+  try {
+    const result = await promise;
+    spinner.succeed(SPINNER_SUCCESS_STOP_TEXT);
+    return result;
+  } catch (err) {
+    spinner.fail(SPINNER_FAIL_STOP_TEXT);
+    throw err;
+  }
+};
 
 class STTStream {
   audioFilename: string;
@@ -22,6 +35,7 @@ class STTStream {
   sampleRateHertz: number;
   append: boolean;
   spinner: ora.Ora;
+  results: string[];
   constructor(
     audioFilename: STTStream["audioFilename"],
     textFilename: STTStream["textFilename"],
@@ -33,18 +47,18 @@ class STTStream {
     this.sampleRateHertz = sampleRateHertz;
     this.append = append;
     this.spinner = ora(SPINNER_START_TEXT);
+    this.results = [];
   }
-  async start() {
-    this.spinner.start();
-    try {
-      await this.inner();
-      this.spinner.succeed(SPINNER_SUCCESS_STOP_TEXT);
-    } catch (err) {
-      this.spinner.fail(SPINNER_FAIL_STOP_TEXT);
-      throw err;
+  async start(showSpinner = true) {
+    let results: string[] = [];
+    if (showSpinner) {
+      results = await useSpinner(this.inner(), this.spinner);
+    } else {
+      results = await this.inner();
     }
+    return results;
   }
-  inner(): Promise<void> {
+  inner(): Promise<string[]> {
     return new Promise((resolve, reject) => {
       // If not appending
       if (!this.append) {
@@ -58,7 +72,7 @@ class STTStream {
       // Define request
       const request = {
         config: {
-          encoding: "MP3" as const, // "LINEAR16" as const,
+          encoding: "LINEAR16" as const,
           sampleRateHertz: this.sampleRateHertz,
           languageCode: "en-GB",
         },
@@ -73,15 +87,21 @@ class STTStream {
         .streamingRecognize(request)
         .on("error", err => {
           // Handle errors
-          reject(err);
+          const reason = [
+            `An error occurred running the STT stream: ${err}`,
+            `See ${FAQ_URL} for help on common error messages`,
+          ].join("\n");
+          reject(reason);
         })
         .on("data", data => {
           // Get result
           const result = data.results[0].alternatives[0].transcript as string;
+          // Save result
+          this.results.push(result);
           // Append result to text file
           appendFile(this.textFilename, `${result}\n`, () => {});
         })
-        .on("end", () => resolve());
+        .on("end", () => resolve(this.results));
 
       // Pipe audio file through read/write stream
       audioReadStream.pipe(recogniseStream);
@@ -98,12 +118,4 @@ const textFilename = `${shortTextFilename}.txt`;
 // Initialise STT stream
 const sttStream = new STTStream(audioFilename, textFilename, 48000);
 // Start STT stream
-const main = async () => {
-  console.log("Before start");
-  await sttStream.start();
-  console.log("After start");
-};
-
-main()
-  .then(value => console.log({ value }))
-  .catch(err => console.error(`Main error: ${err}`));
+sttStream.start(false).catch(console.error);
