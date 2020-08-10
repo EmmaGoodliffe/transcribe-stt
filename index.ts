@@ -88,7 +88,7 @@ class STTStream {
         .on("error", err => {
           // Handle errors
           const reason = [
-            `An error occurred running the STT stream: ${err}`,
+            `An error occurred running the STT stream: ${err}`, // TODO: change `:` to `.`
             `See ${FAQ_URL} for help on common error messages`,
           ].join("\n");
           reject(reason);
