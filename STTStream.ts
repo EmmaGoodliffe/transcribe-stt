@@ -29,11 +29,10 @@ interface STTStreamOptions {
 class STTStream {
   audioFilename: string;
   textFilename: string;
-  append: boolean;
-  encoding: AudioEncoding;
-  sampleRateHertz: number;
-  languageCode: string;
-  results: string[];
+  append: STTStreamOptions["append"];
+  encoding: STTStreamOptions["encoding"];
+  sampleRateHertz: STTStreamOptions["sampleRateHertz"];
+  languageCode: STTStreamOptions["languageCode"];
   /**
    * @param audioFilename Path to audio file
    * @param textFilename Path to text file
@@ -50,7 +49,6 @@ class STTStream {
     this.encoding = options.encoding || "LINEAR16";
     this.sampleRateHertz = options.sampleRateHertz;
     this.languageCode = options.languageCode || "en-GB";
-    this.results = [];
   }
   /**
    * Start STT stream
@@ -77,6 +75,9 @@ class STTStream {
   }
   private inner(): Promise<string[]> {
     return new Promise((resolve, reject) => {
+      // Initialise results
+      const results: string[] = [];
+
       // If not appending
       if (!this.append) {
         // Empty file
@@ -113,7 +114,7 @@ class STTStream {
           // Get result
           const result = data.results[0].alternatives[0].transcript as string;
           // Save result
-          this.results.push(result);
+          results.push(result);
           // Append result to text file
           appendFile(this.textFilename, `${result}\n`, err => {
             // Handle errors
@@ -122,7 +123,7 @@ class STTStream {
             reject(reason);
           });
         })
-        .on("end", () => resolve(this.results));
+        .on("end", () => resolve(results));
 
       // Pipe audio file through read/write stream
       audioReadStream.pipe(recogniseStream);

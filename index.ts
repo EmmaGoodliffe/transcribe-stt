@@ -7,7 +7,7 @@ const absGoogleKeyFilename = relPathToAbs(relGoogleKeyFilename);
 process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
 
 // Define filenames
-const shortAudioFilename = "test mono";
+const shortAudioFilename = "test long mono";
 const shortTextFilename = "text";
 const audioFilename = `audio/${shortAudioFilename}.wav`;
 const textFilename = `${shortTextFilename}.txt`;
