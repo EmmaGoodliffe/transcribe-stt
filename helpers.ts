@@ -1,5 +1,5 @@
-import { dirname, resolve } from "path";
 import { Ora } from "ora";
+import { dirname, resolve } from "path";
 
 /**
  * Converts a relative path to an absolute path using the directory the function is run from

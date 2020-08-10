@@ -1,7 +1,10 @@
-import { appendFile, createReadStream, writeFileSync } from "fs";
 import { SpeechClient } from "@google-cloud/speech";
+import { google } from "@google-cloud/speech/build/protos/protos";
+import { appendFile, createReadStream, writeFileSync } from "fs";
 import * as ora from "ora";
 import { useSpinner } from "./helpers";
+
+type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
 
 // Define constants
 const SPINNER_START_TEXT = "STT stream running...";
@@ -9,37 +12,49 @@ const SUCCESS_TEXT = "STT stream done";
 const FAIL_TEXT = "STT stream failed";
 const FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
 
+/** Options for an STT stream */
+interface STTStreamOptions {
+  /** When true, results are appended to the text file. When false, the text file is emptied first. Default `false`. */
+  append?: boolean;
+  /** Audio encoding. See https://cloud.google.com/speech-to-text/docs/encoding. Default `"LINEAR16"`. */
+  encoding?: AudioEncoding;
+  /** Audio sample rate in Hertz */
+  sampleRateHertz: number;
+  /** BCP-47 language code. Default `"en-GB"`. */
+  languageCode?: string;
+}
+
 // Classes
-/**
- * Wrapper for an STT stream
- */
+/** An STT stream */
 class STTStream {
   audioFilename: string;
   textFilename: string;
-  sampleRateHertz: number;
   append: boolean;
+  encoding: AudioEncoding;
+  sampleRateHertz: number;
+  languageCode: string;
   results: string[];
   /**
    * @param audioFilename Path to audio file
    * @param textFilename Path to text file
-   * @param sampleRateHertz Sample rate of audio file in Hertz
-   * @param append When true, text is appended to the existing file. When false, text file is emptied first. Default true.
+   * @param options Options
    */
   constructor(
     audioFilename: STTStream["audioFilename"],
     textFilename: STTStream["textFilename"],
-    sampleRateHertz: STTStream["sampleRateHertz"],
-    append = false
+    options: STTStreamOptions
   ) {
     this.audioFilename = audioFilename;
     this.textFilename = textFilename;
-    this.sampleRateHertz = sampleRateHertz;
-    this.append = append;
+    this.append = options.append || false;
+    this.encoding = options.encoding || "LINEAR16";
+    this.sampleRateHertz = options.sampleRateHertz;
+    this.languageCode = options.languageCode || "en-GB";
     this.results = [];
   }
   /**
    * Start STT stream
-   * @param showSpinner Whether to show a loading spinner in the console during STT stream
+   * @param showSpinner Whether to show a loading spinner in the console during STT stream. Default `true`.
    */
   async start(showSpinner = true): Promise<string[]> {
     // Initialise results
@@ -74,11 +89,10 @@ class STTStream {
       // Define request
       const request = {
         config: {
-          encoding: "LINEAR16" as const,
+          encoding: this.encoding,
           sampleRateHertz: this.sampleRateHertz,
-          languageCode: "en-GB",
+          languageCode: this.languageCode,
         },
-        // interimResults: true,
       };
 
       // Create read stream for audio file
@@ -101,9 +115,12 @@ class STTStream {
           // Save result
           this.results.push(result);
           // Append result to text file
-          appendFile(this.textFilename, `${result}\n`, err =>
-            console.error(`Append error: ${err}`)
-          );
+          appendFile(this.textFilename, `${result}\n`, err => {
+            // Handle errors
+            if (!err) return;
+            const reason = `An error occurred writing to the text file. ${err}`;
+            reject(reason);
+          });
         })
         .on("end", () => resolve(this.results));
 
