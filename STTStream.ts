@@ -13,7 +13,7 @@ const FAIL_TEXT = "STT stream failed";
 const FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
 
 /** Options for an STT stream */
-interface STTStreamOptions {
+export interface STTStreamOptions {
   /** When true, results are appended to the text file. When false, the text file is emptied first. Default `false`. */
   append?: boolean;
   /** Audio encoding. See https://cloud.google.com/speech-to-text/docs/encoding. Default `"LINEAR16"`. */

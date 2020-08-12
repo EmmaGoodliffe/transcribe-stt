@@ -1,21 +1,22 @@
 import { relPathToAbs } from "./helpers";
-import STTStream from "./STTStream";
+// import STTStream from "./STTStream";
+import DistributedSTTStream from "./DistributedSTTStream";
 
 // Prepare environment
 const relGoogleKeyFilename = "./lgim-stt-key.json";
 const absGoogleKeyFilename = relPathToAbs(relGoogleKeyFilename);
 process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
 
-// Define filenames
-const shortAudioFilename = "test long mono";
-const shortTextFilename = "text";
-const audioFilename = `audio/${shortAudioFilename}.wav`;
-const textFilename = `${shortTextFilename}.txt`;
+const distStream = new DistributedSTTStream(
+  "input.wav",
+  "./audio_dist",
+  "text.txt",
+  {
+    append: true,
+    sampleRateHertz: 48000,
+  }
+);
 
-// Initialise STT stream
-const sttStream = new STTStream(audioFilename, textFilename, {
-  sampleRateHertz: 48000,
-});
-
-// Start STT stream
-sttStream.start().catch(console.error);
+distStream.emptyTextFile();
+distStream.on("progress", console.log);
+distStream.start().catch(console.error);
