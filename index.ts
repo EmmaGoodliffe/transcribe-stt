@@ -7,6 +7,7 @@ const relGoogleKeyFilename = "./lgim-stt-key.json";
 const absGoogleKeyFilename = relPathToAbs(relGoogleKeyFilename);
 process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
 
+// Initialise distributed STT stream
 const distStream = new DistributedSTTStream(
   "input.wav",
   "./audio_dist",
@@ -17,6 +18,9 @@ const distStream = new DistributedSTTStream(
   }
 );
 
+// Empty text file
 distStream.emptyTextFile();
+// Log progress
 distStream.on("progress", console.log);
+// Start stream
 distStream.start().catch(console.error);
