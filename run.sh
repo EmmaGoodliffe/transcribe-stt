@@ -10,4 +10,4 @@ trim() {
   sox "$1" "$dist/$2" trim 0 $3 : newfile : restart
 }
 
-trim "$1" "output.wav" 10
+trim "$1" "output.wav" $2

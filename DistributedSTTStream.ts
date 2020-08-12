@@ -5,6 +5,8 @@ import STTStream, { STTStreamOptions } from "./STTStream";
 
 const { readdir } = promises;
 
+const SHARD_LENGTH = 300;
+
 /** Options for an STT stream but `append` must be set to `true` */
 export interface STTStreamOptionsAppend extends STTStreamOptions {
   append: true;
@@ -64,34 +66,37 @@ class DistributedSTTStream {
   distribute(): Promise<string> {
     return new Promise((resolve, reject) => {
       // Run shell script
-      exec(`./run.sh ${this.audioFilename}`, (error, stdout, stderr) => {
-        // Handle errors
-        error && reject(error);
+      exec(
+        `./run.sh ${this.audioFilename} ${SHARD_LENGTH}`,
+        (error, stdout, stderr) => {
+          // Handle errors
+          error && reject(error);
 
-        // Define known warnings patterns
-        const knownWarningPatterns = [
-          /End position is after expected end of audio/i,
-          /Last 1 position\(s\) not reached/i,
-        ];
-        // Handle STD errors
-        if (stderr) {
-          // Split up errors
-          const errors = stderr.split("\n");
-          // For every error
-          for (const err of errors) {
-            // Check if it is a known warning for every known warning pattern
-            let isKnownWarning = false;
-            for (const pattern of knownWarningPatterns) {
-              isKnownWarning = isKnownWarning || pattern.test(err);
+          // Define known warnings patterns
+          const knownWarningPatterns = [
+            /End position is after expected end of audio/i,
+            /Last 1 position\(s\) not reached/i,
+          ];
+          // Handle STD errors
+          if (stderr) {
+            // Split up errors
+            const errors = stderr.split("\n");
+            // For every error
+            for (const err of errors) {
+              // Check if it is a known warning for every known warning pattern
+              let isKnownWarning = false;
+              for (const pattern of knownWarningPatterns) {
+                isKnownWarning = isKnownWarning || pattern.test(err);
+              }
+              // If error is not a know warning and it is full, reject it
+              !isKnownWarning && err.length && reject(`STDERR: ${err}`);
             }
-            // If error is not a know warning and it is full, reject it
-            !isKnownWarning && err.length && reject(`STDERR: ${err}`);
           }
-        }
 
-        // Resolve STD output
-        resolve(stdout);
-      });
+          // Resolve STD output
+          resolve(stdout);
+        }
+      );
     });
   }
   /**
