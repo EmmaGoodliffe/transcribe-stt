@@ -67,6 +67,7 @@ class DistributedSTTStream {
       exec(`./run.sh ${this.audioFilename}`, (error, stdout, stderr) => {
         // Handle errors
         error && reject(error);
+
         // Define known warnings patterns
         const knownWarningPatterns = [
           /End position is after expected end of audio/i,
@@ -87,6 +88,7 @@ class DistributedSTTStream {
             !isKnownWarning && err.length && reject(`STDERR: ${err}`);
           }
         }
+
         // Resolve STD output
         resolve(stdout);
       });
@@ -101,14 +103,17 @@ class DistributedSTTStream {
     const stdout = await this.distribute();
     // Log any STD output
     stdout.length && console.log(`Distribute script: ${stdout}`);
+
     // Read audio directory
     const filenames = await readdir(this.audioDirname);
+
     // Define wav pattern
     const pattern = /\.wav$/;
     // Get wav paths
     const wavFilenames = filenames.filter(fn => pattern.test(fn));
     // Get number of wav files
     const wavFileNum = wavFilenames.length;
+
     // For every wav path
     for (const i in wavFilenames) {
       const index = parseInt(i);
