@@ -5,12 +5,15 @@ import STTStream, { STTStreamOptions } from "./STTStream";
 
 const { readdir } = promises;
 
-interface STTStreamOptionsAppend extends STTStreamOptions {
+/** Options for an STT stream but `append` must be set to `true` */
+export interface STTStreamOptionsAppend extends STTStreamOptions {
   append: true;
 }
 
-type ProgressListener = (percentage: number) => void | Promise<void>;
+/** Listener for the progress value */
+export type ProgressListener = (percentage: number) => void | Promise<void>;
 
+/** A distributed STT stream */
 class DistributedSTTStream {
   audioFilename: string;
   audioDirname: string;
@@ -18,6 +21,12 @@ class DistributedSTTStream {
   options: STTStreamOptionsAppend;
   progress: number;
   progressListeners: ProgressListener[];
+  /**
+   * @param audioFilename Path to original audio file
+   * @param audioDirname Path to output distributed audio directory
+   * @param textFilename Path to text file
+   * @param options Options
+   */
   constructor(
     audioFilename: DistributedSTTStream["audioFilename"],
     audioDirname: DistributedSTTStream["audioDirname"],
@@ -38,9 +47,15 @@ class DistributedSTTStream {
       await func(progress);
     }
   }
+  /**
+   * Listen to events and run callback functions. (If called multiple times, all functions will run)
+   * @param event Event to listen to
+   * @param callback Function to run when event fires
+   */
   on(event: "progress", callback: ProgressListener): void {
     this.progressListeners.push(callback);
   }
+  /** Distribute audio into separate files */
   distribute(): Promise<string> {
     return new Promise((resolve, reject) => {
       exec(`./run.sh ${this.audioFilename}`, (error, stdout, stderr) => {
@@ -63,6 +78,10 @@ class DistributedSTTStream {
       });
     });
   }
+  /**
+   * Start distributed STT stream
+   * @param showSpinner Whether to show a loading spinner in the console during STT stream. Default `true`.
+   */
   async start(showSpinner?: boolean): Promise<void> {
     const stdout = await this.distribute();
     stdout.length && console.log(`Distribute script: ${stdout}`);
@@ -83,6 +102,7 @@ class DistributedSTTStream {
     }
     await this.setProgress(100);
   }
+  /** Empty text file */
   emptyTextFile(): void {
     writeFileSync(this.textFilename, "");
   }
