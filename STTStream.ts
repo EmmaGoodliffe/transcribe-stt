@@ -1,7 +1,7 @@
 import { SpeechClient } from "@google-cloud/speech";
 import { google } from "@google-cloud/speech/build/protos/protos";
 import { appendFile, createReadStream, writeFileSync } from "fs";
-import * as ora from "ora";
+import ora from "ora";
 import { useSpinner } from "./helpers";
 
 type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;

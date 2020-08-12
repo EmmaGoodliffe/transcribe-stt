@@ -21,7 +21,9 @@
   "homepage": "https://github.com/EmmaGoodliffe/speech-to-text#readme",
   "dependencies": {
     "@google-cloud/speech": "^4.1.1",
-    "ora": "^5.0.0"
+    "audio-split": "^1.0.6",
+    "ora": "^5.0.0",
+    "uninstall": "0.0.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.8.0",
