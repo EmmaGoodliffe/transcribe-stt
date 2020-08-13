@@ -14,13 +14,13 @@ const FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
 
 /** Options for an STT stream */
 export interface STTStreamOptions {
-  /** When true, results are appended to the text file. When false, the text file is emptied first. Default `false`. */
+  /** When true, results are appended to the text file. When false, the text file is emptied first. Default `false` */
   append?: boolean;
-  /** Audio encoding. See https://cloud.google.com/speech-to-text/docs/encoding. Default `"LINEAR16"`. */
+  /** Audio encoding. See https://cloud.google.com/speech-to-text/docs/encoding. Default `"LINEAR16"` */
   encoding?: AudioEncoding;
   /** Audio sample rate in Hertz */
   sampleRateHertz: number;
-  /** BCP-47 language code. Default `"en-GB"`. */
+  /** BCP-47 language code. See https://cloud.google.com/speech-to-text/docs/languages. Default `"en-GB"` */
   languageCode?: string;
 }
 
