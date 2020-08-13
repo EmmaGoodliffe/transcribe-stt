@@ -1,9 +1,7 @@
 {
   "cSpell.words": [
-    "lgim",
-    "parens",
-    "preloader"
-  ],
-  "python.linting.enabled": true,
-  "python.linting.pylintEnabled": true
+    "Google's",
+    "LGIM",
+    "parens"
+  ]
 }
