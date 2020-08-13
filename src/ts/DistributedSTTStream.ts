@@ -88,10 +88,12 @@ class DistributedSTTStream {
    * @returns STD output
    */
   async distribute(): Promise<string> {
-    const command = `./distribute.sh ${this.audioFilename} ${this.audioDirname} ${SHARD_LENGTH}`;
     let stdout = "";
     try {
-      stdout = await runBashScript(command);
+      stdout = await runBashScript(
+        "./scripts/distribute.sh",
+        `${this.audioFilename} ${this.audioDirname} ${SHARD_LENGTH}`
+      );
     } catch (error_) {
       const error = `${error_}`;
       // Define known warnings patterns

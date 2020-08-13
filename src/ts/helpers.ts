@@ -50,8 +50,13 @@ export const useSpinner = async <T>(
  * @param command Command to run bash script
  * @returns STD output
  */
-export const runBashScript = (command: string): Promise<string> =>
+export const runBashScript = (
+  filename: string,
+  args: string
+): Promise<string> =>
   new Promise((resolve, reject) => {
+    const absFilename = relPathToAbs(filename);
+    const command = `${absFilename} ${args}`;
     exec(command, (error, stdout, stderr) => {
       if (error) {
         const isWindowsError = `${stderr}`.includes(
@@ -81,8 +86,7 @@ export const runBashScript = (command: string): Promise<string> =>
 export const getWavHeaders = async (
   wavFilename: string
 ): Promise<STTStreamOptions> => {
-  const command = `./headers.sh ${wavFilename}`;
-  const stdout = await runBashScript(command);
+  const stdout = await runBashScript("./scripts/headers.sh", wavFilename);
   const [encodingString, sampleRateString] = stdout
     .replace("\n", "")
     .toUpperCase()
