@@ -1,6 +1,6 @@
+import { exec } from "child_process";
 import { Ora } from "ora";
 import { dirname, resolve } from "path";
-import { exec } from "child_process";
 import { STTStreamOptions } from "./STTStream";
 
 // Constants

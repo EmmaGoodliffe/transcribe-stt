@@ -4,8 +4,8 @@
   "description": "Node app for using Google's Speech to Text API",
   "main": "dist/index.js",
   "scripts": {
-    "build": "parcel build index.ts --target node",
-    "dev": "ts-node index.ts",
+    "build": "parcel build src/ts/index.ts --target node",
+    "dev": "ts-node src/ts/index.ts",
     "lint:fix": "npm run lint -- --fix",
     "lint": "eslint *.ts"
   },

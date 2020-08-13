@@ -1,6 +1,5 @@
-import { relPathToAbs } from "./helpers";
-// import STTStream from "./STTStream";
 import DistributedSTTStream from "./DistributedSTTStream";
+import { relPathToAbs } from "./helpers";
 
 // Prepare environment
 const relGoogleKeyFilename = "./lgim-stt-key.json";

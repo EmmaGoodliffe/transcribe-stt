@@ -1,4 +1,5 @@
 node_modules
+.cache
+audio_dist
 lgim-stt-key.json
 text.txt
-audio_dist

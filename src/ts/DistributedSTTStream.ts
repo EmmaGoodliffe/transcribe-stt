@@ -1,7 +1,7 @@
 import { promises, writeFileSync } from "fs";
 import { resolve } from "path";
-import STTStream, { STTStreamOptions } from "./STTStream";
 import { runBashScript } from "./helpers";
+import STTStream, { STTStreamOptions } from "./STTStream";
 
 const { readdir } = promises;
 
