@@ -15,6 +15,7 @@ export const relPathToAbs = (path: string): string =>
  * @param spinner Spinner instance
  * @param successText Text to show if promise succeeds
  * @param failText Text to show if promise fails
+ * @returns Whatever the promise returns
  */
 export const useSpinner = async <T>(
   promise: Promise<T>,

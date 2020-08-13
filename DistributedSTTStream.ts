@@ -45,9 +45,9 @@ class DistributedSTTStream {
   private async setProgress(progress: number): Promise<void> {
     // Set progress
     this.progress = progress;
-    // For every listener callback
-    for (const callback of this.progressListeners) {
-      await callback(progress);
+    // Call every listener
+    for (const listener of this.progressListeners) {
+      await listener(progress);
     }
   }
   /**
@@ -66,37 +66,33 @@ class DistributedSTTStream {
   distribute(): Promise<string> {
     return new Promise((resolve, reject) => {
       // Run shell script
-      exec(
-        `./run.sh ${this.audioFilename} ${SHARD_LENGTH}`,
-        (error, stdout, stderr) => {
-          // Handle errors
-          error && reject(error);
+      const command = `./distribute.sh ${this.audioFilename} ${this.audioDirname} ${SHARD_LENGTH}`;
+      exec(command, (error, stdout, stderr) => {
+        // Handle errors
+        error && reject(error);
 
-          // Define known warnings patterns
-          const knownWarningPatterns = [
-            /End position is after expected end of audio/i,
-            /Last 1 position\(s\) not reached/i,
-          ];
-          // Handle STD errors
-          if (stderr) {
-            // Split up errors
-            const errors = stderr.split("\n");
-            // For every error
-            for (const err of errors) {
-              // Check if it is a known warning for every known warning pattern
-              let isKnownWarning = false;
-              for (const pattern of knownWarningPatterns) {
-                isKnownWarning = isKnownWarning || pattern.test(err);
-              }
-              // If error is not a know warning and it is full, reject it
-              !isKnownWarning && err.length && reject(`STDERR: ${err}`);
+        // Define known warnings patterns
+        const knownWarningPatterns = [
+          /End position is after expected end of audio/i,
+          /Last 1 position\(s\) not reached/i,
+        ];
+        // Handle STD errors
+        if (stderr) {
+          const errors = stderr.split("\n");
+          for (const err of errors) {
+            // Check if every error is a known warning
+            let isKnownWarning = false;
+            for (const pattern of knownWarningPatterns) {
+              isKnownWarning = isKnownWarning || pattern.test(err);
             }
+            // If error is not a known warning and it is full, reject it
+            !isKnownWarning && err.length && reject(`STDERR: ${err}`);
           }
-
-          // Resolve STD output
-          resolve(stdout);
         }
-      );
+
+        // Resolve STD output
+        resolve(stdout);
+      });
     });
   }
   /**
@@ -104,19 +100,21 @@ class DistributedSTTStream {
    * @param showSpinner Whether to show a loading spinner in the console during STT stream. Default `true`.
    */
   async start(showSpinner?: boolean): Promise<void> {
-    // Distribute audio file
-    const stdout = await this.distribute();
-    // Log any STD output
-    stdout.length && console.log(`Distribute script: ${stdout}`);
+    try {
+      // Distribute audio file
+      const stdout = await this.distribute();
+      // Log any STD output
+      stdout.length && console.log(`Distribute script: ${stdout}`);
+    } catch (err) {
+      throw `An error occurred distributing the audio file. ${err}`;
+    }
 
     // Read audio directory
     const filenames = await readdir(this.audioDirname);
 
     // Define wav pattern
     const pattern = /\.wav$/;
-    // Get wav paths
     const wavFilenames = filenames.filter(fn => pattern.test(fn));
-    // Get number of wav files
     const wavFileNum = wavFilenames.length;
 
     // For every wav path

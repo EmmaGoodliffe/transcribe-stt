@@ -52,7 +52,8 @@ class STTStream {
   }
   /**
    * Start STT stream
-   * @param showSpinner Whether to show a loading spinner in the console during STT stream. Default `true`.
+   * @param showSpinner Whether to show a loading spinner in the console during STT stream. Default `true`
+   * @returns Lines of the transcript
    */
   async start(showSpinner = true): Promise<string[]> {
     // Initialise results
