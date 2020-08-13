@@ -2,7 +2,7 @@ import { SpeechClient } from "@google-cloud/speech";
 import { google } from "@google-cloud/speech/build/protos/protos";
 import { appendFile, createReadStream, writeFileSync } from "fs";
 import ora from "ora";
-import { useSpinner } from "./helpers";
+import { getWavHeaders, recExp, useSpinner } from "./helpers";
 
 type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
 
@@ -56,6 +56,24 @@ class STTStream {
    * @returns Lines of the transcript
    */
   async start(showSpinner = true): Promise<string[]> {
+    const [goodEncoding, goodSampleRate, headers] = await this.testHeaders();
+    const warningPrefix =
+      "Warning: Your audio encoding and sample rate might not be correct";
+
+    if (!goodEncoding) {
+      const reason = recExp("encoding", this.encoding, headers.encoding);
+      console.warn(`${warningPrefix}. ${reason}`);
+    }
+
+    if (!goodSampleRate) {
+      const reason = recExp(
+        "sample rate (Hertz)",
+        this.sampleRateHertz,
+        headers.sampleRateHertz
+      );
+      console.warn(`${warningPrefix}. ${reason}`);
+    }
+
     // Initialise results
     let results: string[] = [];
     // If user wants to show spinner
@@ -73,6 +91,12 @@ class STTStream {
     }
     // Return results
     return results;
+  }
+  async testHeaders(): Promise<[boolean, boolean, STTStreamOptions]> {
+    const headers = await getWavHeaders(this.audioFilename);
+    const encodingPassed = this.encoding === headers.encoding;
+    const sampleRatePassed = this.sampleRateHertz === headers.sampleRateHertz;
+    return [encodingPassed, sampleRatePassed, headers];
   }
   private inner(): Promise<string[]> {
     return new Promise((resolve, reject) => {
