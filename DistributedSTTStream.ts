@@ -54,10 +54,6 @@ class DistributedSTTStream {
     this.progressListeners = [];
     this.distributeListeners = [];
   }
-  /**
-   * Set progress
-   * @param progress Progress percentage
-   */
   private async setProgress(progress: number): Promise<void> {
     // Set progress
     this.progress = progress;

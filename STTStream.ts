@@ -51,6 +51,16 @@ class STTStream {
     this.languageCode = options.languageCode || "en-GB";
   }
   /**
+   * Test if headers of wav file are correct
+   * @returns If encoding was correct, if sample rate was correct, and the headers of the wav file
+   */
+  async testHeaders(): Promise<[boolean, boolean, STTStreamOptions]> {
+    const headers = await getWavHeaders(this.audioFilename);
+    const encodingPassed = this.encoding === headers.encoding;
+    const sampleRatePassed = this.sampleRateHertz === headers.sampleRateHertz;
+    return [encodingPassed, sampleRatePassed, headers];
+  }
+  /**
    * Start STT stream
    * @param showSpinner Whether to show a loading spinner in the console during STT stream. Default `true`
    * @returns Lines of the transcript
@@ -91,12 +101,6 @@ class STTStream {
     }
     // Return results
     return results;
-  }
-  async testHeaders(): Promise<[boolean, boolean, STTStreamOptions]> {
-    const headers = await getWavHeaders(this.audioFilename);
-    const encodingPassed = this.encoding === headers.encoding;
-    const sampleRatePassed = this.sampleRateHertz === headers.sampleRateHertz;
-    return [encodingPassed, sampleRatePassed, headers];
   }
   private inner(): Promise<string[]> {
     return new Promise((resolve, reject) => {
