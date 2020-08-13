@@ -3,7 +3,8 @@ import { dirname, resolve } from "path";
 import { exec } from "child_process";
 import { STTStreamOptions } from "./STTStream";
 
-const WSL_URL = "_"; // TODO: add correct URL
+// Constants
+const WSL_URL = "_"; // TODO: Enter correct URL
 
 /**
  * Converts a relative path to an absolute path using the directory the function is run from
@@ -44,6 +45,11 @@ export const useSpinner = async <T>(
   }
 };
 
+/**
+ * Run bash script
+ * @param command Command to run bash script
+ * @returns STD output
+ */
 export const runBashScript = (command: string): Promise<string> =>
   new Promise((resolve, reject) => {
     exec(command, (error, stdout, stderr) => {
@@ -67,6 +73,11 @@ export const runBashScript = (command: string): Promise<string> =>
     });
   });
 
+/**
+ * Get headers of wav file
+ * @param wavFilename Path to wav file
+ * @returns Headers
+ */
 export const getWavHeaders = async (
   wavFilename: string
 ): Promise<STTStreamOptions> => {
@@ -81,5 +92,12 @@ export const getWavHeaders = async (
   return { encoding, sampleRateHertz };
 };
 
+/**
+ * Generate "received but expected" error message
+ * @param description Description of received and expected entities
+ * @param rec Received value
+ * @param exp Expected value
+ * @returns Error message
+ */
 export const recExp = <T>(description: string, rec: T, exp: T): string =>
   `Received ${description} ${rec} but expected ${exp}`;

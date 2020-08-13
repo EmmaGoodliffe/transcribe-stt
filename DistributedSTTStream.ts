@@ -5,6 +5,7 @@ import { runBashScript } from "./helpers";
 
 const { readdir } = promises;
 
+// Constants
 const SHARD_LENGTH = 300;
 
 /** Options for an STT stream but `append` must be set to `true` */
@@ -42,6 +43,10 @@ class DistributedSTTStream {
     this.progress = 0;
     this.progressListeners = [];
   }
+  /**
+   * Set progress
+   * @param progress Progress percentage
+   */
   private async setProgress(progress: number): Promise<void> {
     // Set progress
     this.progress = progress;
