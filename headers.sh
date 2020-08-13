@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Usage: file.sh <input wav file>
+# Usage: headers.sh <input wav file>
 
 simplify() {
   while read data; do
