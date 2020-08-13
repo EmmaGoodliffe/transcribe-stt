@@ -13,7 +13,7 @@ export interface STTStreamOptionsAppend extends STTStreamOptions {
 }
 
 /** Listener for the progress value */
-export type ProgressListener = (percentage: number) => void | Promise<void>;
+type ProgressListener = (percentage: number) => void | Promise<void>;
 
 /** A distributed STT stream */
 class DistributedSTTStream {
@@ -51,7 +51,7 @@ class DistributedSTTStream {
     }
   }
   /**
-   * Listen to events and run callback functions. (If called multiple times, all functions will run)
+   * Listen to events and run callback functions
    * @param event Event to listen to
    * @param callback Function to run when event fires
    */
@@ -60,7 +60,7 @@ class DistributedSTTStream {
     this.progressListeners.push(callback);
   }
   /**
-   * Distribute audio into separate files
+   * Distribute audio into separate files. (`.distribute` is automatically called by `.start`)
    * @returns STD output
    */
   distribute(): Promise<string> {
