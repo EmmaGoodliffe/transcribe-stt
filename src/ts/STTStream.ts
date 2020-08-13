@@ -20,7 +20,7 @@ export interface STTStreamOptions {
   encoding?: AudioEncoding;
   /** Audio sample rate in Hertz */
   sampleRateHertz: number;
-  /** BCP-47 language code. See https://cloud.google.com/speech-to-text/docs/languages. Default `"en-GB"` */
+  /** BCP-47 language code. See https://cloud.google.com/speech-to-text/docs/languages. Default `"en-US"` */
   languageCode?: string;
 }
 
@@ -48,7 +48,7 @@ class STTStream {
     this.append = options.append || false;
     this.encoding = options.encoding || "LINEAR16";
     this.sampleRateHertz = options.sampleRateHertz;
-    this.languageCode = options.languageCode || "en-GB";
+    this.languageCode = options.languageCode || "en-US";
   }
   /**
    * Test if headers of wav file are correct
