@@ -20,6 +20,8 @@ const distStream = new DistributedSTTStream(
 
 // Empty text file
 distStream.emptyTextFile();
+// Log distribution
+distStream.on("distribute", () => console.log("Distributed"));
 // Log progress
 distStream.on("progress", console.log);
 // Start stream

@@ -16,6 +16,12 @@ export interface STTStreamOptionsAppend extends STTStreamOptions {
 /** Listener for the progress value */
 type ProgressListener = (percentage: number) => void | Promise<void>;
 
+/** Listener for the distribute value */
+type DistributeListener = () => void | Promise<void>;
+
+/** Listener for any property */
+type Listener = ProgressListener | DistributeListener;
+
 /** A distributed STT stream */
 class DistributedSTTStream {
   audioFilename: string;
@@ -24,6 +30,7 @@ class DistributedSTTStream {
   options: STTStreamOptionsAppend;
   progress: number;
   progressListeners: ProgressListener[];
+  distributeListeners: DistributeListener[];
   /**
    * @param audioFilename Path to original audio file
    * @param audioDirname Path to output distributed audio directory
@@ -42,6 +49,7 @@ class DistributedSTTStream {
     this.options = options;
     this.progress = 0;
     this.progressListeners = [];
+    this.distributeListeners = [];
   }
   /**
    * Set progress
@@ -60,9 +68,21 @@ class DistributedSTTStream {
    * @param event Event to listen to
    * @param callback Function to run when event fires
    */
-  on(event: "progress", callback: ProgressListener): void {
-    // Add callback to progress listeners
-    this.progressListeners.push(callback);
+  on(event: "distribute", callback: DistributeListener): void;
+  /**
+   * Listen to events and run callback functions
+   * @param event Event to listen to
+   * @param callback Function to run when event fires
+   */
+  on(event: "progress", callback: ProgressListener): void;
+  on(event: string, callback: Listener): void {
+    if (event === "progress") {
+      // Add callback to progress listeners
+      this.progressListeners.push(callback);
+    } else {
+      // Add callback to distribute listeners
+      this.distributeListeners.push(callback as DistributeListener);
+    }
   }
   /**
    * Distribute audio into separate files. (`.distribute` is automatically called by `.start`)
@@ -96,6 +116,13 @@ class DistributedSTTStream {
         }
       }
     }
+
+    // Call every listener
+    for (const listener of this.distributeListeners) {
+      await listener();
+    }
+
+    // Return STD output
     return stdout;
   }
   /**
