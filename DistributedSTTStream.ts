@@ -14,7 +14,10 @@ export interface STTStreamOptionsAppend extends STTStreamOptions {
 }
 
 /** Listener for the progress value */
-type ProgressListener = (percentage: number) => void | Promise<void>;
+type ProgressListener = (
+  /** Progress percentage */
+  progress: number
+) => void | Promise<void>;
 
 /** Listener for the distribute value */
 type DistributeListener = () => void | Promise<void>;
@@ -79,7 +82,7 @@ class DistributedSTTStream {
     if (event === "progress") {
       // Add callback to progress listeners
       this.progressListeners.push(callback);
-    } else {
+    } else if (event === "distribute") {
       // Add callback to distribute listeners
       this.distributeListeners.push(callback as DistributeListener);
     }
