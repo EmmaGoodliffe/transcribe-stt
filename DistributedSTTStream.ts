@@ -1,7 +1,7 @@
 import { promises, writeFileSync } from "fs";
 import { resolve } from "path";
-import { exec } from "child_process";
 import STTStream, { STTStreamOptions } from "./STTStream";
+import { runBashScript } from "./helpers";
 
 const { readdir } = promises;
 
@@ -63,37 +63,35 @@ class DistributedSTTStream {
    * Distribute audio into separate files. (`.distribute` is automatically called by `.start`)
    * @returns STD output
    */
-  distribute(): Promise<string> {
-    return new Promise((resolve, reject) => {
-      // Run shell script
-      const command = `./distribute.sh ${this.audioFilename} ${this.audioDirname} ${SHARD_LENGTH}`;
-      exec(command, (error, stdout, stderr) => {
-        // Handle errors
-        error && reject(error);
-
-        // Define known warnings patterns
-        const knownWarningPatterns = [
-          /End position is after expected end of audio/i,
-          /Last 1 position\(s\) not reached/i,
-        ];
-        // Handle STD errors
-        if (stderr) {
-          const errors = stderr.split("\n");
-          for (const err of errors) {
-            // Check if every error is a known warning
-            let isKnownWarning = false;
-            for (const pattern of knownWarningPatterns) {
-              isKnownWarning = isKnownWarning || pattern.test(err);
-            }
-            // If error is not a known warning and it is full, reject it
-            !isKnownWarning && err.length && reject(`STDERR: ${err}`);
+  async distribute(): Promise<string> {
+    const command = `./distribute.sh ${this.audioFilename} ${this.audioDirname} ${SHARD_LENGTH}`;
+    let stdout = "";
+    try {
+      stdout = await runBashScript(command);
+    } catch (error_) {
+      const error = `${error_}`;
+      // Define known warnings patterns
+      const knownWarningPatterns = [
+        /End position is after expected end of audio/i,
+        /Last 1 position\(s\) not reached/i,
+      ];
+      // Handle STD errors
+      if (error) {
+        const errors = error.split("\n");
+        for (const errorMessage of errors) {
+          // Check if every error is a known warning
+          let isKnownWarning = false;
+          for (const pattern of knownWarningPatterns) {
+            isKnownWarning = isKnownWarning || pattern.test(errorMessage);
+          }
+          // If error is not a known warning and it is full, throw it
+          if (!isKnownWarning && errorMessage.length) {
+            throw errorMessage;
           }
         }
-
-        // Resolve STD output
-        resolve(stdout);
-      });
-    });
+      }
+    }
+    return stdout;
   }
   /**
    * Start distributed STT stream
