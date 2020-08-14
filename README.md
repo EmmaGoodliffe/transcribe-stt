@@ -9,10 +9,15 @@ Node app for using Google's Speech to Text API
 - [Usage](#usage)
 - - [Short audio files](#STTStream)
 - - [Long audio files](#DistributedSTTStream)
+- - [Google authentication](#google-authentication)
+- [Reference](#Reference)
+- [Converting audio to a WAV file](#converting-audio-to-a-wav-file)
+- [Enabling WSL](#enabling-wsl)
+- [To do](#to-do)
 
 ## Description
 
-A TypeScript/JavaScript Node app which interacts with [Google's Speech to Text API](https://cloud.google.com/speech-to-text/) using its [`Node client`](https://www.npmjs.com/package/@google-cloud/speech) to transcribe WAV files of any length.
+A TypeScript Node app which interacts with [Google's Speech to Text API](https://cloud.google.com/speech-to-text/) using its [`Node client`](https://www.npmjs.com/package/@google-cloud/speech) to transcribe WAV files of any length.
 
 ## Installation
 
@@ -22,7 +27,7 @@ npm i google-speech-to-text
 
 ## Usage
 
-If your audio file is under 305 seconds long, you can use the base `STTStream`. Otherwise, use the `DistributedSTTStream`.
+To use `google-speech-to-text`, you will need to authenticate yourself with Google's API. See [Google authentication](#google-authentication) for help. If your audio file is under 305 seconds long, you can use the basic [`STTStream`](#STTStream). Otherwise, use the [`DistributedSTTStream`](#DistributedSTTStream).
 
 ### `STTStream`
 
@@ -74,8 +79,16 @@ stream.start().catch(console.error);
 
 See full [reference](#reference).
 
+### Google authentication
+
 ## Reference
 
 ## Converting audio to a WAV file
 
 ## Enabling WSL
+
+## To do
+
+- Move files used by tests into `test` folder
+- Create a type for [language codes](https://cloud.google.com/speech-to-text/docs/languages)
+- Dynamically generate a reference, e.g. with [`TSDoc`](https://www.npmjs.com/package/@microsoft/tsdoc)

@@ -14,14 +14,19 @@ const SAMPLE_RATE_HERTZ = 48000;
 const TEXT_DIR = "./test/text";
 
 // Helpers
-const createTextFilename = () => `./${TEXT_DIR}/stream${Date.now()}.output.txt`;
+const createTextFilename = () =>
+  relPathToAbs(`./${TEXT_DIR}/stream${Date.now()}.output.txt`);
 
 const clean = (s: string) =>
   s
     .replace("\r", "")
     .split("\n")
     .map(val => val.trim())
+    .filter(val => val.length)
     .join("\n");
+
+const delay = (time: number): Promise<void> =>
+  new Promise(resolve => setTimeout(resolve, time));
 
 // Empty output text folder
 rmdirSync(TEXT_DIR, { recursive: true });
@@ -66,8 +71,8 @@ test(
       languageCode: "en-GB",
     });
     const lines = (await stream.start(false)).join("\n");
+    await delay(100);
     const transcript = readFileSync(textFilename).toString();
-    console.log(lines, transcript, clean(lines), clean(transcript));
     expect(clean(lines)).toBe(clean(transcript));
   },
   TIME_LIMIT
