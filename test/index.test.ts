@@ -9,7 +9,7 @@ process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
 
 // Constants
 const TIME_LIMIT = 60 * 1000;
-const AUDIO_FILENAME = "./input.wav";
+const AUDIO_FILENAME = "./test/input.wav";
 const AUDIO_DIRNAME = "./test/audio_dist";
 const TEXT_DIRNAME = "./test/text_dist";
 const SAMPLE_RATE_HERTZ = 48000;
