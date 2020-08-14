@@ -22,9 +22,7 @@
   "homepage": "https://github.com/EmmaGoodliffe/speech-to-text#readme",
   "dependencies": {
     "@google-cloud/speech": "^4.1.1",
-    "audio-split": "^1.0.6",
-    "ora": "^5.0.0",
-    "uninstall": "0.0.0"
+    "ora": "^5.0.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.9",
