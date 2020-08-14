@@ -128,9 +128,12 @@ class DistributedSTTStream {
   }
   /**
    * Start distributed STT stream
-   * @param showSpinner Whether to show a loading spinner in the console during STT stream. Default `true`.
+   * @param useConsole Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`
+   * @returns Lines of the transcript
    */
-  async start(showSpinner?: boolean): Promise<void> {
+  async start(useConsole?: boolean): Promise<string[]> {
+    let result: string[] = [];
+
     try {
       // Distribute audio file
       const stdout = await this.distribute();
@@ -161,10 +164,12 @@ class DistributedSTTStream {
       // Set progress
       await this.setProgress(percentage);
       // Start the stream
-      await stream.start(showSpinner);
+      result = await stream.start(useConsole);
     }
     // Set progress to 100%
     await this.setProgress(100);
+    // Return result
+    return result;
   }
   /** Empty text file */
   emptyTextFile(): void {

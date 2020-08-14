@@ -4,7 +4,7 @@ import { appendFile, createReadStream, writeFileSync } from "fs";
 import ora from "ora";
 import { getWavHeaders, recExp, useSpinner } from "./helpers";
 
-type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
+export type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
 
 // Define constants
 const SPINNER_START_TEXT = "STT stream running...";
@@ -20,7 +20,7 @@ export interface STTStreamOptions {
   encoding?: AudioEncoding;
   /** Audio sample rate in Hertz */
   sampleRateHertz: number;
-  /** BCP-47 language code. See https://cloud.google.com/speech-to-text/docs/languages. Default `"en-GB"` */
+  /** BCP-47 language code. See https://cloud.google.com/speech-to-text/docs/languages. Default `"en-US"` */
   languageCode?: string;
 }
 
@@ -48,7 +48,7 @@ class STTStream {
     this.append = options.append || false;
     this.encoding = options.encoding || "LINEAR16";
     this.sampleRateHertz = options.sampleRateHertz;
-    this.languageCode = options.languageCode || "en-GB";
+    this.languageCode = options.languageCode || "en-US";
   }
   /**
    * Test if headers of wav file are correct
@@ -62,17 +62,17 @@ class STTStream {
   }
   /**
    * Start STT stream
-   * @param showSpinner Whether to show a loading spinner in the console during STT stream. Default `true`
+   * @param useConsole Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`
    * @returns Lines of the transcript
    */
-  async start(showSpinner = true): Promise<string[]> {
+  async start(useConsole = true): Promise<string[]> {
     const [goodEncoding, goodSampleRate, headers] = await this.testHeaders();
     const warningPrefix =
       "Warning: Your audio encoding and sample rate might not be correct";
 
     if (!goodEncoding) {
       const reason = recExp("encoding", this.encoding, headers.encoding);
-      console.warn(`${warningPrefix}. ${reason}`);
+      useConsole && console.warn(`${warningPrefix}. ${reason}`);
     }
 
     if (!goodSampleRate) {
@@ -81,13 +81,13 @@ class STTStream {
         this.sampleRateHertz,
         headers.sampleRateHertz
       );
-      console.warn(`${warningPrefix}. ${reason}`);
+      useConsole && console.warn(`${warningPrefix}. ${reason}`);
     }
 
     // Initialise results
     let results: string[] = [];
     // If user wants to show spinner
-    if (showSpinner) {
+    if (useConsole) {
       // Run function with spinner wrapper
       results = await useSpinner(
         this.inner(),
