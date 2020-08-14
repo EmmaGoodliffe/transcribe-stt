@@ -67,6 +67,7 @@ test(
     });
     const lines = (await stream.start(false)).join("\n");
     const transcript = readFileSync(textFilename).toString();
+    console.log(lines, transcript, clean(lines), clean(transcript));
     expect(clean(lines)).toBe(clean(transcript));
   },
   TIME_LIMIT
