@@ -1,4 +1,4 @@
-import { readFileSync } from "fs";
+import { mkdirSync, readFileSync, rmdirSync } from "fs";
 import { STTStream } from "../src/ts";
 import { relPathToAbs } from "../src/ts/helpers";
 
@@ -7,12 +7,14 @@ const relGoogleKeyFilename = "./lgim-stt-key.json";
 const absGoogleKeyFilename = relPathToAbs(relGoogleKeyFilename);
 process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
 
+// Constants
 const TIME_LIMIT = 60 * 1000;
-
 const AUDIO_FILENAME = "./input.wav";
 const SAMPLE_RATE_HERTZ = 48000;
+const TEXT_DIR = "./test/text";
 
-const createTextFilename = () => `./test/text/stream${Date.now()}.output.txt`;
+// Helpers
+const createTextFilename = () => `./${TEXT_DIR}/stream${Date.now()}.output.txt`;
 
 const clean = (s: string) =>
   s
@@ -21,6 +23,11 @@ const clean = (s: string) =>
     .map(val => val.trim())
     .join("\n");
 
+// Empty output text folder
+rmdirSync(TEXT_DIR, { recursive: true });
+mkdirSync(TEXT_DIR);
+
+// Tests
 test(
   "bad encoding stream",
   async () => {
