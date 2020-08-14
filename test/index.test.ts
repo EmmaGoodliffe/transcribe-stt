@@ -1,6 +1,6 @@
 import { mkdirSync, readFileSync, rmdirSync } from "fs";
-import { STTStream, DistributedSTTStream } from "../src/ts";
-import { relPathToAbs } from "../src/ts/helpers";
+import { STTStream, DistributedSTTStream } from "../src";
+import { relPathToAbs } from "../src/helpers";
 
 // Prepare environment
 const relGoogleKeyFilename = "./lgim-stt-key.json";
