@@ -4,6 +4,10 @@ import { appendFile, createReadStream, writeFileSync } from "fs";
 import ora from "ora";
 import { getWavHeaders, recExp, useSpinner } from "./helpers";
 
+/**
+ * Audio encoding
+ * @alpha
+ */
 export type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
 
 // Define constants
@@ -12,7 +16,10 @@ const SUCCESS_TEXT = "STT stream done";
 const FAIL_TEXT = "STT stream failed";
 const FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
 
-/** Options for an STT stream */
+/**
+ *  Options for an STT stream
+ * @alpha
+ */
 export interface STTStreamOptions {
   /** When true, results are appended to the text file. When false, the text file is emptied first. Default `false` */
   append?: boolean;
@@ -25,7 +32,10 @@ export interface STTStreamOptions {
 }
 
 // Classes
-/** An STT stream */
+/**
+ * An STT stream
+ * @alpha
+ */
 class STTStream {
   audioFilename: string;
   textFilename: string;
@@ -34,9 +44,9 @@ class STTStream {
   sampleRateHertz: STTStreamOptions["sampleRateHertz"];
   languageCode: STTStreamOptions["languageCode"];
   /**
-   * @param audioFilename Path to audio file
-   * @param textFilename Path to text file
-   * @param options Options
+   * @param audioFilename - Path to audio file
+   * @param textFilename - Path to text file
+   * @param options - Options
    */
   constructor(
     audioFilename: STTStream["audioFilename"],
@@ -62,7 +72,7 @@ class STTStream {
   }
   /**
    * Start STT stream
-   * @param useConsole Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`
+   * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`
    * @returns Lines of the transcript
    */
   async start(useConsole = true): Promise<string[]> {

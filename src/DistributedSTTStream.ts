@@ -8,7 +8,10 @@ const { readdir } = promises;
 // Constants
 const SHARD_LENGTH = 300;
 
-/** Options for an STT stream but `append` must be set to `true` */
+/**
+ * Options for an STT stream but `append` must be set to `true`
+ * @alpha
+ */
 export interface STTStreamOptionsAppend extends STTStreamOptions {
   append: true;
 }
@@ -25,7 +28,10 @@ type DistributeListener = () => void | Promise<void>;
 /** Listener for any property */
 type Listener = ProgressListener | DistributeListener;
 
-/** A distributed STT stream */
+/**
+ * A distributed STT stream
+ * @alpha
+ */
 class DistributedSTTStream {
   audioFilename: string;
   audioDirname: string;
@@ -35,10 +41,10 @@ class DistributedSTTStream {
   progressListeners: ProgressListener[];
   distributeListeners: DistributeListener[];
   /**
-   * @param audioFilename Path to original audio file
-   * @param audioDirname Path to output distributed audio directory
-   * @param textFilename Path to text file
-   * @param options Options
+   * @param audioFilename - Path to original audio file
+   * @param audioDirname - Path to output distributed audio directory
+   * @param textFilename - Path to text file
+   * @param options - Options
    */
   constructor(
     audioFilename: DistributedSTTStream["audioFilename"],
@@ -64,14 +70,14 @@ class DistributedSTTStream {
   }
   /**
    * Listen to events and run callback functions
-   * @param event Event to listen to
-   * @param callback Function to run when event fires
+   * @param event - Event to listen to
+   * @param callback - Function to run when event fires
    */
   on(event: "distribute", callback: DistributeListener): void;
   /**
    * Listen to events and run callback functions
-   * @param event Event to listen to
-   * @param callback Function to run when event fires
+   * @param event - Event to listen to
+   * @param callback - Function to run when event fires
    */
   on(event: "progress", callback: ProgressListener): void;
   on(event: string, callback: Listener): void {
@@ -128,7 +134,7 @@ class DistributedSTTStream {
   }
   /**
    * Start distributed STT stream
-   * @param useConsole Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`
+   * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`
    * @returns Lines of the transcript
    */
   async start(useConsole?: boolean): Promise<string[]> {

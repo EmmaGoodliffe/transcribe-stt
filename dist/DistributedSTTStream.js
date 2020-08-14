@@ -46,13 +46,16 @@ var STTStream_1 = __importDefault(require("./STTStream"));
 var readdir = fs_1.promises.readdir;
 // Constants
 var SHARD_LENGTH = 300;
-/** A distributed STT stream */
+/**
+ * A distributed STT stream
+ * @alpha
+ */
 var DistributedSTTStream = /** @class */ (function () {
     /**
-     * @param audioFilename Path to original audio file
-     * @param audioDirname Path to output distributed audio directory
-     * @param textFilename Path to text file
-     * @param options Options
+     * @param audioFilename - Path to original audio file
+     * @param audioDirname - Path to output distributed audio directory
+     * @param textFilename - Path to text file
+     * @param options - Options
      */
     function DistributedSTTStream(audioFilename, audioDirname, textFilename, options) {
         this.audioFilename = audioFilename;
@@ -162,7 +165,7 @@ var DistributedSTTStream = /** @class */ (function () {
     };
     /**
      * Start distributed STT stream
-     * @param useConsole Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`
+     * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`
      * @returns Lines of the transcript
      */
     DistributedSTTStream.prototype.start = function (useConsole) {

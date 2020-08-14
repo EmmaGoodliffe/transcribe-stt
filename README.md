@@ -91,3 +91,4 @@ See full [reference](#reference).
 
 - Create a type for [language codes](https://cloud.google.com/speech-to-text/docs/languages)
 - Dynamically generate a reference, e.g. with [`TSDoc`](https://www.npmjs.com/package/@microsoft/tsdoc)
+- Rename key file

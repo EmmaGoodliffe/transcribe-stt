@@ -8,7 +8,7 @@ const WSL_URL = "_"; // TODO: Enter correct URL
 
 /**
  * Converts a relative path to an absolute path using the directory the function is run from
- * @param path Relative path
+ * @param path - Relative path
  * @returns Absolute path
  */
 export const relPathToAbs = (path: string): string =>
@@ -16,10 +16,10 @@ export const relPathToAbs = (path: string): string =>
 
 /**
  * Show spinner while a promise is running
- * @param promise Promise to base spinner on
- * @param spinner Spinner instance
- * @param successText Text to show if promise succeeds
- * @param failText Text to show if promise fails
+ * @param promise - Promise to base spinner on
+ * @param spinner - Spinner instance
+ * @param successText - Text to show if promise succeeds
+ * @param failText - Text to show if promise fails
  * @returns Whatever the promise returns
  */
 export const useSpinner = async <T>(
@@ -47,7 +47,7 @@ export const useSpinner = async <T>(
 
 /**
  * Run bash script
- * @param command Command to run bash script
+ * @param command - Command to run bash script
  * @returns STD output
  */
 export const runBashScript = (
@@ -80,7 +80,7 @@ export const runBashScript = (
 
 /**
  * Get headers of wav file
- * @param wavFilename Path to wav file
+ * @param wavFilename - Path to wav file
  * @returns Headers
  */
 export const getWavHeaders = async (
@@ -98,9 +98,9 @@ export const getWavHeaders = async (
 
 /**
  * Generate "received but expected" error message
- * @param description Description of received and expected entities
- * @param rec Received value
- * @param exp Expected value
+ * @param description - Description of received and expected entities
+ * @param rec - Received value
+ * @param exp - Expected value
  * @returns Error message
  */
 export const recExp = <T>(description: string, rec: T, exp: T): string =>

@@ -7,6 +7,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "ts-node src/index.ts",
+    "extract": "api-extractor run --local --verbose",
     "lint:fix": "npm run lint -- --fix",
     "lint": "eslint *.ts",
     "test": "jest"

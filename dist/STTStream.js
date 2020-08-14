@@ -49,12 +49,15 @@ var SUCCESS_TEXT = "STT stream done";
 var FAIL_TEXT = "STT stream failed";
 var FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
 // Classes
-/** An STT stream */
+/**
+ * An STT stream
+ * @alpha
+ */
 var STTStream = /** @class */ (function () {
     /**
-     * @param audioFilename Path to audio file
-     * @param textFilename Path to text file
-     * @param options Options
+     * @param audioFilename - Path to audio file
+     * @param textFilename - Path to text file
+     * @param options - Options
      */
     function STTStream(audioFilename, textFilename, options) {
         this.audioFilename = audioFilename;
@@ -85,7 +88,7 @@ var STTStream = /** @class */ (function () {
     };
     /**
      * Start STT stream
-     * @param useConsole Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`
+     * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`
      * @returns Lines of the transcript
      */
     STTStream.prototype.start = function (useConsole) {
