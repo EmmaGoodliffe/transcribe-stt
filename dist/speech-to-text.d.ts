@@ -62,10 +62,16 @@ declare type ProgressListener = (
 progress: number) => void | Promise<void>;
 
 /**
+ * Overridden
+ * @alpha
+ */
+export declare const STTStream: typeof STTStream_2;
+
+/**
  * An STT stream
  * @alpha
  */
-export declare class STTStream {
+declare class STTStream_2 {
     audioFilename: string;
     textFilename: string;
     append: STTStreamOptions["append"];
@@ -77,7 +83,7 @@ export declare class STTStream {
      * @param textFilename - Path to text file
      * @param options - Options
      */
-    constructor(audioFilename: STTStream["audioFilename"], textFilename: STTStream["textFilename"], options: STTStreamOptions);
+    constructor(audioFilename: STTStream_2["audioFilename"], textFilename: STTStream_2["textFilename"], options: STTStreamOptions);
     /**
      * Test if headers of wav file are correct
      * @returns If encoding was correct, if sample rate was correct, and the headers of the wav file

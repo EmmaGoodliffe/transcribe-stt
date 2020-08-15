@@ -7,6 +7,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "ts-node src/index.ts",
+    "docs:init": "cp ./temp/speech-to-text.api.json ./docs/speech-to-text.api.json",
+    "docs": "api-documenter markdown --input-folder docs --output-folder docs/md",
     "extract": "api-extractor run --local --verbose",
     "lint:fix": "npm run lint -- --fix",
     "lint": "eslint *.ts",
@@ -27,6 +29,7 @@
     "ora": "^5.0.0"
   },
   "devDependencies": {
+    "@microsoft/api-documenter": "^7.8.25",
     "@microsoft/api-extractor": "^7.9.4",
     "@types/jest": "^26.0.9",
     "@typescript-eslint/eslint-plugin": "^3.8.0",

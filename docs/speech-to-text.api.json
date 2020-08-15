@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "toolPackage": "@microsoft/api-extractor",
+    "toolVersion": "7.9.4",
+    "schemaVersion": 1003,
+    "oldestForwardsCompatibleVersion": 1001
+  },
+  "kind": "Package",
+  "canonicalReference": "speech-to-text!",
+  "docComment": "",
+  "name": "speech-to-text",
+  "members": [
+    {
+      "kind": "EntryPoint",
+      "canonicalReference": "speech-to-text!",
+      "name": "",
+      "members": []
+    }
+  ]
+}
