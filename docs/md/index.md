@@ -8,5 +8,5 @@
 
 |  Package | Description |
 |  --- | --- |
-|  [speech-to-text](./speech-to-text.md) |  |
+|  [speech-to-text](./speech-to-text.md) | The package documentation |
 

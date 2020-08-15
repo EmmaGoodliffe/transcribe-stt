@@ -2,13 +2,7 @@ import { SpeechClient } from "@google-cloud/speech";
 import { google } from "@google-cloud/speech/build/protos/protos";
 import { appendFile, createReadStream, writeFileSync } from "fs";
 import ora from "ora";
-import { getWavHeaders, recExp, useSpinner } from "./helpers";
-
-/**
- * Audio encoding
- * @alpha
- */
-export type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
+import { getWavHeaders, recExp, useSpinner, WavHeaders } from "./helpers";
 
 // Define constants
 const SPINNER_START_TEXT = "STT stream running...";
@@ -16,6 +10,14 @@ const SUCCESS_TEXT = "STT stream done";
 const FAIL_TEXT = "STT stream failed";
 const FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
 
+// Types
+/**
+ * Audio encoding
+ * @alpha
+ */
+export type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
+
+// Interfaces
 /**
  *  Options for an STT stream
  * @alpha
@@ -64,7 +66,7 @@ class STTStream {
    * Test if headers of wav file are correct
    * @returns If encoding was correct, if sample rate was correct, and the headers of the wav file
    */
-  async testHeaders(): Promise<[boolean, boolean, STTStreamOptions]> {
+  async testHeaders(): Promise<[boolean, boolean, WavHeaders]> {
     const headers = await getWavHeaders(this.audioFilename);
     const encodingPassed = this.encoding === headers.encoding;
     const sampleRatePassed = this.sampleRateHertz === headers.sampleRateHertz;

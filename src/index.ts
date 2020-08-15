@@ -1,14 +1,17 @@
-import STTStream_, { STTStreamOptions, AudioEncoding } from "./STTStream";
-import DistributedSTTStream, {
-  STTStreamOptionsAppend,
-} from "./DistributedSTTStream";
-
 /**
- * Overridden
- * @alpha
+ * @packageDocumentation
+ * The package documentation
  */
-export const STTStream = STTStream_;
 
-export { DistributedSTTStream };
+export { AudioEncoding, STTStreamOptions } from "./STTStream";
+export { STTStreamOptionsAppend } from "./DistributedSTTStream";
 
-export { STTStreamOptions, AudioEncoding, STTStreamOptionsAppend };
+// export {
+//   default as STTStream,
+//   AudioEncoding,
+//   STTStreamOptions,]
+// } from "./STTStream";
+// export {
+//   default as DistributedSTTStream,
+//   STTStreamOptionsAppend,
+// } from "./DistributedSTTStream";

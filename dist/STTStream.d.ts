@@ -1,4 +1,5 @@
 import { google } from "@google-cloud/speech/build/protos/protos";
+import { WavHeaders } from "./helpers";
 /**
  * Audio encoding
  * @alpha
@@ -39,7 +40,7 @@ declare class STTStream {
      * Test if headers of wav file are correct
      * @returns If encoding was correct, if sample rate was correct, and the headers of the wav file
      */
-    testHeaders(): Promise<[boolean, boolean, STTStreamOptions]>;
+    testHeaders(): Promise<[boolean, boolean, WavHeaders]>;
     /**
      * Start STT stream
      * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`

@@ -1,10 +1,7 @@
-import STTStream_, { STTStreamOptions, AudioEncoding } from "./STTStream";
-import DistributedSTTStream, { STTStreamOptionsAppend } from "./DistributedSTTStream";
 /**
- * Overridden
- * @alpha
+ * @packageDocumentation
+ * The package documentation
  */
-export declare const STTStream: typeof STTStream_;
-export { DistributedSTTStream };
-export { STTStreamOptions, AudioEncoding, STTStreamOptionsAppend };
+export { AudioEncoding, STTStreamOptions } from "./STTStream";
+export { STTStreamOptionsAppend } from "./DistributedSTTStream";
 //# sourceMappingURL=index.d.ts.map

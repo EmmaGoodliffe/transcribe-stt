@@ -7,7 +7,7 @@
   },
   "kind": "Package",
   "canonicalReference": "speech-to-text!",
-  "docComment": "",
+  "docComment": "/**\n * The package documentation\n *\n * @packageDocumentation\n */\n",
   "name": "speech-to-text",
   "members": [
     {

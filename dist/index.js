@@ -1,14 +1,15 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.DistributedSTTStream = exports.STTStream = void 0;
-var STTStream_1 = __importDefault(require("./STTStream"));
-var DistributedSTTStream_1 = __importDefault(require("./DistributedSTTStream"));
-exports.DistributedSTTStream = DistributedSTTStream_1.default;
 /**
- * Overridden
- * @alpha
+ * @packageDocumentation
+ * The package documentation
  */
-exports.STTStream = STTStream_1.default;
+Object.defineProperty(exports, "__esModule", { value: true });
+// export {
+//   default as STTStream,
+//   AudioEncoding,
+//   STTStreamOptions,]
+// } from "./STTStream";
+// export {
+//   default as DistributedSTTStream,
+//   STTStreamOptionsAppend,
+// } from "./DistributedSTTStream";

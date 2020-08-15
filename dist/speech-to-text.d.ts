@@ -1,3 +1,8 @@
+/**
+ * @packageDocumentation
+ * The package documentation
+ */
+
 import { google } from '@google-cloud/speech/build/protos/protos';
 
 /**
@@ -62,16 +67,10 @@ declare type ProgressListener = (
 progress: number) => void | Promise<void>;
 
 /**
- * Overridden
- * @alpha
- */
-export declare const STTStream: typeof STTStream_2;
-
-/**
  * An STT stream
  * @alpha
  */
-declare class STTStream_2 {
+export declare class STTStream {
     audioFilename: string;
     textFilename: string;
     append: STTStreamOptions["append"];
@@ -83,7 +82,7 @@ declare class STTStream_2 {
      * @param textFilename - Path to text file
      * @param options - Options
      */
-    constructor(audioFilename: STTStream_2["audioFilename"], textFilename: STTStream_2["textFilename"], options: STTStreamOptions);
+    constructor(audioFilename: STTStream["audioFilename"], textFilename: STTStream["textFilename"], options: STTStreamOptions);
     /**
      * Test if headers of wav file are correct
      * @returns If encoding was correct, if sample rate was correct, and the headers of the wav file

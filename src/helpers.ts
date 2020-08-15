@@ -1,10 +1,24 @@
 import { exec } from "child_process";
 import { Ora } from "ora";
 import { dirname, resolve } from "path";
-import { STTStreamOptions } from "./STTStream";
+import { STTStreamOptions, AudioEncoding } from "./STTStream";
 
 // Constants
 const WSL_URL = "_"; // TODO: Enter correct URL
+
+// Types
+type K_ = string | number | symbol;
+type Omit2<T, K extends K_, K2 extends K_> = Omit<Omit<T, K>, K2>;
+
+// Interfaces
+/**
+ * Headers of a WAV file
+ * @alpha
+ */
+export interface WavHeaders
+  extends Omit2<STTStreamOptions, "append", "languageCode"> {
+  encoding: AudioEncoding;
+}
 
 /**
  * Converts a relative path to an absolute path using the directory the function is run from
@@ -85,13 +99,13 @@ export const runBashScript = (
  */
 export const getWavHeaders = async (
   wavFilename: string
-): Promise<STTStreamOptions> => {
+): Promise<WavHeaders> => {
   const stdout = await runBashScript("./scripts/headers.sh", wavFilename);
   const [encodingString, sampleRateString] = stdout
     .replace("\n", "")
     .toUpperCase()
     .split(",");
-  const encoding = encodingString as STTStreamOptions["encoding"];
+  const encoding = encodingString as AudioEncoding;
   const sampleRateHertz = parseInt(sampleRateString);
   return { encoding, sampleRateHertz };
 };

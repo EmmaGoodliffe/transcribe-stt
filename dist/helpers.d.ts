@@ -1,5 +1,14 @@
 import { Ora } from "ora";
-import { STTStreamOptions } from "./STTStream";
+import { STTStreamOptions, AudioEncoding } from "./STTStream";
+declare type K_ = string | number | symbol;
+declare type Omit2<T, K extends K_, K2 extends K_> = Omit<Omit<T, K>, K2>;
+/**
+ * Headers of a WAV file
+ * @alpha
+ */
+export interface WavHeaders extends Omit2<STTStreamOptions, "append", "languageCode"> {
+    encoding: AudioEncoding;
+}
 /**
  * Converts a relative path to an absolute path using the directory the function is run from
  * @param path - Relative path
@@ -26,7 +35,7 @@ export declare const runBashScript: (filename: string, args: string) => Promise<
  * @param wavFilename - Path to wav file
  * @returns Headers
  */
-export declare const getWavHeaders: (wavFilename: string) => Promise<STTStreamOptions>;
+export declare const getWavHeaders: (wavFilename: string) => Promise<WavHeaders>;
 /**
  * Generate "received but expected" error message
  * @param description - Description of received and expected entities
@@ -35,4 +44,5 @@ export declare const getWavHeaders: (wavFilename: string) => Promise<STTStreamOp
  * @returns Error message
  */
 export declare const recExp: <T>(description: string, rec: T, exp: T) => string;
+export {};
 //# sourceMappingURL=helpers.d.ts.map
