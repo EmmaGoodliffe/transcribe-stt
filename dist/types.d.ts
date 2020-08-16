@@ -47,7 +47,7 @@ export interface STTStreamOptions extends WavHeaders {
 /**
  * Options for an STT stream but `append` must be set to `true`
  * @remarks
- * `append` must be set to `true` because
+ * `append` must be set to `true` because each audio file's transcript is appended to the same file.
  * Despite this, you can use {@link DistributedSTTStream.emptyTextFile} to empty the file first.
  * See {@link DistributedSTTStream} for an example.
  *

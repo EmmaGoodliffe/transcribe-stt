@@ -1118,7 +1118,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "transcribe-stt!STTStreamOptionsAppend:interface",
-          "docComment": "/**\n * Options for an STT stream but `append` must be set to `true`\n *\n * @remarks\n *\n * `append` must be set to `true` because Despite this, you can use {@link DistributedSTTStream.emptyTextFile} to empty the file first. See {@link DistributedSTTStream} for an example.\n *\n * See {@link STTStreamOptions} for other properties\n *\n * @public\n */\n",
+          "docComment": "/**\n * Options for an STT stream but `append` must be set to `true`\n *\n * @remarks\n *\n * `append` must be set to `true` because each audio file's transcript is appended to the same file. Despite this, you can use {@link DistributedSTTStream.emptyTextFile} to empty the file first. See {@link DistributedSTTStream} for an example.\n *\n * See {@link STTStreamOptions} for other properties\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",

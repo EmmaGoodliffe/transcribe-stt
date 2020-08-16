@@ -15,7 +15,7 @@ export interface STTStreamOptionsAppend extends STTStreamOptions
 
 ## Remarks
 
-`append` must be set to `true` because Despite this, you can use [DistributedSTTStream.emptyTextFile()](./transcribe-stt.distributedsttstream.emptytextfile.md) to empty the file first. See [DistributedSTTStream](./transcribe-stt.distributedsttstream.md) for an example.
+`append` must be set to `true` because each audio file's transcript is appended to the same file. Despite this, you can use [DistributedSTTStream.emptyTextFile()](./transcribe-stt.distributedsttstream.emptytextfile.md) to empty the file first. See [DistributedSTTStream](./transcribe-stt.distributedsttstream.md) for an example.
 
 See [STTStreamOptions](./transcribe-stt.sttstreamoptions.md) for other properties
 
