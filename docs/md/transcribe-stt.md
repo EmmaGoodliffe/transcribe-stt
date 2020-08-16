@@ -8,25 +8,24 @@ Transcribe audio of any length using Google's Speech to Text API
 
 ## Classes
 
-|  Class | Description |
-|  --- | --- |
-|  [DistributedSTTStream](./transcribe-stt.distributedsttstream.md) | A distributed STT stream (for audio files longer than 305 seconds) |
-|  [STTStream](./transcribe-stt.sttstream.md) | An STT stream (for audio files shorter than 305 seconds) |
+| Class                                                            | Description                                                        |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------ |
+| [DistributedSTTStream](./transcribe-stt.distributedsttstream.md) | A distributed STT stream (for audio files longer than 305 seconds) |
+| [STTStream](./transcribe-stt.sttstream.md)                       | An STT stream (for audio files shorter than 305 seconds)           |
 
 ## Interfaces
 
-|  Interface | Description |
-|  --- | --- |
-|  [STTStreamOptions](./transcribe-stt.sttstreamoptions.md) | Options for an STT stream |
-|  [STTStreamOptionsAppend](./transcribe-stt.sttstreamoptionsappend.md) | Options for an STT stream but <code>append</code> must be set to <code>true</code> |
-|  [WavHeaders](./transcribe-stt.wavheaders.md) | Headers of a WAV file |
+| Interface                                                            | Description                                                                        |
+| -------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| [STTStreamOptions](./transcribe-stt.sttstreamoptions.md)             | Options for an STT stream                                                          |
+| [STTStreamOptionsAppend](./transcribe-stt.sttstreamoptionsappend.md) | Options for an STT stream but <code>append</code> must be set to <code>true</code> |
+| [WavHeaders](./transcribe-stt.wavheaders.md)                         | Headers of a WAV file                                                              |
 
 ## Type Aliases
 
-|  Type Alias | Description |
-|  --- | --- |
-|  [AudioEncoding](./transcribe-stt.audioencoding.md) | Audio encoding |
-|  [DistributeListener](./transcribe-stt.distributelistener.md) | Listener for the distribute value |
-|  [Listener](./transcribe-stt.listener.md) | Listener for any property |
-|  [ProgressListener](./transcribe-stt.progresslistener.md) | Listener for the progress value |
-
+| Type Alias                                                   | Description                       |
+| ------------------------------------------------------------ | --------------------------------- |
+| [AudioEncoding](./transcribe-stt.audioencoding.md)           | Audio encoding                    |
+| [DistributeListener](./transcribe-stt.distributelistener.md) | Listener for the distribute value |
+| [Listener](./transcribe-stt.listener.md)                     | Listener for any property         |
+| [ProgressListener](./transcribe-stt.progresslistener.md)     | Listener for the progress value   |

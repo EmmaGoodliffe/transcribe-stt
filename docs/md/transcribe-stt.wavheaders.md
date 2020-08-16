@@ -9,13 +9,12 @@ Headers of a WAV file
 <b>Signature:</b>
 
 ```typescript
-export interface WavHeaders 
+export interface WavHeaders
 ```
 
 ## Properties
 
-|  Property | Type | Description |
-|  --- | --- | --- |
-|  [encoding](./transcribe-stt.wavheaders.encoding.md) | [AudioEncoding](./transcribe-stt.audioencoding.md) | Audio encoding. See https://cloud.google.com/speech-to-text/docs/encoding |
-|  [sampleRateHertz](./transcribe-stt.wavheaders.sampleratehertz.md) | number | Audio sample rate in Hertz |
-
+| Property                                                          | Type                                               | Description                                                               |
+| ----------------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------- |
+| [encoding](./transcribe-stt.wavheaders.encoding.md)               | [AudioEncoding](./transcribe-stt.audioencoding.md) | Audio encoding. See https://cloud.google.com/speech-to-text/docs/encoding |
+| [sampleRateHertz](./transcribe-stt.wavheaders.sampleratehertz.md) | number                                             | Audio sample rate in Hertz                                                |

@@ -9,8 +9,9 @@ Options for an STT stream
 <b>Signature:</b>
 
 ```typescript
-export interface STTStreamOptions extends WavHeaders 
+export interface STTStreamOptions extends WavHeaders
 ```
+
 <b>Extends:</b> [WavHeaders](./transcribe-stt.wavheaders.md)
 
 ## Remarks
@@ -19,8 +20,7 @@ See [WavHeaders](./transcribe-stt.wavheaders.md) for other properties
 
 ## Properties
 
-|  Property | Type | Description |
-|  --- | --- | --- |
-|  [append](./transcribe-stt.sttstreamoptions.append.md) | boolean | When true, results are appended to the text file. When false, the text file is emptied first. Default <code>false</code> |
-|  [languageCode](./transcribe-stt.sttstreamoptions.languagecode.md) | string | BCP-47 language code. See https://cloud.google.com/speech-to-text/docs/languages. Default <code>&quot;en-US&quot;</code> |
-
+| Property                                                          | Type    | Description                                                                                                              |
+| ----------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
+| [append](./transcribe-stt.sttstreamoptions.append.md)             | boolean | When true, results are appended to the text file. When false, the text file is emptied first. Default <code>false</code> |
+| [languageCode](./transcribe-stt.sttstreamoptions.languagecode.md) | string  | BCP-47 language code. See https://cloud.google.com/speech-to-text/docs/languages. Default <code>&quot;en-US&quot;</code> |

@@ -14,10 +14,10 @@ on(event: "progress", callback: ProgressListener): void;
 
 ## Parameters
 
-|  Parameter | Type | Description |
-|  --- | --- | --- |
-|  event | "progress" | Event to listen to |
-|  callback | [ProgressListener](./transcribe-stt.progresslistener.md) | Function to run when event fires |
+| Parameter | Type                                                     | Description                      |
+| --------- | -------------------------------------------------------- | -------------------------------- |
+| event     | "progress"                                               | Event to listen to               |
+| callback  | [ProgressListener](./transcribe-stt.progresslistener.md) | Function to run when event fires |
 
 <b>Returns:</b>
 
@@ -26,4 +26,3 @@ void
 ## Remarks
 
 The callback function is run whenever a distributed audio file is transcribed. The progress percentage of audio files transcribed is passed as the parameter of the callback. For example, if 2 of 4 audio files have been transcribed, `50` will be passed, representing 50%
-
