@@ -62,6 +62,7 @@ var FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
  * const audioFilename = "./<input audio file>.wav";
  * const textFilename = "./<output text file>.txt";
  * const options = {
+ *  encoding: "LINEAR16",
  *  sampleRateHertz: 16000
  * };
  *
@@ -83,7 +84,7 @@ var STTStream = /** @class */ (function () {
         this.audioFilename = audioFilename;
         this.textFilename = textFilename;
         this.append = options.append || false;
-        this.encoding = options.encoding || "LINEAR16";
+        this.encoding = options.encoding;
         this.sampleRateHertz = options.sampleRateHertz;
         this.languageCode = options.languageCode || "en-US";
     }
@@ -93,7 +94,7 @@ var STTStream = /** @class */ (function () {
      * This example checks if the headers you passed to {@link STTStream} are correct and logs them.
      * This can be helpful when you don't know what headers of your WAV file are.
      *
-     * See {@link STTStream} to instantiate the stream
+     * See {@link STTStream} to initialise the stream
      *
      * ```ts
      * // ...

@@ -54,6 +54,7 @@ test(
   async () => {
     expect.assertions(2);
     const stream = new STTStream(AUDIO_FILENAME, createTextFilename(), {
+      encoding: "LINEAR16",
       sampleRateHertz: 0,
     });
     const [, goodSampleRate] = await stream.testHeaders();
@@ -69,6 +70,7 @@ test(
     expect.assertions(1);
     const textFilename = createTextFilename();
     const stream = new STTStream(AUDIO_FILENAME, textFilename, {
+      encoding: "LINEAR16",
       sampleRateHertz: SAMPLE_RATE_HERTZ,
       languageCode: "en-GB",
     });
@@ -90,9 +92,10 @@ test(
       AUDIO_DIRNAME,
       textFilename,
       {
-        append: true,
+        encoding: "LINEAR16",
         sampleRateHertz: SAMPLE_RATE_HERTZ,
         languageCode: "en-GB",
+        append: true,
       }
     );
     const lines = (await stream.start(false)).join("\n");

@@ -12,6 +12,7 @@ import { STTStreamOptions, WavHeaders } from "./types";
  * const audioFilename = "./<input audio file>.wav";
  * const textFilename = "./<output text file>.txt";
  * const options = {
+ *  encoding: "LINEAR16",
  *  sampleRateHertz: 16000
  * };
  *
@@ -42,7 +43,7 @@ declare class STTStream {
      * This example checks if the headers you passed to {@link STTStream} are correct and logs them.
      * This can be helpful when you don't know what headers of your WAV file are.
      *
-     * See {@link STTStream} to instantiate the stream
+     * See {@link STTStream} to initialise the stream
      *
      * ```ts
      * // ...

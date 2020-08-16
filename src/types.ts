@@ -48,12 +48,10 @@ export interface WavHeaders {
  * @public
  */
 export interface STTStreamOptions extends WavHeaders {
-  /** Extends {@link WavHeaders.encoding}. Default `"LINEAR16"` */
-  encoding: AudioEncoding;
-  /** When true, results are appended to the text file. When false, the text file is emptied first. Default `false` */
-  append?: boolean;
   /** BCP-47 language code. See https://cloud.google.com/speech-to-text/docs/languages. Default `"en-US"` */
   languageCode?: string;
+  /** When true, results are appended to the text file. When false, the text file is emptied first. Default `false` */
+  append?: boolean;
 }
 
 DistributedSTTStream;

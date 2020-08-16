@@ -12,6 +12,34 @@ A distributed STT stream (for audio files longer than 305 seconds)
 declare class DistributedSTTStream 
 ```
 
+## Example
+
+This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file. You can customise the functionality of the stream with the [STTStreamOptionsAppend](./transcribe-stt.sttstreamoptionsappend.md)<!-- -->.
+
+If you don't know the encoding or sample rate of you WAV file, try using [STTStream.testHeaders()](./transcribe-stt.sttstream.testheaders.md)
+
+```ts
+import { DistributedSTTStream } from "transcribe-stt";
+
+const audioFilename = "./<input audio file>.wav";
+const audioDirname = "./<output audio directory>";
+const textFilename = "./<output text file>.txt";
+const options = {
+ encoding: "LINEAR16",
+ sampleRateHertz: 16000
+};
+
+// Initialise stream
+const stream = new DistributedSTTStream(audioFilename, audioDirname, textFilename, options);
+
+// Empty text file
+stream.emptyTextFile();
+
+// Start stream and write output to text file
+stream.start();
+
+```
+
 ## Constructors
 
 |  Constructor | Modifiers | Description |

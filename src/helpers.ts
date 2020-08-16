@@ -50,7 +50,7 @@ export const useSpinner = async <T>(
 /**
  * Run bash script
  * @param command - Command to run bash script
- * @returns STD output
+ * @returns STD output of bash script
  * @internal
  */
 export const runBashScript = (

@@ -93,7 +93,7 @@ exports.useSpinner = function (promise, spinner, successText, failText) {
 /**
  * Run bash script
  * @param command - Command to run bash script
- * @returns STD output
+ * @returns STD output of bash script
  * @internal
  */
 exports.runBashScript = function (filename, args) {

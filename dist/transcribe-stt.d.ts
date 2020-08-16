@@ -13,6 +13,31 @@ export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.Recognit
 
 /**
  * A distributed STT stream (for audio files longer than 305 seconds)
+ * @example
+ * This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file.
+ * You can customise the functionality of the stream with the {@link STTStreamOptionsAppend}.
+ *
+ * If you don't know the encoding or sample rate of you WAV file, try using {@link STTStream.testHeaders}
+ * ```ts
+ * import { DistributedSTTStream } from "transcribe-stt";
+ *
+ * const audioFilename = "./<input audio file>.wav";
+ * const audioDirname = "./<output audio directory>";
+ * const textFilename = "./<output text file>.txt";
+ * const options = {
+ *  encoding: "LINEAR16",
+ *  sampleRateHertz: 16000
+ * };
+ *
+ * // Initialise stream
+ * const stream = new DistributedSTTStream(audioFilename, audioDirname, textFilename, options);
+ *
+ * // Empty text file
+ * stream.emptyTextFile();
+ *
+ * // Start stream and write output to text file
+ * stream.start();
+ * ```
  * @public
  */
 export declare class DistributedSTTStream {
@@ -30,6 +55,11 @@ export declare class DistributedSTTStream {
      * @param options - Options
      */
     constructor(audioFilename: string, audioDirname: string, textFilename: string, options: STTStreamOptionsAppend);
+    /**
+     * Set progress
+     * @param progress Progress percentage
+     * @internal
+     */
     private setProgress;
     /**
      * Listen to `"distribute"` event and run callback functions
@@ -106,6 +136,7 @@ export declare type ProgressListener = (progress: number) => void | Promise<void
  * const audioFilename = "./<input audio file>.wav";
  * const textFilename = "./<output text file>.txt";
  * const options = {
+ *  encoding: "LINEAR16",
  *  sampleRateHertz: 16000
  * };
  *
@@ -136,7 +167,7 @@ export declare class STTStream {
      * This example checks if the headers you passed to {@link STTStream} are correct and logs them.
      * This can be helpful when you don't know what headers of your WAV file are.
      *
-     * See {@link STTStream} to instantiate the stream
+     * See {@link STTStream} to initialise the stream
      *
      * ```ts
      * // ...
@@ -186,12 +217,10 @@ export declare class STTStream {
  * @public
  */
 export declare interface STTStreamOptions extends WavHeaders {
-    /** Extends {@link WavHeaders.encoding}. Default `"LINEAR16"` */
-    encoding: AudioEncoding;
-    /** When true, results are appended to the text file. When false, the text file is emptied first. Default `false` */
-    append?: boolean;
     /** BCP-47 language code. See https://cloud.google.com/speech-to-text/docs/languages. Default `"en-US"` */
     languageCode?: string;
+    /** When true, results are appended to the text file. When false, the text file is emptied first. Default `false` */
+    append?: boolean;
 }
 
 /**

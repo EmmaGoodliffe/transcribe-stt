@@ -29,7 +29,7 @@ If you find an alias of an encoding that causes [STTStream.testHeaders()](./tran
 
 This example checks if the headers you passed to [STTStream](./transcribe-stt.sttstream.md) are correct and logs them. This can be helpful when you don't know what headers of your WAV file are.
 
-See [STTStream](./transcribe-stt.sttstream.md) to instantiate the stream
+See [STTStream](./transcribe-stt.sttstream.md) to initialise the stream
 
 ```ts
 // ...

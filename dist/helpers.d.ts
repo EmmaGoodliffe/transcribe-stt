@@ -20,7 +20,7 @@ export declare const useSpinner: <T>(promise: Promise<T>, spinner: Ora, successT
 /**
  * Run bash script
  * @param command - Command to run bash script
- * @returns STD output
+ * @returns STD output of bash script
  * @internal
  */
 export declare const runBashScript: (filename: string, args: string) => Promise<string>;

@@ -22,6 +22,5 @@ See [WavHeaders](./transcribe-stt.wavheaders.md) for other properties
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [append](./transcribe-stt.sttstreamoptions.append.md) | boolean | When true, results are appended to the text file. When false, the text file is emptied first. Default <code>false</code> |
-|  [encoding](./transcribe-stt.sttstreamoptions.encoding.md) | [AudioEncoding](./transcribe-stt.audioencoding.md) | Extends [WavHeaders.encoding](./transcribe-stt.wavheaders.encoding.md)<!-- -->. Default <code>&quot;LINEAR16&quot;</code> |
 |  [languageCode](./transcribe-stt.sttstreamoptions.languagecode.md) | string | BCP-47 language code. See https://cloud.google.com/speech-to-text/docs/languages. Default <code>&quot;en-US&quot;</code> |
 

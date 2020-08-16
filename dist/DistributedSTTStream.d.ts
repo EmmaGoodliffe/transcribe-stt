@@ -1,6 +1,31 @@
 import { DistributeListener, ProgressListener, STTStreamOptionsAppend } from "./types";
 /**
  * A distributed STT stream (for audio files longer than 305 seconds)
+ * @example
+ * This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file.
+ * You can customise the functionality of the stream with the {@link STTStreamOptionsAppend}.
+ *
+ * If you don't know the encoding or sample rate of you WAV file, try using {@link STTStream.testHeaders}
+ * ```ts
+ * import { DistributedSTTStream } from "transcribe-stt";
+ *
+ * const audioFilename = "./<input audio file>.wav";
+ * const audioDirname = "./<output audio directory>";
+ * const textFilename = "./<output text file>.txt";
+ * const options = {
+ *  encoding: "LINEAR16",
+ *  sampleRateHertz: 16000
+ * };
+ *
+ * // Initialise stream
+ * const stream = new DistributedSTTStream(audioFilename, audioDirname, textFilename, options);
+ *
+ * // Empty text file
+ * stream.emptyTextFile();
+ *
+ * // Start stream and write output to text file
+ * stream.start();
+ * ```
  * @public
  */
 declare class DistributedSTTStream {
@@ -18,6 +43,11 @@ declare class DistributedSTTStream {
      * @param options - Options
      */
     constructor(audioFilename: string, audioDirname: string, textFilename: string, options: STTStreamOptionsAppend);
+    /**
+     * Set progress
+     * @param progress Progress percentage
+     * @internal
+     */
     private setProgress;
     /**
      * Listen to `"distribute"` event and run callback functions

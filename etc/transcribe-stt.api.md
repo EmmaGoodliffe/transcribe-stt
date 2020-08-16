@@ -65,7 +65,6 @@ export class STTStream {
 // @public
 export interface STTStreamOptions extends WavHeaders {
     append?: boolean;
-    encoding: AudioEncoding;
     languageCode?: string;
 }
 

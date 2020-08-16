@@ -24,6 +24,7 @@ import { STTStream } form "transcribe-stt";
 const audioFilename = "./<input audio file>.wav";
 const textFilename = "./<output text file>.txt";
 const options = {
+ encoding: "LINEAR16",
  sampleRateHertz: 16000
 };
 

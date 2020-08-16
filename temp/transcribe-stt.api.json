@@ -48,7 +48,7 @@
         {
           "kind": "Class",
           "canonicalReference": "transcribe-stt!DistributedSTTStream:class",
-          "docComment": "/**\n * A distributed STT stream (for audio files longer than 305 seconds)\n *\n * @public\n */\n",
+          "docComment": "/**\n * A distributed STT stream (for audio files longer than 305 seconds)\n *\n * @example\n *\n * This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file. You can customise the functionality of the stream with the {@link STTStreamOptionsAppend}.\n *\n * If you don't know the encoding or sample rate of you WAV file, try using {@link STTStream.testHeaders}\n * ```ts\n * import { DistributedSTTStream } from \"transcribe-stt\";\n *\n * const audioFilename = \"./<input audio file>.wav\";\n * const audioDirname = \"./<output audio directory>\";\n * const textFilename = \"./<output text file>.txt\";\n * const options = {\n *  encoding: \"LINEAR16\",\n *  sampleRateHertz: 16000\n * };\n *\n * // Initialise stream\n * const stream = new DistributedSTTStream(audioFilename, audioDirname, textFilename, options);\n *\n * // Empty text file\n * stream.emptyTextFile();\n *\n * // Start stream and write output to text file\n * stream.start();\n * ```\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -666,7 +666,7 @@
         {
           "kind": "Class",
           "canonicalReference": "transcribe-stt!STTStream:class",
-          "docComment": "/**\n * An STT stream (for audio files shorter than 305 seconds)\n *\n * @example\n *\n * This example writes the transcript of a short LINEAR16 16000Hz WAV file to a text file. You can customise the functionality of the stream with the {@link STTStreamOptions}.\n *\n * If you don't know the encoding or sample rate of your WAV file, try using {@link STTStream.testHeaders}\n * ```ts\n * import { STTStream } form \"transcribe-stt\";\n *\n * const audioFilename = \"./<input audio file>.wav\";\n * const textFilename = \"./<output text file>.txt\";\n * const options = {\n *  sampleRateHertz: 16000\n * };\n *\n * // Initialise stream\n * const stream = new STTStream(audioFilename, textFilename, options);\n *\n * // Start stream and write output to text file\n * stream.start();\n * ```\n *\n * @public\n */\n",
+          "docComment": "/**\n * An STT stream (for audio files shorter than 305 seconds)\n *\n * @example\n *\n * This example writes the transcript of a short LINEAR16 16000Hz WAV file to a text file. You can customise the functionality of the stream with the {@link STTStreamOptions}.\n *\n * If you don't know the encoding or sample rate of your WAV file, try using {@link STTStream.testHeaders}\n * ```ts\n * import { STTStream } form \"transcribe-stt\";\n *\n * const audioFilename = \"./<input audio file>.wav\";\n * const textFilename = \"./<output text file>.txt\";\n * const options = {\n *  encoding: \"LINEAR16\",\n *  sampleRateHertz: 16000\n * };\n *\n * // Initialise stream\n * const stream = new STTStream(audioFilename, textFilename, options);\n *\n * // Start stream and write output to text file\n * stream.start();\n * ```\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -967,7 +967,7 @@
             {
               "kind": "Method",
               "canonicalReference": "transcribe-stt!STTStream#testHeaders:member(1)",
-              "docComment": "/**\n * Test if headers of WAV file are correct\n *\n * @remarks\n *\n * This method does not test encodings perfectly as many encodings go by multiples aliases. For example, \"LINEAR16\" is often listed in headers as \"Microsoft PCM 16 bit\".\n *\n * Because of this, {@link STTStream.testHeaders} does not have to pass for {@link STTStream.start} to pass.\n *\n * If you find an alias of an encoding that causes {@link STTStream.testHeaders} to throw a false error, please leave an issue about it in the GitHub repo\n *\n * @returns If encoding was correct, if sample rate was correct, and the headers of the WAV file\n *\n * @example\n *\n * This example checks if the headers you passed to {@link STTStream} are correct and logs them. This can be helpful when you don't know what headers of your WAV file are.\n *\n * See {@link STTStream} to instantiate the stream\n * ```ts\n * // ...\n *\n * // Test headers\n * const [goodEncoding, goodSampleRate, headers] = await stream.testHeaders();\n *\n * // Log results\n * console.log(\"File has correct encoding?\", goodEncoding);\n * console.log(\"File has correct sample rate?\", goodSampleRate);\n *\n * // Log headers\n * console.log(\"File has encoding:\", headers.encoding);\n * console.log(\"File has sample rate:\", headers.sampleRateHertz);\n * ```\n *\n */\n",
+              "docComment": "/**\n * Test if headers of WAV file are correct\n *\n * @remarks\n *\n * This method does not test encodings perfectly as many encodings go by multiples aliases. For example, \"LINEAR16\" is often listed in headers as \"Microsoft PCM 16 bit\".\n *\n * Because of this, {@link STTStream.testHeaders} does not have to pass for {@link STTStream.start} to pass.\n *\n * If you find an alias of an encoding that causes {@link STTStream.testHeaders} to throw a false error, please leave an issue about it in the GitHub repo\n *\n * @returns If encoding was correct, if sample rate was correct, and the headers of the WAV file\n *\n * @example\n *\n * This example checks if the headers you passed to {@link STTStream} are correct and logs them. This can be helpful when you don't know what headers of your WAV file are.\n *\n * See {@link STTStream} to initialise the stream\n * ```ts\n * // ...\n *\n * // Test headers\n * const [goodEncoding, goodSampleRate, headers] = await stream.testHeaders();\n *\n * // Log results\n * console.log(\"File has correct encoding?\", goodEncoding);\n * console.log(\"File has correct sample rate?\", goodSampleRate);\n *\n * // Log headers\n * console.log(\"File has encoding:\", headers.encoding);\n * console.log(\"File has sample rate:\", headers.sampleRateHertz);\n * ```\n *\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1077,32 +1077,6 @@
               ],
               "releaseTag": "Public",
               "name": "append",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "transcribe-stt!STTStreamOptions#encoding:member",
-              "docComment": "/**\n * Extends {@link WavHeaders.encoding}. Default `\"LINEAR16\"`\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "encoding: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "AudioEncoding",
-                  "canonicalReference": "transcribe-stt!AudioEncoding:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "releaseTag": "Public",
-              "name": "encoding",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
