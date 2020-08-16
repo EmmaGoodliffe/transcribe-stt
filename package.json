@@ -22,14 +22,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EmmaGoodliffe/speech-to-text.git"
+    "url": "git+https://github.com/EmmaGoodliffe/transcribe-stt.git"
   },
   "author": "Emma Goodliffe",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/EmmaGoodliffe/speech-to-text/issues"
+    "url": "https://github.com/EmmaGoodliffe/transcribe-stt/issues"
   },
-  "homepage": "https://github.com/EmmaGoodliffe/speech-to-text#readme",
+  "homepage": "https://github.com/EmmaGoodliffe/transcribe-stt#readme",
   "keywords": [
     "transcribe",
     "stt",
