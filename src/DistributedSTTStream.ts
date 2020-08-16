@@ -1,34 +1,18 @@
 import { promises, writeFileSync } from "fs";
 import { resolve } from "path";
 import { runBashScript } from "./helpers";
-import STTStream, { STTStreamOptions } from "./STTStream";
+import STTStream from "./STTStream";
+import {
+  DistributeListener,
+  Listener,
+  ProgressListener,
+  STTStreamOptionsAppend,
+} from "./types";
 
 const { readdir } = promises;
 
 // Constants
 const SHARD_LENGTH = 300;
-
-// Types
-/** Listener for the progress value */
-type ProgressListener = (
-  /** Progress percentage */
-  progress: number
-) => void | Promise<void>;
-
-/** Listener for the distribute value */
-type DistributeListener = () => void | Promise<void>;
-
-/** Listener for any property */
-type Listener = ProgressListener | DistributeListener;
-
-// Interfaces
-/**
- * Options for an STT stream but `append` must be set to `true`
- * @public
- */
-export interface STTStreamOptionsAppend extends STTStreamOptions {
-  append: true;
-}
 
 /**
  * A distributed STT stream
@@ -149,16 +133,16 @@ class DistributedSTTStream {
     // Read audio directory
     const filenames = await readdir(this.audioDirname);
 
-    // Define wav pattern
+    // Define WAV pattern
     const pattern = /\.wav$/;
     const wavFilenames = filenames.filter(fn => pattern.test(fn));
     const wavFileNum = wavFilenames.length;
 
-    // For every wav path
+    // For every WAV path
     for (const i in wavFilenames) {
       const index = parseInt(i);
       const wavFilename = wavFilenames[i];
-      // Get the full wav path
+      // Get the full WAV path
       const fullWavFn = resolve(this.audioDirname, wavFilename);
       // Initialise an STT stream
       const stream = new STTStream(fullWavFn, this.textFilename, this.options);

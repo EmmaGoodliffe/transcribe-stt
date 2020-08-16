@@ -1,28 +1,16 @@
 import { exec } from "child_process";
 import { Ora } from "ora";
 import { dirname, resolve } from "path";
-import { STTStreamOptions, AudioEncoding } from "./STTStream";
+import { AudioEncoding, WavHeaders } from "./types";
 
 // Constants
 const WSL_URL = "_"; // TODO: Enter correct URL
-
-// Types
-/** Helper type for `Omit2` */
-type K_ = string | number | symbol;
-/** Omit two properties from an interface */
-type Omit2<T, K extends K_, K2 extends K_> = Omit<Omit<T, K>, K2>;
-
-// Interfaces
-/** Headers of a WAV file */
-export interface WavHeaders
-  extends Omit2<STTStreamOptions, "append", "languageCode"> {
-  encoding: AudioEncoding;
-}
 
 /**
  * Converts a relative path to an absolute path using the directory the function is run from
  * @param path - Relative path
  * @returns Absolute path
+ * @internal
  */
 export const relPathToAbs = (path: string): string =>
   resolve(dirname(""), path);
@@ -34,6 +22,7 @@ export const relPathToAbs = (path: string): string =>
  * @param successText - Text to show if promise succeeds
  * @param failText - Text to show if promise fails
  * @returns Whatever the promise returns
+ * @internal
  */
 export const useSpinner = async <T>(
   promise: Promise<T>,
@@ -62,6 +51,7 @@ export const useSpinner = async <T>(
  * Run bash script
  * @param command - Command to run bash script
  * @returns STD output
+ * @internal
  */
 export const runBashScript = (
   filename: string,
@@ -92,9 +82,10 @@ export const runBashScript = (
   });
 
 /**
- * Get headers of wav file
- * @param wavFilename - Path to wav file
+ * Get headers of WAV file
+ * @param wavFilename - Path to WAV file
  * @returns Headers
+ * @internal
  */
 export const getWavHeaders = async (
   wavFilename: string
@@ -115,6 +106,7 @@ export const getWavHeaders = async (
  * @param rec - Received value
  * @param exp - Expected value
  * @returns Error message
+ * @internal
  */
 export const recExp = <T>(description: string, rec: T, exp: T): string =>
   `Received ${description} ${rec} but expected ${exp}`;

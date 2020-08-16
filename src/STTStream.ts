@@ -1,37 +1,14 @@
 import { SpeechClient } from "@google-cloud/speech";
-import { google } from "@google-cloud/speech/build/protos/protos";
 import { appendFile, createReadStream, writeFileSync } from "fs";
 import ora from "ora";
-import { getWavHeaders, recExp, useSpinner, WavHeaders } from "./helpers";
+import { getWavHeaders, recExp, useSpinner } from "./helpers";
+import { STTStreamOptions, WavHeaders } from "./types";
 
 // Define constants
 const SPINNER_START_TEXT = "STT stream running...";
 const SUCCESS_TEXT = "STT stream done";
 const FAIL_TEXT = "STT stream failed";
 const FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
-
-// Types
-/**
- * Audio encoding
- * @public
- */
-export type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
-
-// Interfaces
-/**
- *  Options for an STT stream
- * @public
- */
-export interface STTStreamOptions {
-  /** When true, results are appended to the text file. When false, the text file is emptied first. Default `false` */
-  append?: boolean;
-  /** Audio encoding. See https://cloud.google.com/speech-to-text/docs/encoding. Default `"LINEAR16"` */
-  encoding?: AudioEncoding;
-  /** Audio sample rate in Hertz */
-  sampleRateHertz: number;
-  /** BCP-47 language code. See https://cloud.google.com/speech-to-text/docs/languages. Default `"en-US"` */
-  languageCode?: string;
-}
 
 // Classes
 /**
@@ -63,8 +40,8 @@ class STTStream {
     this.languageCode = options.languageCode || "en-US";
   }
   /**
-   * Test if headers of wav file are correct
-   * @returns If encoding was correct, if sample rate was correct, and the headers of the wav file
+   * Test if headers of WAV file are correct
+   * @returns If encoding was correct, if sample rate was correct, and the headers of the WAV file
    */
   async testHeaders(): Promise<[boolean, boolean, WavHeaders]> {
     const headers = await getWavHeaders(this.audioFilename);

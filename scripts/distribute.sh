@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Usage: distribute.sh <input wav file> <output directory> <clip length in seconds>
+# Usage: distribute.sh <input WAV file> <output directory> <clip length in seconds>
 
 trim() {
   # Get parameters
