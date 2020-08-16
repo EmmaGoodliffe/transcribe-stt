@@ -3,7 +3,7 @@ import { STTStream, DistributedSTTStream } from "../src";
 import { relPathToAbs } from "../src/helpers";
 
 // Prepare environment
-const relGoogleKeyFilename = "./lgim-stt-key.json";
+const relGoogleKeyFilename = "./key.json";
 const absGoogleKeyFilename = relPathToAbs(relGoogleKeyFilename);
 process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
 
