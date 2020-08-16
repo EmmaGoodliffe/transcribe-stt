@@ -29,21 +29,27 @@ If you find an alias of an encoding that causes [STTStream.testHeaders()](./tran
 
 This example checks if the headers you passed to [STTStream](./transcribe-stt.sttstream.md) are correct and logs them. This can be helpful when you don't know what headers of your WAV file are.
 
-See [STTStream](./transcribe-stt.sttstream.md) to initialise the stream
+See also [STTStream](./transcribe-stt.sttstream.md)
 
 ```ts
 // ...
+
+// Initialise stream with arbitrary headers to test
+const stream = new STTStream("...", "...", {
+ encoding: "LINEAR16",
+ sampleRateHertz: 16000
+});
 
 // Test headers
 const [goodEncoding, goodSampleRate, headers] = await stream.testHeaders();
 
 // Log results
-console.log("File has correct encoding?", goodEncoding);
-console.log("File has correct sample rate?", goodSampleRate);
+console.log("File has correct encoding?:", goodEncoding);
+console.log("File has correct sample rate?:", goodSampleRate);
 
 // Log headers
-console.log("File has encoding:", headers.encoding);
-console.log("File has sample rate:", headers.sampleRateHertz);
+console.log("File's encoding:", headers.encoding);
+console.log("File's sample rate:", headers.sampleRateHertz);
 
 ```
 
