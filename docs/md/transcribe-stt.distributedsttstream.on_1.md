@@ -12,12 +12,11 @@ on(event: "progress", callback: ProgressListener): void;
 
 ## Parameters
 
-|  Parameter | Type | Description |
-|  --- | --- | --- |
-|  event | "progress" |  |
-|  callback | [ProgressListener](./transcribe-stt.progresslistener.md) |  |
+| Parameter | Type                                                     | Description |
+| --------- | -------------------------------------------------------- | ----------- |
+| event     | "progress"                                               |             |
+| callback  | [ProgressListener](./transcribe-stt.progresslistener.md) |             |
 
 <b>Returns:</b>
 
 void
-

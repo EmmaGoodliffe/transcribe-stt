@@ -9,34 +9,33 @@ A distributed STT stream
 <b>Signature:</b>
 
 ```typescript
-declare class DistributedSTTStream 
+declare class DistributedSTTStream
 ```
 
 ## Constructors
 
-|  Constructor | Modifiers | Description |
-|  --- | --- | --- |
-|  [(constructor)(audioFilename, audioDirname, textFilename, options)](./transcribe-stt.distributedsttstream._constructor_.md) |  | Constructs a new instance of the <code>DistributedSTTStream</code> class |
+| Constructor                                                                                                                 | Modifiers | Description                                                              |
+| --------------------------------------------------------------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------ |
+| [(constructor)(audioFilename, audioDirname, textFilename, options)](./transcribe-stt.distributedsttstream._constructor_.md) |           | Constructs a new instance of the <code>DistributedSTTStream</code> class |
 
 ## Properties
 
-|  Property | Modifiers | Type | Description |
-|  --- | --- | --- | --- |
-|  [audioDirname](./transcribe-stt.distributedsttstream.audiodirname.md) |  | string |  |
-|  [audioFilename](./transcribe-stt.distributedsttstream.audiofilename.md) |  | string |  |
-|  [distributeListeners](./transcribe-stt.distributedsttstream.distributelisteners.md) |  | [DistributeListener](./transcribe-stt.distributelistener.md)<!-- -->\[\] |  |
-|  [options](./transcribe-stt.distributedsttstream.options.md) |  | [STTStreamOptionsAppend](./transcribe-stt.sttstreamoptionsappend.md) |  |
-|  [progress](./transcribe-stt.distributedsttstream.progress.md) |  | number |  |
-|  [progressListeners](./transcribe-stt.distributedsttstream.progresslisteners.md) |  | [ProgressListener](./transcribe-stt.progresslistener.md)<!-- -->\[\] |  |
-|  [textFilename](./transcribe-stt.distributedsttstream.textfilename.md) |  | string |  |
+| Property                                                                            | Modifiers | Type                                                                     | Description |
+| ----------------------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------ | ----------- |
+| [audioDirname](./transcribe-stt.distributedsttstream.audiodirname.md)               |           | string                                                                   |             |
+| [audioFilename](./transcribe-stt.distributedsttstream.audiofilename.md)             |           | string                                                                   |             |
+| [distributeListeners](./transcribe-stt.distributedsttstream.distributelisteners.md) |           | [DistributeListener](./transcribe-stt.distributelistener.md)<!-- -->\[\] |             |
+| [options](./transcribe-stt.distributedsttstream.options.md)                         |           | [STTStreamOptionsAppend](./transcribe-stt.sttstreamoptionsappend.md)     |             |
+| [progress](./transcribe-stt.distributedsttstream.progress.md)                       |           | number                                                                   |             |
+| [progressListeners](./transcribe-stt.distributedsttstream.progresslisteners.md)     |           | [ProgressListener](./transcribe-stt.progresslistener.md)<!-- -->\[\]     |             |
+| [textFilename](./transcribe-stt.distributedsttstream.textfilename.md)               |           | string                                                                   |             |
 
 ## Methods
 
-|  Method | Modifiers | Description |
-|  --- | --- | --- |
-|  [distribute()](./transcribe-stt.distributedsttstream.distribute.md) |  | Distribute audio into separate files. (<code>.distribute</code> is automatically called by <code>.start</code>) |
-|  [emptyTextFile()](./transcribe-stt.distributedsttstream.emptytextfile.md) |  | Empty text file |
-|  [on(event, callback)](./transcribe-stt.distributedsttstream.on.md) |  | Listen to events and run callback functions |
-|  [on(event, callback)](./transcribe-stt.distributedsttstream.on_1.md) |  |  |
-|  [start(useConsole)](./transcribe-stt.distributedsttstream.start.md) |  | Start distributed STT stream |
-
+| Method                                                                    | Modifiers | Description                                                                                                     |
+| ------------------------------------------------------------------------- | --------- | --------------------------------------------------------------------------------------------------------------- |
+| [distribute()](./transcribe-stt.distributedsttstream.distribute.md)       |           | Distribute audio into separate files. (<code>.distribute</code> is automatically called by <code>.start</code>) |
+| [emptyTextFile()](./transcribe-stt.distributedsttstream.emptytextfile.md) |           | Empty text file                                                                                                 |
+| [on(event, callback)](./transcribe-stt.distributedsttstream.on.md)        |           | Listen to events and run callback functions                                                                     |
+| [on(event, callback)](./transcribe-stt.distributedsttstream.on_1.md)      |           |                                                                                                                 |
+| [start(useConsole)](./transcribe-stt.distributedsttstream.start.md)       |           | Start distributed STT stream                                                                                    |

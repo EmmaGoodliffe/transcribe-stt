@@ -14,10 +14,9 @@ constructor(audioFilename: DistributedSTTStream["audioFilename"], audioDirname: 
 
 ## Parameters
 
-|  Parameter | Type | Description |
-|  --- | --- | --- |
-|  audioFilename | DistributedSTTStream\["audioFilename"\] | Path to original audio file |
-|  audioDirname | DistributedSTTStream\["audioDirname"\] | Path to output distributed audio directory |
-|  textFilename | DistributedSTTStream\["textFilename"\] | Path to text file |
-|  options | DistributedSTTStream\["options"\] | Options |
-
+| Parameter     | Type                                    | Description                                |
+| ------------- | --------------------------------------- | ------------------------------------------ |
+| audioFilename | DistributedSTTStream\["audioFilename"\] | Path to original audio file                |
+| audioDirname  | DistributedSTTStream\["audioDirname"\]  | Path to output distributed audio directory |
+| textFilename  | DistributedSTTStream\["textFilename"\]  | Path to text file                          |
+| options       | DistributedSTTStream\["options"\]       | Options                                    |

@@ -10,9 +10,14 @@
     "docs:generate": "api-documenter markdown --input-folder ./docs/input --output-folder ./docs/md",
     "docs:init": "cp ./temp/transcribe-stt.api.json ./docs/input/transcribe-stt.api.json",
     "docs": "npm run build && npm run extract && npm run docs:init && npm run docs:generate",
+    "eslint:fix": "npm run eslint -- --fix",
+    "eslint": "eslint \"./{src,test}/*.ts\"",
     "extract": "api-extractor run --local --verbose",
-    "lint:fix": "npm run lint -- --fix",
-    "lint": "eslint *.ts",
+    "lint:fix": "npm run eslint:fix && npm run prettier:fix",
+    "lint": "npm run eslint && npm run prettier",
+    "prettier:base": "prettier \"./*({.github,docs,etc,src,test}/**/)*.{json,md}\"",
+    "prettier:fix": "npm run prettier:base -- --write",
+    "prettier": "npm run prettier:base -- --check",
     "test": "jest"
   },
   "repository": {

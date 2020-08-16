@@ -11,9 +11,9 @@ Distribute audio into separate files. (`.distribute` is automatically called by 
 ```typescript
 distribute(): Promise<string>;
 ```
+
 <b>Returns:</b>
 
 Promise&lt;string&gt;
 
 STD output
-

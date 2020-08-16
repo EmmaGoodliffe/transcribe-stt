@@ -6,7 +6,6 @@
 
 ## Packages
 
-|  Package | Description |
-|  --- | --- |
-|  [transcribe-stt](./transcribe-stt.md) |  |
-
+| Package                               | Description |
+| ------------------------------------- | ----------- |
+| [transcribe-stt](./transcribe-stt.md) |             |

@@ -9,13 +9,13 @@ Headers of a WAV file
 <b>Signature:</b>
 
 ```typescript
-export interface WavHeaders extends Omit2<STTStreamOptions, "append", "languageCode"> 
+export interface WavHeaders extends Omit2<STTStreamOptions, "append", "languageCode">
 ```
+
 <b>Extends:</b> Omit2&lt;[STTStreamOptions](./transcribe-stt.sttstreamoptions.md)<!-- -->, "append", "languageCode"&gt;
 
 ## Properties
 
-|  Property | Type | Description |
-|  --- | --- | --- |
-|  [encoding](./transcribe-stt.wavheaders.encoding.md) | [AudioEncoding](./transcribe-stt.audioencoding.md) |  |
-
+| Property                                            | Type                                               | Description |
+| --------------------------------------------------- | -------------------------------------------------- | ----------- |
+| [encoding](./transcribe-stt.wavheaders.encoding.md) | [AudioEncoding](./transcribe-stt.audioencoding.md) |             |

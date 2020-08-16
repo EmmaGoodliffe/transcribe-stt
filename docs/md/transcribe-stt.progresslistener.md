@@ -10,5 +10,6 @@ Listener for the progress value
 
 ```typescript
 export declare type ProgressListener = (
-progress: number) => void | Promise<void>;
+  progress: number
+) => void | Promise<void>;
 ```

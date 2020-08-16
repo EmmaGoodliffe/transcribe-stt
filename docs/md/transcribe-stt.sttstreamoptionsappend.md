@@ -9,13 +9,13 @@ Options for an STT stream but `append` must be set to `true`
 <b>Signature:</b>
 
 ```typescript
-export interface STTStreamOptionsAppend extends STTStreamOptions 
+export interface STTStreamOptionsAppend extends STTStreamOptions
 ```
+
 <b>Extends:</b> [STTStreamOptions](./transcribe-stt.sttstreamoptions.md)
 
 ## Properties
 
-|  Property | Type | Description |
-|  --- | --- | --- |
-|  [append](./transcribe-stt.sttstreamoptionsappend.append.md) | true |  |
-
+| Property                                                    | Type | Description |
+| ----------------------------------------------------------- | ---- | ----------- |
+| [append](./transcribe-stt.sttstreamoptionsappend.append.md) | true |             |
