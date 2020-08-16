@@ -11,7 +11,7 @@ Empty text file
 ```typescript
 emptyTextFile(): void;
 ```
-
 <b>Returns:</b>
 
 void
+

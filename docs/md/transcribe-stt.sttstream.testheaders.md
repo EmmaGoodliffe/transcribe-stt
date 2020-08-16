@@ -11,7 +11,6 @@ Test if headers of WAV file are correct
 ```typescript
 testHeaders(): Promise<[boolean, boolean, WavHeaders]>;
 ```
-
 <b>Returns:</b>
 
 Promise&lt;\[boolean, boolean, [WavHeaders](./transcribe-stt.wavheaders.md)<!-- -->\]&gt;
@@ -45,4 +44,6 @@ console.log("File has correct sample rate?", goodSampleRate);
 // Log headers
 console.log("File has encoding:", headers.encoding);
 console.log("File has sample rate:", headers.sampleRateHertz);
+
 ```
+
