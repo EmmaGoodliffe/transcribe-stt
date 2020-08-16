@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Usage: headers.sh <input audio file>
+
 simplify() {
   while read data; do
     echo $data | sed -E "s/.*wave audio/ /gi" | sed -E "s/,/ /gi"
