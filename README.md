@@ -24,6 +24,8 @@ npm i transcribe-stt
 
 ## Reference
 
+See the [reference documentation](./docs/md/index.md).
+
 ## Google authentication
 
 ## Converting audio to a WAV file
