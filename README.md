@@ -35,5 +35,4 @@ See the [reference documentation](./docs/md/index.md).
 ## To do
 
 - Create a type for [language codes](https://cloud.google.com/speech-to-text/docs/languages)
-- Rename key file
 - Simultaneously stream each file during `DistributedSTTStream.start()` to increase speed
