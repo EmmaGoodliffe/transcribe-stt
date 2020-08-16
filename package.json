@@ -7,9 +7,10 @@
   "scripts": {
     "build": "tsc",
     "dev": "ts-node ./src/index.ts",
+    "docs:generate": "api-documenter markdown --input-folder ./docs/input --output-folder ./docs/md",
     "docs:init": "cp ./temp/speech-to-text.api.json ./docs/input/speech-to-text.api.json",
-    "docs": "api-documenter markdown --input-folder ./docs/input --output-folder ./docs/md",
-    "extract": "api-extractor run --local --diagnostics",
+    "docs": "npm run build && npm run extract && npm run docs:init && npm run docs:generate",
+    "extract": "api-extractor run --local --verbose",
     "lint:fix": "npm run lint -- --fix",
     "lint": "eslint *.ts",
     "test": "jest"

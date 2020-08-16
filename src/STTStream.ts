@@ -13,14 +13,14 @@ const FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
 // Types
 /**
  * Audio encoding
- * @alpha
+ * @public
  */
 export type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
 
 // Interfaces
 /**
  *  Options for an STT stream
- * @alpha
+ * @public
  */
 export interface STTStreamOptions {
   /** When true, results are appended to the text file. When false, the text file is emptied first. Default `false` */
@@ -36,7 +36,7 @@ export interface STTStreamOptions {
 // Classes
 /**
  * An STT stream
- * @alpha
+ * @public
  */
 class STTStream {
   audioFilename: string;
@@ -114,6 +114,10 @@ class STTStream {
     // Return results
     return results;
   }
+  /**
+   * Main inner method called during `STTStream.start()`
+   * @internal
+   */
   private inner(): Promise<string[]> {
     return new Promise((resolve, reject) => {
       // Initialise results

@@ -8,14 +8,7 @@ const { readdir } = promises;
 // Constants
 const SHARD_LENGTH = 300;
 
-/**
- * Options for an STT stream but `append` must be set to `true`
- * @alpha
- */
-export interface STTStreamOptionsAppend extends STTStreamOptions {
-  append: true;
-}
-
+// Types
 /** Listener for the progress value */
 type ProgressListener = (
   /** Progress percentage */
@@ -28,9 +21,18 @@ type DistributeListener = () => void | Promise<void>;
 /** Listener for any property */
 type Listener = ProgressListener | DistributeListener;
 
+// Interfaces
+/**
+ * Options for an STT stream but `append` must be set to `true`
+ * @public
+ */
+export interface STTStreamOptionsAppend extends STTStreamOptions {
+  append: true;
+}
+
 /**
  * A distributed STT stream
- * @alpha
+ * @public
  */
 class DistributedSTTStream {
   audioFilename: string;
@@ -74,11 +76,6 @@ class DistributedSTTStream {
    * @param callback - Function to run when event fires
    */
   on(event: "distribute", callback: DistributeListener): void;
-  /**
-   * Listen to events and run callback functions
-   * @param event - Event to listen to
-   * @param callback - Function to run when event fires
-   */
   on(event: "progress", callback: ProgressListener): void;
   on(event: string, callback: Listener): void {
     if (event === "progress") {

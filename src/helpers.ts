@@ -7,14 +7,13 @@ import { STTStreamOptions, AudioEncoding } from "./STTStream";
 const WSL_URL = "_"; // TODO: Enter correct URL
 
 // Types
+/** Helper type for `Omit2` */
 type K_ = string | number | symbol;
+/** Omit two properties from an interface */
 type Omit2<T, K extends K_, K2 extends K_> = Omit<Omit<T, K>, K2>;
 
 // Interfaces
-/**
- * Headers of a WAV file
- * @alpha
- */
+/** Headers of a WAV file */
 export interface WavHeaders
   extends Omit2<STTStreamOptions, "append", "languageCode"> {
   encoding: AudioEncoding;

@@ -1,8 +1,3 @@
-/**
- * @packageDocumentation
- * The package documentation
- */
-
 export {
   default as STTStream,
   AudioEncoding,
