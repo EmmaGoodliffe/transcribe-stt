@@ -1,14 +1,14 @@
 {
-  "name": "speech-to-text",
+  "name": "transcribe-stt",
   "version": "1.0.0",
-  "description": "Node app for using Google's Speech to Text API",
+  "description": "Transcribe audio of any length using Google's Speech to Text API",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "dev": "ts-node ./src/index.ts",
     "docs:generate": "api-documenter markdown --input-folder ./docs/input --output-folder ./docs/md",
-    "docs:init": "cp ./temp/speech-to-text.api.json ./docs/input/speech-to-text.api.json",
+    "docs:init": "cp ./temp/transcribe-stt.api.json ./docs/input/transcribe-stt.api.json",
     "docs": "npm run build && npm run extract && npm run docs:init && npm run docs:generate",
     "extract": "api-extractor run --local --verbose",
     "lint:fix": "npm run lint -- --fix",
@@ -25,6 +25,14 @@
     "url": "https://github.com/EmmaGoodliffe/speech-to-text/issues"
   },
   "homepage": "https://github.com/EmmaGoodliffe/speech-to-text#readme",
+  "keywords": [
+    "transcribe",
+    "stt",
+    "speech-to-text",
+    "speech",
+    "google",
+    "wav"
+  ],
   "dependencies": {
     "@google-cloud/speech": "^4.1.1",
     "ora": "^5.0.0"

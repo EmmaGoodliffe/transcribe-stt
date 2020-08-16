@@ -3,5 +3,3 @@ node_modules
 test/audio_dist
 test/text_dist
 lgim-stt-key.json
-etc
-temp
