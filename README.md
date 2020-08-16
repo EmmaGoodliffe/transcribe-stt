@@ -24,7 +24,7 @@ npm i transcribe-stt
 
 ## Reference
 
-### Google authentication
+## Google authentication
 
 ## Converting audio to a WAV file
 
