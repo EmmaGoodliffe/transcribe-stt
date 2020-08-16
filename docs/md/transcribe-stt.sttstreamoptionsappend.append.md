@@ -4,6 +4,8 @@
 
 ## STTStreamOptionsAppend.append property
 
+Extends [STTStreamOptions.append](./transcribe-stt.sttstreamoptions.append.md)
+
 <b>Signature:</b>
 
 ```typescript

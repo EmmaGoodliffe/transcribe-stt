@@ -4,12 +4,14 @@
 
 ## transcribe-stt package
 
+Transcribe audio of any length using Google's Speech to Text API
+
 ## Classes
 
 |  Class | Description |
 |  --- | --- |
-|  [DistributedSTTStream](./transcribe-stt.distributedsttstream.md) | A distributed STT stream |
-|  [STTStream](./transcribe-stt.sttstream.md) | An STT stream |
+|  [DistributedSTTStream](./transcribe-stt.distributedsttstream.md) | A distributed STT stream (for audio files longer than 305 seconds) |
+|  [STTStream](./transcribe-stt.sttstream.md) | An STT stream (for audio files shorter than 305 seconds) |
 
 ## Interfaces
 
@@ -26,5 +28,5 @@
 |  [AudioEncoding](./transcribe-stt.audioencoding.md) | Audio encoding |
 |  [DistributeListener](./transcribe-stt.distributelistener.md) | Listener for the distribute value |
 |  [Listener](./transcribe-stt.listener.md) | Listener for any property |
-|  [ProgressListener](./transcribe-stt.progresslistener.md) | Listener for the progress value |
+|  [ProgressListener](./transcribe-stt.progresslistener.md) | Listener for the progress value <h2>Parameters</h2> <code>progress</code> - Progress percentage |
 

@@ -9,14 +9,14 @@ Constructs a new instance of the `STTStream` class
 <b>Signature:</b>
 
 ```typescript
-constructor(audioFilename: STTStream["audioFilename"], textFilename: STTStream["textFilename"], options: STTStreamOptions);
+constructor(audioFilename: string, textFilename: string, options: STTStreamOptions);
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  audioFilename | STTStream\["audioFilename"\] | Path to audio file |
-|  textFilename | STTStream\["textFilename"\] | Path to text file |
+|  audioFilename | string | Path to audio file |
+|  textFilename | string | Path to text file |
 |  options | [STTStreamOptions](./transcribe-stt.sttstreamoptions.md) | Options |
 

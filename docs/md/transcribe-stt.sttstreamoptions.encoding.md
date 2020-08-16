@@ -4,10 +4,10 @@
 
 ## STTStreamOptions.encoding property
 
-Audio encoding. See https://cloud.google.com/speech-to-text/docs/encoding. Default `"LINEAR16"`
+Extends [WavHeaders.encoding](./transcribe-stt.wavheaders.encoding.md)<!-- -->. Default `"LINEAR16"`
 
 <b>Signature:</b>
 
 ```typescript
-encoding?: AudioEncoding;
+encoding: AudioEncoding;
 ```

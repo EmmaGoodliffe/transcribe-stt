@@ -17,3 +17,33 @@ Promise&lt;\[boolean, boolean, [WavHeaders](./transcribe-stt.wavheaders.md)<!-- 
 
 If encoding was correct, if sample rate was correct, and the headers of the WAV file
 
+## Remarks
+
+This method does not test encodings perfectly as many encodings go by multiples aliases. For example, "LINEAR16" is often listed in headers as "Microsoft PCM 16 bit".
+
+Because of this, [STTStream.testHeaders()](./transcribe-stt.sttstream.testheaders.md) does not have to pass for [STTStream.start()](./transcribe-stt.sttstream.start.md) to pass.
+
+If you find an alias of an encoding that causes [STTStream.testHeaders()](./transcribe-stt.sttstream.testheaders.md) to throw a false error, please leave an issue about it in the GitHub repo
+
+## Example
+
+This example checks if the headers you passed to [STTStream](./transcribe-stt.sttstream.md) are correct and logs them. This can be helpful when you don't know what headers your WAV file has.
+
+See [STTStream](./transcribe-stt.sttstream.md) to instantiate the stream
+
+```ts
+// ...
+
+// Test headers
+const [goodEncoding, goodSampleRate, headers] = await stream.testHeaders();
+
+// Log results
+console.log("File has correct encoding?", goodEncoding);
+console.log("File has correct sample rate?", goodSampleRate);
+
+// Log headers
+console.log("File has encoding:", headers.encoding);
+console.log("File has sample rate:", headers.sampleRateHertz);
+
+```
+

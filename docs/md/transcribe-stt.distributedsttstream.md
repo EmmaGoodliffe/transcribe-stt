@@ -4,7 +4,7 @@
 
 ## DistributedSTTStream class
 
-A distributed STT stream
+A distributed STT stream (for audio files longer than 305 seconds)
 
 <b>Signature:</b>
 
@@ -34,9 +34,9 @@ declare class DistributedSTTStream
 
 |  Method | Modifiers | Description |
 |  --- | --- | --- |
-|  [distribute()](./transcribe-stt.distributedsttstream.distribute.md) |  | Distribute audio into separate files. (<code>.distribute</code> is automatically called by <code>.start</code>) |
+|  [distribute()](./transcribe-stt.distributedsttstream.distribute.md) |  | Distribute audio into separate files (automatically called by [DistributedSTTStream.start()](./transcribe-stt.distributedsttstream.start.md)<!-- -->) |
 |  [emptyTextFile()](./transcribe-stt.distributedsttstream.emptytextfile.md) |  | Empty text file |
-|  [on(event, callback)](./transcribe-stt.distributedsttstream.on.md) |  | Listen to events and run callback functions |
-|  [on(event, callback)](./transcribe-stt.distributedsttstream.on_1.md) |  |  |
+|  [on(event, callback)](./transcribe-stt.distributedsttstream.on.md) |  | Listen to <code>&quot;distribute&quot;</code> event and run callback functions |
+|  [on(event, callback)](./transcribe-stt.distributedsttstream.on_1.md) |  | Listen to <code>&quot;progress&quot;</code> event and run callback functions |
 |  [start(useConsole)](./transcribe-stt.distributedsttstream.start.md) |  | Start distributed STT stream |
 

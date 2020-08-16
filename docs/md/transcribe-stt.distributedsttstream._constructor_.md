@@ -9,15 +9,15 @@ Constructs a new instance of the `DistributedSTTStream` class
 <b>Signature:</b>
 
 ```typescript
-constructor(audioFilename: DistributedSTTStream["audioFilename"], audioDirname: DistributedSTTStream["audioDirname"], textFilename: DistributedSTTStream["textFilename"], options: DistributedSTTStream["options"]);
+constructor(audioFilename: string, audioDirname: string, textFilename: string, options: STTStreamOptionsAppend);
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  audioFilename | DistributedSTTStream\["audioFilename"\] | Path to original audio file |
-|  audioDirname | DistributedSTTStream\["audioDirname"\] | Path to output distributed audio directory |
-|  textFilename | DistributedSTTStream\["textFilename"\] | Path to text file |
-|  options | DistributedSTTStream\["options"\] | Options |
+|  audioFilename | string | Path to original audio file |
+|  audioDirname | string | Path to output distributed audio directory |
+|  textFilename | string | Path to text file |
+|  options | [STTStreamOptionsAppend](./transcribe-stt.sttstreamoptionsappend.md) | Options |
 

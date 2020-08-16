@@ -7,7 +7,7 @@
   },
   "kind": "Package",
   "canonicalReference": "transcribe-stt!",
-  "docComment": "",
+  "docComment": "/**\n * Transcribe audio of any length using Google's Speech to Text API\n *\n * @packageDocumentation\n */\n",
   "name": "transcribe-stt",
   "members": [
     {
@@ -48,7 +48,7 @@
         {
           "kind": "Class",
           "canonicalReference": "transcribe-stt!DistributedSTTStream:class",
-          "docComment": "/**\n * A distributed STT stream\n *\n * @public\n */\n",
+          "docComment": "/**\n * A distributed STT stream (for audio files longer than 305 seconds)\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -68,39 +68,24 @@
                   "text": "constructor(audioFilename: "
                 },
                 {
-                  "kind": "Reference",
-                  "text": "DistributedSTTStream",
-                  "canonicalReference": "transcribe-stt!~DistributedSTTStream:class"
-                },
-                {
                   "kind": "Content",
-                  "text": "[\"audioFilename\"]"
+                  "text": "string"
                 },
                 {
                   "kind": "Content",
                   "text": ", audioDirname: "
                 },
                 {
-                  "kind": "Reference",
-                  "text": "DistributedSTTStream",
-                  "canonicalReference": "transcribe-stt!~DistributedSTTStream:class"
-                },
-                {
                   "kind": "Content",
-                  "text": "[\"audioDirname\"]"
+                  "text": "string"
                 },
                 {
                   "kind": "Content",
                   "text": ", textFilename: "
                 },
                 {
-                  "kind": "Reference",
-                  "text": "DistributedSTTStream",
-                  "canonicalReference": "transcribe-stt!~DistributedSTTStream:class"
-                },
-                {
                   "kind": "Content",
-                  "text": "[\"textFilename\"]"
+                  "text": "string"
                 },
                 {
                   "kind": "Content",
@@ -108,12 +93,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "DistributedSTTStream",
-                  "canonicalReference": "transcribe-stt!~DistributedSTTStream:class"
-                },
-                {
-                  "kind": "Content",
-                  "text": "[\"options\"]"
+                  "text": "STTStreamOptionsAppend",
+                  "canonicalReference": "transcribe-stt!STTStreamOptionsAppend:interface"
                 },
                 {
                   "kind": "Content",
@@ -127,28 +108,28 @@
                   "parameterName": "audioFilename",
                   "parameterTypeTokenRange": {
                     "startIndex": 1,
-                    "endIndex": 3
+                    "endIndex": 2
                   }
                 },
                 {
                   "parameterName": "audioDirname",
                   "parameterTypeTokenRange": {
-                    "startIndex": 4,
-                    "endIndex": 6
+                    "startIndex": 3,
+                    "endIndex": 4
                   }
                 },
                 {
                   "parameterName": "textFilename",
                   "parameterTypeTokenRange": {
-                    "startIndex": 7,
-                    "endIndex": 9
+                    "startIndex": 5,
+                    "endIndex": 6
                   }
                 },
                 {
                   "parameterName": "options",
                   "parameterTypeTokenRange": {
-                    "startIndex": 10,
-                    "endIndex": 12
+                    "startIndex": 7,
+                    "endIndex": 8
                   }
                 }
               ]
@@ -208,7 +189,7 @@
             {
               "kind": "Method",
               "canonicalReference": "transcribe-stt!DistributedSTTStream#distribute:member(1)",
-              "docComment": "/**\n * Distribute audio into separate files. (`.distribute` is automatically called by `.start`)\n *\n * @returns STD output\n */\n",
+              "docComment": "/**\n * Distribute audio into separate files (automatically called by {@link DistributedSTTStream.start})\n *\n * @returns STD output\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -300,7 +281,7 @@
             {
               "kind": "Method",
               "canonicalReference": "transcribe-stt!DistributedSTTStream#on:member(1)",
-              "docComment": "/**\n * Listen to events and run callback functions\n *\n * @param event - Event to listen to\n *\n * @param callback - Function to run when event fires\n */\n",
+              "docComment": "/**\n * Listen to `\"distribute\"` event and run callback functions\n *\n * @param event - Event to listen to\n *\n * @param callback - Function to run when event fires\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -360,7 +341,7 @@
             {
               "kind": "Method",
               "canonicalReference": "transcribe-stt!DistributedSTTStream#on:member(2)",
-              "docComment": "",
+              "docComment": "/**\n * Listen to `\"progress\"` event and run callback functions\n *\n * @param event - Event to listen to\n *\n * @param callback - Function to run when event fires\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -651,7 +632,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "transcribe-stt!ProgressListener:type",
-          "docComment": "/**\n * Listener for the progress value\n *\n * @public\n */\n",
+          "docComment": "/**\n * Listener for the progress value <h2>Parameters</h2> `progress` - Progress percentage\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -659,7 +640,7 @@
             },
             {
               "kind": "Content",
-              "text": "(\nprogress: number) => void | "
+              "text": "(progress: number) => void | "
             },
             {
               "kind": "Reference",
@@ -685,7 +666,7 @@
         {
           "kind": "Class",
           "canonicalReference": "transcribe-stt!STTStream:class",
-          "docComment": "/**\n * An STT stream\n *\n * @public\n */\n",
+          "docComment": "/**\n * An STT stream (for audio files shorter than 305 seconds)\n *\n * @example\n *\n * This example writes the transcript of a short LINEAR16 16000Hz WAV file to a text file. You can customise the functionality of the stream with the {@link STTStreamOptions}.\n *\n * If you don't know the encoding or sample rate of your WAV file, try using {@link STTStream.testHeaders}\n * ```ts\n * import { STTStream } form \"transcribe-stt\";\n *\n * const audioFilename = \"./<input audio file>.wav\";\n * const textFilename = \"./<output text file>.txt\";\n * const options = {\n *  sampleRateHertz: 16000\n * };\n *\n * // Initialise stream\n * const stream = new STTStream(audioFilename, textFilename, options);\n *\n * // Start stream and write output to text file\n * stream.start();\n * ```\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -705,26 +686,16 @@
                   "text": "constructor(audioFilename: "
                 },
                 {
-                  "kind": "Reference",
-                  "text": "STTStream",
-                  "canonicalReference": "transcribe-stt!~STTStream:class"
-                },
-                {
                   "kind": "Content",
-                  "text": "[\"audioFilename\"]"
+                  "text": "string"
                 },
                 {
                   "kind": "Content",
                   "text": ", textFilename: "
                 },
                 {
-                  "kind": "Reference",
-                  "text": "STTStream",
-                  "canonicalReference": "transcribe-stt!~STTStream:class"
-                },
-                {
                   "kind": "Content",
-                  "text": "[\"textFilename\"]"
+                  "text": "string"
                 },
                 {
                   "kind": "Content",
@@ -747,21 +718,21 @@
                   "parameterName": "audioFilename",
                   "parameterTypeTokenRange": {
                     "startIndex": 1,
-                    "endIndex": 3
+                    "endIndex": 2
                   }
                 },
                 {
                   "parameterName": "textFilename",
                   "parameterTypeTokenRange": {
-                    "startIndex": 4,
-                    "endIndex": 6
+                    "startIndex": 3,
+                    "endIndex": 4
                   }
                 },
                 {
                   "parameterName": "options",
                   "parameterTypeTokenRange": {
-                    "startIndex": 7,
-                    "endIndex": 8
+                    "startIndex": 5,
+                    "endIndex": 6
                   }
                 }
               ]
@@ -919,7 +890,7 @@
             {
               "kind": "Method",
               "canonicalReference": "transcribe-stt!STTStream#start:member(1)",
-              "docComment": "/**\n * Start STT stream\n *\n * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`\n *\n * @returns Lines of the transcript\n */\n",
+              "docComment": "/**\n * Start STT stream\n *\n * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`\n *\n * @returns Lines of the transcript\n *\n * @example\n *\n * See {@link STTStream} for an example\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -968,7 +939,7 @@
             {
               "kind": "Method",
               "canonicalReference": "transcribe-stt!STTStream#testHeaders:member(1)",
-              "docComment": "/**\n * Test if headers of WAV file are correct\n *\n * @returns If encoding was correct, if sample rate was correct, and the headers of the WAV file\n */\n",
+              "docComment": "/**\n * Test if headers of WAV file are correct\n *\n * @remarks\n *\n * This method does not test encodings perfectly as many encodings go by multiples aliases. For example, \"LINEAR16\" is often listed in headers as \"Microsoft PCM 16 bit\".\n *\n * Because of this, {@link STTStream.testHeaders} does not have to pass for {@link STTStream.start} to pass.\n *\n * If you find an alias of an encoding that causes {@link STTStream.testHeaders} to throw a false error, please leave an issue about it in the GitHub repo\n *\n * @returns If encoding was correct, if sample rate was correct, and the headers of the WAV file\n *\n * @example\n *\n * This example checks if the headers you passed to {@link STTStream} are correct and logs them. This can be helpful when you don't know what headers your WAV file has.\n *\n * See {@link STTStream} to instantiate the stream\n * ```ts\n * // ...\n *\n * // Test headers\n * const [goodEncoding, goodSampleRate, headers] = await stream.testHeaders();\n *\n * // Log results\n * console.log(\"File has correct encoding?\", goodEncoding);\n * console.log(\"File has correct sample rate?\", goodSampleRate);\n *\n * // Log headers\n * console.log(\"File has encoding:\", headers.encoding);\n * console.log(\"File has sample rate:\", headers.sampleRateHertz);\n * ```\n *\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1039,11 +1010,20 @@
         {
           "kind": "Interface",
           "canonicalReference": "transcribe-stt!STTStreamOptions:interface",
-          "docComment": "/**\n * Options for an STT stream\n *\n * @public\n */\n",
+          "docComment": "/**\n * Options for an STT stream\n *\n * @remarks\n *\n * See {@link WavHeaders} for other properties\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export interface STTStreamOptions "
+              "text": "export interface STTStreamOptions extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "WavHeaders",
+              "canonicalReference": "transcribe-stt!WavHeaders:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
             }
           ],
           "releaseTag": "Public",
@@ -1077,11 +1057,11 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "transcribe-stt!STTStreamOptions#encoding:member",
-              "docComment": "/**\n * Audio encoding. See https://cloud.google.com/speech-to-text/docs/encoding. Default `\"LINEAR16\"`\n */\n",
+              "docComment": "/**\n * Extends {@link WavHeaders.encoding}. Default `\"LINEAR16\"`\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "encoding?: "
+                  "text": "encoding: "
                 },
                 {
                   "kind": "Reference",
@@ -1124,39 +1104,19 @@
                 "startIndex": 1,
                 "endIndex": 2
               }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "transcribe-stt!STTStreamOptions#sampleRateHertz:member",
-              "docComment": "/**\n * Audio sample rate in Hertz\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "sampleRateHertz: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "number"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "releaseTag": "Public",
-              "name": "sampleRateHertz",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
             }
           ],
-          "extendsTokenRanges": []
+          "extendsTokenRanges": [
+            {
+              "startIndex": 1,
+              "endIndex": 3
+            }
+          ]
         },
         {
           "kind": "Interface",
           "canonicalReference": "transcribe-stt!STTStreamOptionsAppend:interface",
-          "docComment": "/**\n * Options for an STT stream but `append` must be set to `true`\n *\n * @public\n */\n",
+          "docComment": "/**\n * Options for an STT stream but `append` must be set to `true`\n *\n * @remarks\n *\n * Even though `append` must be set to `true`, you can use {@link DistributedSTTStream.emptyTextFile} to empty the file first. See {@link DistributedSTTStream} for an example.\n *\n * See {@link STTStreamOptions} for other properties\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -1178,7 +1138,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "transcribe-stt!STTStreamOptionsAppend#append:member",
-              "docComment": "",
+              "docComment": "/**\n * Extends {@link STTStreamOptions.append}\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1215,25 +1175,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export interface WavHeaders extends "
-            },
-            {
-              "kind": "Reference",
-              "text": "Omit2",
-              "canonicalReference": "transcribe-stt!~Omit2:type"
-            },
-            {
-              "kind": "Content",
-              "text": "<"
-            },
-            {
-              "kind": "Reference",
-              "text": "STTStreamOptions",
-              "canonicalReference": "transcribe-stt!STTStreamOptions:interface"
-            },
-            {
-              "kind": "Content",
-              "text": ", \"append\", \"languageCode\"> "
+              "text": "export interface WavHeaders "
             }
           ],
           "releaseTag": "Public",
@@ -1242,7 +1184,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "transcribe-stt!WavHeaders#encoding:member",
-              "docComment": "",
+              "docComment": "/**\n * Audio encoding. See https://cloud.google.com/speech-to-text/docs/encoding\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1264,14 +1206,34 @@
                 "startIndex": 1,
                 "endIndex": 2
               }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "transcribe-stt!WavHeaders#sampleRateHertz:member",
+              "docComment": "/**\n * Audio sample rate in Hertz\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "sampleRateHertz: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "sampleRateHertz",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
             }
           ],
-          "extendsTokenRanges": [
-            {
-              "startIndex": 1,
-              "endIndex": 5
-            }
-          ]
+          "extendsTokenRanges": []
         }
       ]
     }

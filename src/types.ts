@@ -1,14 +1,14 @@
 import { google } from "@google-cloud/speech/build/protos/protos";
+import DistributedSTTStream from "./DistributedSTTStream";
 
 // Types
 /**
  * Listener for the progress value
+ * <h2>Parameters</h2>
+ * `progress` - Progress percentage
  * @public
  */
-export type ProgressListener = (
-  /** Progress percentage */
-  progress: number
-) => void | Promise<void>;
+export type ProgressListener = (progress: number) => void | Promise<void>;
 
 /**
  *  Listener for the distribute value
@@ -23,18 +23,6 @@ export type DistributeListener = () => void | Promise<void>;
 export type Listener = ProgressListener | DistributeListener;
 
 /**
- * Helper type for `Omit2`
- * @internal
- */
-type K_ = string | number | symbol;
-
-/**
- *  Omit two properties from an interface
- * @internal
- */
-type Omit2<T, K extends K_, K2 extends K_> = Omit<Omit<T, K>, K2>;
-
-/**
  * Audio encoding
  * @public
  */
@@ -42,33 +30,42 @@ export type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfi
 
 // Interfaces
 /**
- * Options for an STT stream but `append` must be set to `true`
- * @public
- */
-export interface STTStreamOptionsAppend extends STTStreamOptions {
-  append: true;
-}
-
-/**
  * Headers of a WAV file
  * @public
  */
-export interface WavHeaders
-  extends Omit2<STTStreamOptions, "append", "languageCode"> {
+export interface WavHeaders {
+  /** Audio encoding. See https://cloud.google.com/speech-to-text/docs/encoding */
   encoding: AudioEncoding;
+  /** Audio sample rate in Hertz */
+  sampleRateHertz: number;
 }
 
 /**
  *  Options for an STT stream
+ * @remarks
+ * See {@link WavHeaders} for other properties
  * @public
  */
-export interface STTStreamOptions {
+export interface STTStreamOptions extends WavHeaders {
+  /** Extends {@link WavHeaders.encoding}. Default `"LINEAR16"` */
+  encoding: AudioEncoding;
   /** When true, results are appended to the text file. When false, the text file is emptied first. Default `false` */
   append?: boolean;
-  /** Audio encoding. See https://cloud.google.com/speech-to-text/docs/encoding. Default `"LINEAR16"` */
-  encoding?: AudioEncoding;
-  /** Audio sample rate in Hertz */
-  sampleRateHertz: number;
   /** BCP-47 language code. See https://cloud.google.com/speech-to-text/docs/languages. Default `"en-US"` */
   languageCode?: string;
+}
+
+DistributedSTTStream;
+/**
+ * Options for an STT stream but `append` must be set to `true`
+ * @remarks
+ * Even though `append` must be set to `true`, you can use {@link DistributedSTTStream.emptyTextFile} to empty the file first.
+ * See {@link DistributedSTTStream} for an example.
+ *
+ * See {@link STTStreamOptions} for other properties
+ * @public
+ */
+export interface STTStreamOptionsAppend extends STTStreamOptions {
+  /** Extends {@link STTStreamOptions.append} */
+  append: true;
 }

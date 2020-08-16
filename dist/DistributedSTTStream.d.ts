@@ -1,6 +1,6 @@
 import { DistributeListener, ProgressListener, STTStreamOptionsAppend } from "./types";
 /**
- * A distributed STT stream
+ * A distributed STT stream (for audio files longer than 305 seconds)
  * @public
  */
 declare class DistributedSTTStream {
@@ -17,17 +17,22 @@ declare class DistributedSTTStream {
      * @param textFilename - Path to text file
      * @param options - Options
      */
-    constructor(audioFilename: DistributedSTTStream["audioFilename"], audioDirname: DistributedSTTStream["audioDirname"], textFilename: DistributedSTTStream["textFilename"], options: DistributedSTTStream["options"]);
+    constructor(audioFilename: string, audioDirname: string, textFilename: string, options: STTStreamOptionsAppend);
     private setProgress;
     /**
-     * Listen to events and run callback functions
+     * Listen to `"distribute"` event and run callback functions
      * @param event - Event to listen to
      * @param callback - Function to run when event fires
      */
     on(event: "distribute", callback: DistributeListener): void;
+    /**
+     * Listen to `"progress"` event and run callback functions
+     * @param event - Event to listen to
+     * @param callback - Function to run when event fires
+     */
     on(event: "progress", callback: ProgressListener): void;
     /**
-     * Distribute audio into separate files. (`.distribute` is automatically called by `.start`)
+     * Distribute audio into separate files (automatically called by {@link DistributedSTTStream.start})
      * @returns STD output
      */
     distribute(): Promise<string>;

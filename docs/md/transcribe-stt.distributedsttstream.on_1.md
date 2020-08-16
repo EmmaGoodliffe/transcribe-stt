@@ -4,6 +4,8 @@
 
 ## DistributedSTTStream.on() method
 
+Listen to `"progress"` event and run callback functions
+
 <b>Signature:</b>
 
 ```typescript
@@ -14,8 +16,8 @@ on(event: "progress", callback: ProgressListener): void;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  event | "progress" |  |
-|  callback | [ProgressListener](./transcribe-stt.progresslistener.md) |  |
+|  event | "progress" | Event to listen to |
+|  callback | [ProgressListener](./transcribe-stt.progresslistener.md) | Function to run when event fires |
 
 <b>Returns:</b>
 

@@ -4,12 +4,35 @@
 
 ## STTStream class
 
-An STT stream
+An STT stream (for audio files shorter than 305 seconds)
 
 <b>Signature:</b>
 
 ```typescript
 declare class STTStream 
+```
+
+## Example
+
+This example writes the transcript of a short LINEAR16 16000Hz WAV file to a text file. You can customise the functionality of the stream with the [STTStreamOptions](./transcribe-stt.sttstreamoptions.md)<!-- -->.
+
+If you don't know the encoding or sample rate of your WAV file, try using [STTStream.testHeaders()](./transcribe-stt.sttstream.testheaders.md)
+
+```ts
+import { STTStream } form "transcribe-stt";
+
+const audioFilename = "./<input audio file>.wav";
+const textFilename = "./<output text file>.txt";
+const options = {
+ sampleRateHertz: 16000
+};
+
+// Initialise stream
+const stream = new STTStream(audioFilename, textFilename, options);
+
+// Start stream and write output to text file
+stream.start();
+
 ```
 
 ## Constructors

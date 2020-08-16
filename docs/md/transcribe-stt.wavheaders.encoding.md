@@ -4,6 +4,8 @@
 
 ## WavHeaders.encoding property
 
+Audio encoding. See https://cloud.google.com/speech-to-text/docs/encoding
+
 <b>Signature:</b>
 
 ```typescript

@@ -11,7 +11,7 @@ export type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfi
 
 // @public
 export class DistributedSTTStream {
-    constructor(audioFilename: DistributedSTTStream["audioFilename"], audioDirname: DistributedSTTStream["audioDirname"], textFilename: DistributedSTTStream["textFilename"], options: DistributedSTTStream["options"]);
+    constructor(audioFilename: string, audioDirname: string, textFilename: string, options: STTStreamOptionsAppend);
     // (undocumented)
     audioDirname: string;
     // (undocumented)
@@ -21,7 +21,6 @@ export class DistributedSTTStream {
     distributeListeners: DistributeListener[];
     emptyTextFile(): void;
     on(event: "distribute", callback: DistributeListener): void;
-    // (undocumented)
     on(event: "progress", callback: ProgressListener): void;
     // (undocumented)
     options: STTStreamOptionsAppend;
@@ -41,12 +40,11 @@ export type DistributeListener = () => void | Promise<void>;
 export type Listener = ProgressListener | DistributeListener;
 
 // @public
-export type ProgressListener = (
-progress: number) => void | Promise<void>;
+export type ProgressListener = (progress: number) => void | Promise<void>;
 
 // @public
 export class STTStream {
-    constructor(audioFilename: STTStream["audioFilename"], textFilename: STTStream["textFilename"], options: STTStreamOptions);
+    constructor(audioFilename: string, textFilename: string, options: STTStreamOptions);
     // (undocumented)
     append: STTStreamOptions["append"];
     // (undocumented)
@@ -64,28 +62,22 @@ export class STTStream {
 }
 
 // @public
-export interface STTStreamOptions {
+export interface STTStreamOptions extends WavHeaders {
     append?: boolean;
-    encoding?: AudioEncoding;
+    encoding: AudioEncoding;
     languageCode?: string;
-    sampleRateHertz: number;
 }
 
 // @public
 export interface STTStreamOptionsAppend extends STTStreamOptions {
-    // (undocumented)
     append: true;
 }
 
-// Warning: (ae-forgotten-export) The symbol "Omit2" needs to be exported by the entry point index.d.ts
-//
 // @public
-export interface WavHeaders extends Omit2<STTStreamOptions, "append", "languageCode"> {
-    // (undocumented)
+export interface WavHeaders {
     encoding: AudioEncoding;
+    sampleRateHertz: number;
 }
 
-
-// (No @packageDocumentation comment for this package)
 
 ```

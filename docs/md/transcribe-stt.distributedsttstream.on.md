@@ -4,7 +4,7 @@
 
 ## DistributedSTTStream.on() method
 
-Listen to events and run callback functions
+Listen to `"distribute"` event and run callback functions
 
 <b>Signature:</b>
 

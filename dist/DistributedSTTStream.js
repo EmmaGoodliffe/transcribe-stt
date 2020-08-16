@@ -47,7 +47,7 @@ var readdir = fs_1.promises.readdir;
 // Constants
 var SHARD_LENGTH = 300;
 /**
- * A distributed STT stream
+ * A distributed STT stream (for audio files longer than 305 seconds)
  * @public
  */
 var DistributedSTTStream = /** @class */ (function () {
@@ -102,7 +102,7 @@ var DistributedSTTStream = /** @class */ (function () {
         }
     };
     /**
-     * Distribute audio into separate files. (`.distribute` is automatically called by `.start`)
+     * Distribute audio into separate files (automatically called by {@link DistributedSTTStream.start})
      * @returns STD output
      */
     DistributedSTTStream.prototype.distribute = function () {

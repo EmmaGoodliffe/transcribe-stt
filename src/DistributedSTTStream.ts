@@ -15,7 +15,7 @@ const { readdir } = promises;
 const SHARD_LENGTH = 300;
 
 /**
- * A distributed STT stream
+ * A distributed STT stream (for audio files longer than 305 seconds)
  * @public
  */
 class DistributedSTTStream {
@@ -33,10 +33,10 @@ class DistributedSTTStream {
    * @param options - Options
    */
   constructor(
-    audioFilename: DistributedSTTStream["audioFilename"],
-    audioDirname: DistributedSTTStream["audioDirname"],
-    textFilename: DistributedSTTStream["textFilename"],
-    options: DistributedSTTStream["options"]
+    audioFilename: string,
+    audioDirname: string,
+    textFilename: string,
+    options: STTStreamOptionsAppend
   ) {
     this.audioFilename = audioFilename;
     this.audioDirname = audioDirname;
@@ -55,11 +55,16 @@ class DistributedSTTStream {
     }
   }
   /**
-   * Listen to events and run callback functions
+   * Listen to `"distribute"` event and run callback functions
    * @param event - Event to listen to
    * @param callback - Function to run when event fires
    */
   on(event: "distribute", callback: DistributeListener): void;
+  /**
+   * Listen to `"progress"` event and run callback functions
+   * @param event - Event to listen to
+   * @param callback - Function to run when event fires
+   */
   on(event: "progress", callback: ProgressListener): void;
   on(event: string, callback: Listener): void {
     if (event === "progress") {
@@ -71,7 +76,7 @@ class DistributedSTTStream {
     }
   }
   /**
-   * Distribute audio into separate files. (`.distribute` is automatically called by `.start`)
+   * Distribute audio into separate files (automatically called by {@link DistributedSTTStream.start})
    * @returns STD output
    */
   async distribute(): Promise<string> {

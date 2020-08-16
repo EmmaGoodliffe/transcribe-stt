@@ -4,7 +4,7 @@
 
 ## DistributedSTTStream.distribute() method
 
-Distribute audio into separate files. (`.distribute` is automatically called by `.start`<!-- -->)
+Distribute audio into separate files (automatically called by [DistributedSTTStream.start()](./transcribe-stt.distributedsttstream.start.md)<!-- -->)
 
 <b>Signature:</b>
 

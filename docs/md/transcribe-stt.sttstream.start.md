@@ -24,3 +24,7 @@ Promise&lt;string\[\]&gt;
 
 Lines of the transcript
 
+## Example
+
+See [STTStream](./transcribe-stt.sttstream.md) for an example
+
