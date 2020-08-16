@@ -56,12 +56,23 @@ class DistributedSTTStream {
   }
   /**
    * Listen to `"distribute"` event and run callback functions
+   * @remarks
+   * The callback function is run whenever the {@link DistributedSTTStream.distribute} method finishes.
+   *
+   * This can be helpful if you are using a very large audio file and want to know when it has been split up by the {@link DistributedSTTStream.start} method.
+   *
+   * ({@link DistributedSTTStream.distribute} returns a promise which resolves when the distribution completes.
+   * So if you are using the method on its own, this event is obsolete)
    * @param event - Event to listen to
    * @param callback - Function to run when event fires
    */
   on(event: "distribute", callback: DistributeListener): void;
   /**
    * Listen to `"progress"` event and run callback functions
+   * @remarks
+   * The callback function is run whenever a distributed audio file is transcribed.
+   * The progress percentage of audio files transcribed is passed as the parameter of the callback.
+   * For example, if 2 of 4 audio files have been transcribed, `50` will be passed, representing 50%
    * @param event - Event to listen to
    * @param callback - Function to run when event fires
    */
@@ -77,7 +88,10 @@ class DistributedSTTStream {
   }
   /**
    * Distribute audio into separate files (automatically called by {@link DistributedSTTStream.start})
-   * @returns STD output
+   * @remarks
+   * Single audio file is split up into smaller files of 300 seconds so they can be used with Google's streaming API.
+   * Each file is separately streamed and written to the text file when {@link DistributedSTTStream.start} is called
+   * @returns STD output of bash script
    */
   async distribute(): Promise<string> {
     let stdout = "";
@@ -163,7 +177,7 @@ class DistributedSTTStream {
     // Return result
     return result;
   }
-  /** Empty text file */
+  /** {@inheritdoc STTStream.emptyTextFile} */
   emptyTextFile(): void {
     writeFileSync(this.textFilename, "");
   }

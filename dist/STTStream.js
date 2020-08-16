@@ -91,7 +91,7 @@ var STTStream = /** @class */ (function () {
      * Test if headers of WAV file are correct
      * @example
      * This example checks if the headers you passed to {@link STTStream} are correct and logs them.
-     * This can be helpful when you don't know what headers your WAV file has.
+     * This can be helpful when you don't know what headers of your WAV file are.
      *
      * See {@link STTStream} to instantiate the stream
      *
@@ -189,7 +189,7 @@ var STTStream = /** @class */ (function () {
             // If not appending
             if (!_this.append) {
                 // Empty file
-                fs_1.writeFileSync(_this.textFilename, "");
+                _this.emptyTextFile();
             }
             // Initialise client
             var client = new speech_1.SpeechClient();
@@ -232,6 +232,10 @@ var STTStream = /** @class */ (function () {
             // Pipe audio file through read/write stream
             audioReadStream.pipe(recogniseStream);
         });
+    };
+    /** Empty text file */
+    STTStream.prototype.emptyTextFile = function () {
+        fs_1.writeFileSync(this.textFilename, "");
     };
     return STTStream;
 }());

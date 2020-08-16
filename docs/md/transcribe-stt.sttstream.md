@@ -56,6 +56,7 @@ stream.start();
 
 |  Method | Modifiers | Description |
 |  --- | --- | --- |
+|  [emptyTextFile()](./transcribe-stt.sttstream.emptytextfile.md) |  | Empty text file |
 |  [start(useConsole)](./transcribe-stt.sttstream.start.md) |  | Start STT stream |
 |  [testHeaders()](./transcribe-stt.sttstream.testheaders.md) |  | Test if headers of WAV file are correct |
 

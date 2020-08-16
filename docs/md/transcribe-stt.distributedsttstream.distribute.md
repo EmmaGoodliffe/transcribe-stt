@@ -15,5 +15,9 @@ distribute(): Promise<string>;
 
 Promise&lt;string&gt;
 
-STD output
+STD output of bash script
+
+## Remarks
+
+Single audio file is split up into smaller files of 300 seconds so they can be used with Google's streaming API. Each file is separately streamed and written to the text file when [DistributedSTTStream.start()](./transcribe-stt.distributedsttstream.start.md) is called
 

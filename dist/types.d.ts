@@ -1,8 +1,9 @@
 import { google } from "@google-cloud/speech/build/protos/protos";
 /**
  * Listener for the progress value
+ * @remarks
  * <h2>Parameters</h2>
- * `progress` - Progress percentage
+ * <code>progress</code> - Progress percentage
  * @public
  */
 export declare type ProgressListener = (progress: number) => void | Promise<void>;
@@ -48,7 +49,8 @@ export interface STTStreamOptions extends WavHeaders {
 /**
  * Options for an STT stream but `append` must be set to `true`
  * @remarks
- * Even though `append` must be set to `true`, you can use {@link DistributedSTTStream.emptyTextFile} to empty the file first.
+ * `append` must be set to `true` because
+ * Despite this, you can use {@link DistributedSTTStream.emptyTextFile} to empty the file first.
  * See {@link DistributedSTTStream} for an example.
  *
  * See {@link STTStreamOptions} for other properties

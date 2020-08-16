@@ -33,19 +33,33 @@ export declare class DistributedSTTStream {
     private setProgress;
     /**
      * Listen to `"distribute"` event and run callback functions
+     * @remarks
+     * The callback function is run whenever the {@link DistributedSTTStream.distribute} method finishes.
+     *
+     * This can be helpful if you are using a very large audio file and want to know when it has been split up by the {@link DistributedSTTStream.start} method.
+     *
+     * ({@link DistributedSTTStream.distribute} returns a promise which resolves when the distribution completes.
+     * So if you are using the method on its own, this event is obsolete)
      * @param event - Event to listen to
      * @param callback - Function to run when event fires
      */
     on(event: "distribute", callback: DistributeListener): void;
     /**
      * Listen to `"progress"` event and run callback functions
+     * @remarks
+     * The callback function is run whenever a distributed audio file is transcribed.
+     * The progress percentage of audio files transcribed is passed as the parameter of the callback.
+     * For example, if 2 of 4 audio files have been transcribed, `50` will be passed, representing 50%
      * @param event - Event to listen to
      * @param callback - Function to run when event fires
      */
     on(event: "progress", callback: ProgressListener): void;
     /**
      * Distribute audio into separate files (automatically called by {@link DistributedSTTStream.start})
-     * @returns STD output
+     * @remarks
+     * Single audio file is split up into smaller files of 300 seconds so they can be used with Google's streaming API.
+     * Each file is separately streamed and written to the text file when {@link DistributedSTTStream.start} is called
+     * @returns STD output of bash script
      */
     distribute(): Promise<string>;
     /**
@@ -54,7 +68,7 @@ export declare class DistributedSTTStream {
      * @returns Lines of the transcript
      */
     start(useConsole?: boolean): Promise<string[]>;
-    /** Empty text file */
+    /** {@inheritdoc STTStream.emptyTextFile} */
     emptyTextFile(): void;
 }
 
@@ -72,8 +86,9 @@ export declare type Listener = ProgressListener | DistributeListener;
 
 /**
  * Listener for the progress value
+ * @remarks
  * <h2>Parameters</h2>
- * `progress` - Progress percentage
+ * <code>progress</code> - Progress percentage
  * @public
  */
 export declare type ProgressListener = (progress: number) => void | Promise<void>;
@@ -119,7 +134,7 @@ export declare class STTStream {
      * Test if headers of WAV file are correct
      * @example
      * This example checks if the headers you passed to {@link STTStream} are correct and logs them.
-     * This can be helpful when you don't know what headers your WAV file has.
+     * This can be helpful when you don't know what headers of your WAV file are.
      *
      * See {@link STTStream} to instantiate the stream
      *
@@ -160,6 +175,8 @@ export declare class STTStream {
      * @internal
      */
     private inner;
+    /** Empty text file */
+    emptyTextFile(): void;
 }
 
 /**
@@ -180,7 +197,8 @@ export declare interface STTStreamOptions extends WavHeaders {
 /**
  * Options for an STT stream but `append` must be set to `true`
  * @remarks
- * Even though `append` must be set to `true`, you can use {@link DistributedSTTStream.emptyTextFile} to empty the file first.
+ * `append` must be set to `true` because
+ * Despite this, you can use {@link DistributedSTTStream.emptyTextFile} to empty the file first.
  * See {@link DistributedSTTStream} for an example.
  *
  * See {@link STTStreamOptions} for other properties

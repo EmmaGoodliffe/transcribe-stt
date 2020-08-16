@@ -103,7 +103,10 @@ var DistributedSTTStream = /** @class */ (function () {
     };
     /**
      * Distribute audio into separate files (automatically called by {@link DistributedSTTStream.start})
-     * @returns STD output
+     * @remarks
+     * Single audio file is split up into smaller files of 300 seconds so they can be used with Google's streaming API.
+     * Each file is separately streamed and written to the text file when {@link DistributedSTTStream.start} is called
+     * @returns STD output of bash script
      */
     DistributedSTTStream.prototype.distribute = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -231,7 +234,7 @@ var DistributedSTTStream = /** @class */ (function () {
             });
         });
     };
-    /** Empty text file */
+    /** {@inheritdoc STTStream.emptyTextFile} */
     DistributedSTTStream.prototype.emptyTextFile = function () {
         fs_1.writeFileSync(this.textFilename, "");
     };

@@ -49,6 +49,7 @@ export class STTStream {
     append: STTStreamOptions["append"];
     // (undocumented)
     audioFilename: string;
+    emptyTextFile(): void;
     // (undocumented)
     encoding: STTStreamOptions["encoding"];
     // (undocumented)

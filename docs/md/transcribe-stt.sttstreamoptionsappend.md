@@ -15,7 +15,7 @@ export interface STTStreamOptionsAppend extends STTStreamOptions
 
 ## Remarks
 
-Even though `append` must be set to `true`<!-- -->, you can use [DistributedSTTStream.emptyTextFile()](./transcribe-stt.distributedsttstream.emptytextfile.md) to empty the file first. See [DistributedSTTStream](./transcribe-stt.distributedsttstream.md) for an example.
+`append` must be set to `true` because Despite this, you can use [DistributedSTTStream.emptyTextFile()](./transcribe-stt.distributedsttstream.emptytextfile.md) to empty the file first. See [DistributedSTTStream](./transcribe-stt.distributedsttstream.md) for an example.
 
 See [STTStreamOptions](./transcribe-stt.sttstreamoptions.md) for other properties
 

@@ -23,3 +23,11 @@ on(event: "distribute", callback: DistributeListener): void;
 
 void
 
+## Remarks
+
+The callback function is run whenever the [DistributedSTTStream.distribute()](./transcribe-stt.distributedsttstream.distribute.md) method finishes.
+
+This can be helpful if you are using a very large audio file and want to know when it has been split up by the [DistributedSTTStream.start()](./transcribe-stt.distributedsttstream.start.md) method.
+
+([DistributedSTTStream.distribute()](./transcribe-stt.distributedsttstream.distribute.md) returns a promise which resolves when the distribution completes. So if you are using the method on its own, this event is obsolete)
+

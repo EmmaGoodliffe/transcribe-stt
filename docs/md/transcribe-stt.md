@@ -28,5 +28,5 @@ Transcribe audio of any length using Google's Speech to Text API
 |  [AudioEncoding](./transcribe-stt.audioencoding.md) | Audio encoding |
 |  [DistributeListener](./transcribe-stt.distributelistener.md) | Listener for the distribute value |
 |  [Listener](./transcribe-stt.listener.md) | Listener for any property |
-|  [ProgressListener](./transcribe-stt.progresslistener.md) | Listener for the progress value <h2>Parameters</h2> <code>progress</code> - Progress percentage |
+|  [ProgressListener](./transcribe-stt.progresslistener.md) | Listener for the progress value |
 

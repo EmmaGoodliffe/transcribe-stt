@@ -40,7 +40,7 @@ declare class STTStream {
      * Test if headers of WAV file are correct
      * @example
      * This example checks if the headers you passed to {@link STTStream} are correct and logs them.
-     * This can be helpful when you don't know what headers your WAV file has.
+     * This can be helpful when you don't know what headers of your WAV file are.
      *
      * See {@link STTStream} to instantiate the stream
      *
@@ -81,6 +81,8 @@ declare class STTStream {
      * @internal
      */
     private inner;
+    /** Empty text file */
+    emptyTextFile(): void;
 }
 export default STTStream;
 //# sourceMappingURL=STTStream.d.ts.map

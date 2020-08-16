@@ -4,10 +4,15 @@
 
 ## ProgressListener type
 
-Listener for the progress value <h2>Parameters</h2> `progress` - Progress percentage
+Listener for the progress value
 
 <b>Signature:</b>
 
 ```typescript
 export declare type ProgressListener = (progress: number) => void | Promise<void>;
 ```
+
+## Remarks
+
+<h2>Parameters</h2> <code>progress</code> - Progress percentage
+

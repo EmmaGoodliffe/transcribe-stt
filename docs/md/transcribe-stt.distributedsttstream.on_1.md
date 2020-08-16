@@ -23,3 +23,7 @@ on(event: "progress", callback: ProgressListener): void;
 
 void
 
+## Remarks
+
+The callback function is run whenever a distributed audio file is transcribed. The progress percentage of audio files transcribed is passed as the parameter of the callback. For example, if 2 of 4 audio files have been transcribed, `50` will be passed, representing 50%
+
