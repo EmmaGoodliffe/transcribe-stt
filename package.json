@@ -5,11 +5,11 @@
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "scripts": {
-    "build:all": "npm run build && npm run ts:all && npm run docs",
+    "build:all": "npm run build && npm run ts:all && npm run docs && npm run lint:fix",
     "build": "tsc",
     "docs:generate": "api-documenter markdown --input-folder docs/input --output-folder docs/md",
     "docs:init": "cpy temp/transcribe-stt.api.json docs/input/transcribe-stt.api.json",
-    "docs": "npm run build && npm run extract && npm run docs:init && npm run docs:generate && npm run lint:fix",
+    "docs": "npm run build && npm run extract && npm run docs:init && npm run docs:generate",
     "eslint:fix": "npm run eslint -- --fix",
     "eslint": "eslint \"./{scripts/ts/**,src,test}/*.ts\"",
     "extract": "api-extractor run --local --verbose",
