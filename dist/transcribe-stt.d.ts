@@ -59,7 +59,7 @@ export declare class DistributedSTTStream {
     constructor(audioFilename: string, audioDirname: string, textFilename: string, options: STTStreamOptionsAppend);
     /**
      * Set progress
-     * @param progress Progress percentage
+     * @param progress - Progress percentage
      * @internal
      */
     private setProgress;

@@ -93,7 +93,7 @@ var DistributedSTTStream = /** @class */ (function () {
     }
     /**
      * Set progress
-     * @param progress Progress percentage
+     * @param progress - Progress percentage
      * @internal
      */
     DistributedSTTStream.prototype.setProgress = function (progress) {

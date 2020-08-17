@@ -11,6 +11,7 @@ Test if headers of WAV file are correct
 ```typescript
 testHeaders(): Promise<[boolean, boolean, WavHeaders]>;
 ```
+
 <b>Returns:</b>
 
 Promise&lt;\[boolean, boolean, [WavHeaders](./transcribe-stt.wavheaders.md)<!-- -->\]&gt;
@@ -36,8 +37,8 @@ See also [STTStream](./transcribe-stt.sttstream.md)
 
 // Initialise stream with arbitrary headers to test
 const stream = new STTStream("...", "...", {
- encoding: "LINEAR16",
- sampleRateHertz: 16000
+  encoding: "LINEAR16",
+  sampleRateHertz: 16000,
 });
 
 // Test headers
@@ -50,6 +51,4 @@ console.log("File has correct sample rate?:", goodSampleRate);
 // Log headers
 console.log("File's encoding:", headers.encoding);
 console.log("File's sample rate:", headers.sampleRateHertz);
-
 ```
-

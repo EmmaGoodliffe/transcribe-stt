@@ -73,7 +73,7 @@ class DistributedSTTStream {
   }
   /**
    * Set progress
-   * @param progress Progress percentage
+   * @param progress - Progress percentage
    * @internal
    */
   private async setProgress(progress: number): Promise<void> {
