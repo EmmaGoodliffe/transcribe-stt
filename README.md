@@ -28,7 +28,7 @@ See the [reference documentation](./docs/md/index.md).
 
 ## Google authentication
 
-To stream any results, you must authenticate yourself with Google. To do this, just follow the steps below
+To stream any audio, you must authenticate yourself with Google. To do this, just follow the steps below
 
 1. Complete step 1 (only) of [Google's "quickstart" guide](https://cloud.google.com/speech-to-text/docs/quickstart-client-libraries#before-you-begin) to create a GCP project and a private key. Save the private key in your project. (In this guide, we will call it `key.json`)
 1. Make sure any repo utilities ignore your new JSON key, e.g. by adding it to a `.gitignore`:
