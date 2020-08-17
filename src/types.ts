@@ -1,5 +1,6 @@
 import { google } from "@google-cloud/speech/build/protos/protos";
 import DistributedSTTStream from "./DistributedSTTStream";
+import LanguageCode_ from "./LanguageCode";
 
 // Types
 /**
@@ -29,6 +30,12 @@ export type Listener = ProgressListener | DistributeListener;
  */
 export type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
 
+/**
+ * Language code
+ * @public
+ */
+export type LanguageCode = LanguageCode_;
+
 // Interfaces
 /**
  * Headers of a WAV file
@@ -49,7 +56,7 @@ export interface WavHeaders {
  */
 export interface STTStreamOptions extends WavHeaders {
   /** BCP-47 language code. See https://cloud.google.com/speech-to-text/docs/languages. Default `"en-US"` */
-  languageCode?: string;
+  languageCode?: LanguageCode;
   /** When true, results are appended to the text file. When false, the text file is emptied first. Default `false` */
   append?: boolean;
 }
