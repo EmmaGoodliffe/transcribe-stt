@@ -38,3 +38,4 @@ See the [reference documentation](./docs/md/index.md).
 - Simultaneously stream each file during `DistributedSTTStream.start()` to increase speed
 - Create issue templates
 - Create PR templates
+- Create development guide
