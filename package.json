@@ -15,7 +15,7 @@
     "extract": "api-extractor run --local --verbose",
     "lint:fix": "npm run eslint:fix && npm run prettier:fix",
     "lint": "npm run eslint && npm run prettier",
-    "prettier:base": "prettier \"./*({.github,docs,etc,src,test}/**/)*.{json,md}\"",
+    "prettier:base": "prettier \"./*({.github,docs,src,test}/**/)*.{json,md}\"",
     "prettier:fix": "npm run prettier:base -- --write",
     "prettier": "npm run prettier:base -- --check",
     "test": "jest"
