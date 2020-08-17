@@ -105,5 +105,3 @@ To stream any audio, you must authenticate yourself with Google. To do this, jus
 - Create issue templates
 - Create PR templates
 - Create development guide
-
-<!-- Arrows options: &uarr; &#8613; &uArr; &#8673; &#8679; -->
