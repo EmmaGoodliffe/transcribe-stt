@@ -107,7 +107,7 @@ To use an audio file with `transcribe-stt`, it must be a WAV file with mono audi
    > Tracks > Resample...
 1. Export as WAV file
    > Export > Export as WAV
-1. Optionally change the encoding. When the export dialogue appears, there is an option to "Save as type" where you can choose what encoding you want
+1. Optionally change the encoding. When the export dialogue appears, there is an option to "Save as type" where you can choose what encoding you want (and remember it for later)
 
 ## To do
 
