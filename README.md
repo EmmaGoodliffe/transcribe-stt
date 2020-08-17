@@ -12,13 +12,9 @@ Transcribe audio of any length using Google's Speech to Text API
 - [Enabling WSL](#enabling-wsl)
 - [To do](#to-do)
 
-> [&#8673;](#transcribe-stt)
-
 ## Description
 
 A TypeScript Node app which interacts with [Google's Speech to Text API](https://cloud.google.com/speech-to-text/) using its [`Node client`](https://www.npmjs.com/package/@google-cloud/speech) to transcribe WAV files of any length.
-
-> [&#8673;](#transcribe-stt)
 
 ## Installation
 
@@ -26,13 +22,9 @@ A TypeScript Node app which interacts with [Google's Speech to Text API](https:/
 npm i transcribe-stt
 ```
 
-> [&#8673;](#transcribe-stt)
-
 ## Reference
 
 See the [reference documentation](./docs/md/index.md).
-
-> [&#8673;](#transcribe-stt)
 
 ## Google authentication
 
@@ -102,15 +94,9 @@ To stream any audio, you must authenticate yourself with Google. To do this, jus
             ```
      1. Done!
 
-> [&#8673;](#transcribe-stt)
-
 ## Converting audio to a WAV file
 
-> [&#8673;](#transcribe-stt)
-
 ## Enabling WSL
-
-> [&#8673;](#transcribe-stt)
 
 ## To do
 
@@ -119,7 +105,5 @@ To stream any audio, you must authenticate yourself with Google. To do this, jus
 - Create issue templates
 - Create PR templates
 - Create development guide
-
-> [&#8673;](#transcribe-stt)
 
 <!-- Arrows options: &uarr; &#8613; &uArr; &#8673; &#8679; -->
