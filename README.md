@@ -117,3 +117,6 @@ To use an audio file with `transcribe-stt`, it must be a WAV file with mono audi
 - Create PR templates
 - Create development guide
 - Use docker
+- Don't check WAV headers
+- Document how to change to a WAV file programmatically
+- Use `npx cpy` instead of `cp` in `docs:init` script
