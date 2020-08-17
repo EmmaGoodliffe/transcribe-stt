@@ -8,7 +8,7 @@
     "build:all": "npm run build && npm run ts:all && npm run docs && npm run lint:fix",
     "build": "tsc",
     "docs:generate": "api-documenter markdown --input-folder docs/input --output-folder docs/md",
-    "docs:init": "cpy temp/transcribe-stt.api.json docs/input/transcribe-stt.api.json",
+    "docs:init": "cpy \"temp/transcribe-stt.api.json\" \"docs/input\"",
     "docs": "npm run build && npm run extract && npm run docs:init && npm run docs:generate",
     "eslint:fix": "npm run eslint -- --fix",
     "eslint": "eslint \"./{scripts/ts/**,src,test}/*.ts\"",
