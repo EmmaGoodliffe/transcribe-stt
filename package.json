@@ -9,7 +9,7 @@
     "dev": "ts-node ./src/index.ts",
     "docs:generate": "api-documenter markdown --input-folder ./docs/input --output-folder ./docs/md",
     "docs:init": "cp ./temp/transcribe-stt.api.json ./docs/input/transcribe-stt.api.json",
-    "docs": "npm run build && npm run extract && npm run docs:init && npm run docs:generate",
+    "docs": "npm run build && npm run extract && npm run docs:init && npm run docs:generate && npm run lint:fix",
     "eslint:fix": "npm run eslint -- --fix",
     "eslint": "eslint \"./{src,test}/*.ts\"",
     "extract": "api-extractor run --local --verbose",
