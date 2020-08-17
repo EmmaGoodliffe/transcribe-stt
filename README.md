@@ -95,7 +95,7 @@ To stream any audio, you must authenticate yourself with Google. To do this, jus
 
 ## Converting audio to a WAV file
 
-To use an audio file with `transcribe-stt`, it must be a WAV file with mono audio. This is a simple guide to convening audio files with an editor, specifically [Audacity](https://www.audacityteam.org/), which is free and available on all 3 major operating systems. However, many of the steps will be very similar on any audio editing software
+To use an audio file with `transcribe-stt`, it must be a WAV file with mono audio. This is a simple guide to converting audio files with an editor, specifically [Audacity](https://www.audacityteam.org/), which is free and available on all 3 major operating systems. However, many of the steps will be very similar on any audio editing software
 
 1. Open the editor and import your audio
    > File > Import > Audio...
