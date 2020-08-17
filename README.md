@@ -36,3 +36,5 @@ See the [reference documentation](./docs/md/index.md).
 
 - Create a type for [language codes](https://cloud.google.com/speech-to-text/docs/languages)
 - Simultaneously stream each file during `DistributedSTTStream.start()` to increase speed
+- Create issue templates
+- Create PR templates
