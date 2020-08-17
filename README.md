@@ -9,7 +9,6 @@ Transcribe audio of any length using Google's Speech to Text API
 - [Reference](#Reference)
 - [Google authentication](#google-authentication)
 - [Converting audio to a WAV file](#converting-audio-to-a-wav-file)
-- [Enabling WSL](#enabling-wsl)
 - [To do](#to-do)
 
 ## Description
@@ -96,7 +95,19 @@ To stream any audio, you must authenticate yourself with Google. To do this, jus
 
 ## Converting audio to a WAV file
 
-## Enabling WSL
+To use an audio file with `transcribe-stt`, it must be a WAV file with mono audio. This is a simple guide to convening audio files with an editor, specifically [Audacity](https://www.audacityteam.org/), which is free and available on all 3 major operating systems. However, many of the steps will be very similar on any audio editing software
+
+1. Open the editor and import your audio
+   > File > Import > Audio...
+1. Select all
+   > Select > All
+1. Convert to mono if stereo
+   > Tracks > Mix > Mix Stereo Down to Mono
+1. Optionally change sample rate (and remember it for later)
+   > Tracks > Resample...
+1. Export as WAV file
+   > Export > Export as WAV
+1. Optionally change the encoding. When the export dialogue appears, there is an option to "Save as type" where you can choose what encoding you want
 
 ## To do
 
@@ -105,3 +116,4 @@ To stream any audio, you must authenticate yourself with Google. To do this, jus
 - Create issue templates
 - Create PR templates
 - Create development guide
+- Use docker
