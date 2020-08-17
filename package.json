@@ -20,7 +20,7 @@
     "prettier": "npm run prettier:base -- --check",
     "test": "jest --detectOpenHandles",
     "ts:all": "npm run ts:language-code",
-    "ts:language-code": "ts-node scripts/ts/languageCode && cpy \"scripts/ts/languageCode/LanguageCode.ts\" \"src\" && npm run lint:fix"
+    "ts:language-code": "ts-node scripts/ts/languageCode && cpy \"scripts/ts/languageCode/LanguageCode.ts\" \"src\""
   },
   "repository": {
     "type": "git",
