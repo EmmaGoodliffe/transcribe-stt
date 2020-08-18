@@ -1,4 +1,4 @@
-import { promises, writeFileSync } from "fs";
+import { readdirSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import { runBashScript } from "./helpers";
 import STTStream from "./STTStream";
@@ -8,8 +8,6 @@ import {
   ProgressListener,
   STTStreamOptionsAppend,
 } from "./types";
-
-const { readdir } = promises;
 
 // Constants
 const SHARD_LENGTH = 300;
@@ -162,11 +160,11 @@ class DistributedSTTStream {
   }
   /**
    * Start distributed STT stream
-   * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`
-   * @returns Lines of the transcript
+   * @param useConsole - See {@link STTStream.start}
+   * @returns Lines of the transcript of each audio file
    */
-  async start(useConsole?: boolean): Promise<string[]> {
-    let result: string[] = [];
+  async start(useConsole?: boolean): Promise<string[][]> {
+    const results: string[][] = [];
 
     try {
       // Distribute audio file
@@ -178,7 +176,7 @@ class DistributedSTTStream {
     }
 
     // Read audio directory
-    const filenames = await readdir(this.audioDirname);
+    const filenames = readdirSync(this.audioDirname);
 
     // Define WAV pattern
     const pattern = /\.wav$/;
@@ -198,12 +196,14 @@ class DistributedSTTStream {
       // Set progress
       await this.setProgress(percentage);
       // Start the stream
-      result = await stream.start(useConsole);
+      const result = await stream.start(useConsole);
+      // Save result
+      results.push(result);
     }
     // Set progress to 100%
     await this.setProgress(100);
     // Return result
-    return result;
+    return results;
   }
   /** {@inheritdoc STTStream.emptyTextFile} */
   emptyTextFile(): void {

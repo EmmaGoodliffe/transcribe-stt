@@ -8,11 +8,13 @@ const absGoogleKeyFilename = relPathToAbs(relGoogleKeyFilename);
 process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
 
 // Constants
-const TIME_LIMIT = 60 * 1000;
 const AUDIO_FILENAME = "./test/input.wav";
 const AUDIO_DIRNAME = "./test/audio_dist";
 const TEXT_DIRNAME = "./test/text_dist";
+const ENCODING = "LINEAR16";
 const SAMPLE_RATE_HERTZ = 48000;
+const LANGUAGE_CODE = "en-GB";
+const TIME_LIMIT = 60 * 1000;
 
 // Helpers
 const createTextFilename = () =>
@@ -20,7 +22,7 @@ const createTextFilename = () =>
 
 const clean = (s: string) =>
   s
-    .replace("\r", "")
+    .replace(/\r/g, "")
     .split("\n")
     .map(val => val.trim())
     .filter(val => val.length)
@@ -40,9 +42,9 @@ test(
     expect.assertions(1);
     const textFilename = createTextFilename();
     const stream = new STTStream(AUDIO_FILENAME, textFilename, {
-      encoding: "LINEAR16",
+      encoding: ENCODING,
       sampleRateHertz: SAMPLE_RATE_HERTZ,
-      languageCode: "en-GB",
+      languageCode: LANGUAGE_CODE,
     });
     const lines = (await stream.start(false)).join("\n");
     await delay(100);
@@ -62,13 +64,14 @@ test(
       AUDIO_DIRNAME,
       textFilename,
       {
-        encoding: "LINEAR16",
+        encoding: ENCODING,
         sampleRateHertz: SAMPLE_RATE_HERTZ,
-        languageCode: "en-GB",
+        languageCode: LANGUAGE_CODE,
         append: true,
       },
     );
-    const lines = (await stream.start(false)).join("\n");
+    const results = await stream.start(false);
+    const lines = results.map(result => result.join("\n")).join("\n");
     await delay(100);
     const transcript = readFileSync(textFilename).toString();
     expect(clean(lines)).toBe(clean(transcript));
