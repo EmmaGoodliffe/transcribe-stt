@@ -6,7 +6,6 @@
 
 ## Packages
 
-|  Package | Description |
-|  --- | --- |
-|  [transcribe-stt](./transcribe-stt.md) | Transcribe audio of any length using Google's Speech to Text API |
-
+| Package                               | Description                                                      |
+| ------------------------------------- | ---------------------------------------------------------------- |
+| [transcribe-stt](./transcribe-stt.md) | Transcribe audio of any length using Google's Speech to Text API |

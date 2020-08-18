@@ -14,10 +14,10 @@ on(event: "distribute", callback: DistributeListener): void;
 
 ## Parameters
 
-|  Parameter | Type | Description |
-|  --- | --- | --- |
-|  event | "distribute" | Event to listen to |
-|  callback | [DistributeListener](./transcribe-stt.distributelistener.md) | Function to run when event fires |
+| Parameter | Type                                                         | Description                      |
+| --------- | ------------------------------------------------------------ | -------------------------------- |
+| event     | "distribute"                                                 | Event to listen to               |
+| callback  | [DistributeListener](./transcribe-stt.distributelistener.md) | Function to run when event fires |
 
 <b>Returns:</b>
 
@@ -30,4 +30,3 @@ The callback function is run whenever the [DistributedSTTStream.distribute()](./
 This can be helpful if you are using a very large audio file and want to know when it has been split up by the [DistributedSTTStream.start()](./transcribe-stt.distributedsttstream.start.md) method.
 
 ([DistributedSTTStream.distribute()](./transcribe-stt.distributedsttstream.distribute.md) returns a promise which resolves when the distribution completes. So if you are using the method on its own, this event is obsolete)
-
