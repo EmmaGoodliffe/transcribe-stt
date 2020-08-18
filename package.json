@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "scripts": {
-    "build:all": "npm run build && npm run ts:all && npm run docs && npm run lint:fix",
+    "build:all": "npm run ts:all && npm run build && npm run docs && npm run lint:fix",
     "build": "tsc",
     "docs:generate": "api-documenter markdown --input-folder docs/input --output-folder docs/md",
     "docs:init": "cpy \"temp/transcribe-stt.api.json\" \"docs/input\"",
@@ -20,7 +20,7 @@
     "prettier": "npm run prettier:base -- --check",
     "test": "jest --detectOpenHandles",
     "ts:all": "npm run ts:language-code",
-    "ts:language-code": "ts-node scripts/ts/languageCode && cpy \"scripts/ts/languageCode/LanguageCode.ts\" \"src\""
+    "ts:language-code": "ts-node scripts/ts/LanguageCode && cpy \"scripts/ts/LanguageCode/output/LanguageCode.ts\" \"src/generated\""
   },
   "repository": {
     "type": "git",

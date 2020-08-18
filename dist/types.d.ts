@@ -1,5 +1,5 @@
 import { google } from "@google-cloud/speech/build/protos/protos";
-import LanguageCode_ from "./LanguageCode";
+import { LanguageCode } from "./generated/LanguageCode";
 /**
  * Listener for the progress value
  * @remarks
@@ -23,11 +23,6 @@ export declare type Listener = ProgressListener | DistributeListener;
  * @public
  */
 export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
-/**
- * Language code
- * @public
- */
-export declare type LanguageCode = LanguageCode_;
 /**
  * Headers of a WAV file
  * @public
