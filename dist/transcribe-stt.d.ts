@@ -12,7 +12,7 @@ import { google } from '@google-cloud/speech/build/protos/protos';
  * @remarks
  * See https://cloud.google.com/speech-to-text/docs/encoding
  *
- * If you don't know the encoding or sample rate of your WAV file, see https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#encoding
+ * If you don't know the encoding of your WAV file, see https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#encoding
  * @public
  */
 export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
@@ -23,7 +23,7 @@ export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.Recognit
  * This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file.
  * You can customise the functionality of the stream with the {@link STTStreamOptionsAppend}
  *
- * If you don't know the encoding or sample rate of your WAV file, see https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate
+ * If you don't know the encoding or sample rate of your WAV file, find out how to check it [here](https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate)
  *
  * ```ts
  * import { DistributedSTTStream } from "transcribe-stt";
@@ -148,7 +148,7 @@ export declare type ProgressListener = (progress: number) => void | Promise<void
  * This example writes the transcript of a short LINEAR16 16000Hz WAV file to a text file.
  * You can customise the functionality of the stream with the {@link STTStreamOptions}.
  *
- * If you don't know the encoding or sample rate of your WAV file, see https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate
+ * If you don't know the encoding or sample rate of your WAV file, find out how to check it [here](https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate)
  *
  * ```ts
  * import { STTStream } form "transcribe-stt";
@@ -210,7 +210,7 @@ export declare interface STTStreamOptions {
     /**
      * Audio sample rate in Hertz
      * @remarks
-     * If you don't know the encoding or sample rate of your WAV file, see https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#sample-rate
+     * If you don't know the sample rate of your WAV file, see https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#sample-rate
      */
     sampleRateHertz: number;
     /** BCP-47 language code. See {@link LanguageCode}. Default `"en-US"` */

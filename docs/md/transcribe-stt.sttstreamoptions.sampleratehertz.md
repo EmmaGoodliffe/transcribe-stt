@@ -14,4 +14,4 @@ sampleRateHertz: number;
 
 ## Remarks
 
-If you don't know the encoding or sample rate of your WAV file, see https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md\#sample-rate
+If you don't know the sample rate of your WAV file, see https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md\#sample-rate
