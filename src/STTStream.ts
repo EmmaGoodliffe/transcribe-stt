@@ -50,7 +50,7 @@ class STTStream {
   constructor(
     audioFilename: string,
     textFilename: string,
-    options: STTStreamOptions
+    options: STTStreamOptions,
   ) {
     this.audioFilename = audioFilename;
     this.textFilename = textFilename;
@@ -76,7 +76,7 @@ class STTStream {
         this.inner(),
         ora(SPINNER_START_TEXT),
         SUCCESS_TEXT,
-        FAIL_TEXT
+        FAIL_TEXT,
       );
     } else {
       // Run function normally

@@ -59,7 +59,7 @@ class DistributedSTTStream {
     audioFilename: string,
     audioDirname: string,
     textFilename: string,
-    options: STTStreamOptionsAppend
+    options: STTStreamOptionsAppend,
   ) {
     this.audioFilename = audioFilename;
     this.audioDirname = audioDirname;
@@ -126,7 +126,7 @@ class DistributedSTTStream {
     try {
       stdout = await runBashScript(
         "distribute.sh",
-        `${this.audioFilename} ${this.audioDirname} ${SHARD_LENGTH}`
+        `${this.audioFilename} ${this.audioDirname} ${SHARD_LENGTH}`,
       );
     } catch (error_) {
       const error = `${error_}`;

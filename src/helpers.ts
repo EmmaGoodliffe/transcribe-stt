@@ -27,7 +27,7 @@ export const useSpinner = async <T>(
   promise: Promise<T>,
   spinner: Ora,
   successText = "Done",
-  failText = "Failed"
+  failText = "Failed",
 ): Promise<T> => {
   // Start spinner
   spinner.start();
@@ -54,7 +54,7 @@ export const useSpinner = async <T>(
  */
 export const runBashScript = (
   filename_: string,
-  args: string
+  args: string,
 ): Promise<string> =>
   new Promise((resolve_, reject) => {
     const filename = resolve("./scripts/bash", `./${filename_}`);
@@ -63,7 +63,7 @@ export const runBashScript = (
     exec(command, (error, stdout, stderr) => {
       if (error) {
         const isWindowsError = `${stderr}`.includes(
-          "'.' is not recognized as an internal or external command"
+          "'.' is not recognized as an internal or external command",
         );
         if (isWindowsError) {
           const errorPrefix = `An error occurred running a bash script. If you are using windows, please use WSL. See ${WSL_URL} for more details`;

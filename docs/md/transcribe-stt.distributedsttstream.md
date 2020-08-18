@@ -32,7 +32,7 @@ const stream = new DistributedSTTStream(
   audioFilename,
   audioDirname,
   textFilename,
-  options
+  options,
 );
 
 // Empty text file

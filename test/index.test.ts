@@ -49,7 +49,7 @@ test(
     const transcript = readFileSync(textFilename).toString();
     expect(clean(lines)).toBe(clean(transcript));
   },
-  TIME_LIMIT
+  TIME_LIMIT,
 );
 
 test(
@@ -66,12 +66,12 @@ test(
         sampleRateHertz: SAMPLE_RATE_HERTZ,
         languageCode: "en-GB",
         append: true,
-      }
+      },
     );
     const lines = (await stream.start(false)).join("\n");
     await delay(100);
     const transcript = readFileSync(textFilename).toString();
     expect(clean(lines)).toBe(clean(transcript));
   },
-  TIME_LIMIT
+  TIME_LIMIT,
 );
