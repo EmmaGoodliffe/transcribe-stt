@@ -18,7 +18,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "transcribe-stt!AudioEncoding:type",
-          "docComment": "/**\n * Audio encoding\n *\n * @remarks\n *\n * See https://cloud.google.com/speech-to-text/docs/encoding\n *\n * If you don't know the encoding of your WAV file, see https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#encoding\n *\n * @public\n */\n",
+          "docComment": "/**\n * Audio encoding\n *\n * @remarks\n *\n * See https://cloud.google.com/speech-to-text/docs/encoding\n *\n * If you don't know the encoding of your WAV file, find out how to check it <a href=\"https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#encoding\">here</a>\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -1111,7 +1111,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "transcribe-stt!STTStreamOptions#sampleRateHertz:member",
-              "docComment": "/**\n * Audio sample rate in Hertz\n *\n * @remarks\n *\n * If you don't know the sample rate of your WAV file, see https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#sample-rate\n */\n",
+              "docComment": "/**\n * Audio sample rate in Hertz\n *\n * @remarks\n *\n * If you don't know the encoding of your WAV file, find out how to check it <a href=\"https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#sample-rate\">here</a>\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
