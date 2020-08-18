@@ -36,6 +36,11 @@ export class DistributedSTTStream {
 // @public
 export type DistributeListener = () => void | Promise<void>;
 
+// Warning: (ae-forgotten-export) The symbol "languageCodes" needs to be exported by the entry point index.d.ts
+//
+// @public
+export type LanguageCode = languageCodes;
+
 // @public
 export type Listener = ProgressListener | DistributeListener;
 
@@ -65,7 +70,7 @@ export class STTStream {
 // @public
 export interface STTStreamOptions extends WavHeaders {
     append?: boolean;
-    languageCode?: string;
+    languageCode?: LanguageCode;
 }
 
 // @public

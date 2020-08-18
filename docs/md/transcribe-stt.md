@@ -29,5 +29,6 @@ See <a href="#classes">classes</a>
 | ------------------------------------------------------------ | --------------------------------- |
 | [AudioEncoding](./transcribe-stt.audioencoding.md)           | Audio encoding                    |
 | [DistributeListener](./transcribe-stt.distributelistener.md) | Listener for the distribute value |
+| [LanguageCode](./transcribe-stt.languagecode.md)             | Language code                     |
 | [Listener](./transcribe-stt.listener.md)                     | Listener for any property         |
 | [ProgressListener](./transcribe-stt.progresslistener.md)     | Listener for the progress value   |

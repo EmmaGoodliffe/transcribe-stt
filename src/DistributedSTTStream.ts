@@ -127,7 +127,7 @@ class DistributedSTTStream {
     let stdout = "";
     try {
       stdout = await runBashScript(
-        "./scripts/distribute.sh",
+        "distribute.sh",
         `${this.audioFilename} ${this.audioDirname} ${SHARD_LENGTH}`
       );
     } catch (error_) {

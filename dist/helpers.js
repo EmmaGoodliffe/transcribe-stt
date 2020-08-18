@@ -96,8 +96,9 @@ exports.useSpinner = function (promise, spinner, successText, failText) {
  * @returns STD output of bash script
  * @internal
  */
-exports.runBashScript = function (filename, args) {
-    return new Promise(function (resolve, reject) {
+exports.runBashScript = function (filename_, args) {
+    return new Promise(function (resolve_, reject) {
+        var filename = path_1.resolve("./scripts/bash", "./" + filename_);
         var absFilename = exports.relPathToAbs(filename);
         var command = absFilename + " " + args;
         child_process_1.exec(command, function (error, stdout, stderr) {
@@ -114,7 +115,7 @@ exports.runBashScript = function (filename, args) {
             if (stderr && stderr.length) {
                 reject(stderr);
             }
-            resolve(stdout);
+            resolve_(stdout);
         });
     });
 };
@@ -128,7 +129,7 @@ exports.getWavHeaders = function (wavFilename) { return __awaiter(void 0, void 0
     var stdout, _a, encodingString, sampleRateString, encoding, sampleRateHertz;
     return __generator(this, function (_b) {
         switch (_b.label) {
-            case 0: return [4 /*yield*/, exports.runBashScript("./scripts/headers.sh", wavFilename)];
+            case 0: return [4 /*yield*/, exports.runBashScript("headers.sh", wavFilename)];
             case 1:
                 stdout = _b.sent();
                 _a = stdout

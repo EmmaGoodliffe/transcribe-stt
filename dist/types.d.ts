@@ -1,4 +1,5 @@
 import { google } from "@google-cloud/speech/build/protos/protos";
+import LanguageCode_ from "./LanguageCode";
 /**
  * Listener for the progress value
  * @remarks
@@ -23,6 +24,11 @@ export declare type Listener = ProgressListener | DistributeListener;
  */
 export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
 /**
+ * Language code
+ * @public
+ */
+export declare type LanguageCode = LanguageCode_;
+/**
  * Headers of a WAV file
  * @public
  */
@@ -40,7 +46,7 @@ export interface WavHeaders {
  */
 export interface STTStreamOptions extends WavHeaders {
     /** BCP-47 language code. See https://cloud.google.com/speech-to-text/docs/languages. Default `"en-US"` */
-    languageCode?: string;
+    languageCode?: LanguageCode;
     /** When true, results are appended to the text file. When false, the text file is emptied first. Default `false` */
     append?: boolean;
 }

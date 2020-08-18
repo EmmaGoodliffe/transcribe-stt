@@ -148,7 +148,7 @@ var DistributedSTTStream = /** @class */ (function () {
                         _d.label = 1;
                     case 1:
                         _d.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, helpers_1.runBashScript("./scripts/distribute.sh", this.audioFilename + " " + this.audioDirname + " " + SHARD_LENGTH)];
+                        return [4 /*yield*/, helpers_1.runBashScript("distribute.sh", this.audioFilename + " " + this.audioDirname + " " + SHARD_LENGTH)];
                     case 2:
                         stdout = _d.sent();
                         return [3 /*break*/, 4];

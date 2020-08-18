@@ -54,10 +54,11 @@ export const useSpinner = async <T>(
  * @internal
  */
 export const runBashScript = (
-  filename: string,
+  filename_: string,
   args: string
 ): Promise<string> =>
-  new Promise((resolve, reject) => {
+  new Promise((resolve_, reject) => {
+    const filename = resolve("./scripts/bash", `./${filename_}`);
     const absFilename = relPathToAbs(filename);
     const command = `${absFilename} ${args}`;
     exec(command, (error, stdout, stderr) => {
@@ -77,7 +78,7 @@ export const runBashScript = (
         reject(stderr);
       }
 
-      resolve(stdout);
+      resolve_(stdout);
     });
   });
 
@@ -90,7 +91,7 @@ export const runBashScript = (
 export const getWavHeaders = async (
   wavFilename: string
 ): Promise<WavHeaders> => {
-  const stdout = await runBashScript("./scripts/headers.sh", wavFilename);
+  const stdout = await runBashScript("headers.sh", wavFilename);
   const [encodingString, sampleRateString] = stdout
     .replace("\n", "")
     .toUpperCase()

@@ -23,7 +23,7 @@ export declare const useSpinner: <T>(promise: Promise<T>, spinner: Ora, successT
  * @returns STD output of bash script
  * @internal
  */
-export declare const runBashScript: (filename: string, args: string) => Promise<string>;
+export declare const runBashScript: (filename_: string, args: string) => Promise<string>;
 /**
  * Get headers of WAV file
  * @param wavFilename - Path to WAV file

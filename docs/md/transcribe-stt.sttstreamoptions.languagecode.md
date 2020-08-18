@@ -9,5 +9,5 @@ BCP-47 language code. See https://cloud.google.com/speech-to-text/docs/languages
 <b>Signature:</b>
 
 ```typescript
-languageCode?: string;
+languageCode?: LanguageCode;
 ```

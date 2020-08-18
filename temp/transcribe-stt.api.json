@@ -596,6 +596,32 @@
         },
         {
           "kind": "TypeAlias",
+          "canonicalReference": "transcribe-stt!LanguageCode:type",
+          "docComment": "/**\n * Language code\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare type LanguageCode = "
+            },
+            {
+              "kind": "Reference",
+              "text": "LanguageCode_",
+              "canonicalReference": "transcribe-stt!~languageCodes:type"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "LanguageCode",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "TypeAlias",
           "canonicalReference": "transcribe-stt!Listener:type",
           "docComment": "/**\n * Listener for any property\n *\n * @public\n */\n",
           "excerptTokens": [
@@ -1092,8 +1118,9 @@
                   "text": "languageCode?: "
                 },
                 {
-                  "kind": "Content",
-                  "text": "string"
+                  "kind": "Reference",
+                  "text": "LanguageCode",
+                  "canonicalReference": "transcribe-stt!LanguageCode:type"
                 },
                 {
                   "kind": "Content",

@@ -111,9 +111,10 @@ To use an audio file with `transcribe-stt`, it must be a WAV file with mono audi
 
 ## To do
 
-- Create a type for [language codes](https://cloud.google.com/speech-to-text/docs/languages)
 - Simultaneously stream each file during `DistributedSTTStream.start()` to increase speed
 - Create issue templates
 - Create PR templates
 - Create development guide
 - Use docker
+- Don't check WAV headers
+- Document how to change to a WAV file programmatically
