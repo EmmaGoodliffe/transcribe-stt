@@ -32,6 +32,6 @@ assignees: ""
 
 # Additional context
 
-> Any other context (e.g. screenshots, possible causes etc.)
+> Any other context (e.g. screenshots, possible causes, etc.)
 
 <!-- write here -->
