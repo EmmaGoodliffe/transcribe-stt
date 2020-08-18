@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.recExp = exports.getWavHeaders = exports.runBashScript = exports.useSpinner = exports.relPathToAbs = void 0;
+exports.recExp = exports.runBashScript = exports.useSpinner = exports.relPathToAbs = void 0;
 var child_process_1 = require("child_process");
 var path_1 = require("path");
 // Constants
@@ -119,29 +119,6 @@ exports.runBashScript = function (filename_, args) {
         });
     });
 };
-/**
- * Get headers of WAV file
- * @param wavFilename - Path to WAV file
- * @returns Headers
- * @internal
- */
-exports.getWavHeaders = function (wavFilename) { return __awaiter(void 0, void 0, void 0, function () {
-    var stdout, _a, encodingString, sampleRateString, encoding, sampleRateHertz;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0: return [4 /*yield*/, exports.runBashScript("headers.sh", wavFilename)];
-            case 1:
-                stdout = _b.sent();
-                _a = stdout
-                    .replace("\n", "")
-                    .toUpperCase()
-                    .split(","), encodingString = _a[0], sampleRateString = _a[1];
-                encoding = encodingString;
-                sampleRateHertz = parseInt(sampleRateString);
-                return [2 /*return*/, { encoding: encoding, sampleRateHertz: sampleRateHertz }];
-        }
-    });
-}); };
 /**
  * Generate "received but expected" error message
  * @param description - Description of received and expected entities

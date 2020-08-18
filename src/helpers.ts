@@ -1,7 +1,6 @@
 import { exec } from "child_process";
 import { Ora } from "ora";
 import { dirname, resolve } from "path";
-import { AudioEncoding, WavHeaders } from "./types";
 
 // Constants
 const WSL_URL = "_"; // TODO: Enter correct URL
@@ -81,25 +80,6 @@ export const runBashScript = (
       resolve_(stdout);
     });
   });
-
-/**
- * Get headers of WAV file
- * @param wavFilename - Path to WAV file
- * @returns Headers
- * @internal
- */
-export const getWavHeaders = async (
-  wavFilename: string
-): Promise<WavHeaders> => {
-  const stdout = await runBashScript("headers.sh", wavFilename);
-  const [encodingString, sampleRateString] = stdout
-    .replace("\n", "")
-    .toUpperCase()
-    .split(",");
-  const encoding = encodingString as AudioEncoding;
-  const sampleRateHertz = parseInt(sampleRateString);
-  return { encoding, sampleRateHertz };
-};
 
 /**
  * Generate "received but expected" error message

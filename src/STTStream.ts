@@ -1,8 +1,8 @@
 import { SpeechClient } from "@google-cloud/speech";
 import { appendFile, createReadStream, writeFileSync } from "fs";
 import ora from "ora";
-import { getWavHeaders, recExp, useSpinner } from "./helpers";
-import { STTStreamOptions, WavHeaders } from "./types";
+import { useSpinner } from "./helpers";
+import { STTStreamOptions } from "./types";
 
 // Define constants
 const SPINNER_START_TEXT = "STT stream running...";
@@ -17,7 +17,6 @@ const FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
  * This example writes the transcript of a short LINEAR16 16000Hz WAV file to a text file.
  * You can customise the functionality of the stream with the {@link STTStreamOptions}.
  *
- * If you don't know the encoding or sample rate of your WAV file, try using {@link STTStream.testHeaders}
  * ```ts
  * import { STTStream } form "transcribe-stt";
  *
@@ -25,7 +24,7 @@ const FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
  * const textFilename = "./<output text file>.txt";
  * const options = {
  *  encoding: "LINEAR16",
- *  sampleRateHertz: 16000
+ *  sampleRateHertz: 16000,
  * };
  *
  * // Initialise stream
@@ -61,49 +60,6 @@ class STTStream {
     this.languageCode = options.languageCode || "en-US";
   }
   /**
-   * Test if headers of WAV file are correct
-   * @example
-   * This example checks if the headers you passed to {@link STTStream} are correct and logs them.
-   * This can be helpful when you don't know what headers of your WAV file are.
-   *
-   * See also {@link STTStream}
-   *
-   * ```ts
-   * // ...
-   *
-   * // Initialise stream with arbitrary headers to test
-   * const stream = new STTStream("...", "...", {
-   *  encoding: "LINEAR16",
-   *  sampleRateHertz: 16000
-   * });
-   *
-   * // Test headers
-   * const [goodEncoding, goodSampleRate, headers] = await stream.testHeaders();
-   *
-   * // Log results
-   * console.log("File has correct encoding?:", goodEncoding);
-   * console.log("File has correct sample rate?:", goodSampleRate);
-   *
-   * // Log headers
-   * console.log("File's encoding:", headers.encoding);
-   * console.log("File's sample rate:", headers.sampleRateHertz);
-   * ```
-   * @remarks
-   * This method does not test encodings perfectly as many encodings go by multiples aliases.
-   * For example, "LINEAR16" is often listed in headers as "Microsoft PCM 16 bit".
-   *
-   * Because of this, {@link STTStream.testHeaders} does not have to pass for {@link STTStream.start} to pass.
-   *
-   * If you find an alias of an encoding that causes {@link STTStream.testHeaders} to throw a false error, please leave an issue about it in the GitHub repo
-   * @returns If encoding was correct, if sample rate was correct, and the headers of the WAV file
-   */
-  async testHeaders(): Promise<[boolean, boolean, WavHeaders]> {
-    const headers = await getWavHeaders(this.audioFilename);
-    const encodingPassed = this.encoding === headers.encoding;
-    const sampleRatePassed = this.sampleRateHertz === headers.sampleRateHertz;
-    return [encodingPassed, sampleRatePassed, headers];
-  }
-  /**
    * Start STT stream
    * @example
    * See {@link STTStream} for an example
@@ -111,24 +67,6 @@ class STTStream {
    * @returns Lines of the transcript
    */
   async start(useConsole = true): Promise<string[]> {
-    const [goodEncoding, goodSampleRate, headers] = await this.testHeaders();
-    const warningPrefix =
-      "Warning: Your audio encoding and sample rate might not be correct";
-
-    if (!goodEncoding) {
-      const reason = recExp("encoding", this.encoding, headers.encoding);
-      useConsole && console.warn(`${warningPrefix}. ${reason}`);
-    }
-
-    if (!goodSampleRate) {
-      const reason = recExp(
-        "sample rate (Hertz)",
-        this.sampleRateHertz,
-        headers.sampleRateHertz
-      );
-      useConsole && console.warn(`${warningPrefix}. ${reason}`);
-    }
-
     // Initialise results
     let results: string[] = [];
     // If user wants to show spinner

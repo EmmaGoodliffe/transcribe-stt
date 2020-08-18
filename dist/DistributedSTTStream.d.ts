@@ -3,9 +3,7 @@ import { DistributeListener, ProgressListener, STTStreamOptionsAppend } from "./
  * A distributed STT stream (for audio files longer than 305 seconds)
  * @example
  * This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file.
- * You can customise the functionality of the stream with the {@link STTStreamOptionsAppend}.
- *
- * If you don't know the encoding or sample rate of you WAV file, try using {@link STTStream.testHeaders}
+ * You can customise the functionality of the stream with the {@link STTStreamOptionsAppend}
  * ```ts
  * import { DistributedSTTStream } from "transcribe-stt";
  *
@@ -14,7 +12,7 @@ import { DistributeListener, ProgressListener, STTStreamOptionsAppend } from "./
  * const textFilename = "./<output text file>.txt";
  * const options = {
  *  encoding: "LINEAR16",
- *  sampleRateHertz: 16000
+ *  sampleRateHertz: 16000,
  * };
  *
  * // Initialise stream

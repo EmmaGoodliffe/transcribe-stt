@@ -35,36 +35,6 @@ mkdirSync(TEXT_DIRNAME);
 
 // Tests
 test(
-  "bad encoding stream",
-  async () => {
-    expect.assertions(2);
-    const stream = new STTStream(AUDIO_FILENAME, createTextFilename(), {
-      sampleRateHertz: SAMPLE_RATE_HERTZ,
-      encoding: "ENCODING_UNSPECIFIED",
-    });
-    const [goodEncoding] = await stream.testHeaders();
-    expect(goodEncoding).toBeFalsy();
-    await expect(stream.start(false)).rejects.toMatch(/encoding/i);
-  },
-  TIME_LIMIT
-);
-
-test(
-  "bad sample rate stream",
-  async () => {
-    expect.assertions(2);
-    const stream = new STTStream(AUDIO_FILENAME, createTextFilename(), {
-      encoding: "LINEAR16",
-      sampleRateHertz: 0,
-    });
-    const [, goodSampleRate] = await stream.testHeaders();
-    expect(goodSampleRate).toBeFalsy();
-    await expect(stream.start(false)).rejects.toMatch(/sample rate/i);
-  },
-  TIME_LIMIT
-);
-
-test(
   "normal stream",
   async () => {
     expect.assertions(1);

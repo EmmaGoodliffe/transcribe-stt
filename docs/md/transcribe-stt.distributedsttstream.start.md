@@ -14,12 +14,13 @@ start(useConsole?: boolean): Promise<string[]>;
 
 ## Parameters
 
-| Parameter  | Type    | Description                                                                                                        |
-| ---------- | ------- | ------------------------------------------------------------------------------------------------------------------ |
-| useConsole | boolean | Whether to show a loading spinner and deliver warnings in the console during STT stream. Default <code>true</code> |
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  useConsole | boolean | Whether to show a loading spinner and deliver warnings in the console during STT stream. Default <code>true</code> |
 
 <b>Returns:</b>
 
 Promise&lt;string\[\]&gt;
 
 Lines of the transcript
+

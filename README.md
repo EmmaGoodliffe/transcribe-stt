@@ -114,6 +114,5 @@ To use an audio file with `transcribe-stt`, it must be a WAV file with mono audi
 - Simultaneously stream each file during `DistributedSTTStream.start()` to increase speed
 - Create development guide
 - Use docker
-- Don't check WAV headers
 - Document how to change to a WAV file programmatically
 - Make `STTStream` and `DistributedSTTStream` extend same class, or make `DistributedSTTStream` extend `STTStream`

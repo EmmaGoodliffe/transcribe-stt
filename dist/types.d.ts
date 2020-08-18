@@ -24,22 +24,14 @@ export declare type Listener = ProgressListener | DistributeListener;
  */
 export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
 /**
- * Headers of a WAV file
+ *  Options for an STT stream
  * @public
  */
-export interface WavHeaders {
+export interface STTStreamOptions {
     /** Audio encoding. See https://cloud.google.com/speech-to-text/docs/encoding */
     encoding: AudioEncoding;
     /** Audio sample rate in Hertz */
     sampleRateHertz: number;
-}
-/**
- *  Options for an STT stream
- * @remarks
- * See {@link WavHeaders} for other properties
- * @public
- */
-export interface STTStreamOptions extends WavHeaders {
     /** BCP-47 language code. See https://cloud.google.com/speech-to-text/docs/languages. Default `"en-US"` */
     languageCode?: LanguageCode;
     /** When true, results are appended to the text file. When false, the text file is emptied first. Default `false` */
