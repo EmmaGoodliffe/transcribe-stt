@@ -1,10 +1,8 @@
 "use strict";
 /**
  * Transcribe audio of any length using Google's Speech to Text API
- *
  * @remarks
  * See <a href="#classes">classes</a>
- *
  * @packageDocumentation
  */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
