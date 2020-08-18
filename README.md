@@ -9,9 +9,9 @@ Transcribe audio of any length using Google's Speech to Text API
 - [Reference](#Reference)
 - [Google authentication](#google-authentication)
 - [Converting audio to a WAV file](#converting-audio-to-a-wav-file)
-- [Checking encoding and sample rate](#checking-encoding-and-sample-rate)
-  - [Encoding](#encoding)
-  - [Sample rate](#sampler-rate)
+  - [Checking encoding and sample rate](#checking-encoding-and-sample-rate)
+    - [Encoding](#encoding)
+    - [Sample rate](#sampler-rate)
 - [To do](#to-do)
 
 ## Description
@@ -98,7 +98,7 @@ To stream any audio, you must authenticate yourself with Google. To do this, jus
 
 ## Converting audio to a WAV file
 
-To use an audio file with `transcribe-stt`, it must be a WAV file with mono audio. This is a simple guide to converting audio files with an editor, specifically [Audacity](https://www.audacityteam.org/), which is free and available on all 3 major operating systems. However, many of the steps will be very similar on any audio editing software
+To use an audio file with `transcribe-stt`, it must be a WAV file with mono audio. This is a simple guide to converting audio files with an editor, specifically [Audacity] which is free and available on all 3 major operating systems. However, many of the steps will be very similar on any audio editing software
 
 1. Open the editor and import your audio
    > File > Import > Audio...
@@ -110,13 +110,25 @@ To use an audio file with `transcribe-stt`, it must be a WAV file with mono audi
    > Tracks > Resample...
 1. Export as WAV file
    > Export > Export as WAV
-1. Optionally change the encoding. When the export dialogue appears, there is an option to "Save as type" where you can choose what encoding you want (and remember it for later)
+1. Optionally change the encoding. When the export dialogue appears, there is an option to "Save as type" where you can choose what encoding you want (and remember it for later). Learn more about encodings [below](#encoding)
 
-## Checking encoding and sample rate
+### Checking encoding and sample rate
 
-### Encoding
+If you're using Linux or macOS you can run this to print out some info about your audio file usually including the encoding and sample rate
 
-### Sample rate
+```
+file <input WAV file>
+```
+
+#### Encoding
+
+Encodings often go by multiple aliases. For example, "LINEAR16" is often listed by the `file` command and other methods as "Microsoft PCM 16 bit". Because of this, it can be difficult to find which encoding you have and whether it is supported by Google's Speech to Text API. The list of supported encodings is [here](https://cloud.google.com/speech-to-text/docs/encoding)
+
+If you can't run the `file` command, [Audacity] can be used to change the encoding of the file as documented [above](#converting-audio-to-a-wav-file)
+
+#### Sample rate
+
+Similarly, if you can't run the `file` command, [Audacity] can show you the sample rate or change it if you need using the method [above](#converting-audio-to-a-wav-file)
 
 ## To do
 
@@ -125,3 +137,5 @@ To use an audio file with `transcribe-stt`, it must be a WAV file with mono audi
 - Use docker
 - Document how to change to a WAV file programmatically
 - Make `STTStream` and `DistributedSTTStream` extend same class, or make `DistributedSTTStream` extend `STTStream`
+
+[audacity]: https://www.audacityteam.org/
