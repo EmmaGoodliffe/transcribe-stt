@@ -14,9 +14,9 @@ export interface STTStreamOptions
 
 ## Properties
 
-| Property                                                                | Type                                               | Description                                                                                                              |
-| ----------------------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| [append](./transcribe-stt.sttstreamoptions.append.md)                   | boolean                                            | When true, results are appended to the text file. When false, the text file is emptied first. Default <code>false</code> |
-| [encoding](./transcribe-stt.sttstreamoptions.encoding.md)               | [AudioEncoding](./transcribe-stt.audioencoding.md) | Audio encoding. See https://cloud.google.com/speech-to-text/docs/encoding                                                |
-| [languageCode](./transcribe-stt.sttstreamoptions.languagecode.md)       | [LanguageCode](./transcribe-stt.languagecode.md)   | BCP-47 language code. See https://cloud.google.com/speech-to-text/docs/languages. Default <code>&quot;en-US&quot;</code> |
-| [sampleRateHertz](./transcribe-stt.sttstreamoptions.sampleratehertz.md) | number                                             | Audio sample rate in Hertz                                                                                               |
+| Property                                                                | Type                                               | Description                                                                                                                |
+| ----------------------------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| [append](./transcribe-stt.sttstreamoptions.append.md)                   | boolean                                            | When true, results are appended to the text file. When false, the text file is emptied first. Default <code>false</code>   |
+| [encoding](./transcribe-stt.sttstreamoptions.encoding.md)               | [AudioEncoding](./transcribe-stt.audioencoding.md) | Audio encoding. See [AudioEncoding](./transcribe-stt.audioencoding.md)                                                     |
+| [languageCode](./transcribe-stt.sttstreamoptions.languagecode.md)       | [LanguageCode](./transcribe-stt.languagecode.md)   | BCP-47 language code. See [LanguageCode](./transcribe-stt.languagecode.md)<!-- -->. Default <code>&quot;en-US&quot;</code> |
+| [sampleRateHertz](./transcribe-stt.sttstreamoptions.sampleratehertz.md) | number                                             | Audio sample rate in Hertz                                                                                                 |

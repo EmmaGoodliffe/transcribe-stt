@@ -6,6 +6,8 @@ const LANG_CODE_URL =
 const DOC_COMMENT = `
 /**
  * Language code
+ * @remarks
+ * See https://cloud.google.com/speech-to-text/docs/languages
  * @public 
  */`;
 

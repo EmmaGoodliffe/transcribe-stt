@@ -292,3 +292,7 @@ export declare type LanguageCode =
   | "zu-ZA"
   | "zu-ZA";
 ```
+
+## Remarks
+
+See https://cloud.google.com/speech-to-text/docs/languages

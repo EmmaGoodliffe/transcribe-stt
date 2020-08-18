@@ -4,7 +4,7 @@
 
 ## STTStreamOptions.languageCode property
 
-BCP-47 language code. See https://cloud.google.com/speech-to-text/docs/languages. Default `"en-US"`
+BCP-47 language code. See [LanguageCode](./transcribe-stt.languagecode.md)<!-- -->. Default `"en-US"`
 
 <b>Signature:</b>
 

@@ -4,7 +4,7 @@
 
 ## STTStreamOptions.encoding property
 
-Audio encoding. See https://cloud.google.com/speech-to-text/docs/encoding
+Audio encoding. See [AudioEncoding](./transcribe-stt.audioencoding.md)
 
 <b>Signature:</b>
 

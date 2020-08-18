@@ -11,3 +11,7 @@ Audio encoding
 ```typescript
 export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
 ```
+
+## Remarks
+
+See https://cloud.google.com/speech-to-text/docs/encoding

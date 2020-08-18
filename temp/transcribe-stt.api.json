@@ -18,7 +18,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "transcribe-stt!AudioEncoding:type",
-          "docComment": "/**\n * Audio encoding\n *\n * @public\n */\n",
+          "docComment": "/**\n * Audio encoding\n *\n * @remarks\n *\n * See https://cloud.google.com/speech-to-text/docs/encoding\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -597,7 +597,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "transcribe-stt!LanguageCode:type",
-          "docComment": "/**\n * Language code\n *\n * @public\n */\n",
+          "docComment": "/**\n * Language code\n *\n * @remarks\n *\n * See https://cloud.google.com/speech-to-text/docs/languages\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -1059,7 +1059,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "transcribe-stt!STTStreamOptions#encoding:member",
-              "docComment": "/**\n * Audio encoding. See https://cloud.google.com/speech-to-text/docs/encoding\n */\n",
+              "docComment": "/**\n * Audio encoding. See {@link AudioEncoding}\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1085,7 +1085,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "transcribe-stt!STTStreamOptions#languageCode:member",
-              "docComment": "/**\n * BCP-47 language code. See https://cloud.google.com/speech-to-text/docs/languages. Default `\"en-US\"`\n */\n",
+              "docComment": "/**\n * BCP-47 language code. See {@link LanguageCode}. Default `\"en-US\"`\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",

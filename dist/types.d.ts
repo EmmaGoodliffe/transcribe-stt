@@ -20,6 +20,8 @@ export declare type DistributeListener = () => void | Promise<void>;
 export declare type Listener = ProgressListener | DistributeListener;
 /**
  * Audio encoding
+ * @remarks
+ * See https://cloud.google.com/speech-to-text/docs/encoding
  * @public
  */
 export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
@@ -28,11 +30,11 @@ export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.Recognit
  * @public
  */
 export interface STTStreamOptions {
-    /** Audio encoding. See https://cloud.google.com/speech-to-text/docs/encoding */
+    /** Audio encoding. See {@link AudioEncoding} */
     encoding: AudioEncoding;
     /** Audio sample rate in Hertz */
     sampleRateHertz: number;
-    /** BCP-47 language code. See https://cloud.google.com/speech-to-text/docs/languages. Default `"en-US"` */
+    /** BCP-47 language code. See {@link LanguageCode}. Default `"en-US"` */
     languageCode?: LanguageCode;
     /** When true, results are appended to the text file. When false, the text file is emptied first. Default `false` */
     append?: boolean;
