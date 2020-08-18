@@ -9,17 +9,17 @@ Start distributed STT stream
 <b>Signature:</b>
 
 ```typescript
-start(useConsole?: boolean): Promise<string[]>;
+start(useConsole?: boolean): Promise<string[][]>;
 ```
 
 ## Parameters
 
-| Parameter  | Type    | Description                                                                                                        |
-| ---------- | ------- | ------------------------------------------------------------------------------------------------------------------ |
-| useConsole | boolean | Whether to show a loading spinner and deliver warnings in the console during STT stream. Default <code>true</code> |
+| Parameter  | Type    | Description                                                  |
+| ---------- | ------- | ------------------------------------------------------------ |
+| useConsole | boolean | See [STTStream.start()](./transcribe-stt.sttstream.start.md) |
 
 <b>Returns:</b>
 
-Promise&lt;string\[\]&gt;
+Promise&lt;string\[\]\[\]&gt;
 
-Lines of the transcript
+Lines of the transcript of each audio file

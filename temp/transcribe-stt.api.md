@@ -28,7 +28,7 @@ export class DistributedSTTStream {
     progress: number;
     // (undocumented)
     progressListeners: ProgressListener[];
-    start(useConsole?: boolean): Promise<string[]>;
+    start(useConsole?: boolean): Promise<string[][]>;
     // (undocumented)
     textFilename: string;
 }

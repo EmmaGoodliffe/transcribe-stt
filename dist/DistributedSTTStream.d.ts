@@ -7,6 +7,8 @@ import { DistributeListener, ProgressListener, STTStreamOptionsAppend } from "./
  * ```ts
  * import { DistributedSTTStream } from "transcribe-stt";
  *
+ * // TODO: Authenticate with Google. See https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication
+ *
  * const audioFilename = "./<input audio file>.wav";
  * const audioDirname = "./<output audio directory>";
  * const textFilename = "./<output text file>.txt";
@@ -80,10 +82,10 @@ declare class DistributedSTTStream {
     distribute(): Promise<string>;
     /**
      * Start distributed STT stream
-     * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`
-     * @returns Lines of the transcript
+     * @param useConsole - See {@link STTStream.start}
+     * @returns Lines of the transcript of each audio file
      */
-    start(useConsole?: boolean): Promise<string[]>;
+    start(useConsole?: boolean): Promise<string[][]>;
     /** {@inheritdoc STTStream.emptyTextFile} */
     emptyTextFile(): void;
 }

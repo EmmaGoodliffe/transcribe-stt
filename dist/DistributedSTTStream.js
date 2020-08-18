@@ -43,7 +43,6 @@ var fs_1 = require("fs");
 var path_1 = require("path");
 var helpers_1 = require("./helpers");
 var STTStream_1 = __importDefault(require("./STTStream"));
-var readdir = fs_1.promises.readdir;
 // Constants
 var SHARD_LENGTH = 300;
 /**
@@ -53,6 +52,8 @@ var SHARD_LENGTH = 300;
  * You can customise the functionality of the stream with the {@link STTStreamOptionsAppend}
  * ```ts
  * import { DistributedSTTStream } from "transcribe-stt";
+ *
+ * // TODO: Authenticate with Google. See https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication
  *
  * const audioFilename = "./<input audio file>.wav";
  * const audioDirname = "./<output audio directory>";
@@ -196,16 +197,16 @@ var DistributedSTTStream = /** @class */ (function () {
     };
     /**
      * Start distributed STT stream
-     * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`
-     * @returns Lines of the transcript
+     * @param useConsole - See {@link STTStream.start}
+     * @returns Lines of the transcript of each audio file
      */
     DistributedSTTStream.prototype.start = function (useConsole) {
         return __awaiter(this, void 0, void 0, function () {
-            var result, stdout, err_1, filenames, pattern, wavFilenames, wavFileNum, _a, _b, _i, i, index, wavFilename, fullWavFn, stream, percentage;
+            var results, stdout, err_1, filenames, pattern, wavFilenames, wavFileNum, _a, _b, _i, i, index, wavFilename, fullWavFn, stream, percentage, result;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
-                        result = [];
+                        results = [];
                         _c.label = 1;
                     case 1:
                         _c.trys.push([1, 3, , 4]);
@@ -218,9 +219,8 @@ var DistributedSTTStream = /** @class */ (function () {
                     case 3:
                         err_1 = _c.sent();
                         throw "An error occurred distributing the audio file. " + err_1;
-                    case 4: return [4 /*yield*/, readdir(this.audioDirname)];
-                    case 5:
-                        filenames = _c.sent();
+                    case 4:
+                        filenames = fs_1.readdirSync(this.audioDirname);
                         pattern = /\.wav$/;
                         wavFilenames = filenames.filter(function (fn) { return pattern.test(fn); });
                         wavFileNum = wavFilenames.length;
@@ -228,9 +228,9 @@ var DistributedSTTStream = /** @class */ (function () {
                         for (_b in wavFilenames)
                             _a.push(_b);
                         _i = 0;
-                        _c.label = 6;
-                    case 6:
-                        if (!(_i < _a.length)) return [3 /*break*/, 10];
+                        _c.label = 5;
+                    case 5:
+                        if (!(_i < _a.length)) return [3 /*break*/, 9];
                         i = _a[_i];
                         index = parseInt(i);
                         wavFilename = wavFilenames[i];
@@ -239,25 +239,26 @@ var DistributedSTTStream = /** @class */ (function () {
                         percentage = ~~((index / wavFileNum) * 100);
                         // Set progress
                         return [4 /*yield*/, this.setProgress(percentage)];
-                    case 7:
+                    case 6:
                         // Set progress
                         _c.sent();
                         return [4 /*yield*/, stream.start(useConsole)];
-                    case 8:
-                        // Start the stream
+                    case 7:
                         result = _c.sent();
-                        _c.label = 9;
-                    case 9:
+                        // Save result
+                        results.push(result);
+                        _c.label = 8;
+                    case 8:
                         _i++;
-                        return [3 /*break*/, 6];
-                    case 10: 
+                        return [3 /*break*/, 5];
+                    case 9: 
                     // Set progress to 100%
                     return [4 /*yield*/, this.setProgress(100)];
-                    case 11:
+                    case 10:
                         // Set progress to 100%
                         _c.sent();
                         // Return result
-                        return [2 /*return*/, result];
+                        return [2 /*return*/, results];
                 }
             });
         });

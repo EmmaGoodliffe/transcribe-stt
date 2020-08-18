@@ -8,6 +8,8 @@ import { STTStreamOptions } from "./types";
  * ```ts
  * import { STTStream } form "transcribe-stt";
  *
+ * // TODO: Authenticate with Google. See https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication
+ *
  * const audioFilename = "./<input audio file>.wav";
  * const textFilename = "./<output text file>.txt";
  * const options = {

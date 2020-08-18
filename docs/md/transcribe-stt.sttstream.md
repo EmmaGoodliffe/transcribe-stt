@@ -19,6 +19,8 @@ This example writes the transcript of a short LINEAR16 16000Hz WAV file to a tex
 ```ts
 import { STTStream } form "transcribe-stt";
 
+// TODO: Authenticate with Google. See https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication
+
 const audioFilename = "./<input audio file>.wav";
 const textFilename = "./<output text file>.txt";
 const options = {
