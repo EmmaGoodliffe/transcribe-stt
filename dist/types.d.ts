@@ -22,6 +22,8 @@ export declare type Listener = ProgressListener | DistributeListener;
  * Audio encoding
  * @remarks
  * See https://cloud.google.com/speech-to-text/docs/encoding
+ *
+ * If you don't know the encoding or sample rate of your WAV file, see https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#encoding
  * @public
  */
 export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
@@ -32,7 +34,11 @@ export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.Recognit
 export interface STTStreamOptions {
     /** Audio encoding. See {@link AudioEncoding} */
     encoding: AudioEncoding;
-    /** Audio sample rate in Hertz */
+    /**
+     * Audio sample rate in Hertz
+     * @remarks
+     * If you don't know the encoding or sample rate of your WAV file, see https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#sample-rate
+     */
     sampleRateHertz: number;
     /** BCP-47 language code. See {@link LanguageCode}. Default `"en-US"` */
     languageCode?: LanguageCode;

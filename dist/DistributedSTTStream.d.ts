@@ -4,6 +4,9 @@ import { DistributeListener, ProgressListener, STTStreamOptionsAppend } from "./
  * @example
  * This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file.
  * You can customise the functionality of the stream with the {@link STTStreamOptionsAppend}
+ *
+ * If you don't know the encoding or sample rate of your WAV file, see https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate
+ *
  * ```ts
  * import { DistributedSTTStream } from "transcribe-stt";
  *
@@ -82,6 +85,8 @@ declare class DistributedSTTStream {
     distribute(): Promise<string>;
     /**
      * Start distributed STT stream
+     * @example
+     * See {@link DistributedSTTStream} for an example
      * @param useConsole - See {@link STTStream.start}
      * @returns Lines of the transcript of each audio file
      */

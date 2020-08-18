@@ -16,6 +16,8 @@ declare class DistributedSTTStream
 
 This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file. You can customise the functionality of the stream with the [STTStreamOptionsAppend](./transcribe-stt.sttstreamoptionsappend.md)
 
+If you don't know the encoding or sample rate of your WAV file, see https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md\#checking-encoding-and-sample-rate
+
 ```ts
 import { DistributedSTTStream } from "transcribe-stt";
 

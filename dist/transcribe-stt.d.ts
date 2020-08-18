@@ -11,6 +11,8 @@ import { google } from '@google-cloud/speech/build/protos/protos';
  * Audio encoding
  * @remarks
  * See https://cloud.google.com/speech-to-text/docs/encoding
+ *
+ * If you don't know the encoding or sample rate of your WAV file, see https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#encoding
  * @public
  */
 export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
@@ -20,6 +22,9 @@ export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.Recognit
  * @example
  * This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file.
  * You can customise the functionality of the stream with the {@link STTStreamOptionsAppend}
+ *
+ * If you don't know the encoding or sample rate of your WAV file, see https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate
+ *
  * ```ts
  * import { DistributedSTTStream } from "transcribe-stt";
  *
@@ -98,6 +103,8 @@ export declare class DistributedSTTStream {
     distribute(): Promise<string>;
     /**
      * Start distributed STT stream
+     * @example
+     * See {@link DistributedSTTStream} for an example
      * @param useConsole - See {@link STTStream.start}
      * @returns Lines of the transcript of each audio file
      */
@@ -140,6 +147,8 @@ export declare type ProgressListener = (progress: number) => void | Promise<void
  * @example
  * This example writes the transcript of a short LINEAR16 16000Hz WAV file to a text file.
  * You can customise the functionality of the stream with the {@link STTStreamOptions}.
+ *
+ * If you don't know the encoding or sample rate of your WAV file, see https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate
  *
  * ```ts
  * import { STTStream } form "transcribe-stt";
@@ -198,7 +207,11 @@ export declare class STTStream {
 export declare interface STTStreamOptions {
     /** Audio encoding. See {@link AudioEncoding} */
     encoding: AudioEncoding;
-    /** Audio sample rate in Hertz */
+    /**
+     * Audio sample rate in Hertz
+     * @remarks
+     * If you don't know the encoding or sample rate of your WAV file, see https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#sample-rate
+     */
     sampleRateHertz: number;
     /** BCP-47 language code. See {@link LanguageCode}. Default `"en-US"` */
     languageCode?: LanguageCode;

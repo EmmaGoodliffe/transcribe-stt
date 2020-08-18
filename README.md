@@ -9,6 +9,9 @@ Transcribe audio of any length using Google's Speech to Text API
 - [Reference](#Reference)
 - [Google authentication](#google-authentication)
 - [Converting audio to a WAV file](#converting-audio-to-a-wav-file)
+- [Checking encoding and sample rate](#checking-encoding-and-sample-rate)
+  - [Encoding](#encoding)
+  - [Sample rate](#sampler-rate)
 - [To do](#to-do)
 
 ## Description
@@ -108,6 +111,12 @@ To use an audio file with `transcribe-stt`, it must be a WAV file with mono audi
 1. Export as WAV file
    > Export > Export as WAV
 1. Optionally change the encoding. When the export dialogue appears, there is an option to "Save as type" where you can choose what encoding you want (and remember it for later)
+
+## Checking encoding and sample rate
+
+### Encoding
+
+### Sample rate
 
 ## To do
 

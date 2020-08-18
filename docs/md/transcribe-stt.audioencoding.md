@@ -15,3 +15,5 @@ export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.Recognit
 ## Remarks
 
 See https://cloud.google.com/speech-to-text/docs/encoding
+
+If you don't know the encoding or sample rate of your WAV file, see https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md\#encoding

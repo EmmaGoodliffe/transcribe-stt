@@ -23,3 +23,7 @@ start(useConsole?: boolean): Promise<string[][]>;
 Promise&lt;string\[\]\[\]&gt;
 
 Lines of the transcript of each audio file
+
+## Example
+
+See [DistributedSTTStream](./transcribe-stt.distributedsttstream.md) for an example
