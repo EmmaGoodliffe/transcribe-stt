@@ -1,8 +1,10 @@
 /**
- * @packageDocumentation
  * Transcribe audio of any length using Google's Speech to Text API
  *
+ * @remarks
  * See <a href="#classes">classes</a>
+ *
+ * @packageDocumentation
  */
 
 import { google } from '@google-cloud/speech/build/protos/protos';

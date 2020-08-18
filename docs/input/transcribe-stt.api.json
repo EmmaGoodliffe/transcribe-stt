@@ -7,7 +7,7 @@
   },
   "kind": "Package",
   "canonicalReference": "transcribe-stt!",
-  "docComment": "/**\n * Transcribe audio of any length using Google's Speech to Text API\n *\n * See <a href=\"#classes\">classes</a>\n *\n * @packageDocumentation\n */\n",
+  "docComment": "/**\n * Transcribe audio of any length using Google's Speech to Text API\n *\n * @remarks\n *\n * See <a href=\"#classes\">classes</a>\n *\n * @packageDocumentation\n */\n",
   "name": "transcribe-stt",
   "members": [
     {
