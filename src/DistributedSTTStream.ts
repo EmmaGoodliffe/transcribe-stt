@@ -20,6 +20,8 @@ const SHARD_LENGTH = 300;
  * ```ts
  * import { DistributedSTTStream } from "transcribe-stt";
  *
+ * // TODO: Authenticate with Google. See https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication
+ *
  * const audioFilename = "./<input audio file>.wav";
  * const audioDirname = "./<output audio directory>";
  * const textFilename = "./<output text file>.txt";

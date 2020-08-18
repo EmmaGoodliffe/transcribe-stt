@@ -22,6 +22,9 @@
     "ts:all": "npm run ts:language-code",
     "ts:language-code": "ts-node scripts/ts/LanguageCode && cpy \"scripts/ts/LanguageCode/output/LanguageCode.ts\" \"src/generated\""
   },
+  "pre-commit": [
+    "build:all"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/EmmaGoodliffe/transcribe-stt.git"
@@ -58,6 +61,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.4.0",
     "node-fetch": "^2.6.0",
+    "pre-commit": "^1.2.2",
     "prettier": "^2.0.5",
     "ts-jest": "^26.2.0",
     "ts-node": "^8.10.2",
