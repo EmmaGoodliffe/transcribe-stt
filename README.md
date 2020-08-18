@@ -13,7 +13,7 @@ Transcribe audio of any length using Google's Speech to Text API
 
 ## Description
 
-A TypeScript Node app which interacts with [Google's Speech to Text API](https://cloud.google.com/speech-to-text/) using its [`Node client`](https://www.npmjs.com/package/@google-cloud/speech) to transcribe WAV files of any length.
+Transcribe audio of any length using [Google's Speech to Text API](https://cloud.google.com/speech-to-text/) using its [`Node client`](https://www.npmjs.com/package/@google-cloud/speech)
 
 ## Installation
 
