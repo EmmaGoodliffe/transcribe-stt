@@ -23,7 +23,7 @@ export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.Recognit
  * This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file.
  * You can customise the functionality of the stream with the {@link STTStreamOptionsAppend}
  *
- * If you don't know the encoding or sample rate of your WAV file, find out how to check it [here](https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate)
+ * If you don't know the encoding or sample rate of your WAV file, find out how to check it <a href="https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate">here</a>
  *
  * ```ts
  * import { DistributedSTTStream } from "transcribe-stt";
@@ -148,7 +148,7 @@ export declare type ProgressListener = (progress: number) => void | Promise<void
  * This example writes the transcript of a short LINEAR16 16000Hz WAV file to a text file.
  * You can customise the functionality of the stream with the {@link STTStreamOptions}.
  *
- * If you don't know the encoding or sample rate of your WAV file, find out how to check it [here](https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate)
+ * If you don't know the encoding or sample rate of your WAV file, find out how to check it <a href="https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate">here</a>
  *
  * ```ts
  * import { STTStream } form "transcribe-stt";
