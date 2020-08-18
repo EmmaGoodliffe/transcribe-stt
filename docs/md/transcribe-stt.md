@@ -6,6 +6,8 @@
 
 Transcribe audio of any length using Google's Speech to Text API
 
+## Remarks
+
 See <a href="#classes">classes</a>
 
 ## Classes
@@ -21,7 +23,6 @@ See <a href="#classes">classes</a>
 | -------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
 | [STTStreamOptions](./transcribe-stt.sttstreamoptions.md)             | Options for an STT stream                                                          |
 | [STTStreamOptionsAppend](./transcribe-stt.sttstreamoptionsappend.md) | Options for an STT stream but <code>append</code> must be set to <code>true</code> |
-| [WavHeaders](./transcribe-stt.wavheaders.md)                         | Headers of a WAV file                                                              |
 
 ## Type Aliases
 

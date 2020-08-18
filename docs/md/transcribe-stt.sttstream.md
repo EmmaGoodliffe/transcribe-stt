@@ -16,8 +16,6 @@ declare class STTStream
 
 This example writes the transcript of a short LINEAR16 16000Hz WAV file to a text file. You can customise the functionality of the stream with the [STTStreamOptions](./transcribe-stt.sttstreamoptions.md)<!-- -->.
 
-If you don't know the encoding or sample rate of your WAV file, try using [STTStream.testHeaders()](./transcribe-stt.sttstream.testheaders.md)
-
 ```ts
 import { STTStream } form "transcribe-stt";
 
@@ -25,7 +23,7 @@ const audioFilename = "./<input audio file>.wav";
 const textFilename = "./<output text file>.txt";
 const options = {
  encoding: "LINEAR16",
- sampleRateHertz: 16000
+ sampleRateHertz: 16000,
 };
 
 // Initialise stream
@@ -55,8 +53,7 @@ stream.start();
 
 ## Methods
 
-| Method                                                         | Modifiers | Description                             |
-| -------------------------------------------------------------- | --------- | --------------------------------------- |
-| [emptyTextFile()](./transcribe-stt.sttstream.emptytextfile.md) |           | Empty text file                         |
-| [start(useConsole)](./transcribe-stt.sttstream.start.md)       |           | Start STT stream                        |
-| [testHeaders()](./transcribe-stt.sttstream.testheaders.md)     |           | Test if headers of WAV file are correct |
+| Method                                                         | Modifiers | Description      |
+| -------------------------------------------------------------- | --------- | ---------------- |
+| [emptyTextFile()](./transcribe-stt.sttstream.emptytextfile.md) |           | Empty text file  |
+| [start(useConsole)](./transcribe-stt.sttstream.start.md)       |           | Start STT stream |

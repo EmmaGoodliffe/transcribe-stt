@@ -1,11 +1,10 @@
-import { STTStreamOptions, WavHeaders } from "./types";
+import { STTStreamOptions } from "./types";
 /**
  * An STT stream (for audio files shorter than 305 seconds)
  * @example
  * This example writes the transcript of a short LINEAR16 16000Hz WAV file to a text file.
  * You can customise the functionality of the stream with the {@link STTStreamOptions}.
  *
- * If you don't know the encoding or sample rate of your WAV file, try using {@link STTStream.testHeaders}
  * ```ts
  * import { STTStream } form "transcribe-stt";
  *
@@ -13,7 +12,7 @@ import { STTStreamOptions, WavHeaders } from "./types";
  * const textFilename = "./<output text file>.txt";
  * const options = {
  *  encoding: "LINEAR16",
- *  sampleRateHertz: 16000
+ *  sampleRateHertz: 16000,
  * };
  *
  * // Initialise stream
@@ -37,44 +36,6 @@ declare class STTStream {
      * @param options - Options
      */
     constructor(audioFilename: string, textFilename: string, options: STTStreamOptions);
-    /**
-     * Test if headers of WAV file are correct
-     * @example
-     * This example checks if the headers you passed to {@link STTStream} are correct and logs them.
-     * This can be helpful when you don't know what headers of your WAV file are.
-     *
-     * See also {@link STTStream}
-     *
-     * ```ts
-     * // ...
-     *
-     * // Initialise stream with arbitrary headers to test
-     * const stream = new STTStream("...", "...", {
-     *  encoding: "LINEAR16",
-     *  sampleRateHertz: 16000
-     * });
-     *
-     * // Test headers
-     * const [goodEncoding, goodSampleRate, headers] = await stream.testHeaders();
-     *
-     * // Log results
-     * console.log("File has correct encoding?:", goodEncoding);
-     * console.log("File has correct sample rate?:", goodSampleRate);
-     *
-     * // Log headers
-     * console.log("File's encoding:", headers.encoding);
-     * console.log("File's sample rate:", headers.sampleRateHertz);
-     * ```
-     * @remarks
-     * This method does not test encodings perfectly as many encodings go by multiples aliases.
-     * For example, "LINEAR16" is often listed in headers as "Microsoft PCM 16 bit".
-     *
-     * Because of this, {@link STTStream.testHeaders} does not have to pass for {@link STTStream.start} to pass.
-     *
-     * If you find an alias of an encoding that causes {@link STTStream.testHeaders} to throw a false error, please leave an issue about it in the GitHub repo
-     * @returns If encoding was correct, if sample rate was correct, and the headers of the WAV file
-     */
-    testHeaders(): Promise<[boolean, boolean, WavHeaders]>;
     /**
      * Start STT stream
      * @example

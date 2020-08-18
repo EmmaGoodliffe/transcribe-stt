@@ -60,26 +60,21 @@ export class STTStream {
     // (undocumented)
     sampleRateHertz: STTStreamOptions["sampleRateHertz"];
     start(useConsole?: boolean): Promise<string[]>;
-    testHeaders(): Promise<[boolean, boolean, WavHeaders]>;
     // (undocumented)
     textFilename: string;
 }
 
 // @public
-export interface STTStreamOptions extends WavHeaders {
+export interface STTStreamOptions {
     append?: boolean;
+    encoding: AudioEncoding;
     languageCode?: LanguageCode;
+    sampleRateHertz: number;
 }
 
 // @public
 export interface STTStreamOptionsAppend extends STTStreamOptions {
     append: true;
-}
-
-// @public
-export interface WavHeaders {
-    encoding: AudioEncoding;
-    sampleRateHertz: number;
 }
 
 

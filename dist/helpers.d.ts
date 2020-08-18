@@ -1,5 +1,4 @@
 import { Ora } from "ora";
-import { WavHeaders } from "./types";
 /**
  * Converts a relative path to an absolute path using the directory the function is run from
  * @param path - Relative path
@@ -24,13 +23,6 @@ export declare const useSpinner: <T>(promise: Promise<T>, spinner: Ora, successT
  * @internal
  */
 export declare const runBashScript: (filename_: string, args: string) => Promise<string>;
-/**
- * Get headers of WAV file
- * @param wavFilename - Path to WAV file
- * @returns Headers
- * @internal
- */
-export declare const getWavHeaders: (wavFilename: string) => Promise<WavHeaders>;
 /**
  * Generate "received but expected" error message
  * @param description - Description of received and expected entities

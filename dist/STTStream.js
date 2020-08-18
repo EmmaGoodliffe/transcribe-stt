@@ -55,7 +55,6 @@ var FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
  * This example writes the transcript of a short LINEAR16 16000Hz WAV file to a text file.
  * You can customise the functionality of the stream with the {@link STTStreamOptions}.
  *
- * If you don't know the encoding or sample rate of your WAV file, try using {@link STTStream.testHeaders}
  * ```ts
  * import { STTStream } form "transcribe-stt";
  *
@@ -63,7 +62,7 @@ var FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
  * const textFilename = "./<output text file>.txt";
  * const options = {
  *  encoding: "LINEAR16",
- *  sampleRateHertz: 16000
+ *  sampleRateHertz: 16000,
  * };
  *
  * // Initialise stream
@@ -89,58 +88,6 @@ var STTStream = /** @class */ (function () {
         this.languageCode = options.languageCode || "en-US";
     }
     /**
-     * Test if headers of WAV file are correct
-     * @example
-     * This example checks if the headers you passed to {@link STTStream} are correct and logs them.
-     * This can be helpful when you don't know what headers of your WAV file are.
-     *
-     * See also {@link STTStream}
-     *
-     * ```ts
-     * // ...
-     *
-     * // Initialise stream with arbitrary headers to test
-     * const stream = new STTStream("...", "...", {
-     *  encoding: "LINEAR16",
-     *  sampleRateHertz: 16000
-     * });
-     *
-     * // Test headers
-     * const [goodEncoding, goodSampleRate, headers] = await stream.testHeaders();
-     *
-     * // Log results
-     * console.log("File has correct encoding?:", goodEncoding);
-     * console.log("File has correct sample rate?:", goodSampleRate);
-     *
-     * // Log headers
-     * console.log("File's encoding:", headers.encoding);
-     * console.log("File's sample rate:", headers.sampleRateHertz);
-     * ```
-     * @remarks
-     * This method does not test encodings perfectly as many encodings go by multiples aliases.
-     * For example, "LINEAR16" is often listed in headers as "Microsoft PCM 16 bit".
-     *
-     * Because of this, {@link STTStream.testHeaders} does not have to pass for {@link STTStream.start} to pass.
-     *
-     * If you find an alias of an encoding that causes {@link STTStream.testHeaders} to throw a false error, please leave an issue about it in the GitHub repo
-     * @returns If encoding was correct, if sample rate was correct, and the headers of the WAV file
-     */
-    STTStream.prototype.testHeaders = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var headers, encodingPassed, sampleRatePassed;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, helpers_1.getWavHeaders(this.audioFilename)];
-                    case 1:
-                        headers = _a.sent();
-                        encodingPassed = this.encoding === headers.encoding;
-                        sampleRatePassed = this.sampleRateHertz === headers.sampleRateHertz;
-                        return [2 /*return*/, [encodingPassed, sampleRatePassed, headers]];
-                }
-            });
-        });
-    };
-    /**
      * Start STT stream
      * @example
      * See {@link STTStream} for an example
@@ -150,34 +97,23 @@ var STTStream = /** @class */ (function () {
     STTStream.prototype.start = function (useConsole) {
         if (useConsole === void 0) { useConsole = true; }
         return __awaiter(this, void 0, void 0, function () {
-            var _a, goodEncoding, goodSampleRate, headers, warningPrefix, reason, reason, results;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0: return [4 /*yield*/, this.testHeaders()];
-                    case 1:
-                        _a = _b.sent(), goodEncoding = _a[0], goodSampleRate = _a[1], headers = _a[2];
-                        warningPrefix = "Warning: Your audio encoding and sample rate might not be correct";
-                        if (!goodEncoding) {
-                            reason = helpers_1.recExp("encoding", this.encoding, headers.encoding);
-                            useConsole && console.warn(warningPrefix + ". " + reason);
-                        }
-                        if (!goodSampleRate) {
-                            reason = helpers_1.recExp("sample rate (Hertz)", this.sampleRateHertz, headers.sampleRateHertz);
-                            useConsole && console.warn(warningPrefix + ". " + reason);
-                        }
+            var results;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
                         results = [];
-                        if (!useConsole) return [3 /*break*/, 3];
+                        if (!useConsole) return [3 /*break*/, 2];
                         return [4 /*yield*/, helpers_1.useSpinner(this.inner(), ora_1.default(SPINNER_START_TEXT), SUCCESS_TEXT, FAIL_TEXT)];
-                    case 2:
+                    case 1:
                         // Run function with spinner wrapper
-                        results = _b.sent();
-                        return [3 /*break*/, 5];
-                    case 3: return [4 /*yield*/, this.inner()];
-                    case 4:
+                        results = _a.sent();
+                        return [3 /*break*/, 4];
+                    case 2: return [4 /*yield*/, this.inner()];
+                    case 3:
                         // Run function normally
-                        results = _b.sent();
-                        _b.label = 5;
-                    case 5: 
+                        results = _a.sent();
+                        _a.label = 4;
+                    case 4: 
                     // Return results
                     return [2 /*return*/, results];
                 }

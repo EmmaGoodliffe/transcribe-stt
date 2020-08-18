@@ -7,7 +7,7 @@
   },
   "kind": "Package",
   "canonicalReference": "transcribe-stt!",
-  "docComment": "/**\n * Transcribe audio of any length using Google's Speech to Text API\n *\n * See <a href=\"#classes\">classes</a>\n *\n * @packageDocumentation\n */\n",
+  "docComment": "/**\n * Transcribe audio of any length using Google's Speech to Text API\n *\n * @remarks\n *\n * See <a href=\"#classes\">classes</a>\n *\n * @packageDocumentation\n */\n",
   "name": "transcribe-stt",
   "members": [
     {
@@ -48,7 +48,7 @@
         {
           "kind": "Class",
           "canonicalReference": "transcribe-stt!DistributedSTTStream:class",
-          "docComment": "/**\n * A distributed STT stream (for audio files longer than 305 seconds)\n *\n * @example\n *\n * This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file. You can customise the functionality of the stream with the {@link STTStreamOptionsAppend}.\n *\n * If you don't know the encoding or sample rate of you WAV file, try using {@link STTStream.testHeaders}\n * ```ts\n * import { DistributedSTTStream } from \"transcribe-stt\";\n *\n * const audioFilename = \"./<input audio file>.wav\";\n * const audioDirname = \"./<output audio directory>\";\n * const textFilename = \"./<output text file>.txt\";\n * const options = {\n *  encoding: \"LINEAR16\",\n *  sampleRateHertz: 16000\n * };\n *\n * // Initialise stream\n * const stream = new DistributedSTTStream(audioFilename, audioDirname, textFilename, options);\n *\n * // Empty text file\n * stream.emptyTextFile();\n *\n * // Start stream and write output to text file\n * stream.start();\n * ```\n *\n * @public\n */\n",
+          "docComment": "/**\n * A distributed STT stream (for audio files longer than 305 seconds)\n *\n * @example\n *\n * This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file. You can customise the functionality of the stream with the {@link STTStreamOptionsAppend}\n * ```ts\n * import { DistributedSTTStream } from \"transcribe-stt\";\n *\n * const audioFilename = \"./<input audio file>.wav\";\n * const audioDirname = \"./<output audio directory>\";\n * const textFilename = \"./<output text file>.txt\";\n * const options = {\n *  encoding: \"LINEAR16\",\n *  sampleRateHertz: 16000,\n * };\n *\n * // Initialise stream\n * const stream = new DistributedSTTStream(audioFilename, audioDirname, textFilename, options);\n *\n * // Empty text file\n * stream.emptyTextFile();\n *\n * // Start stream and write output to text file\n * stream.start();\n * ```\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -691,7 +691,7 @@
         {
           "kind": "Class",
           "canonicalReference": "transcribe-stt!STTStream:class",
-          "docComment": "/**\n * An STT stream (for audio files shorter than 305 seconds)\n *\n * @example\n *\n * This example writes the transcript of a short LINEAR16 16000Hz WAV file to a text file. You can customise the functionality of the stream with the {@link STTStreamOptions}.\n *\n * If you don't know the encoding or sample rate of your WAV file, try using {@link STTStream.testHeaders}\n * ```ts\n * import { STTStream } form \"transcribe-stt\";\n *\n * const audioFilename = \"./<input audio file>.wav\";\n * const textFilename = \"./<output text file>.txt\";\n * const options = {\n *  encoding: \"LINEAR16\",\n *  sampleRateHertz: 16000\n * };\n *\n * // Initialise stream\n * const stream = new STTStream(audioFilename, textFilename, options);\n *\n * // Start stream and write output to text file\n * stream.start();\n * ```\n *\n * @public\n */\n",
+          "docComment": "/**\n * An STT stream (for audio files shorter than 305 seconds)\n *\n * @example\n *\n * This example writes the transcript of a short LINEAR16 16000Hz WAV file to a text file. You can customise the functionality of the stream with the {@link STTStreamOptions}.\n * ```ts\n * import { STTStream } form \"transcribe-stt\";\n *\n * const audioFilename = \"./<input audio file>.wav\";\n * const textFilename = \"./<output text file>.txt\";\n * const options = {\n *  encoding: \"LINEAR16\",\n *  sampleRateHertz: 16000,\n * };\n *\n * // Initialise stream\n * const stream = new STTStream(audioFilename, textFilename, options);\n *\n * // Start stream and write output to text file\n * stream.start();\n * ```\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -990,48 +990,6 @@
               "name": "start"
             },
             {
-              "kind": "Method",
-              "canonicalReference": "transcribe-stt!STTStream#testHeaders:member(1)",
-              "docComment": "/**\n * Test if headers of WAV file are correct\n *\n * @remarks\n *\n * This method does not test encodings perfectly as many encodings go by multiples aliases. For example, \"LINEAR16\" is often listed in headers as \"Microsoft PCM 16 bit\".\n *\n * Because of this, {@link STTStream.testHeaders} does not have to pass for {@link STTStream.start} to pass.\n *\n * If you find an alias of an encoding that causes {@link STTStream.testHeaders} to throw a false error, please leave an issue about it in the GitHub repo\n *\n * @returns If encoding was correct, if sample rate was correct, and the headers of the WAV file\n *\n * @example\n *\n * This example checks if the headers you passed to {@link STTStream} are correct and logs them. This can be helpful when you don't know what headers of your WAV file are.\n *\n * See also {@link STTStream}\n * ```ts\n * // ...\n *\n * // Initialise stream with arbitrary headers to test\n * const stream = new STTStream(\"...\", \"...\", {\n *  encoding: \"LINEAR16\",\n *  sampleRateHertz: 16000\n * });\n *\n * // Test headers\n * const [goodEncoding, goodSampleRate, headers] = await stream.testHeaders();\n *\n * // Log results\n * console.log(\"File has correct encoding?:\", goodEncoding);\n * console.log(\"File has correct sample rate?:\", goodSampleRate);\n *\n * // Log headers\n * console.log(\"File's encoding:\", headers.encoding);\n * console.log(\"File's sample rate:\", headers.sampleRateHertz);\n * ```\n *\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "testHeaders(): "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Promise",
-                  "canonicalReference": "!Promise:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "<[boolean, boolean, "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "WavHeaders",
-                  "canonicalReference": "transcribe-stt!WavHeaders:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "]>"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 5
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [],
-              "name": "testHeaders"
-            },
-            {
               "kind": "Property",
               "canonicalReference": "transcribe-stt!STTStream#textFilename:member",
               "docComment": "",
@@ -1063,20 +1021,11 @@
         {
           "kind": "Interface",
           "canonicalReference": "transcribe-stt!STTStreamOptions:interface",
-          "docComment": "/**\n * Options for an STT stream\n *\n * @remarks\n *\n * See {@link WavHeaders} for other properties\n *\n * @public\n */\n",
+          "docComment": "/**\n * Options for an STT stream\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export interface STTStreamOptions extends "
-            },
-            {
-              "kind": "Reference",
-              "text": "WavHeaders",
-              "canonicalReference": "transcribe-stt!WavHeaders:interface"
-            },
-            {
-              "kind": "Content",
-              "text": " "
+              "text": "export interface STTStreamOptions "
             }
           ],
           "releaseTag": "Public",
@@ -1109,6 +1058,32 @@
             },
             {
               "kind": "PropertySignature",
+              "canonicalReference": "transcribe-stt!STTStreamOptions#encoding:member",
+              "docComment": "/**\n * Audio encoding. See https://cloud.google.com/speech-to-text/docs/encoding\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "encoding: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "AudioEncoding",
+                  "canonicalReference": "transcribe-stt!AudioEncoding:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "encoding",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
               "canonicalReference": "transcribe-stt!STTStreamOptions#languageCode:member",
               "docComment": "/**\n * BCP-47 language code. See https://cloud.google.com/speech-to-text/docs/languages. Default `\"en-US\"`\n */\n",
               "excerptTokens": [
@@ -1132,14 +1107,34 @@
                 "startIndex": 1,
                 "endIndex": 2
               }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "transcribe-stt!STTStreamOptions#sampleRateHertz:member",
+              "docComment": "/**\n * Audio sample rate in Hertz\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "sampleRateHertz: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "sampleRateHertz",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
             }
           ],
-          "extendsTokenRanges": [
-            {
-              "startIndex": 1,
-              "endIndex": 3
-            }
-          ]
+          "extendsTokenRanges": []
         },
         {
           "kind": "Interface",
@@ -1195,73 +1190,6 @@
               "endIndex": 3
             }
           ]
-        },
-        {
-          "kind": "Interface",
-          "canonicalReference": "transcribe-stt!WavHeaders:interface",
-          "docComment": "/**\n * Headers of a WAV file\n *\n * @public\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export interface WavHeaders "
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "WavHeaders",
-          "members": [
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "transcribe-stt!WavHeaders#encoding:member",
-              "docComment": "/**\n * Audio encoding. See https://cloud.google.com/speech-to-text/docs/encoding\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "encoding: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "AudioEncoding",
-                  "canonicalReference": "transcribe-stt!AudioEncoding:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "releaseTag": "Public",
-              "name": "encoding",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "transcribe-stt!WavHeaders#sampleRateHertz:member",
-              "docComment": "/**\n * Audio sample rate in Hertz\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "sampleRateHertz: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "number"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "releaseTag": "Public",
-              "name": "sampleRateHertz",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            }
-          ],
-          "extendsTokenRanges": []
         }
       ]
     }
