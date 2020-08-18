@@ -23,7 +23,7 @@ npm i transcribe-stt
 
 ## Reference
 
-See the [reference documentation](https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/docs/md/index.md).
+See the [reference documentation](https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/docs/md/index.md)
 
 ## Google authentication
 
