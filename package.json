@@ -5,8 +5,8 @@
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "scripts": {
-    "build:all": "npm run ts:all && npm run build && npm run docs && npm run lint:fix",
-    "build": "tsc",
+    "build:all": "npm run ts:all && npm run docs && npm run lint:fix",
+    "build": "rimraf dist && tsc",
     "docs:generate": "api-documenter markdown --input-folder docs/input --output-folder docs/md",
     "docs:init": "cpy \"temp/transcribe-stt.api.json\" \"docs/input\"",
     "docs": "npm run build && npm run extract && npm run docs:init && npm run docs:generate",
@@ -59,6 +59,7 @@
     "jest": "^26.4.0",
     "node-fetch": "^2.6.0",
     "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
     "ts-jest": "^26.2.0",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.7"
