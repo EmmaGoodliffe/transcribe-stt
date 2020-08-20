@@ -128,6 +128,7 @@ class DistributedSTTStream {
   async distribute(): Promise<string> {
     let stdout = "";
     try {
+      // Run distribute script
       stdout = await runBashScript(
         "distribute.sh",
         `${this.audioFilename} ${this.audioDirname} ${SHARD_LENGTH}`,
@@ -148,8 +149,9 @@ class DistributedSTTStream {
           for (const pattern of knownWarningPatterns) {
             isKnownWarning = isKnownWarning || pattern.test(errorMessage);
           }
-          // If error is not a known warning and it is full, throw it
+          // If error is not a known warning and it is full
           if (!isKnownWarning && errorMessage.length) {
+            // Throw it
             throw errorMessage;
           }
         }

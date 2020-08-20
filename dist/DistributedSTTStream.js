@@ -153,6 +153,7 @@ var DistributedSTTStream = /** @class */ (function () {
                         _d.trys.push([1, 3, , 4]);
                         return [4 /*yield*/, helpers_1.runBashScript("distribute.sh", this.audioFilename + " " + this.audioDirname + " " + SHARD_LENGTH)];
                     case 2:
+                        // Run distribute script
                         stdout = _d.sent();
                         return [3 /*break*/, 4];
                     case 3:
@@ -172,8 +173,9 @@ var DistributedSTTStream = /** @class */ (function () {
                                     pattern = knownWarningPatterns_1[_a];
                                     isKnownWarning = isKnownWarning || pattern.test(errorMessage);
                                 }
-                                // If error is not a known warning and it is full, throw it
+                                // If error is not a known warning and it is full
                                 if (!isKnownWarning && errorMessage.length) {
+                                    // Throw it
                                     throw errorMessage;
                                 }
                             }

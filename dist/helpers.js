@@ -39,8 +39,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.recExp = exports.runBashScript = exports.useSpinner = exports.relPathToAbs = void 0;
 var child_process_1 = require("child_process");
 var path_1 = require("path");
-// Constants
-var WSL_URL = "_"; // TODO: Enter correct URL
 /**
  * Converts a relative path to an absolute path using the directory the function is run from
  * @param path - Relative path
@@ -97,25 +95,41 @@ exports.useSpinner = function (promise, spinner, successText, failText) {
  * @internal
  */
 exports.runBashScript = function (filename_, args) {
-    return new Promise(function (resolve_, reject) {
+    return new Promise(function (resolve, reject_) {
+        // Define reject function
+        var reject = function (reason) {
+            return reject_([
+                "An error occurred running a bash script.",
+                "This is probably because you're environment is not set up correctly.",
+                "Docker will be used soon to enable the app on any environment.",
+            ].join("\n") + " " + reason);
+        };
+        // Define absolute path
         var filename = path_1.resolve("./scripts/bash", "./" + filename_);
         var absFilename = exports.relPathToAbs(filename);
+        // Define command
         var command = absFilename + " " + args;
+        // Execute command
         child_process_1.exec(command, function (error, stdout, stderr) {
+            // Handle errors
             if (error) {
+                // Check if error was caused by Windows
                 var isWindowsError = ("" + stderr).includes("'.' is not recognized as an internal or external command");
+                // If error was caused by Windows
                 if (isWindowsError) {
-                    var errorPrefix = "An error occurred running a bash script. If you are using windows, please use WSL. See " + WSL_URL + " for more details";
-                    reject(errorPrefix + ". " + error);
+                    // Throw error explaining
+                    var errorPrefix = "It looks like you are running Windows which is not supported yet";
+                    var reason = errorPrefix + ". " + error;
+                    reject(reason);
                 }
                 else {
-                    reject(error);
+                    reject("" + error);
                 }
             }
-            if (stderr && stderr.length) {
-                reject(stderr);
-            }
-            resolve_(stdout);
+            // If STD error was thrown, reject it
+            stderr.length && reject(stderr);
+            // Resolve STD output
+            resolve(stdout);
         });
     });
 };

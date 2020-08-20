@@ -1,9 +1,6 @@
 import { exec } from "child_process";
 import { Ora } from "ora";
-import { dirname, resolve } from "path";
-
-// Constants
-const WSL_URL = "_"; // TODO: Enter correct URL
+import { dirname, resolve as pathResolve } from "path";
 
 /**
  * Converts a relative path to an absolute path using the directory the function is run from
@@ -12,7 +9,7 @@ const WSL_URL = "_"; // TODO: Enter correct URL
  * @internal
  */
 export const relPathToAbs = (path: string): string =>
-  resolve(dirname(""), path);
+  pathResolve(dirname(""), path);
 
 /**
  * Show spinner while a promise is running
@@ -56,28 +53,46 @@ export const runBashScript = (
   filename_: string,
   args: string,
 ): Promise<string> =>
-  new Promise((resolve_, reject) => {
-    const filename = resolve("./scripts/bash", `./${filename_}`);
+  new Promise((resolve, reject_) => {
+    // Define reject function
+    const reject = (reason: string) =>
+      reject_(
+        `${[
+          "An error occurred running a bash script.",
+          "This is probably because you're environment is not set up correctly.",
+          "Docker will be used soon to enable the app on any environment.",
+        ].join("\n")} ${reason}`,
+      );
+    // Define absolute path
+    const filename = pathResolve("./scripts/bash", `./${filename_}`);
     const absFilename = relPathToAbs(filename);
+    // Define command
     const command = `${absFilename} ${args}`;
+    // Execute command
     exec(command, (error, stdout, stderr) => {
+      // Handle errors
       if (error) {
+        // Check if error was caused by Windows
         const isWindowsError = `${stderr}`.includes(
           "'.' is not recognized as an internal or external command",
         );
+        // If error was caused by Windows
         if (isWindowsError) {
-          const errorPrefix = `An error occurred running a bash script. If you are using windows, please use WSL. See ${WSL_URL} for more details`;
-          reject(`${errorPrefix}. ${error}`);
+          // Throw error explaining
+          const errorPrefix =
+            "It looks like you are running Windows which is not supported yet";
+          const reason = `${errorPrefix}. ${error}`;
+          reject(reason);
         } else {
-          reject(error);
+          reject(`${error}`);
         }
       }
 
-      if (stderr && stderr.length) {
-        reject(stderr);
-      }
+      // If STD error was thrown, reject it
+      stderr.length && reject(stderr);
 
-      resolve_(stdout);
+      // Resolve STD output
+      resolve(stdout);
     });
   });
 
