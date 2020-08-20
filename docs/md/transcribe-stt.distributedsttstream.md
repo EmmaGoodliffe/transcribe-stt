@@ -29,6 +29,7 @@ const textFilename = "./<output text file>.txt";
 const options = {
   encoding: "LINEAR16",
   sampleRateHertz: 16000,
+  append: true,
 };
 
 // Initialise stream

@@ -36,6 +36,7 @@ export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.Recognit
  * const options = {
  *  encoding: "LINEAR16",
  *  sampleRateHertz: 16000,
+ *  append: true,
  * };
  *
  * // Initialise stream

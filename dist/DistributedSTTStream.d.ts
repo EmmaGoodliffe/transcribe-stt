@@ -18,6 +18,7 @@ import { DistributeListener, ProgressListener, STTStreamOptionsAppend } from "./
  * const options = {
  *  encoding: "LINEAR16",
  *  sampleRateHertz: 16000,
+ *  append: true,
  * };
  *
  * // Initialise stream

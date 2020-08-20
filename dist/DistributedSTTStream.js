@@ -64,6 +64,7 @@ var SHARD_LENGTH = 300;
  * const options = {
  *  encoding: "LINEAR16",
  *  sampleRateHertz: 16000,
+ *  append: true,
  * };
  *
  * // Initialise stream
