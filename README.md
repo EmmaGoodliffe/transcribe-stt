@@ -122,7 +122,7 @@ file <input WAV file>
 
 #### Encoding
 
-Encodings often go by multiple aliases. For example, "LINEAR16" is often listed by the `file` command and other methods as "Microsoft PCM 16 bit". Because of this, it can be difficult to find which encoding you have and whether it is supported by [Google's Speech to Text API]. The list of supported encodings is [here](https://cloud.google.com/speech-to-text/docs/encoding)
+Encodings often go by multiple aliases. For example, "LINEAR16" is often listed by the `file` command and other methods as "Microsoft PCM 16 bit". Because of this, it can be difficult to find which encoding you have and whether it is supported by [Google's Speech to Text API]. The list of supported encodings is [here](https://cloud.google.com/speech-to-text/docs/encoding) (and usually you can find the aliases of your encoding with not too much research)
 
 If you can't run the `file` command, [Audacity] can be used to change the encoding of the file as documented [above](#converting-audio-to-a-wav-file)
 
