@@ -1,4 +1,4 @@
-import { readdirSync, writeFileSync } from "fs";
+import { readdirSync } from "fs";
 import { resolve } from "path";
 import { runBashScript } from "./helpers";
 import STTStream from "./STTStream";
@@ -45,10 +45,8 @@ const SHARD_LENGTH = 300;
  * ```
  * @public
  */
-class DistributedSTTStream {
-  audioFilename: string;
+class DistributedSTTStream extends STTStream {
   audioDirname: string;
-  textFilename: string;
   options: STTStreamOptionsAppend;
   progress: number;
   progressListeners: ProgressListener[];
@@ -65,9 +63,8 @@ class DistributedSTTStream {
     textFilename: string,
     options: STTStreamOptionsAppend,
   ) {
-    this.audioFilename = audioFilename;
+    super(audioFilename, textFilename, options);
     this.audioDirname = audioDirname;
-    this.textFilename = textFilename;
     this.options = options;
     this.progress = 0;
     this.progressListeners = [];
@@ -166,14 +163,7 @@ class DistributedSTTStream {
     // Return STD output
     return stdout;
   }
-  /**
-   * Start distributed STT stream
-   * @example
-   * See {@link DistributedSTTStream} for an example
-   * @param useConsole - See {@link STTStream.start}
-   * @returns Lines of the transcript of each audio file
-   */
-  async start(useConsole?: boolean): Promise<string[][]> {
+  async start(useConsole?: boolean): Promise<string[]> {
     const results: string[][] = [];
 
     try {
@@ -213,11 +203,7 @@ class DistributedSTTStream {
     // Set progress to 100%
     await this.setProgress(100);
     // Return result
-    return results;
-  }
-  /** {@inheritdoc STTStream.emptyTextFile} */
-  emptyTextFile(): void {
-    writeFileSync(this.textFilename, "");
+    return results.flat();
   }
 }
 

@@ -71,7 +71,7 @@ test(
       },
     );
     const results = await stream.start(false);
-    const lines = results.map(result => result.join("\n")).join("\n");
+    const lines = results.join("\n");
     await delay(100);
     const transcript = readFileSync(textFilename).toString();
     expect(clean(lines)).toBe(clean(transcript));
