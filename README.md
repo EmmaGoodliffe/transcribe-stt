@@ -16,7 +16,7 @@ Transcribe audio of any length using Google's Speech to Text API
 
 ## Description
 
-Transcribe audio of any length using [Google's Speech to Text API](https://cloud.google.com/speech-to-text/) using its [`Node client`](https://www.npmjs.com/package/@google-cloud/speech)
+Transcribe audio of any length using [Google's Speech to Text API] with its [`Node client`](https://www.npmjs.com/package/@google-cloud/speech)
 
 ## Installation
 
@@ -37,20 +37,20 @@ To stream any audio, you must authenticate yourself with Google. To do this, jus
    ```
    key.json
    ```
-1. Change the value of the environment variable `GOOGLE_APPLICATION_CREDENTIALS` to the **absolute** path to your JSON key. There are multiple ways to do this. The easiest way is probably `dotenv`
+1. Change the value of the environment variable `GOOGLE_APPLICATION_CREDENTIALS` to the **absolute** path to your JSON key. There are multiple ways to do this. The easiest way is probably [`dotenv`]
 
-   - `dotenv` (a package for easily defining environment variables)
+   - [`dotenv`] (a package for easily defining environment variables)
 
      1. Create a file called `.env` and add it to any `.gitignore`/etc in the same way as the JSON key
      1. In your `.env`, add a line as follows, replacing `PATH` with the absolute path to your JSON key
         ```
         GOOGLE_APPLICATION_CREDENTIALS=PATH
         ```
-     1. Install `dotenv`
+     1. Install [`dotenv`]
         ```
         npm i dotenv --save-dev
         ```
-     1. Configure `dotenv` before using any `transcribe-stt` services
+     1. Configure [`dotenv`] before using any `transcribe-stt` services
 
         ```ts
         import { config } from "dotenv";
@@ -122,7 +122,7 @@ file <input WAV file>
 
 #### Encoding
 
-Encodings often go by multiple aliases. For example, "LINEAR16" is often listed by the `file` command and other methods as "Microsoft PCM 16 bit". Because of this, it can be difficult to find which encoding you have and whether it is supported by Google's Speech to Text API. The list of supported encodings is [here](https://cloud.google.com/speech-to-text/docs/encoding)
+Encodings often go by multiple aliases. For example, "LINEAR16" is often listed by the `file` command and other methods as "Microsoft PCM 16 bit". Because of this, it can be difficult to find which encoding you have and whether it is supported by [Google's Speech to Text API]. The list of supported encodings is [here](https://cloud.google.com/speech-to-text/docs/encoding)
 
 If you can't run the `file` command, [Audacity] can be used to change the encoding of the file as documented [above](#converting-audio-to-a-wav-file)
 
@@ -137,5 +137,8 @@ Similarly, if you can't run the `file` command, [Audacity] can show you the samp
 - Use docker
 - Document how to change to a WAV file programmatically
 - Make `STTStream` and `DistributedSTTStream` extend same class, or make `DistributedSTTStream` extend `STTStream`
+- Add comments to all `.ts` files
 
 [audacity]: https://www.audacityteam.org/
+[google's speech to text api]: https://cloud.google.com/speech-to-text/
+[`dotenv`]: https://www.npmjs.com/package/dotenv
