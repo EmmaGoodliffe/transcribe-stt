@@ -1,10 +1,10 @@
 import { mkdirSync, readFileSync, rmdirSync } from "fs";
+import { dirname, resolve } from "path";
 import { STTStream, DistributedSTTStream } from "../src";
-import { relPathToAbs } from "../src/helpers";
 
 // Prepare environment
 const relGoogleKeyFilename = "./key.json";
-const absGoogleKeyFilename = relPathToAbs(relGoogleKeyFilename);
+const absGoogleKeyFilename = resolve(dirname(""), relGoogleKeyFilename);
 process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
 
 // Constants
@@ -18,7 +18,7 @@ const TIME_LIMIT = 60 * 1000;
 
 // Helpers
 const createTextFilename = () =>
-  relPathToAbs(`./${TEXT_DIRNAME}/stream${Date.now()}.txt`);
+  resolve(dirname(""), `./${TEXT_DIRNAME}/stream${Date.now()}.txt`);
 
 const clean = (s: string) =>
   s

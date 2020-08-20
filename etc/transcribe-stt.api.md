@@ -7,6 +7,9 @@
 import { google } from '@google-cloud/speech/build/protos/protos';
 
 // @public
+export type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
+
+// @public
 export class DistributedSTTStream {
     constructor(audioFilename: string, audioDirname: string, textFilename: string, options: STTStreamOptionsAppend);
     // (undocumented)
@@ -14,21 +17,15 @@ export class DistributedSTTStream {
     // (undocumented)
     audioFilename: string;
     distribute(): Promise<string>;
-    // Warning: (ae-forgotten-export) The symbol "DistributeListener" needs to be exported by the entry point index.d.ts
-    //
     // (undocumented)
     distributeListeners: DistributeListener[];
     emptyTextFile(): void;
     on(event: "distribute", callback: DistributeListener): void;
     on(event: "progress", callback: ProgressListener): void;
-    // Warning: (ae-forgotten-export) The symbol "STTStreamOptionsAppend" needs to be exported by the entry point index.d.ts
-    //
     // (undocumented)
     options: STTStreamOptionsAppend;
     // (undocumented)
     progress: number;
-    // Warning: (ae-forgotten-export) The symbol "ProgressListener" needs to be exported by the entry point index.d.ts
-    //
     // (undocumented)
     progressListeners: ProgressListener[];
     start(useConsole?: boolean): Promise<string[][]>;
@@ -37,10 +34,20 @@ export class DistributedSTTStream {
 }
 
 // @public
+export type DistributeListener = () => void | Promise<void>;
+
+// @public
+export type LanguageCode = "af-ZA" | "sq-AL" | "am-ET" | "ar-DZ" | "ar-BH" | "ar-EG" | "ar-IQ" | "ar-IL" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-MA" | "ar-OM" | "ar-QA" | "ar-SA" | "ar-PS" | "ar-TN" | "ar-AE" | "ar-YE" | "hy-AM" | "az-AZ" | "eu-ES" | "bn-BD" | "bn-IN" | "bs-BA" | "bg-BG" | "my-MM" | "ca-ES" | "yue-Hant-HK" | "zh (cmn-Hans-CN)" | "zh-TW (cmn-Hant-TW)" | "hr-HR" | "cs-CZ" | "da-DK" | "nl-BE" | "nl-NL" | "en-AU" | "en-CA" | "en-GH" | "en-HK" | "en-IN" | "en-IE" | "en-KE" | "en-NZ" | "en-NG" | "en-PK" | "en-PH" | "en-SG" | "en-ZA" | "en-TZ" | "en-GB" | "en-US" | "et-EE" | "fil-PH" | "fi-FI" | "fr-BE" | "fr-CA" | "fr-FR" | "fr-CH" | "gl-ES" | "ka-GE" | "de-AT" | "de-DE" | "de-CH" | "el-GR" | "gu-IN" | "iw-IL" | "hi-IN" | "hu-HU" | "is-IS" | "id-ID" | "it-IT" | "it-CH" | "ja-JP" | "jv-ID" | "kn-IN" | "km-KH" | "ko-KR" | "lo-LA" | "lv-LV" | "lt-LT" | "mk-MK" | "ms-MY" | "ml-IN" | "mr-IN" | "mn-MN" | "ne-NP" | "no-NO" | "fa-IR" | "pl-PL" | "pt-BR" | "pt-PT" | "pa-Guru-IN" | "ro-RO" | "ru-RU" | "sr-RS" | "si-LK" | "sk-SK" | "sl-SI" | "es-AR" | "es-BO" | "es-CL" | "es-CO" | "es-CR" | "es-DO" | "es-EC" | "es-SV" | "es-GT" | "es-HN" | "es-MX" | "es-NI" | "es-PA" | "es-PY" | "es-PE" | "es-PR" | "es-ES" | "es-US" | "es-UY" | "es-VE" | "su-ID" | "sw-KE" | "sw-TZ" | "sv-SE" | "ta-IN" | "ta-MY" | "ta-SG" | "ta-LK" | "te-IN" | "th-TH" | "tr-TR" | "uk-UA" | "ur-IN" | "ur-PK" | "uz-UZ" | "vi-VN" | "zu-ZA";
+
+// @public
+export type Listener = ProgressListener | DistributeListener;
+
+// @public
+export type ProgressListener = (progress: number) => void | Promise<void>;
+
+// @public
 export class STTStream {
     constructor(audioFilename: string, textFilename: string, options: STTStreamOptions);
-    // Warning: (ae-forgotten-export) The symbol "STTStreamOptions" needs to be exported by the entry point index.d.ts
-    //
     // (undocumented)
     append: STTStreamOptions["append"];
     // (undocumented)
@@ -55,6 +62,19 @@ export class STTStream {
     start(useConsole?: boolean): Promise<string[]>;
     // (undocumented)
     textFilename: string;
+}
+
+// @public
+export interface STTStreamOptions {
+    append?: boolean;
+    encoding: AudioEncoding;
+    languageCode?: LanguageCode;
+    sampleRateHertz: number;
+}
+
+// @public
+export interface STTStreamOptionsAppend extends STTStreamOptions {
+    append: true;
 }
 
 

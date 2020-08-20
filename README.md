@@ -138,6 +138,8 @@ Similarly, if you can't run the `file` command, [Audacity] can show you the samp
 - Document how to change to a WAV file programmatically
 - Make `STTStream` and `DistributedSTTStream` extend same class, or make `DistributedSTTStream` extend `STTStream`
 - Add comments to all `.ts` files
+- Resolve all passed paths
+- Check existence of all passed files and directories
 
 [audacity]: https://www.audacityteam.org/
 [google's speech to text api]: https://cloud.google.com/speech-to-text/
