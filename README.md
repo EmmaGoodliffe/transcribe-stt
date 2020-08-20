@@ -106,7 +106,7 @@ To use an audio file with `transcribe-stt`, it must be a WAV file with mono audi
    > Select > All
 1. Convert to mono if necessary
    > Tracks > Mix > Mix Stereo Down to Mono
-1. Optionally change sample rate (and remember it for later)
+1. Optionally check or change the sample rate (and remember it for later)
    > Tracks > Resample...
 1. Export as WAV file
    > Export > Export as WAV
