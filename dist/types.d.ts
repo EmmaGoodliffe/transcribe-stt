@@ -27,6 +27,7 @@ export declare type Listener = ProgressListener | DistributeListener;
  * @public
  */
 export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
+export { LanguageCode };
 /**
  *  Options for an STT stream
  * @public

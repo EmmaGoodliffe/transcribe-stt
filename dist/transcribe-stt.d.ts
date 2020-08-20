@@ -15,7 +15,7 @@ import { google } from '@google-cloud/speech/build/protos/protos';
  * If you don't know the encoding of your WAV file, find out how to check it <a href="https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#encoding">here</a>
  * @public
  */
-export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
+declare type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
 
 /**
  * A distributed STT stream (for audio files longer than 305 seconds)
@@ -117,7 +117,7 @@ export declare class DistributedSTTStream {
  *  Listener for the distribute value
  * @public
  */
-export declare type DistributeListener = () => void | Promise<void>;
+declare type DistributeListener = () => void | Promise<void>;
 
 /**
  * Language code
@@ -125,13 +125,7 @@ export declare type DistributeListener = () => void | Promise<void>;
  * See https://cloud.google.com/speech-to-text/docs/languages
  * @public
  */
-export declare type LanguageCode = "af-ZA" | "af-ZA" | "sq-AL" | "sq-AL" | "am-ET" | "am-ET" | "ar-DZ" | "ar-DZ" | "ar-BH" | "ar-BH" | "ar-EG" | "ar-EG" | "ar-IQ" | "ar-IQ" | "ar-IL" | "ar-IL" | "ar-JO" | "ar-JO" | "ar-KW" | "ar-KW" | "ar-LB" | "ar-LB" | "ar-MA" | "ar-MA" | "ar-OM" | "ar-OM" | "ar-QA" | "ar-QA" | "ar-SA" | "ar-SA" | "ar-PS" | "ar-PS" | "ar-TN" | "ar-TN" | "ar-AE" | "ar-AE" | "ar-YE" | "ar-YE" | "hy-AM" | "hy-AM" | "az-AZ" | "az-AZ" | "eu-ES" | "eu-ES" | "bn-BD" | "bn-BD" | "bn-IN" | "bn-IN" | "bs-BA" | "bs-BA" | "bg-BG" | "bg-BG" | "my-MM" | "my-MM" | "ca-ES" | "ca-ES" | "yue-Hant-HK" | "yue-Hant-HK" | "zh (cmn-Hans-CN)" | "zh (cmn-Hans-CN)" | "zh-TW (cmn-Hant-TW)" | "zh-TW (cmn-Hant-TW)" | "hr-HR" | "hr-HR" | "cs-CZ" | "cs-CZ" | "da-DK" | "da-DK" | "nl-BE" | "nl-BE" | "nl-NL" | "nl-NL" | "en-AU" | "en-AU" | "en-CA" | "en-CA" | "en-GH" | "en-GH" | "en-HK" | "en-HK" | "en-IN" | "en-IN" | "en-IE" | "en-IE" | "en-KE" | "en-KE" | "en-NZ" | "en-NZ" | "en-NG" | "en-NG" | "en-PK" | "en-PK" | "en-PH" | "en-PH" | "en-SG" | "en-SG" | "en-ZA" | "en-ZA" | "en-TZ" | "en-TZ" | "en-GB" | "en-GB" | "en-GB" | "en-GB" | "en-US" | "en-US" | "en-US" | "en-US" | "en-US" | "et-EE" | "et-EE" | "fil-PH" | "fil-PH" | "fi-FI" | "fi-FI" | "fr-BE" | "fr-BE" | "fr-CA" | "fr-CA" | "fr-FR" | "fr-FR" | "fr-CH" | "fr-CH" | "gl-ES" | "gl-ES" | "ka-GE" | "ka-GE" | "de-AT" | "de-AT" | "de-DE" | "de-DE" | "de-CH" | "de-CH" | "el-GR" | "el-GR" | "gu-IN" | "gu-IN" | "iw-IL" | "iw-IL" | "hi-IN" | "hi-IN" | "hu-HU" | "hu-HU" | "is-IS" | "is-IS" | "id-ID" | "id-ID" | "it-IT" | "it-IT" | "it-CH" | "it-CH" | "ja-JP" | "ja-JP" | "jv-ID" | "jv-ID" | "kn-IN" | "kn-IN" | "km-KH" | "km-KH" | "ko-KR" | "ko-KR" | "lo-LA" | "lo-LA" | "lv-LV" | "lv-LV" | "lt-LT" | "lt-LT" | "mk-MK" | "mk-MK" | "ms-MY" | "ms-MY" | "ml-IN" | "ml-IN" | "mr-IN" | "mr-IN" | "mn-MN" | "mn-MN" | "ne-NP" | "ne-NP" | "no-NO" | "no-NO" | "fa-IR" | "fa-IR" | "pl-PL" | "pl-PL" | "pt-BR" | "pt-BR" | "pt-PT" | "pt-PT" | "pa-Guru-IN" | "pa-Guru-IN" | "ro-RO" | "ro-RO" | "ru-RU" | "ru-RU" | "ru-RU" | "ru-RU" | "sr-RS" | "sr-RS" | "si-LK" | "si-LK" | "sk-SK" | "sk-SK" | "sl-SI" | "sl-SI" | "es-AR" | "es-AR" | "es-BO" | "es-BO" | "es-CL" | "es-CL" | "es-CO" | "es-CO" | "es-CR" | "es-CR" | "es-DO" | "es-DO" | "es-EC" | "es-EC" | "es-SV" | "es-SV" | "es-GT" | "es-GT" | "es-HN" | "es-HN" | "es-MX" | "es-MX" | "es-NI" | "es-NI" | "es-PA" | "es-PA" | "es-PY" | "es-PY" | "es-PE" | "es-PE" | "es-PR" | "es-PR" | "es-ES" | "es-ES" | "es-US" | "es-US" | "es-US" | "es-US" | "es-UY" | "es-UY" | "es-VE" | "es-VE" | "su-ID" | "su-ID" | "sw-KE" | "sw-KE" | "sw-TZ" | "sw-TZ" | "sv-SE" | "sv-SE" | "ta-IN" | "ta-IN" | "ta-MY" | "ta-MY" | "ta-SG" | "ta-SG" | "ta-LK" | "ta-LK" | "te-IN" | "te-IN" | "th-TH" | "th-TH" | "tr-TR" | "tr-TR" | "uk-UA" | "uk-UA" | "ur-IN" | "ur-IN" | "ur-PK" | "ur-PK" | "uz-UZ" | "uz-UZ" | "vi-VN" | "vi-VN" | "zu-ZA" | "zu-ZA";
-
-/**
- * Listener for any property
- * @public
- */
-export declare type Listener = ProgressListener | DistributeListener;
+declare type LanguageCode = "af-ZA" | "sq-AL" | "am-ET" | "ar-DZ" | "ar-BH" | "ar-EG" | "ar-IQ" | "ar-IL" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-MA" | "ar-OM" | "ar-QA" | "ar-SA" | "ar-PS" | "ar-TN" | "ar-AE" | "ar-YE" | "hy-AM" | "az-AZ" | "eu-ES" | "bn-BD" | "bn-IN" | "bs-BA" | "bg-BG" | "my-MM" | "ca-ES" | "yue-Hant-HK" | "zh (cmn-Hans-CN)" | "zh-TW (cmn-Hant-TW)" | "hr-HR" | "cs-CZ" | "da-DK" | "nl-BE" | "nl-NL" | "en-AU" | "en-CA" | "en-GH" | "en-HK" | "en-IN" | "en-IE" | "en-KE" | "en-NZ" | "en-NG" | "en-PK" | "en-PH" | "en-SG" | "en-ZA" | "en-TZ" | "en-GB" | "en-US" | "et-EE" | "fil-PH" | "fi-FI" | "fr-BE" | "fr-CA" | "fr-FR" | "fr-CH" | "gl-ES" | "ka-GE" | "de-AT" | "de-DE" | "de-CH" | "el-GR" | "gu-IN" | "iw-IL" | "hi-IN" | "hu-HU" | "is-IS" | "id-ID" | "it-IT" | "it-CH" | "ja-JP" | "jv-ID" | "kn-IN" | "km-KH" | "ko-KR" | "lo-LA" | "lv-LV" | "lt-LT" | "mk-MK" | "ms-MY" | "ml-IN" | "mr-IN" | "mn-MN" | "ne-NP" | "no-NO" | "fa-IR" | "pl-PL" | "pt-BR" | "pt-PT" | "pa-Guru-IN" | "ro-RO" | "ru-RU" | "sr-RS" | "si-LK" | "sk-SK" | "sl-SI" | "es-AR" | "es-BO" | "es-CL" | "es-CO" | "es-CR" | "es-DO" | "es-EC" | "es-SV" | "es-GT" | "es-HN" | "es-MX" | "es-NI" | "es-PA" | "es-PY" | "es-PE" | "es-PR" | "es-ES" | "es-US" | "es-UY" | "es-VE" | "su-ID" | "sw-KE" | "sw-TZ" | "sv-SE" | "ta-IN" | "ta-MY" | "ta-SG" | "ta-LK" | "te-IN" | "th-TH" | "tr-TR" | "uk-UA" | "ur-IN" | "ur-PK" | "uz-UZ" | "vi-VN" | "zu-ZA";
 
 /**
  * Listener for the progress value
@@ -140,7 +134,7 @@ export declare type Listener = ProgressListener | DistributeListener;
  * <code>progress</code> - Progress percentage
  * @public
  */
-export declare type ProgressListener = (progress: number) => void | Promise<void>;
+declare type ProgressListener = (progress: number) => void | Promise<void>;
 
 /**
  * An STT stream (for audio files shorter than 305 seconds)
@@ -204,7 +198,7 @@ export declare class STTStream {
  *  Options for an STT stream
  * @public
  */
-export declare interface STTStreamOptions {
+declare interface STTStreamOptions {
     /** Audio encoding. See {@link AudioEncoding} */
     encoding: AudioEncoding;
     /**
@@ -229,7 +223,7 @@ export declare interface STTStreamOptions {
  * See {@link STTStreamOptions} for other properties
  * @public
  */
-export declare interface STTStreamOptionsAppend extends STTStreamOptions {
+declare interface STTStreamOptionsAppend extends STTStreamOptions {
     /** Extends {@link STTStreamOptions.append} */
     append: true;
 }

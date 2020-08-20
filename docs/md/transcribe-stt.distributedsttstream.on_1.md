@@ -14,10 +14,10 @@ on(event: "progress", callback: ProgressListener): void;
 
 ## Parameters
 
-| Parameter | Type                                                     | Description                      |
-| --------- | -------------------------------------------------------- | -------------------------------- |
-| event     | "progress"                                               | Event to listen to               |
-| callback  | [ProgressListener](./transcribe-stt.progresslistener.md) | Function to run when event fires |
+| Parameter | Type             | Description                      |
+| --------- | ---------------- | -------------------------------- |
+| event     | "progress"       | Event to listen to               |
+| callback  | ProgressListener | Function to run when event fires |
 
 <b>Returns:</b>
 

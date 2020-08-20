@@ -14,7 +14,7 @@ declare class STTStream
 
 ## Example
 
-This example writes the transcript of a short LINEAR16 16000Hz WAV file to a text file. You can customise the functionality of the stream with the [STTStreamOptions](./transcribe-stt.sttstreamoptions.md)<!-- -->.
+This example writes the transcript of a short LINEAR16 16000Hz WAV file to a text file. You can customise the functionality of the stream with the .
 
 If you don't know the encoding or sample rate of your WAV file, find out how to check it <a href="https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate">here</a>
 
@@ -46,14 +46,14 @@ stream.start();
 
 ## Properties
 
-| Property                                                         | Modifiers | Type                                                                                  | Description |
-| ---------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------- | ----------- |
-| [append](./transcribe-stt.sttstream.append.md)                   |           | [STTStreamOptions](./transcribe-stt.sttstreamoptions.md)<!-- -->\["append"\]          |             |
-| [audioFilename](./transcribe-stt.sttstream.audiofilename.md)     |           | string                                                                                |             |
-| [encoding](./transcribe-stt.sttstream.encoding.md)               |           | [STTStreamOptions](./transcribe-stt.sttstreamoptions.md)<!-- -->\["encoding"\]        |             |
-| [languageCode](./transcribe-stt.sttstream.languagecode.md)       |           | [STTStreamOptions](./transcribe-stt.sttstreamoptions.md)<!-- -->\["languageCode"\]    |             |
-| [sampleRateHertz](./transcribe-stt.sttstream.sampleratehertz.md) |           | [STTStreamOptions](./transcribe-stt.sttstreamoptions.md)<!-- -->\["sampleRateHertz"\] |             |
-| [textFilename](./transcribe-stt.sttstream.textfilename.md)       |           | string                                                                                |             |
+| Property                                                         | Modifiers | Type                                  | Description |
+| ---------------------------------------------------------------- | --------- | ------------------------------------- | ----------- |
+| [append](./transcribe-stt.sttstream.append.md)                   |           | STTStreamOptions\["append"\]          |             |
+| [audioFilename](./transcribe-stt.sttstream.audiofilename.md)     |           | string                                |             |
+| [encoding](./transcribe-stt.sttstream.encoding.md)               |           | STTStreamOptions\["encoding"\]        |             |
+| [languageCode](./transcribe-stt.sttstream.languagecode.md)       |           | STTStreamOptions\["languageCode"\]    |             |
+| [sampleRateHertz](./transcribe-stt.sttstream.sampleratehertz.md) |           | STTStreamOptions\["sampleRateHertz"\] |             |
+| [textFilename](./transcribe-stt.sttstream.textfilename.md)       |           | string                                |             |
 
 ## Methods
 

@@ -14,9 +14,9 @@ constructor(audioFilename: string, audioDirname: string, textFilename: string, o
 
 ## Parameters
 
-| Parameter     | Type                                                                 | Description                                |
-| ------------- | -------------------------------------------------------------------- | ------------------------------------------ |
-| audioFilename | string                                                               | Path to original audio file                |
-| audioDirname  | string                                                               | Path to output distributed audio directory |
-| textFilename  | string                                                               | Path to text file                          |
-| options       | [STTStreamOptionsAppend](./transcribe-stt.sttstreamoptionsappend.md) | Options                                    |
+| Parameter     | Type                   | Description                                |
+| ------------- | ---------------------- | ------------------------------------------ |
+| audioFilename | string                 | Path to original audio file                |
+| audioDirname  | string                 | Path to output distributed audio directory |
+| textFilename  | string                 | Path to text file                          |
+| options       | STTStreamOptionsAppend | Options                                    |

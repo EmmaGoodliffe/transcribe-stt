@@ -7,9 +7,6 @@
 import { google } from '@google-cloud/speech/build/protos/protos';
 
 // @public
-export type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
-
-// @public
 export class DistributedSTTStream {
     constructor(audioFilename: string, audioDirname: string, textFilename: string, options: STTStreamOptionsAppend);
     // (undocumented)
@@ -17,15 +14,21 @@ export class DistributedSTTStream {
     // (undocumented)
     audioFilename: string;
     distribute(): Promise<string>;
+    // Warning: (ae-forgotten-export) The symbol "DistributeListener" needs to be exported by the entry point index.d.ts
+    //
     // (undocumented)
     distributeListeners: DistributeListener[];
     emptyTextFile(): void;
     on(event: "distribute", callback: DistributeListener): void;
     on(event: "progress", callback: ProgressListener): void;
+    // Warning: (ae-forgotten-export) The symbol "STTStreamOptionsAppend" needs to be exported by the entry point index.d.ts
+    //
     // (undocumented)
     options: STTStreamOptionsAppend;
     // (undocumented)
     progress: number;
+    // Warning: (ae-forgotten-export) The symbol "ProgressListener" needs to be exported by the entry point index.d.ts
+    //
     // (undocumented)
     progressListeners: ProgressListener[];
     start(useConsole?: boolean): Promise<string[][]>;
@@ -34,20 +37,10 @@ export class DistributedSTTStream {
 }
 
 // @public
-export type DistributeListener = () => void | Promise<void>;
-
-// @public
-export type LanguageCode = "af-ZA" | "af-ZA" | "sq-AL" | "sq-AL" | "am-ET" | "am-ET" | "ar-DZ" | "ar-DZ" | "ar-BH" | "ar-BH" | "ar-EG" | "ar-EG" | "ar-IQ" | "ar-IQ" | "ar-IL" | "ar-IL" | "ar-JO" | "ar-JO" | "ar-KW" | "ar-KW" | "ar-LB" | "ar-LB" | "ar-MA" | "ar-MA" | "ar-OM" | "ar-OM" | "ar-QA" | "ar-QA" | "ar-SA" | "ar-SA" | "ar-PS" | "ar-PS" | "ar-TN" | "ar-TN" | "ar-AE" | "ar-AE" | "ar-YE" | "ar-YE" | "hy-AM" | "hy-AM" | "az-AZ" | "az-AZ" | "eu-ES" | "eu-ES" | "bn-BD" | "bn-BD" | "bn-IN" | "bn-IN" | "bs-BA" | "bs-BA" | "bg-BG" | "bg-BG" | "my-MM" | "my-MM" | "ca-ES" | "ca-ES" | "yue-Hant-HK" | "yue-Hant-HK" | "zh (cmn-Hans-CN)" | "zh (cmn-Hans-CN)" | "zh-TW (cmn-Hant-TW)" | "zh-TW (cmn-Hant-TW)" | "hr-HR" | "hr-HR" | "cs-CZ" | "cs-CZ" | "da-DK" | "da-DK" | "nl-BE" | "nl-BE" | "nl-NL" | "nl-NL" | "en-AU" | "en-AU" | "en-CA" | "en-CA" | "en-GH" | "en-GH" | "en-HK" | "en-HK" | "en-IN" | "en-IN" | "en-IE" | "en-IE" | "en-KE" | "en-KE" | "en-NZ" | "en-NZ" | "en-NG" | "en-NG" | "en-PK" | "en-PK" | "en-PH" | "en-PH" | "en-SG" | "en-SG" | "en-ZA" | "en-ZA" | "en-TZ" | "en-TZ" | "en-GB" | "en-GB" | "en-GB" | "en-GB" | "en-US" | "en-US" | "en-US" | "en-US" | "en-US" | "et-EE" | "et-EE" | "fil-PH" | "fil-PH" | "fi-FI" | "fi-FI" | "fr-BE" | "fr-BE" | "fr-CA" | "fr-CA" | "fr-FR" | "fr-FR" | "fr-CH" | "fr-CH" | "gl-ES" | "gl-ES" | "ka-GE" | "ka-GE" | "de-AT" | "de-AT" | "de-DE" | "de-DE" | "de-CH" | "de-CH" | "el-GR" | "el-GR" | "gu-IN" | "gu-IN" | "iw-IL" | "iw-IL" | "hi-IN" | "hi-IN" | "hu-HU" | "hu-HU" | "is-IS" | "is-IS" | "id-ID" | "id-ID" | "it-IT" | "it-IT" | "it-CH" | "it-CH" | "ja-JP" | "ja-JP" | "jv-ID" | "jv-ID" | "kn-IN" | "kn-IN" | "km-KH" | "km-KH" | "ko-KR" | "ko-KR" | "lo-LA" | "lo-LA" | "lv-LV" | "lv-LV" | "lt-LT" | "lt-LT" | "mk-MK" | "mk-MK" | "ms-MY" | "ms-MY" | "ml-IN" | "ml-IN" | "mr-IN" | "mr-IN" | "mn-MN" | "mn-MN" | "ne-NP" | "ne-NP" | "no-NO" | "no-NO" | "fa-IR" | "fa-IR" | "pl-PL" | "pl-PL" | "pt-BR" | "pt-BR" | "pt-PT" | "pt-PT" | "pa-Guru-IN" | "pa-Guru-IN" | "ro-RO" | "ro-RO" | "ru-RU" | "ru-RU" | "ru-RU" | "ru-RU" | "sr-RS" | "sr-RS" | "si-LK" | "si-LK" | "sk-SK" | "sk-SK" | "sl-SI" | "sl-SI" | "es-AR" | "es-AR" | "es-BO" | "es-BO" | "es-CL" | "es-CL" | "es-CO" | "es-CO" | "es-CR" | "es-CR" | "es-DO" | "es-DO" | "es-EC" | "es-EC" | "es-SV" | "es-SV" | "es-GT" | "es-GT" | "es-HN" | "es-HN" | "es-MX" | "es-MX" | "es-NI" | "es-NI" | "es-PA" | "es-PA" | "es-PY" | "es-PY" | "es-PE" | "es-PE" | "es-PR" | "es-PR" | "es-ES" | "es-ES" | "es-US" | "es-US" | "es-US" | "es-US" | "es-UY" | "es-UY" | "es-VE" | "es-VE" | "su-ID" | "su-ID" | "sw-KE" | "sw-KE" | "sw-TZ" | "sw-TZ" | "sv-SE" | "sv-SE" | "ta-IN" | "ta-IN" | "ta-MY" | "ta-MY" | "ta-SG" | "ta-SG" | "ta-LK" | "ta-LK" | "te-IN" | "te-IN" | "th-TH" | "th-TH" | "tr-TR" | "tr-TR" | "uk-UA" | "uk-UA" | "ur-IN" | "ur-IN" | "ur-PK" | "ur-PK" | "uz-UZ" | "uz-UZ" | "vi-VN" | "vi-VN" | "zu-ZA" | "zu-ZA";
-
-// @public
-export type Listener = ProgressListener | DistributeListener;
-
-// @public
-export type ProgressListener = (progress: number) => void | Promise<void>;
-
-// @public
 export class STTStream {
     constructor(audioFilename: string, textFilename: string, options: STTStreamOptions);
+    // Warning: (ae-forgotten-export) The symbol "STTStreamOptions" needs to be exported by the entry point index.d.ts
+    //
     // (undocumented)
     append: STTStreamOptions["append"];
     // (undocumented)
@@ -62,19 +55,6 @@ export class STTStream {
     start(useConsole?: boolean): Promise<string[]>;
     // (undocumented)
     textFilename: string;
-}
-
-// @public
-export interface STTStreamOptions {
-    append?: boolean;
-    encoding: AudioEncoding;
-    languageCode?: LanguageCode;
-    sampleRateHertz: number;
-}
-
-// @public
-export interface STTStreamOptionsAppend extends STTStreamOptions {
-    append: true;
 }
 
 
