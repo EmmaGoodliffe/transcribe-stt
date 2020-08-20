@@ -61,7 +61,7 @@ export const runBashScript = (
           "An error occurred running a bash script.",
           "This is probably because you're environment is not set up correctly.",
           "Docker will be used soon to enable the app on any environment.",
-        ].join("\n")} ${reason}`,
+        ].join(" ")} ${reason}`,
       );
     // Define absolute path
     const filename = pathResolve("./scripts/bash", `./${filename_}`);
