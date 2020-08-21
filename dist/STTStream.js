@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -86,13 +97,10 @@ var STTStream = /** @class */ (function () {
     function STTStream(audioFilename, textFilename, options) {
         this.audioFilename = audioFilename;
         this.textFilename = textFilename;
-        this.append = options.append || false;
-        this.encoding = options.encoding;
-        this.sampleRateHertz = options.sampleRateHertz;
-        this.languageCode = options.languageCode || "en-US";
+        this.options = __assign(__assign({}, options), { append: options.append || false, languageCode: options.languageCode || "en-US" });
     }
     /**
-     * Start STT stream
+     * Start stream
      * @example
      * See {@link STTStream} for an example
      * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`
@@ -134,7 +142,7 @@ var STTStream = /** @class */ (function () {
             // Initialise results
             var results = [];
             // If not appending
-            if (!_this.append) {
+            if (!_this.options.append) {
                 // Empty file
                 _this.emptyTextFile();
             }
@@ -143,9 +151,9 @@ var STTStream = /** @class */ (function () {
             // Define request
             var request = {
                 config: {
-                    encoding: _this.encoding,
-                    sampleRateHertz: _this.sampleRateHertz,
-                    languageCode: _this.languageCode,
+                    encoding: _this.options.encoding,
+                    sampleRateHertz: _this.options.sampleRateHertz,
+                    languageCode: _this.options.languageCode,
                 },
             };
             // Create read stream for audio file

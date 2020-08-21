@@ -102,7 +102,7 @@ exports.runBashScript = function (filename_, args) {
                 "An error occurred running a bash script.",
                 "This is probably because you're environment is not set up correctly.",
                 "Docker will be used soon to enable the app on any environment.",
-            ].join("\n") + " " + reason);
+            ].join(" ") + " " + reason);
         };
         // Define absolute path
         var filename = path_1.resolve("./scripts/bash", "./" + filename_);

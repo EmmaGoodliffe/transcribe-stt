@@ -40,31 +40,25 @@ const FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
  * @public
  */
 class STTStream {
-  audioFilename: string;
-  textFilename: string;
-  append: STTStreamOptions["append"];
-  encoding: STTStreamOptions["encoding"];
-  sampleRateHertz: STTStreamOptions["sampleRateHertz"];
-  languageCode: STTStreamOptions["languageCode"];
+  options: STTStreamOptions;
   /**
    * @param audioFilename - Path to audio file
    * @param textFilename - Path to text file
    * @param options - Options
    */
   constructor(
-    audioFilename: string,
-    textFilename: string,
+    public audioFilename: string,
+    public textFilename: string,
     options: STTStreamOptions,
   ) {
-    this.audioFilename = audioFilename;
-    this.textFilename = textFilename;
-    this.append = options.append || false;
-    this.encoding = options.encoding;
-    this.sampleRateHertz = options.sampleRateHertz;
-    this.languageCode = options.languageCode || "en-US";
+    this.options = {
+      ...options,
+      append: options.append || false,
+      languageCode: options.languageCode || "en-US",
+    };
   }
   /**
-   * Start STT stream
+   * Start stream
    * @example
    * See {@link STTStream} for an example
    * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`
@@ -99,7 +93,7 @@ class STTStream {
       const results: string[] = [];
 
       // If not appending
-      if (!this.append) {
+      if (!this.options.append) {
         // Empty file
         this.emptyTextFile();
       }
@@ -110,9 +104,9 @@ class STTStream {
       // Define request
       const request = {
         config: {
-          encoding: this.encoding,
-          sampleRateHertz: this.sampleRateHertz,
-          languageCode: this.languageCode,
+          encoding: this.options.encoding,
+          sampleRateHertz: this.options.sampleRateHertz,
+          languageCode: this.options.languageCode,
         },
       };
 

@@ -1,4 +1,17 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -76,9 +89,12 @@ var SHARD_LENGTH = 300;
  * // Start stream and write output to text file
  * stream.start();
  * ```
+ * @remarks
+ * See {@link STTStream} for other properties and methods
  * @public
  */
-var DistributedSTTStream = /** @class */ (function () {
+var DistributedSTTStream = /** @class */ (function (_super) {
+    __extends(DistributedSTTStream, _super);
     /**
      * @param audioFilename - Path to original audio file
      * @param audioDirname - Path to output distributed audio directory
@@ -86,13 +102,12 @@ var DistributedSTTStream = /** @class */ (function () {
      * @param options - Options
      */
     function DistributedSTTStream(audioFilename, audioDirname, textFilename, options) {
-        this.audioFilename = audioFilename;
-        this.audioDirname = audioDirname;
-        this.textFilename = textFilename;
-        this.options = options;
-        this.progress = 0;
-        this.progressListeners = [];
-        this.distributeListeners = [];
+        var _this = _super.call(this, audioFilename, textFilename, options) || this;
+        _this.audioDirname = audioDirname;
+        _this.options = options;
+        _this.progressListeners = [];
+        _this.distributeListeners = [];
+        return _this;
     }
     /**
      * Set progress
@@ -105,8 +120,6 @@ var DistributedSTTStream = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        // Set progress
-                        this.progress = progress;
                         _i = 0, _a = this.progressListeners;
                         _b.label = 1;
                     case 1:
@@ -201,13 +214,7 @@ var DistributedSTTStream = /** @class */ (function () {
             });
         });
     };
-    /**
-     * Start distributed STT stream
-     * @example
-     * See {@link DistributedSTTStream} for an example
-     * @param useConsole - See {@link STTStream.start}
-     * @returns Lines of the transcript of each audio file
-     */
+    /** {@inheritdoc STTStream.start} */
     DistributedSTTStream.prototype.start = function (useConsole) {
         return __awaiter(this, void 0, void 0, function () {
             var results, stdout, err_1, filenames, pattern, wavFilenames, wavFileNum, _a, _b, _i, i, index, wavFilename, fullWavFn, stream, percentage, result;
@@ -266,15 +273,11 @@ var DistributedSTTStream = /** @class */ (function () {
                         // Set progress to 100%
                         _c.sent();
                         // Return result
-                        return [2 /*return*/, results];
+                        return [2 /*return*/, results.flat()];
                 }
             });
         });
     };
-    /** {@inheritdoc STTStream.emptyTextFile} */
-    DistributedSTTStream.prototype.emptyTextFile = function () {
-        fs_1.writeFileSync(this.textFilename, "");
-    };
     return DistributedSTTStream;
-}());
+}(STTStream_1.default));
 exports.default = DistributedSTTStream;

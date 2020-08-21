@@ -48,16 +48,15 @@ export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.Recognit
  * // Start stream and write output to text file
  * stream.start();
  * ```
+ * @remarks
+ * See {@link STTStream} for other properties and methods
  * @public
  */
-export declare class DistributedSTTStream {
-    audioFilename: string;
+export declare class DistributedSTTStream extends STTStream {
     audioDirname: string;
-    textFilename: string;
     options: STTStreamOptionsAppend;
-    progress: number;
-    progressListeners: ProgressListener[];
-    distributeListeners: DistributeListener[];
+    private progressListeners;
+    private distributeListeners;
     /**
      * @param audioFilename - Path to original audio file
      * @param audioDirname - Path to output distributed audio directory
@@ -102,16 +101,8 @@ export declare class DistributedSTTStream {
      * @returns STD output of bash script
      */
     distribute(): Promise<string>;
-    /**
-     * Start distributed STT stream
-     * @example
-     * See {@link DistributedSTTStream} for an example
-     * @param useConsole - See {@link STTStream.start}
-     * @returns Lines of the transcript of each audio file
-     */
-    start(useConsole?: boolean): Promise<string[][]>;
-    /** {@inheritdoc STTStream.emptyTextFile} */
-    emptyTextFile(): void;
+    /** {@inheritdoc STTStream.start} */
+    start(useConsole?: boolean): Promise<string[]>;
 }
 
 /**
@@ -174,10 +165,7 @@ export declare type ProgressListener = (progress: number) => void | Promise<void
 export declare class STTStream {
     audioFilename: string;
     textFilename: string;
-    append: STTStreamOptions["append"];
-    encoding: STTStreamOptions["encoding"];
-    sampleRateHertz: STTStreamOptions["sampleRateHertz"];
-    languageCode: STTStreamOptions["languageCode"];
+    options: STTStreamOptions;
     /**
      * @param audioFilename - Path to audio file
      * @param textFilename - Path to text file
@@ -185,7 +173,7 @@ export declare class STTStream {
      */
     constructor(audioFilename: string, textFilename: string, options: STTStreamOptions);
     /**
-     * Start STT stream
+     * Start stream
      * @example
      * See {@link STTStream} for an example
      * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`
@@ -224,7 +212,7 @@ export declare interface STTStreamOptions {
  * Options for an STT stream but `append` must be set to `true`
  * @remarks
  * `append` must be set to `true` because each audio file's transcript is appended to the same file.
- * Despite this, you can use {@link DistributedSTTStream.emptyTextFile} to empty the file first.
+ * Despite this, you can use {@link DistributedSTTStream} to empty the file first.
  * See {@link DistributedSTTStream} for an example.
  *
  * See {@link STTStreamOptions} for other properties

@@ -1,3 +1,4 @@
+import STTStream from "./STTStream";
 import { DistributeListener, ProgressListener, STTStreamOptionsAppend } from "./types";
 /**
  * A distributed STT stream (for audio files longer than 305 seconds)
@@ -30,16 +31,15 @@ import { DistributeListener, ProgressListener, STTStreamOptionsAppend } from "./
  * // Start stream and write output to text file
  * stream.start();
  * ```
+ * @remarks
+ * See {@link STTStream} for other properties and methods
  * @public
  */
-declare class DistributedSTTStream {
-    audioFilename: string;
+declare class DistributedSTTStream extends STTStream {
     audioDirname: string;
-    textFilename: string;
     options: STTStreamOptionsAppend;
-    progress: number;
-    progressListeners: ProgressListener[];
-    distributeListeners: DistributeListener[];
+    private progressListeners;
+    private distributeListeners;
     /**
      * @param audioFilename - Path to original audio file
      * @param audioDirname - Path to output distributed audio directory
@@ -84,16 +84,8 @@ declare class DistributedSTTStream {
      * @returns STD output of bash script
      */
     distribute(): Promise<string>;
-    /**
-     * Start distributed STT stream
-     * @example
-     * See {@link DistributedSTTStream} for an example
-     * @param useConsole - See {@link STTStream.start}
-     * @returns Lines of the transcript of each audio file
-     */
-    start(useConsole?: boolean): Promise<string[][]>;
-    /** {@inheritdoc STTStream.emptyTextFile} */
-    emptyTextFile(): void;
+    /** {@inheritdoc STTStream.start} */
+    start(useConsole?: boolean): Promise<string[]>;
 }
 export default DistributedSTTStream;
 //# sourceMappingURL=DistributedSTTStream.d.ts.map

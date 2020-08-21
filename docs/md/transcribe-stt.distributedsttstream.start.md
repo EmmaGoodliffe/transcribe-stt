@@ -4,26 +4,22 @@
 
 ## DistributedSTTStream.start() method
 
-Start distributed STT stream
+Start stream
 
 <b>Signature:</b>
 
 ```typescript
-start(useConsole?: boolean): Promise<string[][]>;
+start(useConsole?: boolean): Promise<string[]>;
 ```
 
 ## Parameters
 
-| Parameter  | Type    | Description                                                  |
-| ---------- | ------- | ------------------------------------------------------------ |
-| useConsole | boolean | See [STTStream.start()](./transcribe-stt.sttstream.start.md) |
+| Parameter  | Type    | Description                                                                                                        |
+| ---------- | ------- | ------------------------------------------------------------------------------------------------------------------ |
+| useConsole | boolean | Whether to show a loading spinner and deliver warnings in the console during STT stream. Default <code>true</code> |
 
 <b>Returns:</b>
 
-Promise&lt;string\[\]\[\]&gt;
+Promise&lt;string\[\]&gt;
 
-Lines of the transcript of each audio file
-
-## Example
-
-See [DistributedSTTStream](./transcribe-stt.distributedsttstream.md) for an example
+Lines of the transcript

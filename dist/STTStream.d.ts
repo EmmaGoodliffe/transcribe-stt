@@ -30,10 +30,7 @@ import { STTStreamOptions } from "./types";
 declare class STTStream {
     audioFilename: string;
     textFilename: string;
-    append: STTStreamOptions["append"];
-    encoding: STTStreamOptions["encoding"];
-    sampleRateHertz: STTStreamOptions["sampleRateHertz"];
-    languageCode: STTStreamOptions["languageCode"];
+    options: STTStreamOptions;
     /**
      * @param audioFilename - Path to audio file
      * @param textFilename - Path to text file
@@ -41,7 +38,7 @@ declare class STTStream {
      */
     constructor(audioFilename: string, textFilename: string, options: STTStreamOptions);
     /**
-     * Start STT stream
+     * Start stream
      * @example
      * See {@link STTStream} for an example
      * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`

@@ -48,11 +48,20 @@
         {
           "kind": "Class",
           "canonicalReference": "transcribe-stt!DistributedSTTStream:class",
-          "docComment": "/**\n * A distributed STT stream (for audio files longer than 305 seconds)\n *\n * @example\n *\n * This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file. You can customise the functionality of the stream with the {@link STTStreamOptionsAppend}\n *\n * If you don't know the encoding or sample rate of your WAV file, find out how to check it <a href=\"https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate\">here</a>\n * ```ts\n * import { DistributedSTTStream } from \"transcribe-stt\";\n *\n * // TODO: Authenticate with Google. See https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication\n *\n * const audioFilename = \"./<input audio file>.wav\";\n * const audioDirname = \"./<output audio directory>\";\n * const textFilename = \"./<output text file>.txt\";\n * const options = {\n *  encoding: \"LINEAR16\",\n *  sampleRateHertz: 16000,\n *  append: true,\n * };\n *\n * // Initialise stream\n * const stream = new DistributedSTTStream(audioFilename, audioDirname, textFilename, options);\n *\n * // Empty text file\n * stream.emptyTextFile();\n *\n * // Start stream and write output to text file\n * stream.start();\n * ```\n *\n * @public\n */\n",
+          "docComment": "/**\n * A distributed STT stream (for audio files longer than 305 seconds)\n *\n * @remarks\n *\n * See {@link STTStream} for other properties and methods\n *\n * @example\n *\n * This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file. You can customise the functionality of the stream with the {@link STTStreamOptionsAppend}\n *\n * If you don't know the encoding or sample rate of your WAV file, find out how to check it <a href=\"https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate\">here</a>\n * ```ts\n * import { DistributedSTTStream } from \"transcribe-stt\";\n *\n * // TODO: Authenticate with Google. See https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication\n *\n * const audioFilename = \"./<input audio file>.wav\";\n * const audioDirname = \"./<output audio directory>\";\n * const textFilename = \"./<output text file>.txt\";\n * const options = {\n *  encoding: \"LINEAR16\",\n *  sampleRateHertz: 16000,\n *  append: true,\n * };\n *\n * // Initialise stream\n * const stream = new DistributedSTTStream(audioFilename, audioDirname, textFilename, options);\n *\n * // Empty text file\n * stream.emptyTextFile();\n *\n * // Start stream and write output to text file\n * stream.start();\n * ```\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "declare class DistributedSTTStream "
+              "text": "declare class DistributedSTTStream extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "STTStream",
+              "canonicalReference": "transcribe-stt!~STTStream:class"
+            },
+            {
+              "kind": "Content",
+              "text": " "
             }
           ],
           "releaseTag": "Public",
@@ -161,32 +170,6 @@
               "isStatic": false
             },
             {
-              "kind": "Property",
-              "canonicalReference": "transcribe-stt!DistributedSTTStream#audioFilename:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "audioFilename: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "releaseTag": "Public",
-              "name": "audioFilename",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isStatic": false
-            },
-            {
               "kind": "Method",
               "canonicalReference": "transcribe-stt!DistributedSTTStream#distribute:member(1)",
               "docComment": "/**\n * Distribute audio into separate files (automatically called by {@link DistributedSTTStream.start})\n *\n * @remarks\n *\n * Single audio file is split up into smaller files of 300 seconds so they can be used with Google's streaming API. Each file is separately streamed and written to the text file when {@link DistributedSTTStream.start} is called\n *\n * @returns STD output of bash script\n */\n",
@@ -218,65 +201,6 @@
               "overloadIndex": 1,
               "parameters": [],
               "name": "distribute"
-            },
-            {
-              "kind": "Property",
-              "canonicalReference": "transcribe-stt!DistributedSTTStream#distributeListeners:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "distributeListeners: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "DistributeListener",
-                  "canonicalReference": "transcribe-stt!DistributeListener:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": "[]"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "releaseTag": "Public",
-              "name": "distributeListeners",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
-              },
-              "isStatic": false
-            },
-            {
-              "kind": "Method",
-              "canonicalReference": "transcribe-stt!DistributedSTTStream#emptyTextFile:member(1)",
-              "docComment": "/**\n * Empty text file\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "emptyTextFile(): "
-                },
-                {
-                  "kind": "Content",
-                  "text": "void"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isStatic": false,
-              "returnTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "releaseTag": "Public",
-              "overloadIndex": 1,
-              "parameters": [],
-              "name": "emptyTextFile"
             },
             {
               "kind": "Method",
@@ -426,66 +350,9 @@
               "isStatic": false
             },
             {
-              "kind": "Property",
-              "canonicalReference": "transcribe-stt!DistributedSTTStream#progress:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "progress: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "number"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "releaseTag": "Public",
-              "name": "progress",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isStatic": false
-            },
-            {
-              "kind": "Property",
-              "canonicalReference": "transcribe-stt!DistributedSTTStream#progressListeners:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "progressListeners: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "ProgressListener",
-                  "canonicalReference": "transcribe-stt!ProgressListener:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": "[]"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "releaseTag": "Public",
-              "name": "progressListeners",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
-              },
-              "isStatic": false
-            },
-            {
               "kind": "Method",
               "canonicalReference": "transcribe-stt!DistributedSTTStream#start:member(1)",
-              "docComment": "/**\n * Start distributed STT stream\n *\n * @param useConsole - See {@link STTStream.start}\n *\n * @returns Lines of the transcript of each audio file\n *\n * @example\n *\n * See {@link DistributedSTTStream} for an example\n */\n",
+              "docComment": "/**\n * Start stream\n *\n * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`\n *\n * @returns Lines of the transcript\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -506,7 +373,7 @@
                 },
                 {
                   "kind": "Content",
-                  "text": "<string[][]>"
+                  "text": "<string[]>"
                 },
                 {
                   "kind": "Content",
@@ -530,34 +397,12 @@
                 }
               ],
               "name": "start"
-            },
-            {
-              "kind": "Property",
-              "canonicalReference": "transcribe-stt!DistributedSTTStream#textFilename:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "textFilename: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "releaseTag": "Public",
-              "name": "textFilename",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isStatic": false
             }
           ],
+          "extendsTokenRange": {
+            "startIndex": 1,
+            "endIndex": 3
+          },
           "implementsTokenRanges": []
         },
         {
@@ -764,37 +609,6 @@
             },
             {
               "kind": "Property",
-              "canonicalReference": "transcribe-stt!STTStream#append:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "append: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "STTStreamOptions",
-                  "canonicalReference": "transcribe-stt!STTStreamOptions:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "[\"append\"]"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "releaseTag": "Public",
-              "name": "append",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
-              },
-              "isStatic": false
-            },
-            {
-              "kind": "Property",
               "canonicalReference": "transcribe-stt!STTStream#audioFilename:member",
               "docComment": "",
               "excerptTokens": [
@@ -849,12 +663,12 @@
             },
             {
               "kind": "Property",
-              "canonicalReference": "transcribe-stt!STTStream#encoding:member",
+              "canonicalReference": "transcribe-stt!STTStream#options:member",
               "docComment": "",
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "encoding: "
+                  "text": "options: "
                 },
                 {
                   "kind": "Reference",
@@ -863,87 +677,21 @@
                 },
                 {
                   "kind": "Content",
-                  "text": "[\"encoding\"]"
-                },
-                {
-                  "kind": "Content",
                   "text": ";"
                 }
               ],
               "releaseTag": "Public",
-              "name": "encoding",
+              "name": "options",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
-                "endIndex": 3
-              },
-              "isStatic": false
-            },
-            {
-              "kind": "Property",
-              "canonicalReference": "transcribe-stt!STTStream#languageCode:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "languageCode: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "STTStreamOptions",
-                  "canonicalReference": "transcribe-stt!STTStreamOptions:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "[\"languageCode\"]"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "releaseTag": "Public",
-              "name": "languageCode",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
-              },
-              "isStatic": false
-            },
-            {
-              "kind": "Property",
-              "canonicalReference": "transcribe-stt!STTStream#sampleRateHertz:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "sampleRateHertz: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "STTStreamOptions",
-                  "canonicalReference": "transcribe-stt!STTStreamOptions:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "[\"sampleRateHertz\"]"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "releaseTag": "Public",
-              "name": "sampleRateHertz",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
+                "endIndex": 2
               },
               "isStatic": false
             },
             {
               "kind": "Method",
               "canonicalReference": "transcribe-stt!STTStream#start:member(1)",
-              "docComment": "/**\n * Start STT stream\n *\n * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`\n *\n * @returns Lines of the transcript\n *\n * @example\n *\n * See {@link STTStream} for an example\n */\n",
+              "docComment": "/**\n * Start stream\n *\n * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`\n *\n * @returns Lines of the transcript\n *\n * @example\n *\n * See {@link STTStream} for an example\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1139,7 +887,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "transcribe-stt!STTStreamOptionsAppend:interface",
-          "docComment": "/**\n * Options for an STT stream but `append` must be set to `true`\n *\n * @remarks\n *\n * `append` must be set to `true` because each audio file's transcript is appended to the same file. Despite this, you can use {@link DistributedSTTStream.emptyTextFile} to empty the file first. See {@link DistributedSTTStream} for an example.\n *\n * See {@link STTStreamOptions} for other properties\n *\n * @public\n */\n",
+          "docComment": "/**\n * Options for an STT stream but `append` must be set to `true`\n *\n * @remarks\n *\n * `append` must be set to `true` because each audio file's transcript is appended to the same file. Despite this, you can use {@link DistributedSTTStream} to empty the file first. See {@link DistributedSTTStream} for an example.\n *\n * See {@link STTStreamOptions} for other properties\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",

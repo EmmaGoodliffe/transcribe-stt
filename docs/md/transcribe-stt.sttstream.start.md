@@ -4,7 +4,7 @@
 
 ## STTStream.start() method
 
-Start STT stream
+Start stream
 
 <b>Signature:</b>
 
