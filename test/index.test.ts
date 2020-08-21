@@ -5,12 +5,12 @@ import { STTStream, DistributedSTTStream, STTStreamOptions } from "../src";
 
 // Prepare environment
 const relGoogleKeyFilename = "./key.json";
-const absGoogleKeyFilename = resolve(dirname(""), relGoogleKeyFilename);
+export const absGoogleKeyFilename = resolve(dirname(""), relGoogleKeyFilename);
 process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
 
 // Constants
 export const AUDIO_FILENAME = "./test/input.wav";
-const AUDIO_DIRNAME = "./test/audio_dist";
+export const AUDIO_DIRNAME = "./test/audio_dist";
 const TEXT_DIRNAME = "./test/text_dist";
 const JSON_URL = "https://jsonplaceholder.typicode.com/users/1/todos";
 export const TIME_LIMIT = 60 * 1000;

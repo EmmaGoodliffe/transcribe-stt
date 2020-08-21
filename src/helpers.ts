@@ -108,4 +108,4 @@ export const recExp = <T>(description: string, rec: T, exp: T): string =>
   `Received ${description} ${rec} but expected ${exp}`;
 
 export const allTrue = (arr: boolean[]): boolean =>
-  !!arr.filter(val => !val).length;
+  !arr.filter(val => !val).length;

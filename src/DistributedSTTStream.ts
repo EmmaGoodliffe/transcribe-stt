@@ -63,7 +63,7 @@ class DistributedSTTStream extends STTStream {
     public options: STTStreamOptionsAppend,
   ) {
     super(audioFilename, textFilename, options);
-    this.files = [audioFilename, audioDirname, textFilename];
+    this.neededFiles = [audioFilename, audioDirname];
     this.progressListeners = [];
     this.distributeListeners = [];
   }

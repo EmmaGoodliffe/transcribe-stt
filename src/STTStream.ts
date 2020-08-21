@@ -40,7 +40,7 @@ const FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
  * @public
  */
 class STTStream {
-  files: string[];
+  neededFiles: string[];
   options: STTStreamOptions;
   /**
    * @param audioFilename - Path to audio file
@@ -52,7 +52,7 @@ class STTStream {
     public textFilename: string,
     options: STTStreamOptions,
   ) {
-    this.files = [audioFilename, textFilename];
+    this.neededFiles = [audioFilename];
     this.options = {
       ...options,
       append: options.append || false,
@@ -161,10 +161,10 @@ class STTStream {
     writeFileSync(this.textFilename, "");
   }
   checkFiles(): boolean {
-    const filesExist = this.files.map(file => existsSync(file));
+    const filesExist = this.neededFiles.map(file => existsSync(file));
     if (!allTrue(filesExist)) {
       const problemIndex = filesExist.indexOf(false);
-      const problemFile = this.files[problemIndex];
+      const problemFile = this.neededFiles[problemIndex];
       throw `Not all files exist. For example, ${problemFile} doesn't exist`;
     }
     return true;
