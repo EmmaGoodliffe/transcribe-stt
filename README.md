@@ -136,7 +136,6 @@ Similarly, if you can't run the `file` command, [Audacity] can show you the samp
 - Create development guide
 - Use docker
 - Document how to change to a WAV file programmatically
-- Make `STTStream` and `DistributedSTTStream` extend same class, or make `DistributedSTTStream` extend `STTStream`
 - Resolve all passed paths
 - Check existence of all passed files and directories
 - Check if environment `GOOGLE_APPLICATION_CREDENTIALS` is defined and file exists
