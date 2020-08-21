@@ -1,7 +1,7 @@
 import { SpeechClient } from "@google-cloud/speech";
 import { appendFile, createReadStream, writeFileSync, existsSync } from "fs";
 import ora from "ora";
-import { useSpinner } from "./helpers";
+import { allTrue, useSpinner } from "./helpers";
 import { STTStreamOptions } from "./types";
 
 // Define constants
@@ -40,6 +40,7 @@ const FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
  * @public
  */
 class STTStream {
+  files: string[];
   options: STTStreamOptions;
   /**
    * @param audioFilename - Path to audio file
@@ -51,6 +52,7 @@ class STTStream {
     public textFilename: string,
     options: STTStreamOptions,
   ) {
+    this.files = [audioFilename, textFilename];
     this.options = {
       ...options,
       append: options.append || false,
@@ -96,6 +98,9 @@ class STTStream {
       if (!goodCredentials) {
         throw `Environment variable GOOGLE_APPLICATION_CREDENTIALS is not set to a real file. No file ${gac}`;
       }
+
+      // Check if files exist
+      this.checkFiles();
 
       // Initialise results
       const results: string[] = [];
@@ -154,6 +159,15 @@ class STTStream {
   /** Empty text file */
   emptyTextFile(): void {
     writeFileSync(this.textFilename, "");
+  }
+  checkFiles(): boolean {
+    const filesExist = this.files.map(file => existsSync(file));
+    if (!allTrue(filesExist)) {
+      const problemIndex = filesExist.indexOf(false);
+      const problemFile = this.files[problemIndex];
+      throw `Not all files exist. For example, ${problemFile} doesn't exist`;
+    }
+    return true;
   }
 }
 

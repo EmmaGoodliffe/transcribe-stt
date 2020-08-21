@@ -5,6 +5,6 @@
  * @packageDocumentation
  */
 
-export { default as STTStream } from "./STTStream";
 export { default as DistributedSTTStream } from "./DistributedSTTStream";
+export { default as STTStream } from "./STTStream";
 export * from "./types";

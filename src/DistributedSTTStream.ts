@@ -63,6 +63,7 @@ class DistributedSTTStream extends STTStream {
     public options: STTStreamOptionsAppend,
   ) {
     super(audioFilename, textFilename, options);
+    this.files = [audioFilename, audioDirname, textFilename];
     this.progressListeners = [];
     this.distributeListeners = [];
   }
@@ -159,6 +160,10 @@ class DistributedSTTStream extends STTStream {
   }
   /** {@inheritdoc STTStream.start} */
   async start(useConsole?: boolean): Promise<string[]> {
+    // Check if files exists
+    this.checkFiles();
+
+    // Initialise results
     const results: string[][] = [];
 
     try {
