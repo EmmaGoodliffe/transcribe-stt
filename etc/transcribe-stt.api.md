@@ -19,16 +19,10 @@ export class DistributedSTTStream extends STTStream {
   // (undocumented)
   audioDirname: string;
   distribute(): Promise<string>;
-  // (undocumented)
-  distributeListeners: DistributeListener[];
   on(event: "distribute", callback: DistributeListener): void;
   on(event: "progress", callback: ProgressListener): void;
   // (undocumented)
   options: STTStreamOptionsAppend;
-  // (undocumented)
-  progress: number;
-  // (undocumented)
-  progressListeners: ProgressListener[];
   start(useConsole?: boolean): Promise<string[]>;
 }
 
@@ -188,16 +182,10 @@ export class STTStream {
     options: STTStreamOptions,
   );
   // (undocumented)
-  append: STTStreamOptions["append"];
-  // (undocumented)
   audioFilename: string;
   emptyTextFile(): void;
   // (undocumented)
-  encoding: STTStreamOptions["encoding"];
-  // (undocumented)
-  languageCode: STTStreamOptions["languageCode"];
-  // (undocumented)
-  sampleRateHertz: STTStreamOptions["sampleRateHertz"];
+  options: STTStreamOptions;
   start(useConsole?: boolean): Promise<string[]>;
   // (undocumented)
   textFilename: string;

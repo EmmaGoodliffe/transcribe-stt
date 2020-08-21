@@ -105,7 +105,6 @@ var DistributedSTTStream = /** @class */ (function (_super) {
         var _this = _super.call(this, audioFilename, textFilename, options) || this;
         _this.audioDirname = audioDirname;
         _this.options = options;
-        _this.progress = 0;
         _this.progressListeners = [];
         _this.distributeListeners = [];
         return _this;
@@ -121,8 +120,6 @@ var DistributedSTTStream = /** @class */ (function (_super) {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        // Set progress
-                        this.progress = progress;
                         _i = 0, _a = this.progressListeners;
                         _b.label = 1;
                     case 1:

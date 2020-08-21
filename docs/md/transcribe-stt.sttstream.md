@@ -46,14 +46,11 @@ stream.start();
 
 ## Properties
 
-| Property                                                         | Modifiers | Type                                                                                  | Description |
-| ---------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------- | ----------- |
-| [append](./transcribe-stt.sttstream.append.md)                   |           | [STTStreamOptions](./transcribe-stt.sttstreamoptions.md)<!-- -->\["append"\]          |             |
-| [audioFilename](./transcribe-stt.sttstream.audiofilename.md)     |           | string                                                                                |             |
-| [encoding](./transcribe-stt.sttstream.encoding.md)               |           | [STTStreamOptions](./transcribe-stt.sttstreamoptions.md)<!-- -->\["encoding"\]        |             |
-| [languageCode](./transcribe-stt.sttstream.languagecode.md)       |           | [STTStreamOptions](./transcribe-stt.sttstreamoptions.md)<!-- -->\["languageCode"\]    |             |
-| [sampleRateHertz](./transcribe-stt.sttstream.sampleratehertz.md) |           | [STTStreamOptions](./transcribe-stt.sttstreamoptions.md)<!-- -->\["sampleRateHertz"\] |             |
-| [textFilename](./transcribe-stt.sttstream.textfilename.md)       |           | string                                                                                |             |
+| Property                                                     | Modifiers | Type                                                     | Description |
+| ------------------------------------------------------------ | --------- | -------------------------------------------------------- | ----------- |
+| [audioFilename](./transcribe-stt.sttstream.audiofilename.md) |           | string                                                   |             |
+| [options](./transcribe-stt.sttstream.options.md)             |           | [STTStreamOptions](./transcribe-stt.sttstreamoptions.md) |             |
+| [textFilename](./transcribe-stt.sttstream.textfilename.md)   |           | string                                                   |             |
 
 ## Methods
 

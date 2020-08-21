@@ -61,13 +61,10 @@ stream.start();
 
 ## Properties
 
-| Property                                                                            | Modifiers | Type                                                                     | Description |
-| ----------------------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------ | ----------- |
-| [audioDirname](./transcribe-stt.distributedsttstream.audiodirname.md)               |           | string                                                                   |             |
-| [distributeListeners](./transcribe-stt.distributedsttstream.distributelisteners.md) |           | [DistributeListener](./transcribe-stt.distributelistener.md)<!-- -->\[\] |             |
-| [options](./transcribe-stt.distributedsttstream.options.md)                         |           | [STTStreamOptionsAppend](./transcribe-stt.sttstreamoptionsappend.md)     |             |
-| [progress](./transcribe-stt.distributedsttstream.progress.md)                       |           | number                                                                   |             |
-| [progressListeners](./transcribe-stt.distributedsttstream.progresslisteners.md)     |           | [ProgressListener](./transcribe-stt.progresslistener.md)<!-- -->\[\]     |             |
+| Property                                                              | Modifiers | Type                                                                 | Description |
+| --------------------------------------------------------------------- | --------- | -------------------------------------------------------------------- | ----------- |
+| [audioDirname](./transcribe-stt.distributedsttstream.audiodirname.md) |           | string                                                               |             |
+| [options](./transcribe-stt.distributedsttstream.options.md)           |           | [STTStreamOptionsAppend](./transcribe-stt.sttstreamoptionsappend.md) |             |
 
 ## Methods
 

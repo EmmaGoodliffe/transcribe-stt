@@ -30,10 +30,7 @@ import { STTStreamOptions } from "./types";
 declare class STTStream {
     audioFilename: string;
     textFilename: string;
-    append: STTStreamOptions["append"];
-    encoding: STTStreamOptions["encoding"];
-    sampleRateHertz: STTStreamOptions["sampleRateHertz"];
-    languageCode: STTStreamOptions["languageCode"];
+    options: STTStreamOptions;
     /**
      * @param audioFilename - Path to audio file
      * @param textFilename - Path to text file

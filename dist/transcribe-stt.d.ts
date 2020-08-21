@@ -55,9 +55,8 @@ export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.Recognit
 export declare class DistributedSTTStream extends STTStream {
     audioDirname: string;
     options: STTStreamOptionsAppend;
-    progress: number;
-    progressListeners: ProgressListener[];
-    distributeListeners: DistributeListener[];
+    private progressListeners;
+    private distributeListeners;
     /**
      * @param audioFilename - Path to original audio file
      * @param audioDirname - Path to output distributed audio directory
@@ -166,10 +165,7 @@ export declare type ProgressListener = (progress: number) => void | Promise<void
 export declare class STTStream {
     audioFilename: string;
     textFilename: string;
-    append: STTStreamOptions["append"];
-    encoding: STTStreamOptions["encoding"];
-    sampleRateHertz: STTStreamOptions["sampleRateHertz"];
-    languageCode: STTStreamOptions["languageCode"];
+    options: STTStreamOptions;
     /**
      * @param audioFilename - Path to audio file
      * @param textFilename - Path to text file

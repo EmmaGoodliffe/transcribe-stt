@@ -38,9 +38,8 @@ import { DistributeListener, ProgressListener, STTStreamOptionsAppend } from "./
 declare class DistributedSTTStream extends STTStream {
     audioDirname: string;
     options: STTStreamOptionsAppend;
-    progress: number;
-    progressListeners: ProgressListener[];
-    distributeListeners: DistributeListener[];
+    private progressListeners;
+    private distributeListeners;
     /**
      * @param audioFilename - Path to original audio file
      * @param audioDirname - Path to output distributed audio directory
