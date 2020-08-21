@@ -139,6 +139,12 @@ var STTStream = /** @class */ (function () {
     STTStream.prototype.inner = function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
+            // Check if GOOGLE_APPLICATION_CREDENTIALS is defined
+            var gac = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+            var goodCredentials = gac && typeof gac === "string" && gac.length && fs_1.existsSync(gac);
+            if (!goodCredentials) {
+                throw "Environment variable GOOGLE_APPLICATION_CREDENTIALS is not set to a real file. No file " + gac;
+            }
             // Initialise results
             var results = [];
             // If not appending
