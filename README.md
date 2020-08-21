@@ -139,7 +139,6 @@ Similarly, if you can't run the `file` command, [Audacity] can show you the samp
 - Resolve all passed paths
 - Check existence of all passed files and directories
 - Check if environment `GOOGLE_APPLICATION_CREDENTIALS` is defined and file exists
-- Extend tests to test each method and use `describe` to organise them
 
 [audacity]: https://www.audacityteam.org/
 [google's speech to text api]: https://cloud.google.com/speech-to-text/
