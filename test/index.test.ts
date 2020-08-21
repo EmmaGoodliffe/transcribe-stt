@@ -1,5 +1,6 @@
 import { mkdirSync, readFileSync, rmdirSync, writeFileSync } from "fs";
 import { dirname, resolve } from "path";
+import fetch from "node-fetch";
 import { STTStream, DistributedSTTStream, STTStreamOptions } from "../src";
 
 // Prepare environment
@@ -11,6 +12,7 @@ process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
 const AUDIO_FILENAME = "./test/input.wav";
 const AUDIO_DIRNAME = "./test/audio_dist";
 const TEXT_DIRNAME = "./test/text_dist";
+const JSON_URL = "https://jsonplaceholder.typicode.com/users/1/todos";
 const TIME_LIMIT = 60 * 1000;
 const ENCODING = "LINEAR16";
 const SAMPLE_RATE_HERTZ = 48000;
@@ -42,10 +44,40 @@ const update = () => delay(100);
 rmdirSync(TEXT_DIRNAME, { recursive: true });
 mkdirSync(TEXT_DIRNAME);
 
+// Environment
+describe("Environment", () => {
+  test("tests work", () => {
+    expect.assertions(2);
+    expect(0).toBe(0);
+    expect(0).not.toBe(1);
+  });
+
+  test(
+    "async tests work",
+    async () => {
+      expect.assertions(1);
+      await delay(5000);
+      expect(0).toBe(0);
+    },
+    TIME_LIMIT,
+  );
+
+  test(
+    "tests have access to internet",
+    async () => {
+      expect.assertions(1);
+      const response = await fetch(JSON_URL);
+      const json: unknown[] = await response.json();
+      expect(json.length).toBeTruthy();
+    },
+    TIME_LIMIT,
+  );
+});
+
 // Normal stream
 describe("Normal stream", () => {
   test(
-    "emptyTextFile",
+    ".emptyTextFile",
     async () => {
       expect.assertions(2);
       const textFilename = createTextFilename();
@@ -63,7 +95,7 @@ describe("Normal stream", () => {
   );
 
   test(
-    "start",
+    ".start",
     async () => {
       expect.assertions(1);
       const textFilename = createTextFilename();
@@ -80,7 +112,7 @@ describe("Normal stream", () => {
 // Distributed stream
 describe("Distributed stream", () => {
   test(
-    "emptyTextFile",
+    ".emptyTextFile",
     async () => {
       expect.assertions(2);
       const textFilename = createTextFilename();
@@ -106,7 +138,7 @@ describe("Distributed stream", () => {
   );
 
   test(
-    'on("distribute")',
+    '.on("distribute")',
     async () => {
       expect.assertions(1);
       const textFilename = createTextFilename();
@@ -131,7 +163,7 @@ describe("Distributed stream", () => {
   );
 
   test(
-    'on("progress")',
+    '.on("progress")',
     async () => {
       expect.assertions(3);
       const textFilename = createTextFilename();
@@ -159,7 +191,7 @@ describe("Distributed stream", () => {
   );
 
   test(
-    "start",
+    ".start",
     async () => {
       expect.assertions(1);
       const textFilename = createTextFilename();
