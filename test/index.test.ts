@@ -184,7 +184,7 @@ describe("Distributed stream", () => {
       await promise;
       expect(progressPercentages[0]).toBe(0);
       const sortedPercentages = [...progressPercentages].sort();
-      expect(progressPercentages).toMatchObject(sortedPercentages);
+      expect(progressPercentages).toEqual(sortedPercentages);
       expect(progressPercentages.slice(-1)[0]).toBe(100);
     },
     TIME_LIMIT,

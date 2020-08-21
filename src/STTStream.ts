@@ -1,5 +1,5 @@
 import { SpeechClient } from "@google-cloud/speech";
-import { appendFile, createReadStream, writeFileSync } from "fs";
+import { appendFile, createReadStream, writeFileSync, existsSync } from "fs";
 import ora from "ora";
 import { useSpinner } from "./helpers";
 import { STTStreamOptions } from "./types";
@@ -89,6 +89,14 @@ class STTStream {
    */
   private inner(): Promise<string[]> {
     return new Promise((resolve, reject) => {
+      // Check if GOOGLE_APPLICATION_CREDENTIALS is defined
+      const gac = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+      const goodCredentials =
+        gac && typeof gac === "string" && gac.length && existsSync(gac);
+      if (!goodCredentials) {
+        throw `Environment variable GOOGLE_APPLICATION_CREDENTIALS is not set to a real file. No file ${gac}`;
+      }
+
       // Initialise results
       const results: string[] = [];
 
