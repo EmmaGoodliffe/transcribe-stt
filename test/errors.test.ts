@@ -44,7 +44,7 @@ describe("Errors", () => {
   );
 
   test(
-    "bad filename",
+    "bad audio filename",
     async () => {
       expect.assertions(2);
       const wrongWavFilename = "./test/wrong.wav";
@@ -69,8 +69,23 @@ describe("Errors", () => {
     TIME_LIMIT,
   );
 
+  test("bad text directory", async () => {
+    expect.assertions(1);
+    process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
+    const stream = new DistributedSTTStream(
+      AUDIO_FILENAME,
+      AUDIO_DIRNAME,
+      "./test/wrong/wrong.txt",
+      {
+        ...CONFIG,
+        append: true,
+      },
+    );
+    await expect(stream.start(false)).rejects.toMatch(ENOENT_PATTERN);
+  });
+
   test(
-    "bad directory",
+    "bad audio directory",
     async () => {
       expect.assertions(1);
       const textFilename = createTextFilename();

@@ -1,5 +1,5 @@
 import { readdirSync } from "fs";
-import { resolve } from "path";
+import { resolve, dirname } from "path";
 import { runBashScript } from "./helpers";
 import STTStream from "./STTStream";
 import {
@@ -63,7 +63,7 @@ class DistributedSTTStream extends STTStream {
     public options: STTStreamOptionsAppend,
   ) {
     super(audioFilename, textFilename, options);
-    this.neededFiles = [audioFilename, audioDirname];
+    this.neededFiles = [audioFilename, audioDirname, dirname(textFilename)];
     this.progressListeners = [];
     this.distributeListeners = [];
   }

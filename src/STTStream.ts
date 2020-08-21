@@ -1,6 +1,7 @@
 import { SpeechClient } from "@google-cloud/speech";
 import { appendFile, createReadStream, writeFileSync, existsSync } from "fs";
 import ora from "ora";
+import { dirname } from "path";
 import { allTrue, useSpinner } from "./helpers";
 import { STTStreamOptions } from "./types";
 
@@ -52,7 +53,7 @@ class STTStream {
     public textFilename: string,
     options: STTStreamOptions,
   ) {
-    this.neededFiles = [audioFilename];
+    this.neededFiles = [audioFilename, dirname(textFilename)];
     this.options = {
       ...options,
       append: options.append || false,
