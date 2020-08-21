@@ -40,8 +40,6 @@ const FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
  * @public
  */
 class STTStream {
-  audioFilename: string;
-  textFilename: string;
   append: STTStreamOptions["append"];
   encoding: STTStreamOptions["encoding"];
   sampleRateHertz: STTStreamOptions["sampleRateHertz"];
@@ -52,12 +50,10 @@ class STTStream {
    * @param options - Options
    */
   constructor(
-    audioFilename: string,
-    textFilename: string,
+    public audioFilename: string,
+    public textFilename: string,
     options: STTStreamOptions,
   ) {
-    this.audioFilename = audioFilename;
-    this.textFilename = textFilename;
     this.append = options.append || false;
     this.encoding = options.encoding;
     this.sampleRateHertz = options.sampleRateHertz;

@@ -48,11 +48,8 @@ const SHARD_LENGTH = 300;
  * @public
  */
 class DistributedSTTStream extends STTStream {
-  audioDirname: string;
-  options: STTStreamOptionsAppend;
-  progress: number;
-  progressListeners: ProgressListener[];
-  distributeListeners: DistributeListener[];
+  private progressListeners: ProgressListener[];
+  private distributeListeners: DistributeListener[];
   /**
    * @param audioFilename - Path to original audio file
    * @param audioDirname - Path to output distributed audio directory
@@ -61,14 +58,11 @@ class DistributedSTTStream extends STTStream {
    */
   constructor(
     audioFilename: string,
-    audioDirname: string,
+    public audioDirname: string,
     textFilename: string,
-    options: STTStreamOptionsAppend,
+    public options: STTStreamOptionsAppend,
   ) {
     super(audioFilename, textFilename, options);
-    this.audioDirname = audioDirname;
-    this.options = options;
-    this.progress = 0;
     this.progressListeners = [];
     this.distributeListeners = [];
   }
@@ -78,8 +72,6 @@ class DistributedSTTStream extends STTStream {
    * @internal
    */
   private async setProgress(progress: number): Promise<void> {
-    // Set progress
-    this.progress = progress;
     // Call every listener
     for (const listener of this.progressListeners) {
       await listener(progress);
