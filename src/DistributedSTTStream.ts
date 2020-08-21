@@ -43,6 +43,8 @@ const SHARD_LENGTH = 300;
  * // Start stream and write output to text file
  * stream.start();
  * ```
+ * @remarks
+ * See {@link STTStream} for other properties and methods
  * @public
  */
 class DistributedSTTStream extends STTStream {
@@ -163,6 +165,7 @@ class DistributedSTTStream extends STTStream {
     // Return STD output
     return stdout;
   }
+  /** {@inheritdoc STTStream.start} */
   async start(useConsole?: boolean): Promise<string[]> {
     const results: string[][] = [];
 

@@ -41,7 +41,7 @@ declare class STTStream {
      */
     constructor(audioFilename: string, textFilename: string, options: STTStreamOptions);
     /**
-     * Start STT stream
+     * Start stream
      * @example
      * See {@link STTStream} for an example
      * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`

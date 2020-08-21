@@ -70,6 +70,7 @@ test(
         append: true,
       },
     );
+    stream.emptyTextFile();
     const results = await stream.start(false);
     const lines = results.join("\n");
     await delay(100);

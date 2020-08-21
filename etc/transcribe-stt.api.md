@@ -9,7 +9,7 @@ import { google } from "@google-cloud/speech/build/protos/protos";
 export type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
 
 // @public
-export class DistributedSTTStream {
+export class DistributedSTTStream extends STTStream {
   constructor(
     audioFilename: string,
     audioDirname: string,
@@ -18,12 +18,9 @@ export class DistributedSTTStream {
   );
   // (undocumented)
   audioDirname: string;
-  // (undocumented)
-  audioFilename: string;
   distribute(): Promise<string>;
   // (undocumented)
   distributeListeners: DistributeListener[];
-  emptyTextFile(): void;
   on(event: "distribute", callback: DistributeListener): void;
   on(event: "progress", callback: ProgressListener): void;
   // (undocumented)
@@ -32,9 +29,7 @@ export class DistributedSTTStream {
   progress: number;
   // (undocumented)
   progressListeners: ProgressListener[];
-  start(useConsole?: boolean): Promise<string[][]>;
-  // (undocumented)
-  textFilename: string;
+  start(useConsole?: boolean): Promise<string[]>;
 }
 
 // @public
