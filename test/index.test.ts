@@ -9,22 +9,22 @@ const absGoogleKeyFilename = resolve(dirname(""), relGoogleKeyFilename);
 process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
 
 // Constants
-const AUDIO_FILENAME = "./test/input.wav";
+export const AUDIO_FILENAME = "./test/input.wav";
 const AUDIO_DIRNAME = "./test/audio_dist";
 const TEXT_DIRNAME = "./test/text_dist";
 const JSON_URL = "https://jsonplaceholder.typicode.com/users/1/todos";
-const TIME_LIMIT = 60 * 1000;
+export const TIME_LIMIT = 60 * 1000;
 const ENCODING = "LINEAR16";
 const SAMPLE_RATE_HERTZ = 48000;
 const LANGUAGE_CODE = "en-GB";
-const CONFIG: STTStreamOptions = {
+export const CONFIG: STTStreamOptions = {
   encoding: ENCODING,
   sampleRateHertz: SAMPLE_RATE_HERTZ,
   languageCode: LANGUAGE_CODE,
 };
 
 // Helpers
-const createTextFilename = () =>
+export const createTextFilename = (): string =>
   resolve(dirname(""), `./${TEXT_DIRNAME}/stream${Date.now()}.txt`);
 
 const clean = (s: string) =>
