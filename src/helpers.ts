@@ -46,7 +46,7 @@ export const useSpinner = async <T>(
 /**
  * Run bash script
  * @param command - Command to run bash script
- * @returns STD output of bash script
+ * @returns standard output of bash script
  * @internal
  */
 export const runBashScript = (
@@ -88,10 +88,10 @@ export const runBashScript = (
         }
       }
 
-      // If STD error was thrown, reject it
+      // If standard error was thrown, reject it
       stderr.length && reject(stderr);
 
-      // Resolve STD output
+      // Resolve standard output
       resolve(stdout);
     });
   });

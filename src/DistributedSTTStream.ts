@@ -10,7 +10,7 @@ import {
 } from "./types";
 
 // Constants
-const SHARD_LENGTH = 300;
+const SHARD_LENGTH = 10;
 
 /**
  * A distributed STT stream (for audio files longer than 305 seconds)
@@ -48,6 +48,7 @@ const SHARD_LENGTH = 300;
  * @public
  */
 class DistributedSTTStream extends STTStream {
+  private progress: number;
   private progressListeners: ProgressListener[];
   private distributeListeners: DistributeListener[];
   /**
@@ -64,6 +65,7 @@ class DistributedSTTStream extends STTStream {
   ) {
     super(audioFilename, textFilename, options);
     this.neededFiles = [audioFilename, audioDirname, dirname(textFilename)];
+    this.progress = 0;
     this.progressListeners = [];
     this.distributeListeners = [];
   }
@@ -72,10 +74,14 @@ class DistributedSTTStream extends STTStream {
    * @param progress - Progress percentage
    * @internal
    */
-  private async setProgress(progress: number): Promise<void> {
-    // Call every listener
-    for (const listener of this.progressListeners) {
-      await listener(progress);
+  private setProgress(progress: number): void {
+    if (progress === 0 || progress > this.progress) {
+      // Save progress
+      this.progress = progress;
+      // Call every listener
+      for (const listener of this.progressListeners) {
+        listener(progress);
+      }
     }
   }
   /**
@@ -115,7 +121,7 @@ class DistributedSTTStream extends STTStream {
    * @remarks
    * Single audio file is split up into smaller files of 300 seconds so they can be used with Google's streaming API.
    * Each file is separately streamed and written to the text file when {@link DistributedSTTStream.start} is called
-   * @returns STD output of bash script
+   * @returns standard output of bash script
    */
   async distribute(): Promise<string> {
     let stdout = "";
@@ -123,7 +129,7 @@ class DistributedSTTStream extends STTStream {
       // Run distribute script
       stdout = await runBashScript(
         "distribute.sh",
-        `${this.audioFilename} ${this.audioDirname} ${SHARD_LENGTH}`,
+        `"${this.audioFilename}" "${this.audioDirname}" ${SHARD_LENGTH}`,
       );
     } catch (error_) {
       const error = `${error_}`;
@@ -132,7 +138,7 @@ class DistributedSTTStream extends STTStream {
         /End position is after expected end of audio/i,
         /Last 1 position\(s\) not reached/i,
       ];
-      // Handle STD errors
+      // Handle standard errors
       if (error) {
         const errors = error.split("\n");
         for (const errorMessage of errors) {
@@ -152,10 +158,10 @@ class DistributedSTTStream extends STTStream {
 
     // Call every listener
     for (const listener of this.distributeListeners) {
-      await listener();
+      listener();
     }
 
-    // Return STD output
+    // Return standard output
     return stdout;
   }
   /** {@inheritdoc STTStream.start} */
@@ -164,13 +170,13 @@ class DistributedSTTStream extends STTStream {
     this.checkFiles();
 
     // Initialise results
-    const results: string[][] = [];
+    const promises: Promise<string[]>[] = [];
 
     try {
       // Distribute audio file
       const stdout = await this.distribute();
-      // Log any STD output
-      stdout.length && console.log(`Distribute script: ${stdout}`);
+      // Log any standard output
+      stdout.length && console.warn(`Distribute bash script output: ${stdout}`);
     } catch (err) {
       throw `An error occurred distributing the audio file. ${err}`;
     }
@@ -184,26 +190,30 @@ class DistributedSTTStream extends STTStream {
     const wavFileNum = wavFilenames.length;
 
     // For every WAV path
-    for (const i in wavFilenames) {
-      const index = parseInt(i);
-      const wavFilename = wavFilenames[i];
+    wavFilenames.forEach((wavFilename, i) => {
       // Get the full WAV path
       const fullWavFn = resolve(this.audioDirname, wavFilename);
       // Initialise an STT stream
       const stream = new STTStream(fullWavFn, this.textFilename, this.options);
       // Calculate progress percentage
-      const percentage = ~~((index / wavFileNum) * 100);
+      const percentage = ~~((i / wavFileNum) * 100);
       // Set progress
-      await this.setProgress(percentage);
+      this.setProgress(percentage);
       // Start the stream
-      const result = await stream.start(useConsole);
+      const promise = stream.start(useConsole);
       // Save result
-      results.push(result);
-    }
+      promises.push(promise);
+    });
+
     // Set progress to 100%
-    await this.setProgress(100);
-    // Return result
-    return results.flat();
+    this.setProgress(100);
+
+    // Get results
+    const results = await Promise.all(promises);
+    // Flatten results
+    const flattenedResults = results.flat();
+    // Return flatten results
+    return flattenedResults;
   }
 }
 

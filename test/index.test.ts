@@ -196,7 +196,7 @@ describe("Distributed stream", () => {
       expect.assertions(1);
       const textFilename = createTextFilename();
       const stream = new DistributedSTTStream(
-        AUDIO_FILENAME,
+        "./test/input 2.wav",
         AUDIO_DIRNAME,
         textFilename,
         {
@@ -208,6 +208,7 @@ describe("Distributed stream", () => {
       const lines = results.join("\n");
       await update();
       const transcript = readFileSync(textFilename).toString();
+      console.log({ l: clean(lines), t: clean(transcript) });
       expect(clean(lines)).toBe(clean(transcript));
     },
     TIME_LIMIT,
