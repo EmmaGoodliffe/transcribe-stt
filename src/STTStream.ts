@@ -1,9 +1,11 @@
 import { SpeechClient } from "@google-cloud/speech";
-import { appendFile, createReadStream, writeFileSync, existsSync } from "fs";
+import { appendFile, createReadStream, existsSync } from "fs";
 import ora from "ora";
 import { dirname } from "path";
 import { allTrue, useSpinner } from "./helpers";
 import { STTStreamOptions } from "./types";
+
+// TODO: add comments
 
 // Define constants
 const SPINNER_START_TEXT = "STT stream running...";
@@ -50,15 +52,15 @@ class STTStream {
    */
   constructor(
     public audioFilename: string,
-    public textFilename: string,
+    public textFilename: string | null,
     options: STTStreamOptions,
   ) {
-    this.neededFiles = [audioFilename, dirname(textFilename)];
     this.options = {
       ...options,
-      append: options.append || false,
       languageCode: options.languageCode || "en-US",
     };
+    this.neededFiles = [audioFilename];
+    textFilename && this.neededFiles.push(dirname(textFilename));
   }
   /**
    * Start stream
@@ -106,12 +108,6 @@ class STTStream {
       // Initialise results
       const results: string[] = [];
 
-      // If not appending
-      if (!this.options.append) {
-        // Empty file
-        this.emptyTextFile();
-      }
-
       // Initialise client
       const client = new SpeechClient();
 
@@ -143,23 +139,22 @@ class STTStream {
           const result = data.results[0].alternatives[0].transcript as string;
           // Save result
           results.push(result);
-          // Append result to text file
-          appendFile(this.textFilename, `${result}\n`, err => {
-            // Handle errors
-            if (!err) return;
-            const reason = `An error occurred writing to the text file. ${err}`;
-            reject(reason);
-          });
+          // If a text file was passed
+          if (this.textFilename) {
+            // Append result to text file
+            appendFile(this.textFilename, `${result}\n`, err => {
+              // Handle errors
+              if (!err) return;
+              const reason = `An error occurred writing to the text file. ${err}`;
+              reject(reason);
+            });
+          }
         })
         .on("end", () => resolve(results));
 
       // Pipe audio file through read/write stream
       audioReadStream.pipe(recogniseStream);
     });
-  }
-  /** Empty text file */
-  emptyTextFile(): void {
-    writeFileSync(this.textFilename, "");
   }
   checkFiles(): boolean {
     const filesExist = this.neededFiles.map(file => existsSync(file));

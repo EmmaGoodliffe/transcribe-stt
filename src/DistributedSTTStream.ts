@@ -1,4 +1,4 @@
-import { readdirSync } from "fs";
+import { readdirSync, writeFileSync } from "fs";
 import { resolve, dirname } from "path";
 import { runBashScript } from "./helpers";
 import STTStream from "./STTStream";
@@ -6,8 +6,11 @@ import {
   DistributeListener,
   Listener,
   ProgressListener,
-  STTStreamOptionsAppend,
+  STTStreamOptions,
 } from "./types";
+
+// TODO: add comments
+// TODO: fix progress listeners
 
 // Constants
 const SHARD_LENGTH = 10;
@@ -16,7 +19,7 @@ const SHARD_LENGTH = 10;
  * A distributed STT stream (for audio files longer than 305 seconds)
  * @example
  * This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file.
- * You can customise the functionality of the stream with the {@link STTStreamOptionsAppend}
+ * You can customise the functionality of the stream with the {@link STTStreamOptions}
  *
  * If you don't know the encoding or sample rate of your WAV file, find out how to check it <a href="https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate">here</a>
  *
@@ -60,11 +63,12 @@ class DistributedSTTStream extends STTStream {
   constructor(
     audioFilename: string,
     public audioDirname: string,
-    textFilename: string,
-    public options: STTStreamOptionsAppend,
+    textFilename: string | null,
+    public options: STTStreamOptions,
   ) {
     super(audioFilename, textFilename, options);
-    this.neededFiles = [audioFilename, audioDirname, dirname(textFilename)];
+    this.neededFiles = [audioFilename, audioDirname];
+    textFilename && this.neededFiles.push(dirname(textFilename));
     this.progress = 0;
     this.progressListeners = [];
     this.distributeListeners = [];
@@ -187,18 +191,13 @@ class DistributedSTTStream extends STTStream {
     // Define WAV pattern
     const pattern = /\.wav$/;
     const wavFilenames = filenames.filter(fn => pattern.test(fn));
-    const wavFileNum = wavFilenames.length;
 
     // For every WAV path
-    wavFilenames.forEach((wavFilename, i) => {
+    wavFilenames.forEach(wavFilename => {
       // Get the full WAV path
       const fullWavFn = resolve(this.audioDirname, wavFilename);
       // Initialise an STT stream
-      const stream = new STTStream(fullWavFn, this.textFilename, this.options);
-      // Calculate progress percentage
-      const percentage = ~~((i / wavFileNum) * 100);
-      // Set progress
-      this.setProgress(percentage);
+      const stream = new STTStream(fullWavFn, null, this.options);
       // Start the stream
       const promise = stream.start(useConsole);
       // Save result
@@ -212,7 +211,11 @@ class DistributedSTTStream extends STTStream {
     const results = await Promise.all(promises);
     // Flatten results
     const flattenedResults = results.flat();
-    // Return flatten results
+    // Join results
+    const joinedResults = flattenedResults.join("\n");
+    // Write joined results to text file
+    this.textFilename && writeFileSync(this.textFilename, joinedResults);
+    // Return flattened results
     return flattenedResults;
   }
 }

@@ -3,8 +3,8 @@ import {
   absGoogleKeyFilename,
   AUDIO_DIRNAME,
   AUDIO_FILENAME,
-  CONFIG,
   createTextFilename,
+  CONFIG,
   TIME_LIMIT,
 } from "./index.test";
 import { DistributedSTTStream, STTStream } from "../src";
@@ -58,10 +58,7 @@ describe("Errors", () => {
         wrongWavFilename,
         AUDIO_DIRNAME,
         createTextFilename(),
-        {
-          ...CONFIG,
-          append: true,
-        },
+        CONFIG,
       );
       await expect(stream.start(false)).rejects.toMatch(ENOENT_PATTERN);
       await expect(dStream.start(false)).rejects.toMatch(ENOENT_PATTERN);
@@ -76,10 +73,7 @@ describe("Errors", () => {
       AUDIO_FILENAME,
       AUDIO_DIRNAME,
       "./test/wrong/wrong.txt",
-      {
-        ...CONFIG,
-        append: true,
-      },
+      CONFIG,
     );
     await expect(stream.start(false)).rejects.toMatch(ENOENT_PATTERN);
   });
@@ -94,10 +88,7 @@ describe("Errors", () => {
         AUDIO_FILENAME,
         "./test/wrong",
         textFilename,
-        {
-          ...CONFIG,
-          append: true,
-        },
+        CONFIG,
       );
       await expect(stream.start(false)).rejects.toMatch(ENOENT_PATTERN);
     },
