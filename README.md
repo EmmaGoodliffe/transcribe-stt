@@ -134,7 +134,6 @@ Similarly, if you can't run the `file` command, [Audacity] can show you the samp
 
 ## To do
 
-- Simultaneously stream each file during `DistributedSTTStream.start()` to increase speed
 - Create development guide
 - Use docker
 - Document how to change to a WAV file programmatically
