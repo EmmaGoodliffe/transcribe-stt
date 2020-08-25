@@ -77,6 +77,8 @@ To stream any audio, you must authenticate yourself with Google. To do this, jus
         process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
         ```
 
+        Define the relative path relative to the directory that you run the script from, rather than the directory the script is in.
+
      1. Done!
 
    - Command-line/shell
