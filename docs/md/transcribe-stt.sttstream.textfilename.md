@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-textFilename: string;
+textFilename: string | null;
 ```

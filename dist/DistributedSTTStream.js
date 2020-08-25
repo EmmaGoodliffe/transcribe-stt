@@ -62,7 +62,7 @@ var SHARD_LENGTH = 300;
  * A distributed STT stream (for audio files longer than 305 seconds)
  * @example
  * This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file.
- * You can customise the functionality of the stream with the {@link STTStreamOptionsAppend}
+ * You can customise the functionality of the stream with the {@link STTStreamOptions}
  *
  * If you don't know the encoding or sample rate of your WAV file, find out how to check it <a href="https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate">here</a>
  *
@@ -96,43 +96,83 @@ var SHARD_LENGTH = 300;
 var DistributedSTTStream = /** @class */ (function (_super) {
     __extends(DistributedSTTStream, _super);
     /**
-     * @param audioFilename - Path to original audio file
+     * @param audioFilename - Path to audio file
      * @param audioDirname - Path to output distributed audio directory
-     * @param textFilename - Path to text file
+     * @param textFilename - Path to text file or null
      * @param options - Options
      */
     function DistributedSTTStream(audioFilename, audioDirname, textFilename, options) {
-        var _this = _super.call(this, audioFilename, textFilename, options) || this;
+        var _this = 
+        // Run super constructor
+        _super.call(this, audioFilename, textFilename, options) || this;
         _this.audioDirname = audioDirname;
         _this.options = options;
+        // Define needed files
+        _this.neededFiles = [audioFilename, audioDirname];
+        // If a text file was passed, append its directory to the needed files
+        textFilename && _this.neededFiles.push(path_1.dirname(textFilename));
+        // Initialise progress
+        _this.progress = -1;
+        // Initialise listeners
         _this.progressListeners = [];
         _this.distributeListeners = [];
         return _this;
     }
     /**
-     * Set progress
-     * @param progress - Progress percentage
-     * @internal
+     * Distribute audio into separate files (automatically called by {@link DistributedSTTStream.start})
+     * @remarks
+     * Single audio file is split up into smaller files of 300 seconds so they can be used with Google's streaming API.
+     * Each file is separately streamed and written to the text file when {@link DistributedSTTStream.start} is called
+     * @returns standard output of bash script
      */
-    DistributedSTTStream.prototype.setProgress = function (progress) {
+    DistributedSTTStream.prototype.distribute = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _i, _a, listener;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var stdout, error_1, error, knownWarningPatterns, errors, _i, errors_1, errorLine, isKnownWarning, _a, knownWarningPatterns_1, pattern, _b, _c, listener;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
-                        _i = 0, _a = this.progressListeners;
-                        _b.label = 1;
+                        stdout = "";
+                        _d.label = 1;
                     case 1:
-                        if (!(_i < _a.length)) return [3 /*break*/, 4];
-                        listener = _a[_i];
-                        return [4 /*yield*/, listener(progress)];
+                        _d.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, helpers_1.runBashScript("distribute.sh", "\"" + this.audioFilename + "\" \"" + this.audioDirname + "\" " + SHARD_LENGTH)];
                     case 2:
-                        _b.sent();
-                        _b.label = 3;
+                        // Run distribute script
+                        stdout = _d.sent();
+                        return [3 /*break*/, 4];
                     case 3:
-                        _i++;
-                        return [3 /*break*/, 1];
-                    case 4: return [2 /*return*/];
+                        error_1 = _d.sent();
+                        error = "" + error_1;
+                        knownWarningPatterns = [
+                            /End position is after expected end of audio/i,
+                            /Last 1 position\(s\) not reached/i,
+                        ];
+                        // Handle standard errors
+                        if (error) {
+                            errors = error.split("\n");
+                            for (_i = 0, errors_1 = errors; _i < errors_1.length; _i++) {
+                                errorLine = errors_1[_i];
+                                isKnownWarning = false;
+                                for (_a = 0, knownWarningPatterns_1 = knownWarningPatterns; _a < knownWarningPatterns_1.length; _a++) {
+                                    pattern = knownWarningPatterns_1[_a];
+                                    isKnownWarning = isKnownWarning || pattern.test(errorLine);
+                                }
+                                // If error is not a known warning and it is full
+                                if (!isKnownWarning && errorLine.length) {
+                                    // Throw it
+                                    throw errorLine;
+                                }
+                            }
+                        }
+                        return [3 /*break*/, 4];
+                    case 4:
+                        // Call every distribute listener
+                        for (_b = 0, _c = this.distributeListeners; _b < _c.length; _b++) {
+                            listener = _c[_b];
+                            listener();
+                        }
+                        // Return standard output
+                        return [2 /*return*/, stdout];
                 }
             });
         });
@@ -146,134 +186,91 @@ var DistributedSTTStream = /** @class */ (function (_super) {
             // Add callback to distribute listeners
             this.distributeListeners.push(callback);
         }
+        else {
+            // Throw error
+            var reason = "No event " + event;
+            throw reason;
+        }
     };
     /**
-     * Distribute audio into separate files (automatically called by {@link DistributedSTTStream.start})
-     * @remarks
-     * Single audio file is split up into smaller files of 300 seconds so they can be used with Google's streaming API.
-     * Each file is separately streamed and written to the text file when {@link DistributedSTTStream.start} is called
-     * @returns STD output of bash script
+     * Set progress
+     * @param progress - Progress percentage
+     * @internal
      */
-    DistributedSTTStream.prototype.distribute = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var stdout, error_1, error, knownWarningPatterns, errors, _i, errors_1, errorMessage, isKnownWarning, _a, knownWarningPatterns_1, pattern, _b, _c, listener;
-            return __generator(this, function (_d) {
-                switch (_d.label) {
-                    case 0:
-                        stdout = "";
-                        _d.label = 1;
-                    case 1:
-                        _d.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, helpers_1.runBashScript("distribute.sh", this.audioFilename + " " + this.audioDirname + " " + SHARD_LENGTH)];
-                    case 2:
-                        // Run distribute script
-                        stdout = _d.sent();
-                        return [3 /*break*/, 4];
-                    case 3:
-                        error_1 = _d.sent();
-                        error = "" + error_1;
-                        knownWarningPatterns = [
-                            /End position is after expected end of audio/i,
-                            /Last 1 position\(s\) not reached/i,
-                        ];
-                        // Handle STD errors
-                        if (error) {
-                            errors = error.split("\n");
-                            for (_i = 0, errors_1 = errors; _i < errors_1.length; _i++) {
-                                errorMessage = errors_1[_i];
-                                isKnownWarning = false;
-                                for (_a = 0, knownWarningPatterns_1 = knownWarningPatterns; _a < knownWarningPatterns_1.length; _a++) {
-                                    pattern = knownWarningPatterns_1[_a];
-                                    isKnownWarning = isKnownWarning || pattern.test(errorMessage);
-                                }
-                                // If error is not a known warning and it is full
-                                if (!isKnownWarning && errorMessage.length) {
-                                    // Throw it
-                                    throw errorMessage;
-                                }
-                            }
-                        }
-                        return [3 /*break*/, 4];
-                    case 4:
-                        _b = 0, _c = this.distributeListeners;
-                        _d.label = 5;
-                    case 5:
-                        if (!(_b < _c.length)) return [3 /*break*/, 8];
-                        listener = _c[_b];
-                        return [4 /*yield*/, listener()];
-                    case 6:
-                        _d.sent();
-                        _d.label = 7;
-                    case 7:
-                        _b++;
-                        return [3 /*break*/, 5];
-                    case 8: 
-                    // Return STD output
-                    return [2 /*return*/, stdout];
-                }
-            });
-        });
+    DistributedSTTStream.prototype.setProgress = function (progress) {
+        // If new progress is larger than previous progress
+        if (progress > this.progress) {
+            // Save progress
+            this.progress = progress;
+            // Call every progress listener
+            for (var _i = 0, _a = this.progressListeners; _i < _a.length; _i++) {
+                var listener = _a[_i];
+                listener(progress);
+            }
+        }
     };
     /** {@inheritdoc STTStream.start} */
     DistributedSTTStream.prototype.start = function (useConsole) {
         return __awaiter(this, void 0, void 0, function () {
-            var results, stdout, err_1, filenames, pattern, wavFilenames, wavFileNum, _a, _b, _i, i, index, wavFilename, fullWavFn, stream, percentage, result;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            var promises, stdout, err_1, filenames, pattern, wavFilenames, totalN, n, results, flattenedResults, joinedResults;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
-                        results = [];
-                        _c.label = 1;
+                        // Check if files exists
+                        this.checkFiles();
+                        promises = [];
+                        _a.label = 1;
                     case 1:
-                        _c.trys.push([1, 3, , 4]);
+                        _a.trys.push([1, 3, , 4]);
                         return [4 /*yield*/, this.distribute()];
                     case 2:
-                        stdout = _c.sent();
-                        // Log any STD output
-                        stdout.length && console.log("Distribute script: " + stdout);
+                        stdout = _a.sent();
+                        // Log any standard output
+                        stdout.length && console.warn("Distribute bash script output: " + stdout);
                         return [3 /*break*/, 4];
                     case 3:
-                        err_1 = _c.sent();
-                        throw "An error occurred distributing the audio file. " + err_1;
+                        err_1 = _a.sent();
+                        throw "Error distributing audio file. " + err_1;
                     case 4:
                         filenames = fs_1.readdirSync(this.audioDirname);
                         pattern = /\.wav$/;
                         wavFilenames = filenames.filter(function (fn) { return pattern.test(fn); });
-                        wavFileNum = wavFilenames.length;
-                        _a = [];
-                        for (_b in wavFilenames)
-                            _a.push(_b);
-                        _i = 0;
-                        _c.label = 5;
+                        totalN = wavFilenames.length;
+                        n = 0;
+                        // For every WAV path
+                        wavFilenames.forEach(function (wavFilename) {
+                            // Get the full WAV path
+                            var fullWavFn = path_1.resolve(_this.audioDirname, wavFilename);
+                            // Initialise an STT stream
+                            var stream = new STTStream_1.default(fullWavFn, null, _this.options);
+                            // Start the stream
+                            var promise = stream.start(useConsole);
+                            promise
+                                .then(function () {
+                                // Define percentage
+                                var percentage = ~~((n / totalN) * 100);
+                                // Set progress to percentage
+                                _this.setProgress(percentage);
+                                // Increase n
+                                n++;
+                            })
+                                // Ignore errors in single promise (caught later in Promise.all)
+                                .catch(function () { });
+                            // Save promise
+                            promises.push(promise);
+                        });
+                        return [4 /*yield*/, Promise.all(promises)];
                     case 5:
-                        if (!(_i < _a.length)) return [3 /*break*/, 9];
-                        i = _a[_i];
-                        index = parseInt(i);
-                        wavFilename = wavFilenames[i];
-                        fullWavFn = path_1.resolve(this.audioDirname, wavFilename);
-                        stream = new STTStream_1.default(fullWavFn, this.textFilename, this.options);
-                        percentage = ~~((index / wavFileNum) * 100);
-                        // Set progress
-                        return [4 /*yield*/, this.setProgress(percentage)];
-                    case 6:
-                        // Set progress
-                        _c.sent();
-                        return [4 /*yield*/, stream.start(useConsole)];
-                    case 7:
-                        result = _c.sent();
-                        // Save result
-                        results.push(result);
-                        _c.label = 8;
-                    case 8:
-                        _i++;
-                        return [3 /*break*/, 5];
-                    case 9: 
-                    // Set progress to 100%
-                    return [4 /*yield*/, this.setProgress(100)];
-                    case 10:
+                        results = _a.sent();
                         // Set progress to 100%
-                        _c.sent();
-                        // Return result
-                        return [2 /*return*/, results.flat()];
+                        this.setProgress(100);
+                        flattenedResults = results.flat();
+                        joinedResults = flattenedResults.join("\n");
+                        // Write joined results to text file
+                        this.textFilename && fs_1.writeFileSync(this.textFilename, joinedResults);
+                        // Return flattened results
+                        return [2 /*return*/, flattenedResults];
                 }
             });
         });

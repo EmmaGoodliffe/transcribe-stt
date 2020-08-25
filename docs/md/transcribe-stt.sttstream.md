@@ -49,12 +49,13 @@ stream.start();
 | Property                                                     | Modifiers | Type                                                     | Description |
 | ------------------------------------------------------------ | --------- | -------------------------------------------------------- | ----------- |
 | [audioFilename](./transcribe-stt.sttstream.audiofilename.md) |           | string                                                   |             |
+| [neededFiles](./transcribe-stt.sttstream.neededfiles.md)     |           | string\[\]                                               |             |
 | [options](./transcribe-stt.sttstream.options.md)             |           | [STTStreamOptions](./transcribe-stt.sttstreamoptions.md) |             |
-| [textFilename](./transcribe-stt.sttstream.textfilename.md)   |           | string                                                   |             |
+| [textFilename](./transcribe-stt.sttstream.textfilename.md)   |           | string \| null                                           |             |
 
 ## Methods
 
-| Method                                                         | Modifiers | Description     |
-| -------------------------------------------------------------- | --------- | --------------- |
-| [emptyTextFile()](./transcribe-stt.sttstream.emptytextfile.md) |           | Empty text file |
-| [start(useConsole)](./transcribe-stt.sttstream.start.md)       |           | Start stream    |
+| Method                                                   | Modifiers | Description                       |
+| -------------------------------------------------------- | --------- | --------------------------------- |
+| [checkFiles()](./transcribe-stt.sttstream.checkfiles.md) |           | Check that all needed files exist |
+| [start(useConsole)](./transcribe-stt.sttstream.start.md) |           | Start stream                      |

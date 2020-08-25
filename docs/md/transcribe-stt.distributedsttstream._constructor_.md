@@ -9,14 +9,14 @@ Constructs a new instance of the `DistributedSTTStream` class
 <b>Signature:</b>
 
 ```typescript
-constructor(audioFilename: string, audioDirname: string, textFilename: string, options: STTStreamOptionsAppend);
+constructor(audioFilename: string, audioDirname: string, textFilename: string | null, options: STTStreamOptions);
 ```
 
 ## Parameters
 
-| Parameter     | Type                                                                 | Description                                |
-| ------------- | -------------------------------------------------------------------- | ------------------------------------------ |
-| audioFilename | string                                                               | Path to original audio file                |
-| audioDirname  | string                                                               | Path to output distributed audio directory |
-| textFilename  | string                                                               | Path to text file                          |
-| options       | [STTStreamOptionsAppend](./transcribe-stt.sttstreamoptionsappend.md) | Options                                    |
+| Parameter     | Type                                                     | Description                                |
+| ------------- | -------------------------------------------------------- | ------------------------------------------ |
+| audioFilename | string                                                   | Path to audio file                         |
+| audioDirname  | string                                                   | Path to output distributed audio directory |
+| textFilename  | string \| null                                           | Path to text file or null                  |
+| options       | [STTStreamOptions](./transcribe-stt.sttstreamoptions.md) | Options                                    |

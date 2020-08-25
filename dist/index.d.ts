@@ -4,7 +4,7 @@
  * See <a href="#classes">classes</a>
  * @packageDocumentation
  */
-export { default as STTStream } from "./STTStream";
 export { default as DistributedSTTStream } from "./DistributedSTTStream";
+export { default as STTStream } from "./STTStream";
 export * from "./types";
 //# sourceMappingURL=index.d.ts.map

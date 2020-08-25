@@ -91,22 +91,22 @@ exports.useSpinner = function (promise, spinner, successText, failText) {
 /**
  * Run bash script
  * @param command - Command to run bash script
- * @returns STD output of bash script
+ * @returns Standard output of bash script
  * @internal
  */
-exports.runBashScript = function (filename_, args) {
+exports.runBashScript = function (filename, args) {
     return new Promise(function (resolve, reject_) {
         // Define reject function
         var reject = function (reason) {
             return reject_([
-                "An error occurred running a bash script.",
+                "Error running a bash script.",
                 "This is probably because you're environment is not set up correctly.",
                 "Docker will be used soon to enable the app on any environment.",
             ].join(" ") + " " + reason);
         };
         // Define absolute path
-        var filename = path_1.resolve("./scripts/bash", "./" + filename_);
-        var absFilename = exports.relPathToAbs(filename);
+        var relFilename = path_1.resolve("./scripts/bash", "./" + filename);
+        var absFilename = exports.relPathToAbs(relFilename);
         // Define command
         var command = absFilename + " " + args;
         // Execute command
@@ -114,7 +114,7 @@ exports.runBashScript = function (filename_, args) {
             // Handle errors
             if (error) {
                 // Check if error was caused by Windows
-                var isWindowsError = ("" + stderr).includes("'.' is not recognized as an internal or external command");
+                var isWindowsError = stderr.includes("'.' is not recognized as an internal or external command");
                 // If error was caused by Windows
                 if (isWindowsError) {
                     // Throw error explaining
@@ -126,9 +126,9 @@ exports.runBashScript = function (filename_, args) {
                     reject("" + error);
                 }
             }
-            // If STD error was thrown, reject it
+            // If standard error was thrown, reject it
             stderr.length && reject(stderr);
-            // Resolve STD output
+            // Resolve standard output
             resolve(stdout);
         });
     });

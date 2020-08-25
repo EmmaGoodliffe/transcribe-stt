@@ -1,7 +1,9 @@
-import { mkdirSync, readFileSync, rmdirSync, writeFileSync } from "fs";
-import { dirname, resolve } from "path";
+import { readFileSync, rmdirSync, mkdirSync } from "fs";
 import fetch from "node-fetch";
-import { STTStream, DistributedSTTStream, STTStreamOptions } from "../src";
+import { dirname, resolve } from "path";
+import { DistributedSTTStream, STTStream, STTStreamOptions } from "../src";
+
+// TODO: add comments
 
 // Prepare environment
 const relGoogleKeyFilename = "./key.json";
@@ -44,7 +46,7 @@ const update = () => delay(100);
 rmdirSync(TEXT_DIRNAME, { recursive: true });
 mkdirSync(TEXT_DIRNAME);
 
-// Environment
+// Environment tests
 describe("Environment", () => {
   test("tests work", () => {
     expect.assertions(2);
@@ -74,26 +76,8 @@ describe("Environment", () => {
   );
 });
 
-// Normal stream
-describe("Normal stream", () => {
-  test(
-    ".emptyTextFile",
-    async () => {
-      expect.assertions(2);
-      const textFilename = createTextFilename();
-      const stream = new STTStream(AUDIO_FILENAME, textFilename, CONFIG);
-      writeFileSync(textFilename, `${Date.now()}`);
-      await update();
-      const before = readFileSync(textFilename).toString();
-      stream.emptyTextFile();
-      await update();
-      const after = readFileSync(textFilename).toString();
-      expect(before.length).not.toBe(0);
-      expect(after.length).toBe(0);
-    },
-    TIME_LIMIT,
-  );
-
+// STTStream tests
+describe("STTStream", () => {
   test(
     ".start",
     async () => {
@@ -109,34 +93,8 @@ describe("Normal stream", () => {
   );
 });
 
-// Distributed stream
+// Distributed stream tests
 describe("Distributed stream", () => {
-  test(
-    ".emptyTextFile",
-    async () => {
-      expect.assertions(2);
-      const textFilename = createTextFilename();
-      const stream = new DistributedSTTStream(
-        AUDIO_FILENAME,
-        AUDIO_DIRNAME,
-        textFilename,
-        {
-          ...CONFIG,
-          append: true,
-        },
-      );
-      writeFileSync(textFilename, `${Date.now()}`);
-      await update();
-      const before = readFileSync(textFilename).toString();
-      stream.emptyTextFile();
-      await update();
-      const after = readFileSync(textFilename).toString();
-      expect(before.length).not.toBe(0);
-      expect(after.length).toBe(0);
-    },
-    TIME_LIMIT,
-  );
-
   test(
     '.on("distribute")',
     async () => {
@@ -146,18 +104,15 @@ describe("Distributed stream", () => {
         AUDIO_FILENAME,
         AUDIO_DIRNAME,
         textFilename,
-        {
-          ...CONFIG,
-          append: true,
-        },
+        CONFIG,
       );
       const promise = stream.start(false);
-      let eventFired = 0;
+      let eventFiredN = 0;
       stream.on("distribute", () => {
-        eventFired++;
+        eventFiredN++;
       });
       await promise;
-      expect(eventFired).toBe(1);
+      expect(eventFiredN).toBe(1);
     },
     TIME_LIMIT,
   );
@@ -165,16 +120,13 @@ describe("Distributed stream", () => {
   test(
     '.on("progress")',
     async () => {
-      expect.assertions(3);
+      expect.assertions(5);
       const textFilename = createTextFilename();
       const stream = new DistributedSTTStream(
         AUDIO_FILENAME,
         AUDIO_DIRNAME,
         textFilename,
-        {
-          ...CONFIG,
-          append: true,
-        },
+        CONFIG,
       );
       const promise = stream.start(false);
       const progressPercentages: number[] = [];
@@ -182,9 +134,12 @@ describe("Distributed stream", () => {
         progressPercentages.push(progress);
       });
       await promise;
+      expect(progressPercentages.length).toBeGreaterThanOrEqual(2);
       expect(progressPercentages[0]).toBe(0);
       const sortedPercentages = [...progressPercentages].sort();
       expect(progressPercentages).toEqual(sortedPercentages);
+      const uniquePercentages = Array.from(new Set(progressPercentages));
+      expect(progressPercentages).toEqual(uniquePercentages);
       expect(progressPercentages.slice(-1)[0]).toBe(100);
     },
     TIME_LIMIT,
@@ -199,13 +154,9 @@ describe("Distributed stream", () => {
         AUDIO_FILENAME,
         AUDIO_DIRNAME,
         textFilename,
-        {
-          ...CONFIG,
-          append: true,
-        },
+        CONFIG,
       );
-      const results = await stream.start(false);
-      const lines = results.join("\n");
+      const lines = (await stream.start(false)).join("\n");
       await update();
       const transcript = readFileSync(textFilename).toString();
       expect(clean(lines)).toBe(clean(transcript));

@@ -21,7 +21,7 @@ export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.Recognit
  * A distributed STT stream (for audio files longer than 305 seconds)
  * @example
  * This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file.
- * You can customise the functionality of the stream with the {@link STTStreamOptionsAppend}
+ * You can customise the functionality of the stream with the {@link STTStreamOptions}
  *
  * If you don't know the encoding or sample rate of your WAV file, find out how to check it <a href="https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate">here</a>
  *
@@ -54,27 +54,29 @@ export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.Recognit
  */
 export declare class DistributedSTTStream extends STTStream {
     audioDirname: string;
-    options: STTStreamOptionsAppend;
+    options: STTStreamOptions;
+    private progress;
     private progressListeners;
     private distributeListeners;
     /**
-     * @param audioFilename - Path to original audio file
+     * @param audioFilename - Path to audio file
      * @param audioDirname - Path to output distributed audio directory
-     * @param textFilename - Path to text file
+     * @param textFilename - Path to text file or null
      * @param options - Options
      */
-    constructor(audioFilename: string, audioDirname: string, textFilename: string, options: STTStreamOptionsAppend);
+    constructor(audioFilename: string, audioDirname: string, textFilename: string | null, options: STTStreamOptions);
     /**
-     * Set progress
-     * @param progress - Progress percentage
-     * @internal
+     * Distribute audio into separate files (automatically called by {@link DistributedSTTStream.start})
+     * @remarks
+     * Single audio file is split up into smaller files of 300 seconds so they can be used with Google's streaming API.
+     * Each file is separately streamed and written to the text file when {@link DistributedSTTStream.start} is called
+     * @returns standard output of bash script
      */
-    private setProgress;
+    distribute(): Promise<string>;
     /**
      * Listen to `"distribute"` event and run callback functions
      * @remarks
      * The callback function is run whenever the {@link DistributedSTTStream.distribute} method finishes.
-     *
      * This can be helpful if you are using a very large audio file and want to know when it has been split up by the {@link DistributedSTTStream.start} method.
      *
      * ({@link DistributedSTTStream.distribute} returns a promise which resolves when the distribution completes.
@@ -94,13 +96,11 @@ export declare class DistributedSTTStream extends STTStream {
      */
     on(event: "progress", callback: ProgressListener): void;
     /**
-     * Distribute audio into separate files (automatically called by {@link DistributedSTTStream.start})
-     * @remarks
-     * Single audio file is split up into smaller files of 300 seconds so they can be used with Google's streaming API.
-     * Each file is separately streamed and written to the text file when {@link DistributedSTTStream.start} is called
-     * @returns STD output of bash script
+     * Set progress
+     * @param progress - Progress percentage
+     * @internal
      */
-    distribute(): Promise<string>;
+    private setProgress;
     /** {@inheritdoc STTStream.start} */
     start(useConsole?: boolean): Promise<string[]>;
 }
@@ -118,12 +118,6 @@ export declare type DistributeListener = () => void | Promise<void>;
  * @public
  */
 export declare type LanguageCode = "af-ZA" | "sq-AL" | "am-ET" | "ar-DZ" | "ar-BH" | "ar-EG" | "ar-IQ" | "ar-IL" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-MA" | "ar-OM" | "ar-QA" | "ar-SA" | "ar-PS" | "ar-TN" | "ar-AE" | "ar-YE" | "hy-AM" | "az-AZ" | "eu-ES" | "bn-BD" | "bn-IN" | "bs-BA" | "bg-BG" | "my-MM" | "ca-ES" | "yue-Hant-HK" | "zh (cmn-Hans-CN)" | "zh-TW (cmn-Hant-TW)" | "hr-HR" | "cs-CZ" | "da-DK" | "nl-BE" | "nl-NL" | "en-AU" | "en-CA" | "en-GH" | "en-HK" | "en-IN" | "en-IE" | "en-KE" | "en-NZ" | "en-NG" | "en-PK" | "en-PH" | "en-SG" | "en-ZA" | "en-TZ" | "en-GB" | "en-US" | "et-EE" | "fil-PH" | "fi-FI" | "fr-BE" | "fr-CA" | "fr-FR" | "fr-CH" | "gl-ES" | "ka-GE" | "de-AT" | "de-DE" | "de-CH" | "el-GR" | "gu-IN" | "iw-IL" | "hi-IN" | "hu-HU" | "is-IS" | "id-ID" | "it-IT" | "it-CH" | "ja-JP" | "jv-ID" | "kn-IN" | "km-KH" | "ko-KR" | "lo-LA" | "lv-LV" | "lt-LT" | "mk-MK" | "ms-MY" | "ml-IN" | "mr-IN" | "mn-MN" | "ne-NP" | "no-NO" | "fa-IR" | "pl-PL" | "pt-BR" | "pt-PT" | "pa-Guru-IN" | "ro-RO" | "ru-RU" | "sr-RS" | "si-LK" | "sk-SK" | "sl-SI" | "es-AR" | "es-BO" | "es-CL" | "es-CO" | "es-CR" | "es-DO" | "es-EC" | "es-SV" | "es-GT" | "es-HN" | "es-MX" | "es-NI" | "es-PA" | "es-PY" | "es-PE" | "es-PR" | "es-ES" | "es-US" | "es-UY" | "es-VE" | "su-ID" | "sw-KE" | "sw-TZ" | "sv-SE" | "ta-IN" | "ta-MY" | "ta-SG" | "ta-LK" | "te-IN" | "th-TH" | "tr-TR" | "uk-UA" | "ur-IN" | "ur-PK" | "uz-UZ" | "vi-VN" | "zu-ZA";
-
-/**
- * Listener for any property
- * @public
- */
-export declare type Listener = ProgressListener | DistributeListener;
 
 /**
  * Listener for the progress value
@@ -164,14 +158,25 @@ export declare type ProgressListener = (progress: number) => void | Promise<void
  */
 export declare class STTStream {
     audioFilename: string;
-    textFilename: string;
+    textFilename: string | null;
+    neededFiles: string[];
     options: STTStreamOptions;
     /**
      * @param audioFilename - Path to audio file
-     * @param textFilename - Path to text file
+     * @param textFilename - Path to text file or null
      * @param options - Options
      */
-    constructor(audioFilename: string, textFilename: string, options: STTStreamOptions);
+    constructor(audioFilename: string, textFilename: string | null, options: STTStreamOptions);
+    /**
+     * Check that all needed files exist
+     * @returns Whether files exist
+     */
+    checkFiles(): boolean;
+    /**
+     * Main inner method (automatically called by {@link STTStream.start})
+     * @internal
+     */
+    private inner;
     /**
      * Start stream
      * @example
@@ -180,13 +185,6 @@ export declare class STTStream {
      * @returns Lines of the transcript
      */
     start(useConsole?: boolean): Promise<string[]>;
-    /**
-     * Main inner method (automatically called by {@link STTStream.start})
-     * @internal
-     */
-    private inner;
-    /** Empty text file */
-    emptyTextFile(): void;
 }
 
 /**
@@ -204,23 +202,6 @@ export declare interface STTStreamOptions {
     sampleRateHertz: number;
     /** BCP-47 language code. See {@link LanguageCode}. Default `"en-US"` */
     languageCode?: LanguageCode;
-    /** When true, results are appended to the text file. When false, the text file is emptied first. Default `false` */
-    append?: boolean;
-}
-
-/**
- * Options for an STT stream but `append` must be set to `true`
- * @remarks
- * `append` must be set to `true` because each audio file's transcript is appended to the same file.
- * Despite this, you can use {@link DistributedSTTStream} to empty the file first.
- * See {@link DistributedSTTStream} for an example.
- *
- * See {@link STTStreamOptions} for other properties
- * @public
- */
-export declare interface STTStreamOptionsAppend extends STTStreamOptions {
-    /** Extends {@link STTStreamOptions.append} */
-    append: true;
 }
 
 export { }

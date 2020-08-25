@@ -1,5 +1,4 @@
 import { google } from "@google-cloud/speech/build/protos/protos";
-import DistributedSTTStream from "./DistributedSTTStream";
 import { LanguageCode } from "./generated/LanguageCode";
 
 // Types
@@ -17,12 +16,6 @@ export type ProgressListener = (progress: number) => void | Promise<void>;
  * @public
  */
 export type DistributeListener = () => void | Promise<void>;
-
-/**
- * Listener for any property
- * @public
- */
-export type Listener = ProgressListener | DistributeListener;
 
 /**
  * Audio encoding
@@ -52,22 +45,4 @@ export interface STTStreamOptions {
   sampleRateHertz: number;
   /** BCP-47 language code. See {@link LanguageCode}. Default `"en-US"` */
   languageCode?: LanguageCode;
-  /** When true, results are appended to the text file. When false, the text file is emptied first. Default `false` */
-  append?: boolean;
-}
-
-DistributedSTTStream;
-/**
- * Options for an STT stream but `append` must be set to `true`
- * @remarks
- * `append` must be set to `true` because each audio file's transcript is appended to the same file.
- * Despite this, you can use {@link DistributedSTTStream} to empty the file first.
- * See {@link DistributedSTTStream} for an example.
- *
- * See {@link STTStreamOptions} for other properties
- * @public
- */
-export interface STTStreamOptionsAppend extends STTStreamOptions {
-  /** Extends {@link STTStreamOptions.append} */
-  append: true;
 }

@@ -29,14 +29,25 @@ import { STTStreamOptions } from "./types";
  */
 declare class STTStream {
     audioFilename: string;
-    textFilename: string;
+    textFilename: string | null;
+    neededFiles: string[];
     options: STTStreamOptions;
     /**
      * @param audioFilename - Path to audio file
-     * @param textFilename - Path to text file
+     * @param textFilename - Path to text file or null
      * @param options - Options
      */
-    constructor(audioFilename: string, textFilename: string, options: STTStreamOptions);
+    constructor(audioFilename: string, textFilename: string | null, options: STTStreamOptions);
+    /**
+     * Check that all needed files exist
+     * @returns Whether files exist
+     */
+    checkFiles(): boolean;
+    /**
+     * Main inner method (automatically called by {@link STTStream.start})
+     * @internal
+     */
+    private inner;
     /**
      * Start stream
      * @example
@@ -45,13 +56,6 @@ declare class STTStream {
      * @returns Lines of the transcript
      */
     start(useConsole?: boolean): Promise<string[]>;
-    /**
-     * Main inner method (automatically called by {@link STTStream.start})
-     * @internal
-     */
-    private inner;
-    /** Empty text file */
-    emptyTextFile(): void;
 }
 export default STTStream;
 //# sourceMappingURL=STTStream.d.ts.map

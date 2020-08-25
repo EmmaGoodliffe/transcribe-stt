@@ -136,6 +136,7 @@ Similarly, if you can't run the `file` command, [Audacity] can show you the samp
 - Create development guide
 - Use docker
 - Document how to change to a WAV file programmatically
+- Allow advanced configuration options documented [here](https://cloud.google.com/speech-to-text/docs/reference/rpc/google.cloud.speech.v1#google.cloud.speech.v1.StreamingRecognitionConfig)
 
 [audacity]: https://www.audacityteam.org/
 [google's speech to text api]: https://cloud.google.com/speech-to-text/

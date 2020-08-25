@@ -46,11 +46,11 @@ export const useSpinner = async <T>(
 /**
  * Run bash script
  * @param command - Command to run bash script
- * @returns STD output of bash script
+ * @returns Standard output of bash script
  * @internal
  */
 export const runBashScript = (
-  filename_: string,
+  filename: string,
   args: string,
 ): Promise<string> =>
   new Promise((resolve, reject_) => {
@@ -58,14 +58,14 @@ export const runBashScript = (
     const reject = (reason: string) =>
       reject_(
         `${[
-          "An error occurred running a bash script.",
+          "Error running a bash script.",
           "This is probably because you're environment is not set up correctly.",
           "Docker will be used soon to enable the app on any environment.",
         ].join(" ")} ${reason}`,
       );
     // Define absolute path
-    const filename = pathResolve("./scripts/bash", `./${filename_}`);
-    const absFilename = relPathToAbs(filename);
+    const relFilename = pathResolve("./scripts/bash", `./${filename}`);
+    const absFilename = relPathToAbs(relFilename);
     // Define command
     const command = `${absFilename} ${args}`;
     // Execute command
@@ -73,7 +73,7 @@ export const runBashScript = (
       // Handle errors
       if (error) {
         // Check if error was caused by Windows
-        const isWindowsError = `${stderr}`.includes(
+        const isWindowsError = stderr.includes(
           "'.' is not recognized as an internal or external command",
         );
         // If error was caused by Windows
@@ -87,11 +87,9 @@ export const runBashScript = (
           reject(`${error}`);
         }
       }
-
-      // If STD error was thrown, reject it
+      // If standard error was thrown, reject it
       stderr.length && reject(stderr);
-
-      // Resolve STD output
+      // Resolve standard output
       resolve(stdout);
     });
   });
@@ -106,6 +104,3 @@ export const runBashScript = (
  */
 export const recExp = <T>(description: string, rec: T, exp: T): string =>
   `Received ${description} ${rec} but expected ${exp}`;
-
-export const allTrue = (arr: boolean[]): boolean =>
-  !arr.filter(val => !val).length;

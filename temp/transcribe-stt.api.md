@@ -13,8 +13,8 @@ export class DistributedSTTStream extends STTStream {
   constructor(
     audioFilename: string,
     audioDirname: string,
-    textFilename: string,
-    options: STTStreamOptionsAppend,
+    textFilename: string | null,
+    options: STTStreamOptions,
   );
   // (undocumented)
   audioDirname: string;
@@ -22,7 +22,7 @@ export class DistributedSTTStream extends STTStream {
   on(event: "distribute", callback: DistributeListener): void;
   on(event: "progress", callback: ProgressListener): void;
   // (undocumented)
-  options: STTStreamOptionsAppend;
+  options: STTStreamOptions;
   start(useConsole?: boolean): Promise<string[]>;
 }
 
@@ -169,38 +169,31 @@ export type LanguageCode =
   | "zu-ZA";
 
 // @public
-export type Listener = ProgressListener | DistributeListener;
-
-// @public
 export type ProgressListener = (progress: number) => void | Promise<void>;
 
 // @public
 export class STTStream {
   constructor(
     audioFilename: string,
-    textFilename: string,
+    textFilename: string | null,
     options: STTStreamOptions,
   );
   // (undocumented)
   audioFilename: string;
-  emptyTextFile(): void;
+  checkFiles(): boolean;
+  // (undocumented)
+  neededFiles: string[];
   // (undocumented)
   options: STTStreamOptions;
   start(useConsole?: boolean): Promise<string[]>;
   // (undocumented)
-  textFilename: string;
+  textFilename: string | null;
 }
 
 // @public
 export interface STTStreamOptions {
-  append?: boolean;
   encoding: AudioEncoding;
   languageCode?: LanguageCode;
   sampleRateHertz: number;
-}
-
-// @public
-export interface STTStreamOptionsAppend extends STTStreamOptions {
-  append: true;
 }
 ```

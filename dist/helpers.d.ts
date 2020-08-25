@@ -19,10 +19,10 @@ export declare const useSpinner: <T>(promise: Promise<T>, spinner: Ora, successT
 /**
  * Run bash script
  * @param command - Command to run bash script
- * @returns STD output of bash script
+ * @returns Standard output of bash script
  * @internal
  */
-export declare const runBashScript: (filename_: string, args: string) => Promise<string>;
+export declare const runBashScript: (filename: string, args: string) => Promise<string>;
 /**
  * Generate "received but expected" error message
  * @param description - Description of received and expected entities
