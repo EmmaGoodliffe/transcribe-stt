@@ -10,10 +10,9 @@ import {
 } from "./types";
 
 // TODO: add comments
-// TODO: fix progress listeners
 
 // Constants
-const SHARD_LENGTH = 10;
+const SHARD_LENGTH = 300;
 
 /**
  * A distributed STT stream (for audio files longer than 305 seconds)
@@ -182,7 +181,7 @@ class DistributedSTTStream extends STTStream {
       // Log any standard output
       stdout.length && console.warn(`Distribute bash script output: ${stdout}`);
     } catch (err) {
-      throw `An error occurred distributing the audio file. ${err}`;
+      throw `Error distributing audio file. ${err}`;
     }
 
     // Read audio directory
@@ -191,6 +190,10 @@ class DistributedSTTStream extends STTStream {
     // Define WAV pattern
     const pattern = /\.wav$/;
     const wavFilenames = filenames.filter(fn => pattern.test(fn));
+    const totalN = wavFilenames.length;
+
+    // Initialise n
+    let n = 0;
 
     // For every WAV path
     wavFilenames.forEach(wavFilename => {
@@ -200,23 +203,36 @@ class DistributedSTTStream extends STTStream {
       const stream = new STTStream(fullWavFn, null, this.options);
       // Start the stream
       const promise = stream.start(useConsole);
-      // Save result
+      // After promise
+      promise
+        .then(() => {
+          // Define percentage
+          const percentage = ~~((n / totalN) * 100);
+          // Set progress to percentage
+          this.setProgress(percentage);
+          // Increase n
+          n++;
+        })
+        .catch(() => {});
+      // Save promise
       promises.push(promise);
     });
-
-    // Set progress to 100%
-    this.setProgress(100);
-
-    // Get results
-    const results = await Promise.all(promises);
-    // Flatten results
-    const flattenedResults = results.flat();
-    // Join results
-    const joinedResults = flattenedResults.join("\n");
-    // Write joined results to text file
-    this.textFilename && writeFileSync(this.textFilename, joinedResults);
-    // Return flattened results
-    return flattenedResults;
+    try {
+      // Get results
+      const results = await Promise.all(promises);
+      // Set progress to 100%
+      this.setProgress(100);
+      // Flatten results
+      const flattenedResults = results.flat();
+      // Join results
+      const joinedResults = flattenedResults.join("\n");
+      // Write joined results to text file
+      this.textFilename && writeFileSync(this.textFilename, joinedResults);
+      // Return flattened results
+      return flattenedResults;
+    } catch (err) {
+      throw `ALL: ${err}`;
+    }
   }
 }
 

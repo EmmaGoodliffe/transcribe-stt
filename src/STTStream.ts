@@ -129,7 +129,7 @@ class STTStream {
         .on("error", err => {
           // Handle errors
           const reason = [
-            `An error occurred running the STT stream. ${err}`,
+            `Error running the STT stream. ${err}`,
             `See ${FAQ_URL} for help on common error messages`,
           ].join("\n");
           reject(reason);
@@ -145,7 +145,7 @@ class STTStream {
             appendFile(this.textFilename, `${result}\n`, err => {
               // Handle errors
               if (!err) return;
-              const reason = `An error occurred writing to the text file. ${err}`;
+              const reason = `Error writing to the text file. ${err}`;
               reject(reason);
             });
           }

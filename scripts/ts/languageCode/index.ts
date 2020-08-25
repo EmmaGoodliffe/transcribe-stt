@@ -31,13 +31,6 @@ interface Title {
   value: string;
 }
 
-// Helpers
-/**
- * Get unique values from array
- * @param arr Array
- */
-const unique = <T>(arr: T[]) => Array.from(new Set(arr));
-
 /** Main function */
 const main = async () => {
   // Fetch language code data
@@ -49,7 +42,7 @@ const main = async () => {
   // Get language codes from records
   const codes = records.map(record => record[1]);
   // Get unique codes
-  const uniqueCodes = unique(codes);
+  const uniqueCodes = Array.from(new Set(codes));
   // Wrap codes in quotes
   const quotedCodes = uniqueCodes.map(code => `"${code}"`);
   // Join with pipes

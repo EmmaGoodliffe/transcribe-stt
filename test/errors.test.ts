@@ -9,19 +9,28 @@ import {
 } from "./index.test";
 import { DistributedSTTStream, STTStream } from "../src";
 
+// TODO: add comments
+
+// Constants
+const CREDENTIALS_PATTERN = /GOOGLE_APPLICATION_CREDENTIALS/;
 const ENOENT_PATTERN = /not all files exist/i;
 
+// Errors tests
 describe("Errors", () => {
   test(
     "no credentials rejects",
     async () => {
-      expect.assertions(1);
-      const textFilename = createTextFilename();
+      expect.assertions(2);
       process.env.GOOGLE_APPLICATION_CREDENTIALS = "";
-      const stream = new STTStream(AUDIO_FILENAME, textFilename, CONFIG);
-      await expect(stream.start(false)).rejects.toMatch(
-        /GOOGLE_APPLICATION_CREDENTIALS/,
+      const stream = new STTStream(AUDIO_FILENAME, null, CONFIG);
+      const dStream = new DistributedSTTStream(
+        AUDIO_FILENAME,
+        AUDIO_DIRNAME,
+        null,
+        CONFIG,
       );
+      await expect(stream.start(false)).rejects.toMatch(CREDENTIALS_PATTERN);
+      await expect(dStream.start(false)).rejects.toMatch(CREDENTIALS_PATTERN);
     },
     TIME_LIMIT,
   );
@@ -29,16 +38,20 @@ describe("Errors", () => {
   test(
     "bad credentials rejects",
     async () => {
-      expect.assertions(1);
-      const textFilename = createTextFilename();
+      expect.assertions(2);
       process.env.GOOGLE_APPLICATION_CREDENTIALS = resolve(
         dirname(""),
-        "./wrong.json",
+        "./test/wrong.json",
       );
-      const stream = new STTStream(AUDIO_FILENAME, textFilename, CONFIG);
-      await expect(stream.start(false)).rejects.toMatch(
-        /GOOGLE_APPLICATION_CREDENTIALS/,
+      const stream = new STTStream(AUDIO_FILENAME, null, CONFIG);
+      const dStream = new DistributedSTTStream(
+        AUDIO_FILENAME,
+        AUDIO_DIRNAME,
+        null,
+        CONFIG,
       );
+      await expect(stream.start(false)).rejects.toMatch(CREDENTIALS_PATTERN);
+      await expect(dStream.start(false)).rejects.toMatch(CREDENTIALS_PATTERN);
     },
     TIME_LIMIT,
   );
@@ -49,15 +62,11 @@ describe("Errors", () => {
       expect.assertions(2);
       const wrongWavFilename = "./test/wrong.wav";
       process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
-      const stream = new STTStream(
-        wrongWavFilename,
-        createTextFilename(),
-        CONFIG,
-      );
+      const stream = new STTStream(wrongWavFilename, null, CONFIG);
       const dStream = new DistributedSTTStream(
         wrongWavFilename,
         AUDIO_DIRNAME,
-        createTextFilename(),
+        null,
         CONFIG,
       );
       await expect(stream.start(false)).rejects.toMatch(ENOENT_PATTERN);
@@ -67,15 +76,18 @@ describe("Errors", () => {
   );
 
   test("bad text directory", async () => {
-    expect.assertions(1);
+    expect.assertions(2);
     process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
-    const stream = new DistributedSTTStream(
+    const wrongTextFilename = "./test/wrong/wrong.txt";
+    const stream = new STTStream(AUDIO_FILENAME, wrongTextFilename, CONFIG);
+    const dStream = new DistributedSTTStream(
       AUDIO_FILENAME,
       AUDIO_DIRNAME,
-      "./test/wrong/wrong.txt",
+      wrongTextFilename,
       CONFIG,
     );
     await expect(stream.start(false)).rejects.toMatch(ENOENT_PATTERN);
+    await expect(dStream.start(false)).rejects.toMatch(ENOENT_PATTERN);
   });
 
   test(
@@ -84,13 +96,14 @@ describe("Errors", () => {
       expect.assertions(1);
       const textFilename = createTextFilename();
       process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
-      const stream = new DistributedSTTStream(
+      const wrongAudioDirname = "./test/wrong";
+      const dStream = new DistributedSTTStream(
         AUDIO_FILENAME,
-        "./test/wrong",
+        wrongAudioDirname,
         textFilename,
         CONFIG,
       );
-      await expect(stream.start(false)).rejects.toMatch(ENOENT_PATTERN);
+      await expect(dStream.start(false)).rejects.toMatch(ENOENT_PATTERN);
     },
     TIME_LIMIT,
   );

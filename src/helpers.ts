@@ -58,7 +58,7 @@ export const runBashScript = (
     const reject = (reason: string) =>
       reject_(
         `${[
-          "An error occurred running a bash script.",
+          "Error running a bash script.",
           "This is probably because you're environment is not set up correctly.",
           "Docker will be used soon to enable the app on any environment.",
         ].join(" ")} ${reason}`,
