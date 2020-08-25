@@ -99,7 +99,11 @@ class STTStream {
       const goodCredentials =
         gac && typeof gac === "string" && gac.length && existsSync(gac);
       if (!goodCredentials) {
-        throw `Environment variable GOOGLE_APPLICATION_CREDENTIALS is not set to a real file. No file ${gac}`;
+        const reason = [
+          "Environment variable GOOGLE_APPLICATION_CREDENTIALS is not set to a real file.",
+          `No file: ${gac}`,
+        ].join("\n");
+        throw reason;
       }
 
       // Check if files exist
@@ -161,7 +165,10 @@ class STTStream {
     if (!allTrue(filesExist)) {
       const problemIndex = filesExist.indexOf(false);
       const problemFile = this.neededFiles[problemIndex];
-      throw `Not all files exist. For example, ${problemFile} doesn't exist`;
+      const reason = ["Not all files exist.", `No file: ${problemFile}`].join(
+        "\n",
+      );
+      throw reason;
     }
     return true;
   }

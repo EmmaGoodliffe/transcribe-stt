@@ -144,16 +144,16 @@ class DistributedSTTStream extends STTStream {
       // Handle standard errors
       if (error) {
         const errors = error.split("\n");
-        for (const errorMessage of errors) {
+        for (const errorLine of errors) {
           // Check if every error is a known warning
           let isKnownWarning = false;
           for (const pattern of knownWarningPatterns) {
-            isKnownWarning = isKnownWarning || pattern.test(errorMessage);
+            isKnownWarning = isKnownWarning || pattern.test(errorLine);
           }
           // If error is not a known warning and it is full
-          if (!isKnownWarning && errorMessage.length) {
+          if (!isKnownWarning && errorLine.length) {
             // Throw it
-            throw errorMessage;
+            throw errorLine;
           }
         }
       }
@@ -217,22 +217,18 @@ class DistributedSTTStream extends STTStream {
       // Save promise
       promises.push(promise);
     });
-    try {
-      // Get results
-      const results = await Promise.all(promises);
-      // Set progress to 100%
-      this.setProgress(100);
-      // Flatten results
-      const flattenedResults = results.flat();
-      // Join results
-      const joinedResults = flattenedResults.join("\n");
-      // Write joined results to text file
-      this.textFilename && writeFileSync(this.textFilename, joinedResults);
-      // Return flattened results
-      return flattenedResults;
-    } catch (err) {
-      throw `ALL: ${err}`;
-    }
+    // Get results
+    const results = await Promise.all(promises);
+    // Set progress to 100%
+    this.setProgress(100);
+    // Flatten results
+    const flattenedResults = results.flat();
+    // Join results
+    const joinedResults = flattenedResults.join("\n");
+    // Write joined results to text file
+    this.textFilename && writeFileSync(this.textFilename, joinedResults);
+    // Return flattened results
+    return flattenedResults;
   }
 }
 
