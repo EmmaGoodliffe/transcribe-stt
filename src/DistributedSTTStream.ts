@@ -1,15 +1,12 @@
 import { readdirSync, writeFileSync } from "fs";
-import { resolve, dirname } from "path";
+import { dirname, resolve } from "path";
 import { runBashScript } from "./helpers";
 import STTStream from "./STTStream";
 import {
   DistributeListener,
-  Listener,
   ProgressListener,
   STTStreamOptions,
 } from "./types";
-
-// TODO: add comments
 
 // Constants
 const SHARD_LENGTH = 300;
@@ -54,9 +51,9 @@ class DistributedSTTStream extends STTStream {
   private progressListeners: ProgressListener[];
   private distributeListeners: DistributeListener[];
   /**
-   * @param audioFilename - Path to original audio file
+   * @param audioFilename - Path to audio file
    * @param audioDirname - Path to output distributed audio directory
-   * @param textFilename - Path to text file
+   * @param textFilename - Path to text file or null
    * @param options - Options
    */
   constructor(
@@ -65,59 +62,17 @@ class DistributedSTTStream extends STTStream {
     textFilename: string | null,
     public options: STTStreamOptions,
   ) {
+    // Run super constructor
     super(audioFilename, textFilename, options);
+    // Define needed files
     this.neededFiles = [audioFilename, audioDirname];
+    // If a text file was passed, append its directory to the needed files
     textFilename && this.neededFiles.push(dirname(textFilename));
-    this.progress = 0;
+    // Initialise progress
+    this.progress = -1;
+    // Initialise listeners
     this.progressListeners = [];
     this.distributeListeners = [];
-  }
-  /**
-   * Set progress
-   * @param progress - Progress percentage
-   * @internal
-   */
-  private setProgress(progress: number): void {
-    if (progress === 0 || progress > this.progress) {
-      // Save progress
-      this.progress = progress;
-      // Call every listener
-      for (const listener of this.progressListeners) {
-        listener(progress);
-      }
-    }
-  }
-  /**
-   * Listen to `"distribute"` event and run callback functions
-   * @remarks
-   * The callback function is run whenever the {@link DistributedSTTStream.distribute} method finishes.
-   *
-   * This can be helpful if you are using a very large audio file and want to know when it has been split up by the {@link DistributedSTTStream.start} method.
-   *
-   * ({@link DistributedSTTStream.distribute} returns a promise which resolves when the distribution completes.
-   * So if you are using the method on its own, this event is obsolete)
-   * @param event - Event to listen to
-   * @param callback - Function to run when event fires
-   */
-  on(event: "distribute", callback: DistributeListener): void;
-  /**
-   * Listen to `"progress"` event and run callback functions
-   * @remarks
-   * The callback function is run whenever a distributed audio file is transcribed.
-   * The progress percentage of audio files transcribed is passed as the parameter of the callback.
-   * For example, if 2 of 4 audio files have been transcribed, `50` will be passed, representing 50%
-   * @param event - Event to listen to
-   * @param callback - Function to run when event fires
-   */
-  on(event: "progress", callback: ProgressListener): void;
-  on(event: string, callback: Listener): void {
-    if (event === "progress") {
-      // Add callback to progress listeners
-      this.progressListeners.push(callback);
-    } else if (event === "distribute") {
-      // Add callback to distribute listeners
-      this.distributeListeners.push(callback as DistributeListener);
-    }
   }
   /**
    * Distribute audio into separate files (automatically called by {@link DistributedSTTStream.start})
@@ -143,9 +98,9 @@ class DistributedSTTStream extends STTStream {
       ];
       // Handle standard errors
       if (error) {
+        // Check if every error is a known warning
         const errors = error.split("\n");
         for (const errorLine of errors) {
-          // Check if every error is a known warning
           let isKnownWarning = false;
           for (const pattern of knownWarningPatterns) {
             isKnownWarning = isKnownWarning || pattern.test(errorLine);
@@ -158,23 +113,70 @@ class DistributedSTTStream extends STTStream {
         }
       }
     }
-
-    // Call every listener
+    // Call every distribute listener
     for (const listener of this.distributeListeners) {
       listener();
     }
-
     // Return standard output
     return stdout;
+  }
+  /**
+   * Listen to `"distribute"` event and run callback functions
+   * @remarks
+   * The callback function is run whenever the {@link DistributedSTTStream.distribute} method finishes.
+   * This can be helpful if you are using a very large audio file and want to know when it has been split up by the {@link DistributedSTTStream.start} method.
+   *
+   * ({@link DistributedSTTStream.distribute} returns a promise which resolves when the distribution completes.
+   * So if you are using the method on its own, this event is obsolete)
+   * @param event - Event to listen to
+   * @param callback - Function to run when event fires
+   */
+  on(event: "distribute", callback: DistributeListener): void;
+  /**
+   * Listen to `"progress"` event and run callback functions
+   * @remarks
+   * The callback function is run whenever a distributed audio file is transcribed.
+   * The progress percentage of audio files transcribed is passed as the parameter of the callback.
+   * For example, if 2 of 4 audio files have been transcribed, `50` will be passed, representing 50%
+   * @param event - Event to listen to
+   * @param callback - Function to run when event fires
+   */
+  on(event: "progress", callback: ProgressListener): void;
+  on(event: string, callback: ProgressListener | DistributeListener): void {
+    if (event === "progress") {
+      // Add callback to progress listeners
+      this.progressListeners.push(callback as ProgressListener);
+    } else if (event === "distribute") {
+      // Add callback to distribute listeners
+      this.distributeListeners.push(callback as DistributeListener);
+    } else {
+      // Throw error
+      const reason = `No event ${event}`;
+      throw reason;
+    }
+  }
+  /**
+   * Set progress
+   * @param progress - Progress percentage
+   * @internal
+   */
+  private setProgress(progress: number): void {
+    // If new progress is larger than previous progress
+    if (progress > this.progress) {
+      // Save progress
+      this.progress = progress;
+      // Call every progress listener
+      for (const listener of this.progressListeners) {
+        listener(progress);
+      }
+    }
   }
   /** {@inheritdoc STTStream.start} */
   async start(useConsole?: boolean): Promise<string[]> {
     // Check if files exists
     this.checkFiles();
-
     // Initialise results
     const promises: Promise<string[]>[] = [];
-
     try {
       // Distribute audio file
       const stdout = await this.distribute();
@@ -183,18 +185,14 @@ class DistributedSTTStream extends STTStream {
     } catch (err) {
       throw `Error distributing audio file. ${err}`;
     }
-
     // Read audio directory
     const filenames = readdirSync(this.audioDirname);
-
     // Define WAV pattern
     const pattern = /\.wav$/;
     const wavFilenames = filenames.filter(fn => pattern.test(fn));
     const totalN = wavFilenames.length;
-
     // Initialise n
     let n = 0;
-
     // For every WAV path
     wavFilenames.forEach(wavFilename => {
       // Get the full WAV path
@@ -203,7 +201,6 @@ class DistributedSTTStream extends STTStream {
       const stream = new STTStream(fullWavFn, null, this.options);
       // Start the stream
       const promise = stream.start(useConsole);
-      // After promise
       promise
         .then(() => {
           // Define percentage
@@ -213,6 +210,7 @@ class DistributedSTTStream extends STTStream {
           // Increase n
           n++;
         })
+        // Ignore errors in single promise (caught later in Promise.all)
         .catch(() => {});
       // Save promise
       promises.push(promise);

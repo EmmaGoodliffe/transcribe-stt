@@ -18,12 +18,6 @@ export type ProgressListener = (progress: number) => void | Promise<void>;
 export type DistributeListener = () => void | Promise<void>;
 
 /**
- * Listener for any property
- * @public
- */
-export type Listener = ProgressListener | DistributeListener;
-
-/**
  * Audio encoding
  * @remarks
  * See https://cloud.google.com/speech-to-text/docs/encoding

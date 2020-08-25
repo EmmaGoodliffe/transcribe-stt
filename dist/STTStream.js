@@ -53,6 +53,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var speech_1 = require("@google-cloud/speech");
 var fs_1 = require("fs");
 var ora_1 = __importDefault(require("ora"));
+var path_1 = require("path");
 var helpers_1 = require("./helpers");
 // Define constants
 var SPINNER_START_TEXT = "STT stream running...";
@@ -91,14 +92,110 @@ var FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
 var STTStream = /** @class */ (function () {
     /**
      * @param audioFilename - Path to audio file
-     * @param textFilename - Path to text file
+     * @param textFilename - Path to text file or null
      * @param options - Options
      */
     function STTStream(audioFilename, textFilename, options) {
         this.audioFilename = audioFilename;
         this.textFilename = textFilename;
-        this.options = __assign(__assign({}, options), { append: options.append || false, languageCode: options.languageCode || "en-US" });
+        this.options = __assign(__assign({}, options), { languageCode: options.languageCode || "en-US" });
+        // Define needed files
+        this.neededFiles = [audioFilename];
+        // If a text file was passed, append its directory to the needed files
+        textFilename && this.neededFiles.push(path_1.dirname(textFilename));
     }
+    /**
+     * Check that all needed files exist
+     * @returns Whether files exist
+     */
+    STTStream.prototype.checkFiles = function () {
+        // Find which files exist
+        var existStatuses = this.neededFiles.map(function (file) { return fs_1.existsSync(file); });
+        // Find number of files which don't exist
+        var falseN = existStatuses.filter(function (val) { return !val; }).length;
+        // If some files don't exist
+        if (falseN) {
+            // Find bad file
+            var badFileIndex = existStatuses.indexOf(false);
+            var badFile = this.neededFiles[badFileIndex];
+            // Throw error
+            var reason = ["Not all files exist.", "No file: " + badFile].join("\n");
+            throw reason;
+        }
+        // Otherwise, return true
+        return true;
+    };
+    /**
+     * Main inner method (automatically called by {@link STTStream.start})
+     * @internal
+     */
+    STTStream.prototype.inner = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            // Check if GOOGLE_APPLICATION_CREDENTIALS is defined
+            var gac = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+            var goodCredentials = gac && typeof gac === "string" && fs_1.existsSync(gac);
+            // If it is not defined
+            if (!goodCredentials) {
+                // Throw error
+                var reason = [
+                    "Environment variable GOOGLE_APPLICATION_CREDENTIALS is not set to a real file.",
+                    "No file: " + gac,
+                ].join("\n");
+                throw reason;
+            }
+            // Check if files exist
+            _this.checkFiles();
+            // Initialise results
+            var results = [];
+            // Initialise client
+            var client = new speech_1.SpeechClient();
+            // Define request
+            var request = {
+                config: {
+                    encoding: _this.options.encoding,
+                    sampleRateHertz: _this.options.sampleRateHertz,
+                    languageCode: _this.options.languageCode,
+                },
+            };
+            // Create read stream for audio file
+            var audioReadStream = fs_1.createReadStream(_this.audioFilename);
+            // Define a read/write stream to handle audio file
+            var recogniseStream = client
+                .streamingRecognize(request)
+                .on("error", function (err) {
+                // Handle errors
+                var reason = [
+                    "Error running the STT stream. " + err,
+                    "See " + FAQ_URL + " for help on common error messages",
+                ].join("\n");
+                reject(reason);
+            })
+                .on("data", function (data) {
+                // Get result
+                var result = data.results[0].alternatives[0].transcript;
+                // Save result
+                results.push(result);
+                // If a text file was passed
+                if (_this.textFilename) {
+                    // Append result to text file
+                    try {
+                        fs_1.appendFileSync(_this.textFilename, result + "\n");
+                    }
+                    catch (err) {
+                        // Handle errors
+                        if (!err)
+                            return;
+                        var reason = "Error writing to text file. " + err;
+                        reject(reason);
+                    }
+                }
+            })
+                .on("end", function () { return resolve(results); });
+            // Pipe audio file through read/write stream
+            audioReadStream.pipe(recogniseStream);
+        });
+    };
     /**
      * Start stream
      * @example
@@ -131,72 +228,6 @@ var STTStream = /** @class */ (function () {
                 }
             });
         });
-    };
-    /**
-     * Main inner method (automatically called by {@link STTStream.start})
-     * @internal
-     */
-    STTStream.prototype.inner = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            // Check if GOOGLE_APPLICATION_CREDENTIALS is defined
-            var gac = process.env.GOOGLE_APPLICATION_CREDENTIALS;
-            var goodCredentials = gac && typeof gac === "string" && gac.length && fs_1.existsSync(gac);
-            if (!goodCredentials) {
-                throw "Environment variable GOOGLE_APPLICATION_CREDENTIALS is not set to a real file. No file " + gac;
-            }
-            // Initialise results
-            var results = [];
-            // If not appending
-            if (!_this.options.append) {
-                // Empty file
-                _this.emptyTextFile();
-            }
-            // Initialise client
-            var client = new speech_1.SpeechClient();
-            // Define request
-            var request = {
-                config: {
-                    encoding: _this.options.encoding,
-                    sampleRateHertz: _this.options.sampleRateHertz,
-                    languageCode: _this.options.languageCode,
-                },
-            };
-            // Create read stream for audio file
-            var audioReadStream = fs_1.createReadStream(_this.audioFilename);
-            // Define a read/write stream to handle audio file
-            var recogniseStream = client
-                .streamingRecognize(request)
-                .on("error", function (err) {
-                // Handle errors
-                var reason = [
-                    "An error occurred running the STT stream. " + err,
-                    "See " + FAQ_URL + " for help on common error messages",
-                ].join("\n");
-                reject(reason);
-            })
-                .on("data", function (data) {
-                // Get result
-                var result = data.results[0].alternatives[0].transcript;
-                // Save result
-                results.push(result);
-                // Append result to text file
-                fs_1.appendFile(_this.textFilename, result + "\n", function (err) {
-                    // Handle errors
-                    if (!err)
-                        return;
-                    var reason = "An error occurred writing to the text file. " + err;
-                    reject(reason);
-                });
-            })
-                .on("end", function () { return resolve(results); });
-            // Pipe audio file through read/write stream
-            audioReadStream.pipe(recogniseStream);
-        });
-    };
-    /** Empty text file */
-    STTStream.prototype.emptyTextFile = function () {
-        fs_1.writeFileSync(this.textFilename, "");
     };
     return STTStream;
 }());

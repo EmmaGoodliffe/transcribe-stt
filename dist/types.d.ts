@@ -14,11 +14,6 @@ export declare type ProgressListener = (progress: number) => void | Promise<void
  */
 export declare type DistributeListener = () => void | Promise<void>;
 /**
- * Listener for any property
- * @public
- */
-export declare type Listener = ProgressListener | DistributeListener;
-/**
  * Audio encoding
  * @remarks
  * See https://cloud.google.com/speech-to-text/docs/encoding
@@ -43,21 +38,5 @@ export interface STTStreamOptions {
     sampleRateHertz: number;
     /** BCP-47 language code. See {@link LanguageCode}. Default `"en-US"` */
     languageCode?: LanguageCode;
-    /** When true, results are appended to the text file. When false, the text file is emptied first. Default `false` */
-    append?: boolean;
-}
-/**
- * Options for an STT stream but `append` must be set to `true`
- * @remarks
- * `append` must be set to `true` because each audio file's transcript is appended to the same file.
- * Despite this, you can use {@link DistributedSTTStream} to empty the file first.
- * See {@link DistributedSTTStream} for an example.
- *
- * See {@link STTStreamOptions} for other properties
- * @public
- */
-export interface STTStreamOptionsAppend extends STTStreamOptions {
-    /** Extends {@link STTStreamOptions.append} */
-    append: true;
 }
 //# sourceMappingURL=types.d.ts.map

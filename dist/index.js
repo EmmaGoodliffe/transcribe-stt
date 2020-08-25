@@ -16,8 +16,8 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var STTStream_1 = require("./STTStream");
-Object.defineProperty(exports, "STTStream", { enumerable: true, get: function () { return STTStream_1.default; } });
 var DistributedSTTStream_1 = require("./DistributedSTTStream");
 Object.defineProperty(exports, "DistributedSTTStream", { enumerable: true, get: function () { return DistributedSTTStream_1.default; } });
+var STTStream_1 = require("./STTStream");
+Object.defineProperty(exports, "STTStream", { enumerable: true, get: function () { return STTStream_1.default; } });
 __exportStar(require("./types"), exports);

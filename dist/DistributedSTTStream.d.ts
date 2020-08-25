@@ -1,10 +1,10 @@
 import STTStream from "./STTStream";
-import { DistributeListener, ProgressListener, STTStreamOptionsAppend } from "./types";
+import { DistributeListener, ProgressListener, STTStreamOptions } from "./types";
 /**
  * A distributed STT stream (for audio files longer than 305 seconds)
  * @example
  * This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file.
- * You can customise the functionality of the stream with the {@link STTStreamOptionsAppend}
+ * You can customise the functionality of the stream with the {@link STTStreamOptions}
  *
  * If you don't know the encoding or sample rate of your WAV file, find out how to check it <a href="https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate">here</a>
  *
@@ -37,27 +37,29 @@ import { DistributeListener, ProgressListener, STTStreamOptionsAppend } from "./
  */
 declare class DistributedSTTStream extends STTStream {
     audioDirname: string;
-    options: STTStreamOptionsAppend;
+    options: STTStreamOptions;
+    private progress;
     private progressListeners;
     private distributeListeners;
     /**
-     * @param audioFilename - Path to original audio file
+     * @param audioFilename - Path to audio file
      * @param audioDirname - Path to output distributed audio directory
-     * @param textFilename - Path to text file
+     * @param textFilename - Path to text file or null
      * @param options - Options
      */
-    constructor(audioFilename: string, audioDirname: string, textFilename: string, options: STTStreamOptionsAppend);
+    constructor(audioFilename: string, audioDirname: string, textFilename: string | null, options: STTStreamOptions);
     /**
-     * Set progress
-     * @param progress - Progress percentage
-     * @internal
+     * Distribute audio into separate files (automatically called by {@link DistributedSTTStream.start})
+     * @remarks
+     * Single audio file is split up into smaller files of 300 seconds so they can be used with Google's streaming API.
+     * Each file is separately streamed and written to the text file when {@link DistributedSTTStream.start} is called
+     * @returns standard output of bash script
      */
-    private setProgress;
+    distribute(): Promise<string>;
     /**
      * Listen to `"distribute"` event and run callback functions
      * @remarks
      * The callback function is run whenever the {@link DistributedSTTStream.distribute} method finishes.
-     *
      * This can be helpful if you are using a very large audio file and want to know when it has been split up by the {@link DistributedSTTStream.start} method.
      *
      * ({@link DistributedSTTStream.distribute} returns a promise which resolves when the distribution completes.
@@ -77,13 +79,11 @@ declare class DistributedSTTStream extends STTStream {
      */
     on(event: "progress", callback: ProgressListener): void;
     /**
-     * Distribute audio into separate files (automatically called by {@link DistributedSTTStream.start})
-     * @remarks
-     * Single audio file is split up into smaller files of 300 seconds so they can be used with Google's streaming API.
-     * Each file is separately streamed and written to the text file when {@link DistributedSTTStream.start} is called
-     * @returns STD output of bash script
+     * Set progress
+     * @param progress - Progress percentage
+     * @internal
      */
-    distribute(): Promise<string>;
+    private setProgress;
     /** {@inheritdoc STTStream.start} */
     start(useConsole?: boolean): Promise<string[]>;
 }

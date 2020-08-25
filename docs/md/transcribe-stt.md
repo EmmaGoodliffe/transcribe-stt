@@ -19,10 +19,9 @@ See <a href="#classes">classes</a>
 
 ## Interfaces
 
-| Interface                                                            | Description                                                                        |
-| -------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| [STTStreamOptions](./transcribe-stt.sttstreamoptions.md)             | Options for an STT stream                                                          |
-| [STTStreamOptionsAppend](./transcribe-stt.sttstreamoptionsappend.md) | Options for an STT stream but <code>append</code> must be set to <code>true</code> |
+| Interface                                                | Description               |
+| -------------------------------------------------------- | ------------------------- |
+| [STTStreamOptions](./transcribe-stt.sttstreamoptions.md) | Options for an STT stream |
 
 ## Type Aliases
 
@@ -31,5 +30,4 @@ See <a href="#classes">classes</a>
 | [AudioEncoding](./transcribe-stt.audioencoding.md)           | Audio encoding                    |
 | [DistributeListener](./transcribe-stt.distributelistener.md) | Listener for the distribute value |
 | [LanguageCode](./transcribe-stt.languagecode.md)             | Language code                     |
-| [Listener](./transcribe-stt.listener.md)                     | Listener for any property         |
 | [ProgressListener](./transcribe-stt.progresslistener.md)     | Listener for the progress value   |

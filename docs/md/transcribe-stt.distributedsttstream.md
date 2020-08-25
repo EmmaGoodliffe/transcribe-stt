@@ -20,7 +20,7 @@ See [STTStream](./transcribe-stt.sttstream.md) for other properties and methods
 
 ## Example
 
-This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file. You can customise the functionality of the stream with the [STTStreamOptionsAppend](./transcribe-stt.sttstreamoptionsappend.md)
+This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file. You can customise the functionality of the stream with the [STTStreamOptions](./transcribe-stt.sttstreamoptions.md)
 
 If you don't know the encoding or sample rate of your WAV file, find out how to check it <a href="https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate">here</a>
 
@@ -61,10 +61,10 @@ stream.start();
 
 ## Properties
 
-| Property                                                              | Modifiers | Type                                                                 | Description |
-| --------------------------------------------------------------------- | --------- | -------------------------------------------------------------------- | ----------- |
-| [audioDirname](./transcribe-stt.distributedsttstream.audiodirname.md) |           | string                                                               |             |
-| [options](./transcribe-stt.distributedsttstream.options.md)           |           | [STTStreamOptionsAppend](./transcribe-stt.sttstreamoptionsappend.md) |             |
+| Property                                                              | Modifiers | Type                                                     | Description |
+| --------------------------------------------------------------------- | --------- | -------------------------------------------------------- | ----------- |
+| [audioDirname](./transcribe-stt.distributedsttstream.audiodirname.md) |           | string                                                   |             |
+| [options](./transcribe-stt.distributedsttstream.options.md)           |           | [STTStreamOptions](./transcribe-stt.sttstreamoptions.md) |             |
 
 ## Methods
 

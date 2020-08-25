@@ -16,7 +16,7 @@ distribute(): Promise<string>;
 
 Promise&lt;string&gt;
 
-STD output of bash script
+standard output of bash script
 
 ## Remarks
 
