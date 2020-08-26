@@ -8,7 +8,7 @@ Transcribe audio of any length using Google's Speech to Text API
 
 - [Description](#description)
 - [Installation](#installation)
-- [Reference](#Reference)
+- [Reference](#reference)
 - [Google authentication](#google-authentication)
 - [Converting audio to a WAV file](#converting-audio-to-a-wav-file)
   - [Checking encoding and sample rate](#checking-encoding-and-sample-rate)
