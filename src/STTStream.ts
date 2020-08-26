@@ -7,9 +7,11 @@ import { STTStreamOptions } from "./types";
 
 // Define constants
 const SPINNER_START_TEXT = "STT stream running...";
-const SUCCESS_TEXT = "STT stream done";
-const FAIL_TEXT = "STT stream failed";
+const SPINNER_SUCCESS_TEXT = "STT stream done";
+const SPINNER_FAIL_TEXT = "STT stream failed";
 const FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
+const GAC_URL =
+  "https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication";
 
 // Classes
 /**
@@ -36,7 +38,7 @@ const FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
  * const stream = new STTStream(audioFilename, textFilename, options);
  *
  * // Start stream and write output to text file
- * stream.start();
+ * stream.start().catch(console.error);
  * ```
  * @public
  */
@@ -97,7 +99,8 @@ class STTStream {
         // Throw error
         const reason = [
           "Environment variable GOOGLE_APPLICATION_CREDENTIALS is not set to a real file.",
-          `No file: ${gac}`,
+          `No file: ${gac}.`,
+          `See ${GAC_URL}`,
         ].join(" ");
         throw reason;
       }
@@ -167,8 +170,8 @@ class STTStream {
       results = await useSpinner(
         this.inner(),
         ora(SPINNER_START_TEXT),
-        SUCCESS_TEXT,
-        FAIL_TEXT,
+        SPINNER_SUCCESS_TEXT,
+        SPINNER_FAIL_TEXT,
       );
     } else {
       // Run function normally

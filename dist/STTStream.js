@@ -85,7 +85,7 @@ var FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
  * const stream = new STTStream(audioFilename, textFilename, options);
  *
  * // Start stream and write output to text file
- * stream.start();
+ * stream.start().catch(console.error);
  * ```
  * @public
  */

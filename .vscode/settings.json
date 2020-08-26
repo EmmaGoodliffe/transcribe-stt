@@ -4,8 +4,7 @@
     "parens",
     "programmatically",
     "protos",
-    "quickstart",
-    "resample",
-    "screenshots"
-  ]
+    "resample"
+  ],
+  "cSpell.allowCompoundWords": true
 }

@@ -21,6 +21,7 @@ export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.Recognit
  * A distributed STT stream (for audio files longer than 305 seconds)
  * @example
  * This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file.
+ * The audio files is split up into smaller files saved in the audio directory passed to the constructor.
  * You can customise the functionality of the stream with the {@link STTStreamOptions}
  *
  * If you don't know the encoding or sample rate of your WAV file, find out how to check it <a href="https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate">here</a>
@@ -36,17 +37,13 @@ export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.Recognit
  * const options = {
  *  encoding: "LINEAR16",
  *  sampleRateHertz: 16000,
- *  append: true,
  * };
  *
  * // Initialise stream
  * const stream = new DistributedSTTStream(audioFilename, audioDirname, textFilename, options);
  *
- * // Empty text file
- * stream.emptyTextFile();
- *
  * // Start stream and write output to text file
- * stream.start();
+ * stream.start().catch(console.error);
  * ```
  * @remarks
  * See {@link STTStream} for other properties and methods
@@ -152,7 +149,7 @@ export declare type ProgressListener = (progress: number) => void | Promise<void
  * const stream = new STTStream(audioFilename, textFilename, options);
  *
  * // Start stream and write output to text file
- * stream.start();
+ * stream.start().catch(console.error);
  * ```
  * @public
  */

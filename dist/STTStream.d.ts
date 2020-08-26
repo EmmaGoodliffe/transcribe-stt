@@ -23,7 +23,7 @@ import { STTStreamOptions } from "./types";
  * const stream = new STTStream(audioFilename, textFilename, options);
  *
  * // Start stream and write output to text file
- * stream.start();
+ * stream.start().catch(console.error);
  * ```
  * @public
  */

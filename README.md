@@ -139,6 +139,7 @@ Similarly, if you can't run the `file` command, [Audacity] can show you the samp
 - Lint `.svg` files
 - Update examples in JSDoc comments
 - Check exports from `.ts` files are used
+- Add `data` event for `DistributedSTTStream`
 
 [audacity]: https://www.audacityteam.org/
 [`dotenv`]: https://www.npmjs.com/package/dotenv
