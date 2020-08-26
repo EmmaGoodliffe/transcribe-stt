@@ -192,8 +192,8 @@ export class STTStream {
 
 // @public
 export interface STTStreamOptions {
-  encoding: AudioEncoding;
+  encoding?: AudioEncoding;
   languageCode?: LanguageCode;
-  sampleRateHertz: number;
+  sampleRateHertz?: number;
 }
 ```

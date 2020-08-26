@@ -5,8 +5,6 @@ import { STTStreamOptions } from "./types";
  * This example writes the transcript of a short LINEAR16 16000Hz WAV file to a text file.
  * You can customise the functionality of the stream with the {@link STTStreamOptions}.
  *
- * If you don't know the encoding or sample rate of your WAV file, find out how to check it <a href="https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate">here</a>
- *
  * ```ts
  * import { STTStream } form "transcribe-stt";
  *
@@ -14,10 +12,7 @@ import { STTStreamOptions } from "./types";
  *
  * const audioFilename = "./<input audio file>.wav";
  * const textFilename = "./<output text file>.txt";
- * const options = {
- *  encoding: "LINEAR16",
- *  sampleRateHertz: 16000,
- * };
+ * const options = {};
  *
  * // Initialise stream
  * const stream = new STTStream(audioFilename, textFilename, options);

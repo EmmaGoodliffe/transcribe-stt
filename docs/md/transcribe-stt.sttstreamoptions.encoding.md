@@ -4,10 +4,10 @@
 
 ## STTStreamOptions.encoding property
 
-Audio encoding
+Audio encoding. Not required for WAV files
 
 <b>Signature:</b>
 
 ```typescript
-encoding: AudioEncoding;
+encoding?: AudioEncoding;
 ```

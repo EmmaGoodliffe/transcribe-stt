@@ -11,8 +11,6 @@ import { google } from '@google-cloud/speech/build/protos/protos';
  * Audio encoding
  * @remarks
  * See https://cloud.google.com/speech-to-text/docs/encoding
- *
- * If you don't know the encoding of your WAV file, find out how to check it <a href="https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#encoding">here</a>
  * @public
  */
 export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
@@ -24,8 +22,6 @@ export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.Recognit
  * The audio files is split up into smaller files saved in the audio directory passed to the constructor.
  * You can customise the functionality of the stream with the {@link STTStreamOptions}
  *
- * If you don't know the encoding or sample rate of your WAV file, find out how to check it <a href="https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate">here</a>
- *
  * ```ts
  * import { DistributedSTTStream } from "transcribe-stt";
  *
@@ -34,10 +30,7 @@ export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.Recognit
  * const audioFilename = "./<input audio file>.wav";
  * const audioDirname = "./<output audio directory>";
  * const textFilename = "./<output text file>.txt";
- * const options = {
- *  encoding: "LINEAR16",
- *  sampleRateHertz: 16000,
- * };
+ * const options = {};
  *
  * // Initialise stream
  * const stream = new DistributedSTTStream(audioFilename, audioDirname, textFilename, options);
@@ -131,8 +124,6 @@ export declare type ProgressListener = (progress: number) => void | Promise<void
  * This example writes the transcript of a short LINEAR16 16000Hz WAV file to a text file.
  * You can customise the functionality of the stream with the {@link STTStreamOptions}.
  *
- * If you don't know the encoding or sample rate of your WAV file, find out how to check it <a href="https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate">here</a>
- *
  * ```ts
  * import { STTStream } form "transcribe-stt";
  *
@@ -140,10 +131,7 @@ export declare type ProgressListener = (progress: number) => void | Promise<void
  *
  * const audioFilename = "./<input audio file>.wav";
  * const textFilename = "./<output text file>.txt";
- * const options = {
- *  encoding: "LINEAR16",
- *  sampleRateHertz: 16000,
- * };
+ * const options = {};
  *
  * // Initialise stream
  * const stream = new STTStream(audioFilename, textFilename, options);
@@ -189,14 +177,13 @@ export declare class STTStream {
  * @public
  */
 export declare interface STTStreamOptions {
-    /** Audio encoding */
-    encoding: AudioEncoding;
+    /** Audio encoding. Not required for WAV files */
+    encoding?: AudioEncoding;
     /**
      * Audio sample rate in Hertz
      * @remarks
-     * If you don't know the encoding of your WAV file, find out how to check it <a href="https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#sample-rate">here</a>
      */
-    sampleRateHertz: number;
+    sampleRateHertz?: number;
     /** BCP-47 language code. Default `"en-US"` */
     languageCode?: LanguageCode;
 }

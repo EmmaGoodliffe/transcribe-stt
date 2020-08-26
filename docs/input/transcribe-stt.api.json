@@ -18,7 +18,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "transcribe-stt!AudioEncoding:type",
-          "docComment": "/**\n * Audio encoding\n *\n * @remarks\n *\n * See https://cloud.google.com/speech-to-text/docs/encoding\n *\n * If you don't know the encoding of your WAV file, find out how to check it <a href=\"https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#encoding\">here</a>\n *\n * @public\n */\n",
+          "docComment": "/**\n * Audio encoding\n *\n * @remarks\n *\n * See https://cloud.google.com/speech-to-text/docs/encoding\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -48,7 +48,7 @@
         {
           "kind": "Class",
           "canonicalReference": "transcribe-stt!DistributedSTTStream:class",
-          "docComment": "/**\n * A distributed STT stream (for audio files longer than 305 seconds)\n *\n * @remarks\n *\n * See {@link STTStream} for other properties and methods\n *\n * @example\n *\n * This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file. The audio files is split up into smaller files saved in the audio directory passed to the constructor. You can customise the functionality of the stream with the {@link STTStreamOptions}\n *\n * If you don't know the encoding or sample rate of your WAV file, find out how to check it <a href=\"https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate\">here</a>\n * ```ts\n * import { DistributedSTTStream } from \"transcribe-stt\";\n *\n * // TODO: Authenticate with Google. See https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication\n *\n * const audioFilename = \"./<input audio file>.wav\";\n * const audioDirname = \"./<output audio directory>\";\n * const textFilename = \"./<output text file>.txt\";\n * const options = {\n *  encoding: \"LINEAR16\",\n *  sampleRateHertz: 16000,\n * };\n *\n * // Initialise stream\n * const stream = new DistributedSTTStream(audioFilename, audioDirname, textFilename, options);\n *\n * // Start stream and write output to text file\n * stream.start().catch(console.error);\n * ```\n *\n * @public\n */\n",
+          "docComment": "/**\n * A distributed STT stream (for audio files longer than 305 seconds)\n *\n * @remarks\n *\n * See {@link STTStream} for other properties and methods\n *\n * @example\n *\n * This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file. The audio files is split up into smaller files saved in the audio directory passed to the constructor. You can customise the functionality of the stream with the {@link STTStreamOptions}\n * ```ts\n * import { DistributedSTTStream } from \"transcribe-stt\";\n *\n * // TODO: Authenticate with Google. See https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication\n *\n * const audioFilename = \"./<input audio file>.wav\";\n * const audioDirname = \"./<output audio directory>\";\n * const textFilename = \"./<output text file>.txt\";\n * const options = {};\n *\n * // Initialise stream\n * const stream = new DistributedSTTStream(audioFilename, audioDirname, textFilename, options);\n *\n * // Start stream and write output to text file\n * stream.start().catch(console.error);\n * ```\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -501,7 +501,7 @@
         {
           "kind": "Class",
           "canonicalReference": "transcribe-stt!STTStream:class",
-          "docComment": "/**\n * An STT stream (for audio files shorter than 305 seconds)\n *\n * @example\n *\n * This example writes the transcript of a short LINEAR16 16000Hz WAV file to a text file. You can customise the functionality of the stream with the {@link STTStreamOptions}.\n *\n * If you don't know the encoding or sample rate of your WAV file, find out how to check it <a href=\"https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate\">here</a>\n * ```ts\n * import { STTStream } form \"transcribe-stt\";\n *\n * // TODO: Authenticate with Google. See https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication\n *\n * const audioFilename = \"./<input audio file>.wav\";\n * const textFilename = \"./<output text file>.txt\";\n * const options = {\n *  encoding: \"LINEAR16\",\n *  sampleRateHertz: 16000,\n * };\n *\n * // Initialise stream\n * const stream = new STTStream(audioFilename, textFilename, options);\n *\n * // Start stream and write output to text file\n * stream.start().catch(console.error);\n * ```\n *\n * @public\n */\n",
+          "docComment": "/**\n * An STT stream (for audio files shorter than 305 seconds)\n *\n * @example\n *\n * This example writes the transcript of a short LINEAR16 16000Hz WAV file to a text file. You can customise the functionality of the stream with the {@link STTStreamOptions}.\n * ```ts\n * import { STTStream } form \"transcribe-stt\";\n *\n * // TODO: Authenticate with Google. See https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication\n *\n * const audioFilename = \"./<input audio file>.wav\";\n * const textFilename = \"./<output text file>.txt\";\n * const options = {};\n *\n * // Initialise stream\n * const stream = new STTStream(audioFilename, textFilename, options);\n *\n * // Start stream and write output to text file\n * stream.start().catch(console.error);\n * ```\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -773,11 +773,11 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "transcribe-stt!STTStreamOptions#encoding:member",
-              "docComment": "/**\n * Audio encoding\n */\n",
+              "docComment": "/**\n * Audio encoding. Not required for WAV files\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "encoding: "
+                  "text": "encoding?: "
                 },
                 {
                   "kind": "Reference",
@@ -825,11 +825,11 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "transcribe-stt!STTStreamOptions#sampleRateHertz:member",
-              "docComment": "/**\n * Audio sample rate in Hertz\n *\n * @remarks\n *\n * If you don't know the encoding of your WAV file, find out how to check it <a href=\"https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#sample-rate\">here</a>\n */\n",
+              "docComment": "/**\n * Audio sample rate in Hertz\n *\n * @remarks\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "sampleRateHertz: "
+                  "text": "sampleRateHertz?: "
                 },
                 {
                   "kind": "Content",

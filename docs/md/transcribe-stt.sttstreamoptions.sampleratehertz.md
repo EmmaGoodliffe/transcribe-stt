@@ -9,9 +9,7 @@ Audio sample rate in Hertz
 <b>Signature:</b>
 
 ```typescript
-sampleRateHertz: number;
+sampleRateHertz?: number;
 ```
 
 ## Remarks
-
-If you don't know the encoding of your WAV file, find out how to check it <a href="https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#sample-rate">here</a>

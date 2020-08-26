@@ -22,8 +22,6 @@ See [STTStream](./transcribe-stt.sttstream.md) for other properties and methods
 
 This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file. The audio files is split up into smaller files saved in the audio directory passed to the constructor. You can customise the functionality of the stream with the [STTStreamOptions](./transcribe-stt.sttstreamoptions.md)
 
-If you don't know the encoding or sample rate of your WAV file, find out how to check it <a href="https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#checking-encoding-and-sample-rate">here</a>
-
 ```ts
 import { DistributedSTTStream } from "transcribe-stt";
 
@@ -32,10 +30,7 @@ import { DistributedSTTStream } from "transcribe-stt";
 const audioFilename = "./<input audio file>.wav";
 const audioDirname = "./<output audio directory>";
 const textFilename = "./<output text file>.txt";
-const options = {
-  encoding: "LINEAR16",
-  sampleRateHertz: 16000,
-};
+const options = {};
 
 // Initialise stream
 const stream = new DistributedSTTStream(
