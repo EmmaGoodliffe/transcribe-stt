@@ -1,12 +1,5 @@
 import { Ora } from "ora";
 /**
- * Converts a relative path to an absolute path using the directory the function is run from
- * @param path - Relative path
- * @returns Absolute path
- * @internal
- */
-export declare const relPathToAbs: (path: string) => string;
-/**
  * Show spinner while a promise is running
  * @param promise - Promise to base spinner on
  * @param spinner - Spinner instance

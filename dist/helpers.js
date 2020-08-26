@@ -36,18 +36,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.recExp = exports.runBashScript = exports.useSpinner = exports.relPathToAbs = void 0;
+exports.recExp = exports.runBashScript = exports.useSpinner = void 0;
 var child_process_1 = require("child_process");
 var path_1 = require("path");
-/**
- * Converts a relative path to an absolute path using the directory the function is run from
- * @param path - Relative path
- * @returns Absolute path
- * @internal
- */
-exports.relPathToAbs = function (path) {
-    return path_1.resolve(__dirname, path);
-};
 /**
  * Show spinner while a promise is running
  * @param promise - Promise to base spinner on
@@ -106,10 +97,9 @@ exports.runBashScript = function (filename, args) {
             ].join(" ") + " " + reason);
         };
         // Define absolute path
-        var relFilename = path_1.resolve("./scripts/bash", "./" + filename);
-        var absFilename = exports.relPathToAbs(relFilename);
+        var relFilename = path_1.resolve(__dirname, "../scripts/bash", path_1.join("./", filename));
         // Define command
-        var command = absFilename + " " + args;
+        var command = relFilename + " " + args;
         // Execute command
         child_process_1.exec(command, function (error, stdout, stderr) {
             // Handle errors
