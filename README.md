@@ -39,7 +39,23 @@ To stream any audio, you must authenticate yourself with Google. To do this, jus
    ```
    key.json
    ```
-1. Change the value of the environment variable `GOOGLE_APPLICATION_CREDENTIALS` to the **absolute** path to your JSON key. There are multiple ways to do this. The easiest way is probably [`dotenv`]
+1. Change the value of the environment variable `GOOGLE_APPLICATION_CREDENTIALS` to the **absolute** path to your JSON key. There are multiple ways to do this. The easiest way is probably directly through [`Node`]
+
+   - Directly through [`Node`]
+
+     1. Before using any `transcribe-stt` services, define the environment variable
+
+        ```ts
+        import { resolve } from "path";
+        // Or in JavaScript: const { resolve } = require("path");
+
+        const filename = resolve(__dirname, "./key.json");
+        process.env.GOOGLE_APPLICATION_CREDENTIALS = filename;
+        ```
+
+        Define the relative path relative to the directory that the script is in.
+
+     1. Done!
 
    - [`dotenv`] (a package for easily defining environment variables)
 
@@ -60,26 +76,6 @@ To stream any audio, you must authenticate yourself with Google. To do this, jus
 
         config();
         ```
-
-     1. Done!
-
-   - Directly through Node
-
-     1. Before using any `transcribe-stt` services, define the environment variable
-
-        ```ts
-        import { resolve } from "path";
-        // Or in JavaScript: const { resolve } = require("path");
-
-        // Define relative path
-        const relGoogleKeyFilename = "./key.json";
-        // Convert to absolute path
-        const absGoogleKeyFilename = resolve(__dirname, relGoogleKeyFilename);
-        // Save to environment variable
-        process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
-        ```
-
-        Define the relative path relative to the directory that the script is in.
 
      1. Done!
 
@@ -145,5 +141,6 @@ Similarly, if you can't run the `file` command, [Audacity] can show you the samp
 - Check exports from `.ts` files are used
 
 [audacity]: https://www.audacityteam.org/
-[google's speech to text api]: https://cloud.google.com/speech-to-text/
 [`dotenv`]: https://www.npmjs.com/package/dotenv
+[google's speech to text api]: https://cloud.google.com/speech-to-text/
+[`node`]: https://nodejs.org/
