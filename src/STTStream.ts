@@ -64,6 +64,7 @@ class STTStream {
    * @returns Whether files exist
    */
   checkFiles(): boolean {
+    // TODO: use .includes method
     // Find which files exist
     const existStatuses = this.neededFiles.map(file => existsSync(file));
     // Find number of files which don't exist

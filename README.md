@@ -1,4 +1,4 @@
-![Logo](./docs/assets/logo.svg)
+![Logo](./docs/assets/logo.svg.x.svg)
 
 # transcribe-stt
 
@@ -119,6 +119,7 @@ To use an audio file with `transcribe-stt`, it must be a WAV file with mono audi
 - Check exports from `.ts` files are used
 - Add `data` event for `DistributedSTTStream`
 - Post-process `.md` files
+- Check comments
 
 [audacity]: https://www.audacityteam.org/
 [`dotenv`]: https://www.npmjs.com/package/dotenv
