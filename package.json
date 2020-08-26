@@ -8,7 +8,7 @@
     "dist/**/*.ts",
     "dist/**/*.js",
     "dist/**/*.ts",
-    "scripts/bash"
+    "scripts/bash/*.sh"
   ],
   "scripts": {
     "build:all": "npm run ts:all && npm run docs && npm run lint:fix",
