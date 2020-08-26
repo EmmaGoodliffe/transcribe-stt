@@ -116,9 +116,9 @@ To use an audio file with `transcribe-stt`, it must be a WAV file with mono audi
 - Document how to change to a WAV file programmatically
 - Allow advanced configuration options documented [here](https://cloud.google.com/speech-to-text/docs/reference/rpc/google.cloud.speech.v1#google.cloud.speech.v1.StreamingRecognitionConfig)
 - Lint `.svg` files
-- Update examples in JSDoc comments
 - Check exports from `.ts` files are used
 - Add `data` event for `DistributedSTTStream`
+- Post-process `.md` files
 
 [audacity]: https://www.audacityteam.org/
 [`dotenv`]: https://www.npmjs.com/package/dotenv
