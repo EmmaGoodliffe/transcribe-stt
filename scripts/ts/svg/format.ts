@@ -44,7 +44,7 @@ const getFormattedFile = (filename: string): [string, string] => {
     lineSeparator: "\n",
     whiteSpaceAtEndOfSelfclosingTag: true,
   };
-  const after = xmlFormat(before, options);
+  const after = `${xmlFormat(before, options)}\n`;
   return [before, after];
 };
 
