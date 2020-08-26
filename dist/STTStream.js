@@ -57,9 +57,10 @@ var path_1 = require("path");
 var helpers_1 = require("./helpers");
 // Define constants
 var SPINNER_START_TEXT = "STT stream running...";
-var SUCCESS_TEXT = "STT stream done";
-var FAIL_TEXT = "STT stream failed";
+var SPINNER_SUCCESS_TEXT = "STT stream done";
+var SPINNER_FAIL_TEXT = "STT stream failed";
 var FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
+var GAC_URL = "https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication";
 // Classes
 /**
  * An STT stream (for audio files shorter than 305 seconds)
@@ -140,7 +141,8 @@ var STTStream = /** @class */ (function () {
                 // Throw error
                 var reason = [
                     "Environment variable GOOGLE_APPLICATION_CREDENTIALS is not set to a real file.",
-                    "No file: " + gac,
+                    "No file: " + gac + ".",
+                    "See " + GAC_URL,
                 ].join(" ");
                 throw reason;
             }
@@ -212,7 +214,7 @@ var STTStream = /** @class */ (function () {
                     case 0:
                         results = [];
                         if (!useConsole) return [3 /*break*/, 2];
-                        return [4 /*yield*/, helpers_1.useSpinner(this.inner(), ora_1.default(SPINNER_START_TEXT), SUCCESS_TEXT, FAIL_TEXT)];
+                        return [4 /*yield*/, helpers_1.useSpinner(this.inner(), ora_1.default(SPINNER_START_TEXT), SPINNER_SUCCESS_TEXT, SPINNER_FAIL_TEXT)];
                     case 1:
                         // Run function with spinner wrapper
                         results = _a.sent();

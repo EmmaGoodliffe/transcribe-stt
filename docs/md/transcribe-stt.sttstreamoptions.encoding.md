@@ -4,7 +4,7 @@
 
 ## STTStreamOptions.encoding property
 
-Audio encoding. See [AudioEncoding](./transcribe-stt.audioencoding.md)
+Audio encoding
 
 <b>Signature:</b>
 

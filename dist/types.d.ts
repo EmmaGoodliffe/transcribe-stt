@@ -28,7 +28,7 @@ export { LanguageCode };
  * @public
  */
 export interface STTStreamOptions {
-    /** Audio encoding. See {@link AudioEncoding} */
+    /** Audio encoding */
     encoding: AudioEncoding;
     /**
      * Audio sample rate in Hertz
@@ -36,7 +36,7 @@ export interface STTStreamOptions {
      * If you don't know the encoding of your WAV file, find out how to check it <a href="https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#sample-rate">here</a>
      */
     sampleRateHertz: number;
-    /** BCP-47 language code. See {@link LanguageCode}. Default `"en-US"` */
+    /** BCP-47 language code. Default `"en-US"` */
     languageCode?: LanguageCode;
 }
 //# sourceMappingURL=types.d.ts.map

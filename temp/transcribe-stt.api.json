@@ -773,7 +773,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "transcribe-stt!STTStreamOptions#encoding:member",
-              "docComment": "/**\n * Audio encoding. See {@link AudioEncoding}\n */\n",
+              "docComment": "/**\n * Audio encoding\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -799,7 +799,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "transcribe-stt!STTStreamOptions#languageCode:member",
-              "docComment": "/**\n * BCP-47 language code. See {@link LanguageCode}. Default `\"en-US\"`\n */\n",
+              "docComment": "/**\n * BCP-47 language code. Default `\"en-US\"`\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",

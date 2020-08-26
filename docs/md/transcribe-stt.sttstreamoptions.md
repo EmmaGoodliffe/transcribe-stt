@@ -14,8 +14,8 @@ export interface STTStreamOptions
 
 ## Properties
 
-| Property                                                                | Type                                               | Description                                                                                                                |
-| ----------------------------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| [encoding](./transcribe-stt.sttstreamoptions.encoding.md)               | [AudioEncoding](./transcribe-stt.audioencoding.md) | Audio encoding. See [AudioEncoding](./transcribe-stt.audioencoding.md)                                                     |
-| [languageCode](./transcribe-stt.sttstreamoptions.languagecode.md)       | [LanguageCode](./transcribe-stt.languagecode.md)   | BCP-47 language code. See [LanguageCode](./transcribe-stt.languagecode.md)<!-- -->. Default <code>&quot;en-US&quot;</code> |
-| [sampleRateHertz](./transcribe-stt.sttstreamoptions.sampleratehertz.md) | number                                             | Audio sample rate in Hertz                                                                                                 |
+| Property                                                                | Type                                               | Description                                                  |
+| ----------------------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------ |
+| [encoding](./transcribe-stt.sttstreamoptions.encoding.md)               | [AudioEncoding](./transcribe-stt.audioencoding.md) | Audio encoding                                               |
+| [languageCode](./transcribe-stt.sttstreamoptions.languagecode.md)       | [LanguageCode](./transcribe-stt.languagecode.md)   | BCP-47 language code. Default <code>&quot;en-US&quot;</code> |
+| [sampleRateHertz](./transcribe-stt.sttstreamoptions.sampleratehertz.md) | number                                             | Audio sample rate in Hertz                                   |
