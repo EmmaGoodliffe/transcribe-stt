@@ -236,6 +236,8 @@ var DistributedSTTStream = /** @class */ (function (_super) {
                         wavFilenames = filenames.filter(function (fn) { return pattern.test(fn); });
                         totalN = wavFilenames.length;
                         n = 0;
+                        // Initialise progress
+                        this.setProgress(n);
                         // For every WAV path
                         wavFilenames.forEach(function (wavFilename) {
                             // Get the full WAV path
@@ -246,12 +248,12 @@ var DistributedSTTStream = /** @class */ (function (_super) {
                             var promise = stream.start(useConsole);
                             promise
                                 .then(function () {
+                                // Increase n
+                                n++;
                                 // Define percentage
                                 var percentage = ~~((n / totalN) * 100);
                                 // Set progress to percentage
                                 _this.setProgress(percentage);
-                                // Increase n
-                                n++;
                             })
                                 // Ignore errors in single promise (caught later in Promise.all)
                                 .catch(function () { });
@@ -261,8 +263,6 @@ var DistributedSTTStream = /** @class */ (function (_super) {
                         return [4 /*yield*/, Promise.all(promises)];
                     case 5:
                         results = _a.sent();
-                        // Set progress to 100%
-                        this.setProgress(100);
                         flattenedResults = results.flat();
                         joinedResults = flattenedResults.join("\n");
                         // Write joined results to text file

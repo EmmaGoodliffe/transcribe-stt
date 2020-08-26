@@ -191,6 +191,8 @@ class DistributedSTTStream extends STTStream {
     const totalN = wavFilenames.length;
     // Initialise n
     let n = 0;
+    // Initialise progress
+    this.setProgress(n);
     // For every WAV path
     wavFilenames.forEach(wavFilename => {
       // Get the full WAV path
@@ -201,12 +203,12 @@ class DistributedSTTStream extends STTStream {
       const promise = stream.start(useConsole);
       promise
         .then(() => {
+          // Increase n
+          n++;
           // Define percentage
           const percentage = ~~((n / totalN) * 100);
           // Set progress to percentage
           this.setProgress(percentage);
-          // Increase n
-          n++;
         })
         // Ignore errors in single promise (caught later in Promise.all)
         .catch(() => {});
@@ -215,8 +217,6 @@ class DistributedSTTStream extends STTStream {
     });
     // Get results
     const results = await Promise.all(promises);
-    // Set progress to 100%
-    this.setProgress(100);
     // Flatten results
     const flattenedResults = results.flat();
     // Join results
