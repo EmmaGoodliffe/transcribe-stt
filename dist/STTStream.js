@@ -105,6 +105,7 @@ var STTStream = /** @class */ (function () {
      * @returns Whether files exist
      */
     STTStream.prototype.checkFiles = function () {
+        // TODO: use .includes method
         // Find which files exist
         var existStatuses = this.neededFiles.map(function (file) { return fs_1.existsSync(file); });
         // Find number of files which don't exist

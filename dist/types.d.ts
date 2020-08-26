@@ -28,10 +28,7 @@ export { LanguageCode };
 export interface STTStreamOptions {
     /** Audio encoding. Not required for WAV files */
     encoding?: AudioEncoding;
-    /**
-     * Audio sample rate in Hertz
-     * @remarks
-     */
+    /** Audio sample rate in Hertz. Not required for WAV files */
     sampleRateHertz?: number;
     /** BCP-47 language code. Default `"en-US"` */
     languageCode?: LanguageCode;

@@ -4,12 +4,10 @@
 
 ## STTStreamOptions.sampleRateHertz property
 
-Audio sample rate in Hertz
+Audio sample rate in Hertz. Not required for WAV files
 
 <b>Signature:</b>
 
 ```typescript
 sampleRateHertz?: number;
 ```
-
-## Remarks

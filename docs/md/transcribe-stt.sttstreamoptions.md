@@ -18,4 +18,4 @@ export interface STTStreamOptions
 | ----------------------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------ |
 | [encoding](./transcribe-stt.sttstreamoptions.encoding.md)               | [AudioEncoding](./transcribe-stt.audioencoding.md) | Audio encoding. Not required for WAV files                   |
 | [languageCode](./transcribe-stt.sttstreamoptions.languagecode.md)       | [LanguageCode](./transcribe-stt.languagecode.md)   | BCP-47 language code. Default <code>&quot;en-US&quot;</code> |
-| [sampleRateHertz](./transcribe-stt.sttstreamoptions.sampleratehertz.md) | number                                             | Audio sample rate in Hertz                                   |
+| [sampleRateHertz](./transcribe-stt.sttstreamoptions.sampleratehertz.md) | number                                             | Audio sample rate in Hertz. Not required for WAV files       |

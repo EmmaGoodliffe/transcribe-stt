@@ -825,7 +825,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "transcribe-stt!STTStreamOptions#sampleRateHertz:member",
-              "docComment": "/**\n * Audio sample rate in Hertz\n *\n * @remarks\n */\n",
+              "docComment": "/**\n * Audio sample rate in Hertz. Not required for WAV files\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
