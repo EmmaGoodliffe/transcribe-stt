@@ -1,4 +1,4 @@
-import { dirname, resolve } from "path";
+import { resolve } from "path";
 import {
   absGoogleKeyFilename,
   AUDIO_DIRNAME,
@@ -40,8 +40,8 @@ describe("Errors", () => {
     async () => {
       expect.assertions(2);
       process.env.GOOGLE_APPLICATION_CREDENTIALS = resolve(
-        dirname(""),
-        "./test/wrong.json",
+        __dirname,
+        "./wrong.json",
       );
       const stream = new STTStream(AUDIO_FILENAME, null, CONFIG);
       const dStream = new DistributedSTTStream(

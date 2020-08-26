@@ -1,6 +1,6 @@
 import { exec } from "child_process";
 import { Ora } from "ora";
-import { dirname, resolve as pathResolve } from "path";
+import { resolve as pathResolve } from "path";
 
 /**
  * Converts a relative path to an absolute path using the directory the function is run from
@@ -9,7 +9,7 @@ import { dirname, resolve as pathResolve } from "path";
  * @internal
  */
 export const relPathToAbs = (path: string): string =>
-  pathResolve(dirname(""), path);
+  pathResolve(__dirname, path);
 
 /**
  * Show spinner while a promise is running
@@ -45,7 +45,8 @@ export const useSpinner = async <T>(
 
 /**
  * Run bash script
- * @param command - Command to run bash script
+ * @param filename - Filename of bash script
+ * @param args - Arguments to pass to script
  * @returns Standard output of bash script
  * @internal
  */

@@ -119,7 +119,7 @@ var STTStream = /** @class */ (function () {
             var badFileIndex = existStatuses.indexOf(false);
             var badFile = this.neededFiles[badFileIndex];
             // Throw error
-            var reason = ["Not all files exist.", "No file: " + badFile].join("\n");
+            var reason = ["Not all files exist.", "No file: " + badFile].join(" ");
             throw reason;
         }
         // Otherwise, return true
@@ -141,7 +141,7 @@ var STTStream = /** @class */ (function () {
                 var reason = [
                     "Environment variable GOOGLE_APPLICATION_CREDENTIALS is not set to a real file.",
                     "No file: " + gac,
-                ].join("\n");
+                ].join(" ");
                 throw reason;
             }
             // Check if files exist
@@ -168,7 +168,7 @@ var STTStream = /** @class */ (function () {
                 var reason = [
                     "Error running the STT stream. " + err,
                     "See " + FAQ_URL + " for help on common error messages",
-                ].join("\n");
+                ].join(" ");
                 reject(reason);
             })
                 .on("data", function (data) {

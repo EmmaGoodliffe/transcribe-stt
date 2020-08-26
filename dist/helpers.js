@@ -46,7 +46,7 @@ var path_1 = require("path");
  * @internal
  */
 exports.relPathToAbs = function (path) {
-    return path_1.resolve(path_1.dirname(""), path);
+    return path_1.resolve(__dirname, path);
 };
 /**
  * Show spinner while a promise is running
@@ -90,7 +90,8 @@ exports.useSpinner = function (promise, spinner, successText, failText) {
 };
 /**
  * Run bash script
- * @param command - Command to run bash script
+ * @param filename - Filename of bash script
+ * @param args - Arguments to pass to script
  * @returns Standard output of bash script
  * @internal
  */

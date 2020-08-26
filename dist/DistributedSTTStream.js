@@ -107,10 +107,8 @@ var DistributedSTTStream = /** @class */ (function (_super) {
         _super.call(this, audioFilename, textFilename, options) || this;
         _this.audioDirname = audioDirname;
         _this.options = options;
-        // Define needed files
-        _this.neededFiles = [audioFilename, audioDirname];
-        // If a text file was passed, append its directory to the needed files
-        textFilename && _this.neededFiles.push(path_1.dirname(textFilename));
+        // Append audio directory to needed files
+        _this.neededFiles.push(audioDirname);
         // Initialise progress
         _this.progress = -1;
         // Initialise listeners

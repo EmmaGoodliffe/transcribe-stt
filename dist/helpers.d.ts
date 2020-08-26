@@ -18,7 +18,8 @@ export declare const relPathToAbs: (path: string) => string;
 export declare const useSpinner: <T>(promise: Promise<T>, spinner: Ora, successText?: string, failText?: string) => Promise<T>;
 /**
  * Run bash script
- * @param command - Command to run bash script
+ * @param filename - Filename of bash script
+ * @param args - Arguments to pass to script
  * @returns Standard output of bash script
  * @internal
  */

@@ -68,18 +68,18 @@ To stream any audio, you must authenticate yourself with Google. To do this, jus
      1. Before using any `transcribe-stt` services, define the environment variable
 
         ```ts
-        import { dirname, resolve } from "path";
-        // Or in JavaScript: const { dirname, resolve } = require("path");
+        import { resolve } from "path";
+        // Or in JavaScript: const { resolve } = require("path");
 
         // Define relative path
         const relGoogleKeyFilename = "./key.json";
         // Convert to absolute path
-        const absGoogleKeyFilename = resolve(dirname(""), relGoogleKeyFilename);
+        const absGoogleKeyFilename = resolve(__dirname, relGoogleKeyFilename);
         // Save to environment variable
         process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
         ```
 
-        Define the relative path relative to the directory that you run the script from, rather than the directory the script is in.
+        Define the relative path relative to the directory that the script is in.
 
      1. Done!
 

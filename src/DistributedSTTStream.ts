@@ -1,5 +1,5 @@
 import { readdirSync, writeFileSync } from "fs";
-import { dirname, resolve } from "path";
+import { resolve } from "path";
 import { runBashScript } from "./helpers";
 import STTStream from "./STTStream";
 import {
@@ -64,10 +64,8 @@ class DistributedSTTStream extends STTStream {
   ) {
     // Run super constructor
     super(audioFilename, textFilename, options);
-    // Define needed files
-    this.neededFiles = [audioFilename, audioDirname];
-    // If a text file was passed, append its directory to the needed files
-    textFilename && this.neededFiles.push(dirname(textFilename));
+    // Append audio directory to needed files
+    this.neededFiles.push(audioDirname);
     // Initialise progress
     this.progress = -1;
     // Initialise listeners

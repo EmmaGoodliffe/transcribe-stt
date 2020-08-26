@@ -77,7 +77,7 @@ class STTStream {
       const badFileIndex = existStatuses.indexOf(false);
       const badFile = this.neededFiles[badFileIndex];
       // Throw error
-      const reason = ["Not all files exist.", `No file: ${badFile}`].join("\n");
+      const reason = ["Not all files exist.", `No file: ${badFile}`].join(" ");
       throw reason;
     }
     // Otherwise, return true
@@ -98,7 +98,7 @@ class STTStream {
         const reason = [
           "Environment variable GOOGLE_APPLICATION_CREDENTIALS is not set to a real file.",
           `No file: ${gac}`,
-        ].join("\n");
+        ].join(" ");
         throw reason;
       }
       // Check if files exist
@@ -125,7 +125,7 @@ class STTStream {
           const reason = [
             `Error running the STT stream. ${err}`,
             `See ${FAQ_URL} for help on common error messages`,
-          ].join("\n");
+          ].join(" ");
           reject(reason);
         })
         .on("data", data => {

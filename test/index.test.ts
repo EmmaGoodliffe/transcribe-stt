@@ -1,13 +1,13 @@
 import { readFileSync, rmdirSync, mkdirSync } from "fs";
 import fetch from "node-fetch";
-import { dirname, resolve } from "path";
+import { resolve } from "path";
 import { DistributedSTTStream, STTStream, STTStreamOptions } from "../src";
 
 // TODO: add comments
 
 // Prepare environment
-const relGoogleKeyFilename = "./key.json";
-export const absGoogleKeyFilename = resolve(dirname(""), relGoogleKeyFilename);
+const relGoogleKeyFilename = "../key.json";
+export const absGoogleKeyFilename = resolve(__dirname, relGoogleKeyFilename);
 process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
 
 // Constants
@@ -27,7 +27,7 @@ export const CONFIG: STTStreamOptions = {
 
 // Helpers
 export const createTextFilename = (): string =>
-  resolve(dirname(""), `./${TEXT_DIRNAME}/stream${Date.now()}.txt`);
+  resolve(__dirname, `../${TEXT_DIRNAME}/stream${Date.now()}.txt`);
 
 const clean = (s: string) =>
   s
