@@ -4,6 +4,11 @@
   "description": "Transcribe audio of any length using Google's Speech to Text API",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
+  "files": [
+    "dist/**/*.ts",
+    "dist/**/*.js",
+    "dist/**/*.ts"
+  ],
   "scripts": {
     "build:all": "npm run ts:all && npm run docs && npm run lint:fix",
     "build": "rimraf dist && tsc",
