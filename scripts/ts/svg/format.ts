@@ -25,9 +25,8 @@ const getSvgFilenames = (dirname: string) => {
     const reason = `${dirname} doesn't exist`;
     throw reason;
   }
-  // Get all files in directory
+  // Get all SVG filenames in directory
   const filenames = readdirSync(dirname);
-  // Get all SVG filenames
   const svgFilenames = filenames
     .filter(fn => SVG_PATTERN.test(fn))
     .map(fn => resolve(__dirname, dirname, fn));
@@ -86,14 +85,12 @@ export const check = (dirname: string): string[] => {
 export const format = (dirname: string): boolean => {
   // Get files to format
   const filesToFormat = check(dirname);
-  // For each file
+  // Override each file
   for (const fn of filesToFormat) {
-    // Get formmated version
     const [, after] = getFormattedFile(fn);
-    // Override file
     writeFileSync(fn, after);
   }
-  // Find if files changed
+  // Check if files changed
   const filesChanged = filesToFormat.length > 0;
   // Return if files changed
   return filesChanged;
