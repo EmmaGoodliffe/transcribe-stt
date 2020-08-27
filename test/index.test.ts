@@ -1,14 +1,12 @@
-import { readFileSync, rmdirSync, mkdirSync } from "fs";
+import { existsSync, readFileSync, rmdirSync, mkdirSync } from "fs";
 import fetch from "node-fetch";
 import { resolve } from "path";
 import { DistributedSTTStream, STTStream, STTStreamOptions } from "../src";
 
-// TODO: add comments
-
 // Prepare environment
 const relGoogleKeyFilename = "../key.json";
-export const absGoogleKeyFilename = resolve(__dirname, relGoogleKeyFilename);
-process.env.GOOGLE_APPLICATION_CREDENTIALS = absGoogleKeyFilename;
+export const googleKeyFilename = resolve(__dirname, relGoogleKeyFilename);
+process.env.GOOGLE_APPLICATION_CREDENTIALS = googleKeyFilename;
 
 // Constants
 export const AUDIO_FILENAME = "./test/input.wav";
@@ -46,7 +44,7 @@ const update = () => delay(100);
 rmdirSync(TEXT_DIRNAME, { recursive: true });
 mkdirSync(TEXT_DIRNAME);
 
-// Environment tests
+// Tests
 describe("Environment", () => {
   test("tests work", () => {
     expect.assertions(2);
@@ -74,9 +72,21 @@ describe("Environment", () => {
     },
     TIME_LIMIT,
   );
+
+  test(
+    "credentials are good",
+    async () => {
+      expect.assertions(2);
+      const gac = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+      expect(gac).toBeTruthy();
+      if (gac) {
+        expect(existsSync(gac)).toBeTruthy();
+      }
+    },
+    TIME_LIMIT,
+  );
 });
 
-// STTStream tests
 describe("STTStream", () => {
   test(
     ".start",
@@ -93,8 +103,7 @@ describe("STTStream", () => {
   );
 });
 
-// Distributed stream tests
-describe("Distributed stream", () => {
+describe("DistributedSTTStream", () => {
   test(
     '.on("distribute")',
     async () => {
