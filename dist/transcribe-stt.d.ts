@@ -96,7 +96,7 @@ export declare class DistributedSTTStream extends STTStream {
 }
 
 /**
- *  Listener for the distribute value
+ * Listener for the distribute value
  * @public
  */
 export declare type DistributeListener = () => void | Promise<void>;

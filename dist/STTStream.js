@@ -55,10 +55,12 @@ var fs_1 = require("fs");
 var ora_1 = __importDefault(require("ora"));
 var path_1 = require("path");
 var helpers_1 = require("./helpers");
-// Define constants
-var SPINNER_START_TEXT = "STT stream running...";
-var SPINNER_SUCCESS_TEXT = "STT stream done";
-var SPINNER_FAIL_TEXT = "STT stream failed";
+// Constants
+var SPINNER_TEXT = {
+    START: "STT stream running...",
+    SUCCESS: "STT stream done",
+    FAIL: "STT stream failed",
+};
 var FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
 var GAC_URL = "https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication";
 // Classes
@@ -210,7 +212,7 @@ var STTStream = /** @class */ (function () {
                     case 0:
                         results = [];
                         if (!useConsole) return [3 /*break*/, 2];
-                        return [4 /*yield*/, helpers_1.useSpinner(this.inner(), ora_1.default(SPINNER_START_TEXT), SPINNER_SUCCESS_TEXT, SPINNER_FAIL_TEXT)];
+                        return [4 /*yield*/, helpers_1.useSpinner(this.inner(), ora_1.default(SPINNER_TEXT.START), SPINNER_TEXT.SUCCESS, SPINNER_TEXT.FAIL)];
                     case 1:
                         // Run function with spinner wrapper
                         results = _a.sent();

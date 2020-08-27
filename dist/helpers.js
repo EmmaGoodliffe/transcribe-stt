@@ -39,6 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.recExp = exports.runBashScript = exports.useSpinner = void 0;
 var child_process_1 = require("child_process");
 var path_1 = require("path");
+// Exports
 /**
  * Show spinner while a promise is running
  * @param promise - Promise to base spinner on
@@ -90,11 +91,12 @@ exports.runBashScript = function (filename, args) {
     return new Promise(function (resolve, reject_) {
         // Define reject function
         var reject = function (reason) {
-            return reject_([
+            var errorPrefix = [
                 "Error running a bash script.",
                 "This is probably because you're environment is not set up correctly.",
                 "Docker will be used soon to enable the app on any environment.",
-            ].join(" ") + " " + reason);
+            ].join(" ");
+            reject_(errorPrefix + " " + reason);
         };
         // Define absolute path
         var relFilename = path_1.resolve(__dirname, "../scripts/bash", path_1.join("./", filename));
@@ -108,12 +110,13 @@ exports.runBashScript = function (filename, args) {
                 var isWindowsError = stderr.includes("'.' is not recognized as an internal or external command");
                 // If error was caused by Windows
                 if (isWindowsError) {
-                    // Throw error explaining
+                    // Throw explanation error
                     var errorPrefix = "It looks like you are running Windows which is not supported yet";
                     var reason = errorPrefix + ". " + error;
                     reject(reason);
                 }
                 else {
+                    // Otherwise, throw error
                     reject("" + error);
                 }
             }

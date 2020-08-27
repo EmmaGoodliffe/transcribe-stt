@@ -9,7 +9,7 @@ import { LanguageCode } from "./generated/LanguageCode";
  */
 export declare type ProgressListener = (progress: number) => void | Promise<void>;
 /**
- *  Listener for the distribute value
+ * Listener for the distribute value
  * @public
  */
 export declare type DistributeListener = () => void | Promise<void>;

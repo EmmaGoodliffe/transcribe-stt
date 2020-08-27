@@ -58,6 +58,7 @@ var helpers_1 = require("./helpers");
 var STTStream_1 = __importDefault(require("./STTStream"));
 // Constants
 var SHARD_LENGTH = 300;
+// Classes
 /**
  * A distributed STT stream (for audio files longer than 305 seconds)
  * @example
@@ -117,7 +118,7 @@ var DistributedSTTStream = /** @class */ (function (_super) {
      */
     DistributedSTTStream.prototype.distribute = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var stdout, error_1, error, knownWarningPatterns, errors, _i, errors_1, errorLine, isKnownWarning, _a, knownWarningPatterns_1, pattern, _b, _c, listener;
+            var stdout, error_1, error, knownWarningPatterns, errorLines, _i, errorLines_1, errorLine, isKnownWarning, _a, knownWarningPatterns_1, pattern, _b, _c, listener;
             return __generator(this, function (_d) {
                 switch (_d.label) {
                     case 0:
@@ -139,9 +140,9 @@ var DistributedSTTStream = /** @class */ (function (_super) {
                         ];
                         // Handle standard errors
                         if (error) {
-                            errors = error.split("\n");
-                            for (_i = 0, errors_1 = errors; _i < errors_1.length; _i++) {
-                                errorLine = errors_1[_i];
+                            errorLines = error.split("\n");
+                            for (_i = 0, errorLines_1 = errorLines; _i < errorLines_1.length; _i++) {
+                                errorLine = errorLines_1[_i];
                                 isKnownWarning = false;
                                 for (_a = 0, knownWarningPatterns_1 = knownWarningPatterns; _a < knownWarningPatterns_1.length; _a++) {
                                     pattern = knownWarningPatterns_1[_a];
@@ -232,11 +233,11 @@ var DistributedSTTStream = /** @class */ (function (_super) {
                         this.setProgress(n);
                         // For every WAV path
                         wavFilenames.forEach(function (wavFilename) {
-                            // Get the full WAV path
+                            // Get full WAV path
                             var fullWavFn = path_1.resolve(_this.audioDirname, wavFilename);
-                            // Initialise an STT stream
+                            // Initialise STT stream
                             var stream = new STTStream_1.default(fullWavFn, null, _this.options);
-                            // Start the stream
+                            // Start stream
                             var promise = stream.start(useConsole);
                             promise
                                 .then(function () {
