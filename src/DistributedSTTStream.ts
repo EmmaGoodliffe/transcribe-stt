@@ -15,9 +15,8 @@ const SHARD_LENGTH = 300;
 /**
  * A distributed STT stream (for audio files longer than 305 seconds)
  * @example
- * This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file.
+ * This example writes the transcript of a long WAV file to a text file.
  * The audio files is split up into smaller files saved in the audio directory passed to the constructor.
- * You can customise the functionality of the stream with the {@link STTStreamOptions}
  *
  * ```ts
  * import { DistributedSTTStream } from "transcribe-stt";
@@ -32,7 +31,7 @@ const SHARD_LENGTH = 300;
  * // Initialise stream
  * const stream = new DistributedSTTStream(audioFilename, audioDirname, textFilename, options);
  *
- * // Start stream and write output to text file
+ * // Start stream
  * stream.start().catch(console.error);
  * ```
  * @remarks

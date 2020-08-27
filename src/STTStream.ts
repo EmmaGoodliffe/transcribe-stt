@@ -19,8 +19,7 @@ const GAC_URL =
 /**
  * An STT stream (for audio files shorter than 305 seconds)
  * @example
- * This example writes the transcript of a short LINEAR16 16000Hz WAV file to a text file.
- * You can customise the functionality of the stream with the {@link STTStreamOptions}.
+ * This example writes the transcript of a short WAV file to a text file.
  *
  * ```ts
  * import { STTStream } form "transcribe-stt";
@@ -34,7 +33,7 @@ const GAC_URL =
  * // Initialise stream
  * const stream = new STTStream(audioFilename, textFilename, options);
  *
- * // Start stream and write output to text file
+ * // Start stream
  * stream.start().catch(console.error);
  * ```
  * @public
