@@ -5,12 +5,12 @@ import { check, format } from "./format";
 // Constants
 const FORMATTED_ALL_MESSAGE = "All SVG files are formatted";
 
-// Handle arguments
+// Arguments
 const arg = argv._[0];
 const dirname = resolve(arg);
 const fixing = argv.fix;
 
-// If fixing
+// Run
 if (fixing) {
   // Format directory
   const filesChanged = format(dirname);
@@ -21,7 +21,7 @@ if (fixing) {
     console.log(FORMATTED_ALL_MESSAGE);
   }
 } else {
-  // Otherwise, find which files need to be formatted
+  // Find which files need to be formatted
   const filesToFormat = check(dirname);
   // If there are files to format, throw error
   if (filesToFormat.length > 0) {

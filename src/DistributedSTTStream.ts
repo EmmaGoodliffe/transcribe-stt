@@ -11,6 +11,7 @@ import {
 // Constants
 const SHARD_LENGTH = 300;
 
+// Classes
 /**
  * A distributed STT stream (for audio files longer than 305 seconds)
  * @example
@@ -72,6 +73,7 @@ class DistributedSTTStream extends STTStream {
    * @returns standard output of bash script
    */
   async distribute(): Promise<string> {
+    // Initialise standard output
     let stdout = "";
     try {
       // Run distribute script
@@ -89,8 +91,8 @@ class DistributedSTTStream extends STTStream {
       // Handle standard errors
       if (error) {
         // Check if every error is a known warning
-        const errors = error.split("\n");
-        for (const errorLine of errors) {
+        const errorLines = error.split("\n");
+        for (const errorLine of errorLines) {
           let isKnownWarning = false;
           for (const pattern of knownWarningPatterns) {
             isKnownWarning = isKnownWarning || pattern.test(errorLine);
@@ -179,6 +181,7 @@ class DistributedSTTStream extends STTStream {
     const filenames = readdirSync(this.audioDirname);
     // Define WAV pattern
     const pattern = /\.wav$/;
+    // Get WAV filenames
     const wavFilenames = filenames.filter(fn => pattern.test(fn));
     const totalN = wavFilenames.length;
     // Initialise n
@@ -187,11 +190,11 @@ class DistributedSTTStream extends STTStream {
     this.setProgress(n);
     // For every WAV path
     wavFilenames.forEach(wavFilename => {
-      // Get the full WAV path
+      // Get full WAV path
       const fullWavFn = resolve(this.audioDirname, wavFilename);
-      // Initialise an STT stream
+      // Initialise STT stream
       const stream = new STTStream(fullWavFn, null, this.options);
-      // Start the stream
+      // Start stream
       const promise = stream.start(useConsole);
       promise
         .then(() => {

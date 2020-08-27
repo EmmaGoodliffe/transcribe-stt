@@ -8,14 +8,14 @@ const SVG_PATTERN = /\.svg$/;
 // Helpers
 /**
  * Get string of some number of spaces
- * @param n Number of spaces
+ * @param n - Number of spaces
  * @returns String of spaces
  */
 const spaces = (n: number) => " ".repeat(n);
 
 /**
  * Get all SVG files from directory
- * @param dirname Path to directory
+ * @param dirname - Path to directory
  * @return SVG files
  */
 const getSvgFilenames = (dirname: string) => {
@@ -40,7 +40,7 @@ const getSvgFilenames = (dirname: string) => {
 
 /**
  * Get formatted SVG file
- * @param filename File to format
+ * @param filename - File to format
  * @returns Text of file before formatting, and after
  */
 const getFormattedFile = (filename: string): [string, string] => {
@@ -61,7 +61,7 @@ const getFormattedFile = (filename: string): [string, string] => {
 // Exports
 /**
  * Check which SVG files in directory need to be formatted
- * @param dirname Path to directory
+ * @param dirname - Path to directory
  * @returns Files that need formatting
  */
 export const check = (dirname: string): string[] => {
@@ -79,7 +79,7 @@ export const check = (dirname: string): string[] => {
 
 /**
  * Format SVG files in directory
- * @param dirname Path to directory
+ * @param dirname - Path to directory
  * @returns Whether any files changed
  */
 export const format = (dirname: string): boolean => {

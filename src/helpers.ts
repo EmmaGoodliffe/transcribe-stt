@@ -2,6 +2,7 @@ import { exec } from "child_process";
 import { Ora } from "ora";
 import { join, resolve as pathResolve } from "path";
 
+// Exports
 /**
  * Show spinner while a promise is running
  * @param promise - Promise to base spinner on
@@ -47,14 +48,14 @@ export const runBashScript = (
 ): Promise<string> =>
   new Promise((resolve, reject_) => {
     // Define reject function
-    const reject = (reason: string) =>
-      reject_(
-        `${[
-          "Error running a bash script.",
-          "This is probably because you're environment is not set up correctly.",
-          "Docker will be used soon to enable the app on any environment.",
-        ].join(" ")} ${reason}`,
-      );
+    const reject = (reason: string) => {
+      const errorPrefix = [
+        "Error running a bash script.",
+        "This is probably because you're environment is not set up correctly.",
+        "Docker will be used soon to enable the app on any environment.",
+      ].join(" ");
+      reject_(`${errorPrefix} ${reason}`);
+    };
     // Define absolute path
     const relFilename = pathResolve(
       __dirname,
@@ -73,12 +74,13 @@ export const runBashScript = (
         );
         // If error was caused by Windows
         if (isWindowsError) {
-          // Throw error explaining
+          // Throw explanation error
           const errorPrefix =
             "It looks like you are running Windows which is not supported yet";
           const reason = `${errorPrefix}. ${error}`;
           reject(reason);
         } else {
+          // Otherwise, throw error
           reject(`${error}`);
         }
       }

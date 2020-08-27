@@ -5,10 +5,12 @@ import { dirname } from "path";
 import { useSpinner } from "./helpers";
 import { STTStreamOptions } from "./types";
 
-// Define constants
-const SPINNER_START_TEXT = "STT stream running...";
-const SPINNER_SUCCESS_TEXT = "STT stream done";
-const SPINNER_FAIL_TEXT = "STT stream failed";
+// Constants
+const SPINNER_TEXT = {
+  START: "STT stream running...",
+  SUCCESS: "STT stream done",
+  FAIL: "STT stream failed",
+};
 const FAQ_URL = "https://cloud.google.com/speech-to-text/docs/error-messages";
 const GAC_URL =
   "https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication";
@@ -165,9 +167,9 @@ class STTStream {
       // Run function with spinner wrapper
       results = await useSpinner(
         this.inner(),
-        ora(SPINNER_START_TEXT),
-        SPINNER_SUCCESS_TEXT,
-        SPINNER_FAIL_TEXT,
+        ora(SPINNER_TEXT.START),
+        SPINNER_TEXT.SUCCESS,
+        SPINNER_TEXT.FAIL,
       );
     } else {
       // Run function normally
