@@ -1,18 +1,28 @@
 import { resolve } from "path";
 import { argv } from "yargs";
-import { check } from "./format";
+import { check, format } from "./format";
+
+const ALREADY_MESSAGE = "All SVG files are formatted";
 
 const arg = argv._[0];
 const dirname = resolve(arg);
+const fixing = argv.fix;
 
-const filesToFormat = check(dirname);
-
-if (filesToFormat.length > 0) {
-  const reason = [
-    "Not all SVG files were formatted.",
-    `Unformatted files: ${filesToFormat.join(" ")}`,
-  ].join(" ");
-  throw reason;
+if (fixing) {
+  const filesChanged = format(dirname);
+  if (filesChanged) {
+    console.log("Formatted SVG files");
+  } else {
+    console.log(ALREADY_MESSAGE);
+  }
+} else {
+  const filesToFormat = check(dirname);
+  if (filesToFormat.length > 0) {
+    const reason = [
+      "Not all SVG files were formatted.",
+      `Unformatted files: ${filesToFormat.join(" ")}`,
+    ].join(" ");
+    throw reason;
+  }
+  console.log(ALREADY_MESSAGE);
 }
-
-console.log("All SVG files are formatted");
