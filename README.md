@@ -119,7 +119,7 @@ To use an audio file with `transcribe-stt`, it must be a WAV file with mono audi
 - Check exports from `.ts` files are used
 - Add `data` event for `DistributedSTTStream`
 - Post-process `.md` files
-- Check comments
+- Use [`path.extname`](https://nodejs.org/api/path.html#path_path_extname_path) instead of regular expression for extension checking
 
 [audacity]: https://www.audacityteam.org/
 [`dotenv`]: https://www.npmjs.com/package/dotenv

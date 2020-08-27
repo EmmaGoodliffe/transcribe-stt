@@ -10,8 +10,8 @@ trim() {
   length=$4
 
   # Empty dist directory
-  rm -rf $dist
-  mkdir $dist
+  rm -rf "$dist"
+  mkdir "$dist"
 
   # Distribute audio file
   sox "$input" "$dist/$output" trim 0 $4 : newfile : restart
