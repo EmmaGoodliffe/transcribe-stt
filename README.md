@@ -1,4 +1,4 @@
-![Logo](./docs/assets/logo.svg.x.svg)
+![Logo](./docs/assets/logo.svg)
 
 # transcribe-stt
 
