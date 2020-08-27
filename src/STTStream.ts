@@ -21,11 +21,12 @@ const GAC_URL =
  * @example
  * This example writes the transcript of a short WAV file to a text file.
  *
+ * See {@link https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication | guide} for help authenticating
+ *
  * ```ts
  * import { STTStream } form "transcribe-stt";
  *
- * // TODO: Authenticate with Google. See https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication
- *
+ * // Define arguments
  * const audioFilename = "./<input audio file>.wav";
  * const textFilename = "./<output text file>.txt";
  * const options = {};
