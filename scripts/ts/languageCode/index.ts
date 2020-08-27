@@ -33,6 +33,7 @@ interface Title {
   value: string;
 }
 
+// Functions
 /** Main function */
 const main = async () => {
   // Fetch language code data
@@ -58,5 +59,5 @@ const main = async () => {
   writeFileSync(OUTPUT_FILENAME, text);
 };
 
-// Run main function
+// Run
 main().catch(console.error);

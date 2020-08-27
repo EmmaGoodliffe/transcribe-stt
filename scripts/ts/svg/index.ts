@@ -2,8 +2,10 @@ import { resolve } from "path";
 import { argv } from "yargs";
 import { check, format } from "./format";
 
+// Constants
 const ALREADY_MESSAGE = "All SVG files are formatted";
 
+// Handle arguments
 const arg = argv._[0];
 const dirname = resolve(arg);
 const fixing = argv.fix;
