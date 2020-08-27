@@ -203,7 +203,7 @@ var DistributedSTTStream = /** @class */ (function (_super) {
     /** {@inheritdoc STTStream.start} */
     DistributedSTTStream.prototype.start = function (useConsole) {
         return __awaiter(this, void 0, void 0, function () {
-            var promises, stdout, err_1, filenames, pattern, wavFilenames, totalN, n, results, flattenedResults, joinedResults;
+            var promises, stdout, err_1, filenames, wavFilenames, totalN, n, results, flattenedResults, joinedResults;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -225,8 +225,7 @@ var DistributedSTTStream = /** @class */ (function (_super) {
                         throw "Error distributing audio file. " + err_1;
                     case 4:
                         filenames = fs_1.readdirSync(this.audioDirname);
-                        pattern = /\.wav$/;
-                        wavFilenames = filenames.filter(function (fn) { return pattern.test(fn); });
+                        wavFilenames = filenames.filter(function (fn) { return path_1.extname(fn) === ".wav"; });
                         totalN = wavFilenames.length;
                         n = 0;
                         // Initialise progress

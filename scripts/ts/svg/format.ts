@@ -1,9 +1,6 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
-import { resolve } from "path";
+import { extname, resolve } from "path";
 import xmlFormat from "xml-formatter";
-
-// Constants
-const SVG_PATTERN = /\.svg$/;
 
 // Helpers
 /**
@@ -28,7 +25,7 @@ const getSvgFilenames = (dirname: string) => {
   // Get all SVG filenames in directory
   const filenames = readdirSync(dirname);
   const svgFilenames = filenames
-    .filter(fn => SVG_PATTERN.test(fn))
+    .filter(fn => extname(fn) === ".svg")
     .map(fn => resolve(__dirname, dirname, fn));
   // If there are no SVG files, throw error
   if (!svgFilenames.length) {

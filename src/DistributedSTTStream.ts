@@ -1,5 +1,5 @@
 import { readdirSync, writeFileSync } from "fs";
-import { resolve } from "path";
+import { extname, resolve } from "path";
 import { runBashScript } from "./helpers";
 import STTStream from "./STTStream";
 import {
@@ -179,10 +179,8 @@ class DistributedSTTStream extends STTStream {
     }
     // Read audio directory
     const filenames = readdirSync(this.audioDirname);
-    // Define WAV pattern
-    const pattern = /\.wav$/;
     // Get WAV filenames
-    const wavFilenames = filenames.filter(fn => pattern.test(fn));
+    const wavFilenames = filenames.filter(fn => extname(fn) === ".wav");
     const totalN = wavFilenames.length;
     // Initialise n
     let n = 0;
