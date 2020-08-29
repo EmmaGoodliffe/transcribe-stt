@@ -9,7 +9,12 @@ interface ExportSummary {
   name: string;
 }
 
-const findUnused = async (baseDirname: string): Promise<ExportSummary[]> => {
+interface UnusedResult {
+  unused: ExportSummary[];
+  nonIndexUnused: ExportSummary[];
+}
+
+const findUnused = async (baseDirname: string): Promise<UnusedResult> => {
   const filenames = readdirSync(baseDirname)
     .map(fn => resolve(".", baseDirname, fn))
     .filter(fn => extname(fn) === ".ts");
@@ -83,11 +88,12 @@ const findUnused = async (baseDirname: string): Promise<ExportSummary[]> => {
     }
   }
 
-  const unusedSummaries = summaries
-    .filter(sum => !sum.used)
-    .filter(sum => !isIndex(sum.exportedFrom));
-
-  return unusedSummaries;
+  const unused = summaries.filter(sum => !sum.used);
+  const nonIndexUnused = unused.filter(sum => !isIndex(sum.exportedFrom));
+  return {
+    unused,
+    nonIndexUnused,
+  };
 };
 
 export default findUnused;

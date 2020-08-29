@@ -7,7 +7,7 @@ const baseDirname = resolve(arg);
 const fixing = argv.fix;
 
 const main = async () => {
-  const unused = await findUnused(baseDirname);
+  const unused = (await findUnused(baseDirname)).nonIndexUnused;
   if (!unused.length) {
     console.log("No unused exports");
     return;

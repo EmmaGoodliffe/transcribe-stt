@@ -101,3 +101,5 @@ export const runBashScript = (
  */
 export const recExp = <T>(description: string, rec: T, exp: T): string =>
   `Received ${description} ${rec} but expected ${exp}`;
+
+export const nothing = 0;
