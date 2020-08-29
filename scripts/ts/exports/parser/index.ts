@@ -13,12 +13,22 @@ import {
 
 const parser = new TypescriptParser();
 
+/** An import statement using a relative path */
 interface RelativeImport {
+  /** File being imported from */
   file: string;
+  /** Variables being imported */
   specifiers: string[];
+  /** Whether import statement includes the default import */
   hasDefault: boolean;
 }
 
+/**
+ * Resolve path of import statement
+ * @param importFrom File import statement is executed from
+ * @param importTo File import statement points to
+ * @returns Resolve path
+ */
 const resolveImportFilename = (importFrom: string, importTo: string) => {
   const dir = dirname(importTo);
   let resolvedFilename = resolve(dir, importFrom);
@@ -28,6 +38,12 @@ const resolveImportFilename = (importFrom: string, importTo: string) => {
   return resolvedFilename;
 };
 
+/**
+ * Parse relative imports from AST
+ * @param ast AST
+ * @param filename Path to file being parsed
+ * @return Relative import statements
+ */
 const parseImports = (ast: AST, filename: string) => {
   const miniImports = ast.imports.map(imp => {
     if (imp instanceof NamedImport) {
@@ -54,6 +70,11 @@ const parseImports = (ast: AST, filename: string) => {
   return resolvedRelImports;
 };
 
+/**
+ * Parse exported variables from AST
+ * @param ast AST
+ * @return Exported variables
+ */
 const parseExportedVariables = (ast: AST) => {
   const exportableDeclarations = ast.declarations.filter(dec =>
     isExportableDeclaration(dec),
@@ -64,33 +85,44 @@ const parseExportedVariables = (ast: AST) => {
     .map(exp => exp.name);
 };
 
-const parseExportCommands = (ast: AST, filename: string) => {
-  const namedExportCommands: string[] = [];
-  const starExportCommandsFrom: string[] = [];
+/**
+ * Parse export statements from AST
+ * @param ast AST
+ * @param filename Path to file being parsed
+ * @returns Export statements
+ */
+const parseExportStatements = (ast: AST, filename: string) => {
+  const namedExportStatements: string[] = [];
+  const starExportStatementsFrom: string[] = [];
   const reExportDefaultsFrom: string[] = [];
   for (const exp of ast.exports) {
     if (exp instanceof NamedExport) {
       const { specifiers } = exp;
       const names = specifiers ? specifiers.map(spec => spec.specifier) : [];
-      namedExportCommands.push(...names);
+      namedExportStatements.push(...names);
       if (names.includes("default")) {
         const file = resolveImportFilename(exp.from, filename);
         reExportDefaultsFrom.push(file);
       }
     } else if (exp instanceof AllExport) {
       const file = resolveImportFilename(exp.from, filename);
-      starExportCommandsFrom.push(file);
+      starExportStatementsFrom.push(file);
     } else {
       throw "Unknown export command";
     }
   }
   return {
-    named: namedExportCommands,
-    starsFrom: starExportCommandsFrom,
+    named: namedExportStatements,
+    starsFrom: starExportStatementsFrom,
     reExportDefaultsFrom,
   };
 };
 
+/**
+ * Parse default export from AST
+ * @param ast AST
+ * @returns Default export
+ */
 const getDefaultExport = (ast: AST) => {
   const defaultDeclarations = ast.declarations.filter(
     dec => dec instanceof DefaultDeclaration,
@@ -109,14 +141,24 @@ const getDefaultExport = (ast: AST) => {
   }
 };
 
+/** Import and export statements */
 interface ImportsAndExports {
+  /** Import statements */
   imports: RelativeImport[];
+  /** Files in export statements in the form `export * from "..."` */
   starExportsFrom: string[];
+  /** Names of variables being exported from export statements in the form `export const ... = ...` or `export { ... }` */
   namedExports: string[];
+  /** Name of default export, or null if there is none */
   defaultExport: string | null;
+  /** Files in export statements in the form `export { default as ... } from "..."` */
   reExportDefaultExportsFrom: string[];
 }
 
+/**
+ * Parse imports and exports from file
+ * @param filename Path to file being parsed
+ */
 const parseImportsAndExports = async (
   filename: string,
 ): Promise<ImportsAndExports> => {
@@ -124,11 +166,11 @@ const parseImportsAndExports = async (
   const ast = await parser.parseSource(source);
   const imports = parseImports(ast, filename);
   const exportedVariables = parseExportedVariables(ast);
-  const exportCommands = parseExportCommands(ast, filename);
+  const exportStatements = parseExportStatements(ast, filename);
   const defaultExport = getDefaultExport(ast);
-  const namedExports = [...exportedVariables, ...exportCommands.named];
-  const starExportsFrom = exportCommands.starsFrom;
-  const reExportDefaultExportsFrom = exportCommands.reExportDefaultsFrom;
+  const namedExports = [...exportedVariables, ...exportStatements.named];
+  const starExportsFrom = exportStatements.starsFrom;
+  const reExportDefaultExportsFrom = exportStatements.reExportDefaultsFrom;
   return {
     imports,
     namedExports,

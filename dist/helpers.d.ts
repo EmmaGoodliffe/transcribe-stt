@@ -17,13 +17,4 @@ export declare const useSpinner: <T>(promise: Promise<T>, spinner: Ora, successT
  * @internal
  */
 export declare const runBashScript: (filename: string, args: string) => Promise<string>;
-/**
- * Generate "received but expected" error message
- * @param description - Description of received and expected entities
- * @param rec - Received value
- * @param exp - Expected value
- * @returns Error message
- * @internal
- */
-export declare const recExp: <T>(description: string, rec: T, exp: T) => string;
 //# sourceMappingURL=helpers.d.ts.map

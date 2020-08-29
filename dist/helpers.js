@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.recExp = exports.runBashScript = exports.useSpinner = void 0;
+exports.runBashScript = exports.useSpinner = void 0;
 var child_process_1 = require("child_process");
 var path_1 = require("path");
 // Exports
@@ -126,15 +126,4 @@ exports.runBashScript = function (filename, args) {
             resolve(stdout);
         });
     });
-};
-/**
- * Generate "received but expected" error message
- * @param description - Description of received and expected entities
- * @param rec - Received value
- * @param exp - Expected value
- * @returns Error message
- * @internal
- */
-exports.recExp = function (description, rec, exp) {
-    return "Received " + description + " " + rec + " but expected " + exp;
 };
