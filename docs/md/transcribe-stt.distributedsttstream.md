@@ -20,13 +20,14 @@ See [STTStream](./transcribe-stt.sttstream.md) for other properties and methods
 
 ## Example
 
-This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file. The audio files is split up into smaller files saved in the audio directory passed to the constructor. You can customise the functionality of the stream with the [STTStreamOptions](./transcribe-stt.sttstreamoptions.md)
+This example writes the transcript of a long WAV file to a text file. The audio files is split up into smaller files saved in the audio directory passed to the constructor. See [DistributedSTTStream.distribute()](./transcribe-stt.distributedsttstream.distribute.md) for more details
+
+See [guide](https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication) for help authenticating
 
 ```ts
 import { DistributedSTTStream } from "transcribe-stt";
 
-// TODO: Authenticate with Google. See https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication
-
+// Define arguments
 const audioFilename = "./<input audio file>.wav";
 const audioDirname = "./<output audio directory>";
 const textFilename = "./<output text file>.txt";
@@ -40,7 +41,7 @@ const stream = new DistributedSTTStream(
   options,
 );
 
-// Start stream and write output to text file
+// Start stream
 stream.start().catch(console.error);
 ```
 

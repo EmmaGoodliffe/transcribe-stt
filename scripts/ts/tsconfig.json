@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "ES2019"
+    ] /* Specify library files to be included in the compilation. */,
+    "strictNullChecks": true /* Enable strict null checks. */
+  }
+}

@@ -90,14 +90,3 @@ export const runBashScript = (
       resolve(stdout);
     });
   });
-
-/**
- * Generate "received but expected" error message
- * @param description - Description of received and expected entities
- * @param rec - Received value
- * @param exp - Expected value
- * @returns Error message
- * @internal
- */
-export const recExp = <T>(description: string, rec: T, exp: T): string =>
-  `Received ${description} ${rec} but expected ${exp}`;

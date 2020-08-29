@@ -18,15 +18,16 @@ export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.Recognit
 /**
  * A distributed STT stream (for audio files longer than 305 seconds)
  * @example
- * This example writes the transcript of a long LINEAR16 16000Hz WAV file to a text file.
+ * This example writes the transcript of a long WAV file to a text file.
  * The audio files is split up into smaller files saved in the audio directory passed to the constructor.
- * You can customise the functionality of the stream with the {@link STTStreamOptions}
+ * See {@link DistributedSTTStream.distribute} for more details
+ *
+ * See {@link https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication | guide} for help authenticating
  *
  * ```ts
  * import { DistributedSTTStream } from "transcribe-stt";
  *
- * // TODO: Authenticate with Google. See https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication
- *
+ * // Define arguments
  * const audioFilename = "./<input audio file>.wav";
  * const audioDirname = "./<output audio directory>";
  * const textFilename = "./<output text file>.txt";
@@ -35,7 +36,7 @@ export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.Recognit
  * // Initialise stream
  * const stream = new DistributedSTTStream(audioFilename, audioDirname, textFilename, options);
  *
- * // Start stream and write output to text file
+ * // Start stream
  * stream.start().catch(console.error);
  * ```
  * @remarks
@@ -121,14 +122,14 @@ export declare type ProgressListener = (progress: number) => void | Promise<void
 /**
  * An STT stream (for audio files shorter than 305 seconds)
  * @example
- * This example writes the transcript of a short LINEAR16 16000Hz WAV file to a text file.
- * You can customise the functionality of the stream with the {@link STTStreamOptions}.
+ * This example writes the transcript of a short WAV file to a text file.
+ *
+ * See {@link https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication | guide} for help authenticating
  *
  * ```ts
  * import { STTStream } form "transcribe-stt";
  *
- * // TODO: Authenticate with Google. See https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication
- *
+ * // Define arguments
  * const audioFilename = "./<input audio file>.wav";
  * const textFilename = "./<output text file>.txt";
  * const options = {};
@@ -136,7 +137,7 @@ export declare type ProgressListener = (progress: number) => void | Promise<void
  * // Initialise stream
  * const stream = new STTStream(audioFilename, textFilename, options);
  *
- * // Start stream and write output to text file
+ * // Start stream
  * stream.start().catch(console.error);
  * ```
  * @public
