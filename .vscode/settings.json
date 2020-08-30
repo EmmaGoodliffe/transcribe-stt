@@ -1,11 +1,13 @@
 {
   "cSpell.words": [
+    "ESNEXT",
     "Google's",
     "parens",
     "programmatically",
     "protos",
     "resample",
-    "spec"
+    "spec",
+    "tslib"
   ],
   "cSpell.allowCompoundWords": true
 }
