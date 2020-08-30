@@ -1,17 +1,17 @@
 import { resolve } from "path";
-import { argv } from "yargs";
+import { Arguments } from "yargs";
 import findUnused from "./findUnused";
 
-const arg = argv._[0];
-const baseDirname = resolve(arg);
-const fixing = argv.fix;
+const main = async (argv: Arguments): Promise<void> => {
+  const arg = argv._[0];
+  const baseDirname = resolve(arg);
+  const fix = argv.fix as boolean;
 
-const main = async () => {
   const unused = (await findUnused(baseDirname)).nonIndexUnused;
   if (!unused.length) {
-    console.log("All exports used");
     return;
   }
+
   const reasons: string[] = [];
   for (const exp of unused) {
     const name = exp.isDefault ? "default export" : `export ${exp.name}`;
@@ -19,10 +19,11 @@ const main = async () => {
     const reason = `Unused ${name} from ${file}`;
     reasons.push(reason);
   }
+
   const suffix = "No fixes available";
-  const suffixedReasons = fixing ? [...reasons, suffix] : reasons;
-  const reason = suffixedReasons.join("\n");
+  fix && reasons.push(suffix);
+  const reason = reasons.join("\n");
   throw reason;
 };
 
-main().catch(console.error);
+export default main;
