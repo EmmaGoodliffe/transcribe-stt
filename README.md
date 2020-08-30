@@ -2,6 +2,9 @@
 
 # transcribe-stt
 
+[![NPM version](https://img.shields.io/npm/v/transcribe-stt)][npm-package]
+[![Github version](https://img.shields.io/github/package-json/v/EmmaGoodliffe/transcribe-stt?label=github)][github-repo]
+
 Transcribe audio of any length using Google's Speech to Text API
 
 ## Contents
@@ -117,7 +120,9 @@ To use an audio file with `transcribe-stt`, it must be a WAV file with mono audi
 - Allow advanced configuration options documented [here](https://cloud.google.com/speech-to-text/docs/reference/rpc/google.cloud.speech.v1#google.cloud.speech.v1.StreamingRecognitionConfig)
 - Add `data` event for `DistributedSTTStream`
 
-[audacity]: https://www.audacityteam.org/
 [`dotenv`]: https://www.npmjs.com/package/dotenv
-[google's speech to text api]: https://cloud.google.com/speech-to-text/
 [`node`]: https://nodejs.org/
+[audacity]: https://www.audacityteam.org/
+[github-repo]: https://github.com/EmmaGoodliffe/transcribe-stt
+[google's speech to text api]: https://cloud.google.com/speech-to-text/
+[npm-package]: https://www.npmjs.com/package/transcribe-stt
