@@ -19,15 +19,12 @@ export class DistributedSTTStream extends STTStream {
   // (undocumented)
   audioDirname: string;
   distribute(): Promise<string>;
-  on(event: "distribute", callback: DistributeListener): void;
-  on(event: "progress", callback: ProgressListener): void;
+  on(event: "distribute", callback: Listeners["DistributeListener"]): void;
+  on(event: "progress", callback: Listeners["ProgressListener"]): void;
   // (undocumented)
   options: STTStreamOptions;
   start(useConsole?: boolean): Promise<string[]>;
 }
-
-// @public
-export type DistributeListener = () => void | Promise<void>;
 
 // @public
 export type LanguageCode =
@@ -169,7 +166,12 @@ export type LanguageCode =
   | "zu-ZA";
 
 // @public
-export type ProgressListener = (progress: number) => void | Promise<void>;
+export interface Listeners {
+  // @internal
+  All: Listeners["ProgressListener"] | Listeners["DistributeListener"];
+  DistributeListener: () => void | Promise<void>;
+  ProgressListener: (progress: number) => void | Promise<void>;
+}
 
 // @public
 export class STTStream {

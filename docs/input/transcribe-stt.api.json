@@ -172,7 +172,7 @@
             {
               "kind": "Method",
               "canonicalReference": "transcribe-stt!DistributedSTTStream#distribute:member(1)",
-              "docComment": "/**\n * Distribute audio into separate files (automatically called by {@link DistributedSTTStream.start})\n *\n * @remarks\n *\n * Single audio file is split up into smaller files of 300 seconds so they can be used with Google's streaming API. Each file is separately streamed and written to the text file when {@link DistributedSTTStream.start} is called\n *\n * @returns standard output of bash script\n */\n",
+              "docComment": "/**\n * Distribute audio into separate files (automatically called by {@link DistributedSTTStream.start})\n *\n * @remarks\n *\n * Single audio file is split up into smaller files of 300 seconds so they can be used with Google's streaming API. Each file is separately streamed and written to the text file when {@link DistributedSTTStream.start} is called\n *\n * @returns Standard output of bash script\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -221,8 +221,12 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "DistributeListener",
-                  "canonicalReference": "transcribe-stt!DistributeListener:type"
+                  "text": "Listeners",
+                  "canonicalReference": "transcribe-stt!Listeners:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[\"DistributeListener\"]"
                 },
                 {
                   "kind": "Content",
@@ -239,8 +243,8 @@
               ],
               "isStatic": false,
               "returnTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 6
+                "startIndex": 6,
+                "endIndex": 7
               },
               "releaseTag": "Public",
               "overloadIndex": 1,
@@ -256,7 +260,7 @@
                   "parameterName": "callback",
                   "parameterTypeTokenRange": {
                     "startIndex": 3,
-                    "endIndex": 4
+                    "endIndex": 5
                   }
                 }
               ],
@@ -281,8 +285,12 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "ProgressListener",
-                  "canonicalReference": "transcribe-stt!ProgressListener:type"
+                  "text": "Listeners",
+                  "canonicalReference": "transcribe-stt!Listeners:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[\"ProgressListener\"]"
                 },
                 {
                   "kind": "Content",
@@ -299,8 +307,8 @@
               ],
               "isStatic": false,
               "returnTypeTokenRange": {
-                "startIndex": 5,
-                "endIndex": 6
+                "startIndex": 6,
+                "endIndex": 7
               },
               "releaseTag": "Public",
               "overloadIndex": 2,
@@ -316,7 +324,7 @@
                   "parameterName": "callback",
                   "parameterTypeTokenRange": {
                     "startIndex": 3,
-                    "endIndex": 4
+                    "endIndex": 5
                   }
                 }
               ],
@@ -352,7 +360,7 @@
             {
               "kind": "Method",
               "canonicalReference": "transcribe-stt!DistributedSTTStream#start:member(1)",
-              "docComment": "/**\n * Start stream\n *\n * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`\n *\n * @returns Lines of the transcript\n */\n",
+              "docComment": "/**\n * Start stream\n *\n * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`\n *\n * @returns Lines of transcript\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -407,40 +415,6 @@
         },
         {
           "kind": "TypeAlias",
-          "canonicalReference": "transcribe-stt!DistributeListener:type",
-          "docComment": "/**\n * Listener for the distribute value\n *\n * @public\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export declare type DistributeListener = "
-            },
-            {
-              "kind": "Content",
-              "text": "() => void | "
-            },
-            {
-              "kind": "Reference",
-              "text": "Promise",
-              "canonicalReference": "!Promise:interface"
-            },
-            {
-              "kind": "Content",
-              "text": "<void>"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "releaseTag": "Public",
-          "name": "DistributeListener",
-          "typeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 4
-          }
-        },
-        {
-          "kind": "TypeAlias",
           "canonicalReference": "transcribe-stt!LanguageCode:type",
           "docComment": "/**\n * Language code\n *\n * @remarks\n *\n * See https://cloud.google.com/speech-to-text/docs/languages\n *\n * @public\n */\n",
           "excerptTokens": [
@@ -465,38 +439,88 @@
           }
         },
         {
-          "kind": "TypeAlias",
-          "canonicalReference": "transcribe-stt!ProgressListener:type",
-          "docComment": "/**\n * Listener for the progress value\n *\n * @remarks\n *\n * <h2>Parameters</h2> <code>progress</code> - Progress percentage\n *\n * @public\n */\n",
+          "kind": "Interface",
+          "canonicalReference": "transcribe-stt!Listeners:interface",
+          "docComment": "/**\n * Listeners\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export declare type ProgressListener = "
-            },
-            {
-              "kind": "Content",
-              "text": "(progress: number) => void | "
-            },
-            {
-              "kind": "Reference",
-              "text": "Promise",
-              "canonicalReference": "!Promise:interface"
-            },
-            {
-              "kind": "Content",
-              "text": "<void>"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
+              "text": "export interface Listeners "
             }
           ],
           "releaseTag": "Public",
-          "name": "ProgressListener",
-          "typeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 4
-          }
+          "name": "Listeners",
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "transcribe-stt!Listeners#DistributeListener:member",
+              "docComment": "/**\n * Listener for the distribute event\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "DistributeListener: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "() => void | "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<void>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "DistributeListener",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "transcribe-stt!Listeners#ProgressListener:member",
+              "docComment": "/**\n * Listener for the progress event\n *\n * @remarks\n *\n * <h2>Parameters</h2> <code>progress</code> - Progress percentage\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "ProgressListener: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(progress: number) => void | "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<void>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "ProgressListener",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
+              }
+            }
+          ],
+          "extendsTokenRanges": []
         },
         {
           "kind": "Class",
@@ -682,7 +706,7 @@
             {
               "kind": "Method",
               "canonicalReference": "transcribe-stt!STTStream#start:member(1)",
-              "docComment": "/**\n * Start stream\n *\n * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`\n *\n * @returns Lines of the transcript\n *\n * @example\n *\n * See {@link STTStream} for an example\n */\n",
+              "docComment": "/**\n * Start stream\n *\n * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`\n *\n * @returns Lines of transcript\n *\n * @example\n *\n * See {@link STTStream} for an example\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",

@@ -3,21 +3,6 @@ import { LanguageCode } from "./generated/LanguageCode";
 
 // Types
 /**
- * Listener for the progress value
- * @remarks
- * <h2>Parameters</h2>
- * <code>progress</code> - Progress percentage
- * @public
- */
-export type ProgressListener = (progress: number) => void | Promise<void>;
-
-/**
- * Listener for the distribute value
- * @public
- */
-export type DistributeListener = () => void | Promise<void>;
-
-/**
  * Audio encoding
  * @remarks
  * See https://cloud.google.com/speech-to-text/docs/encoding
@@ -28,6 +13,27 @@ export type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfi
 export { LanguageCode };
 
 // Interfaces
+/**
+ * Listeners
+ * @public
+ */
+export interface Listeners {
+  /**
+   * Listener for the progress event
+   * @remarks
+   * <h2>Parameters</h2>
+   * <code>progress</code> - Progress percentage
+   */
+  ProgressListener: (progress: number) => void | Promise<void>;
+  /** Listener for the distribute event */
+  DistributeListener: () => void | Promise<void>;
+  /**
+   * Listener for all events
+   * @internal
+   */
+  All: Listeners["ProgressListener"] | Listeners["DistributeListener"];
+}
+
 /**
  *  Options for an STT stream
  * @public

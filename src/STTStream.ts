@@ -52,13 +52,14 @@ class STTStream {
     public textFilename: string | null,
     options: STTStreamOptions,
   ) {
+    // Save
     this.options = {
       ...options,
       languageCode: options.languageCode || "en-US",
     };
-    // Define needed files
+    // Initialise
     this.neededFiles = [audioFilename];
-    // If a text file was passed, append its directory to the needed files
+    // Update
     textFilename && this.neededFiles.push(dirname(textFilename));
   }
   /**
@@ -66,35 +67,31 @@ class STTStream {
    * @returns Whether files exist
    */
   checkFiles(): boolean {
-    // TODO: use .includes method
-    // Find which files exist
+    // Read
     const existStatuses = this.neededFiles.map(file => existsSync(file));
-    // Find number of files which don't exist
-    const falseN = existStatuses.filter(val => !val).length;
-    // If some files don't exist
-    if (falseN) {
-      // Find bad file
+    // Extract
+    const hasFalse = existStatuses.includes(false);
+    // Check
+    if (hasFalse) {
       const badFileIndex = existStatuses.indexOf(false);
       const badFile = this.neededFiles[badFileIndex];
-      // Throw error
       const reason = ["Not all files exist.", `No file: ${badFile}`].join(" ");
       throw reason;
     }
-    // Otherwise, return true
+    // Return
     return true;
   }
   /**
    * Main inner method (automatically called by {@link STTStream.start})
+   * @returns Lines of transcript
    * @internal
    */
   private inner(): Promise<string[]> {
     return new Promise((resolve, reject) => {
-      // Check if GOOGLE_APPLICATION_CREDENTIALS is defined
+      // Check
       const gac = process.env.GOOGLE_APPLICATION_CREDENTIALS;
       const goodCredentials = gac && typeof gac === "string" && existsSync(gac);
-      // If it is not defined
       if (!goodCredentials) {
-        // Throw error
         const reason = [
           "Environment variable GOOGLE_APPLICATION_CREDENTIALS is not set to a real file.",
           `No file: ${gac}.`,
@@ -102,13 +99,11 @@ class STTStream {
         ].join(" ");
         throw reason;
       }
-      // Check if files exist
       this.checkFiles();
-      // Initialise results
+      // Initialise
       const results: string[] = [];
-      // Initialise client
       const client = new SpeechClient();
-      // Define request
+      // Define
       const request = {
         config: {
           encoding: this.options.encoding,
@@ -116,13 +111,10 @@ class STTStream {
           languageCode: this.options.languageCode,
         },
       };
-      // Create read stream for audio file
-      const audioReadStream = createReadStream(this.audioFilename);
-      // Define a read/write stream to handle audio file
       const recogniseStream = client
         .streamingRecognize(request)
         .on("error", err => {
-          // Handle errors
+          // Handle
           const reason = [
             `Error running the STT stream. ${err}`,
             `See ${FAQ_URL} for help on common error messages`,
@@ -130,25 +122,27 @@ class STTStream {
           reject(reason);
         })
         .on("data", data => {
-          // Get result
+          // Extract
           const result = data.results[0].alternatives[0].transcript as string;
-          // Save result
+          // Save
           results.push(result);
-          // If a text file was passed
           if (this.textFilename) {
-            // Append result to text file
             try {
+              // Write
               appendFileSync(this.textFilename, `${result}\n`);
             } catch (err) {
-              // Handle errors
+              // Handle
               if (!err) return;
               const reason = `Error writing to text file. ${err}`;
               reject(reason);
             }
           }
         })
+        // Resolve
         .on("end", () => resolve(results));
-      // Pipe audio file through read/write stream
+      // Read
+      const audioReadStream = createReadStream(this.audioFilename);
+      // Start
       audioReadStream.pipe(recogniseStream);
     });
   }
@@ -157,14 +151,13 @@ class STTStream {
    * @example
    * See {@link STTStream} for an example
    * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`
-   * @returns Lines of the transcript
+   * @returns Lines of transcript
    */
   async start(useConsole = true): Promise<string[]> {
-    // Initialise results
+    // Initialise
     let results: string[] = [];
-    // If user wants to show spinner
     if (useConsole) {
-      // Run function with spinner wrapper
+      // Wrap
       results = await useSpinner(
         this.inner(),
         ora(SPINNER_TEXT.START),
@@ -172,10 +165,10 @@ class STTStream {
         SPINNER_TEXT.FAIL,
       );
     } else {
-      // Run function normally
+      // Start
       results = await this.inner();
     }
-    // Return results
+    // Return
     return results;
   }
 }

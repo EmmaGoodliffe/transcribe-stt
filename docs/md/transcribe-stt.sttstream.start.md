@@ -22,7 +22,7 @@ start(useConsole?: boolean): Promise<string[]>;
 
 Promise&lt;string\[\]&gt;
 
-Lines of the transcript
+Lines of transcript
 
 ## Example
 

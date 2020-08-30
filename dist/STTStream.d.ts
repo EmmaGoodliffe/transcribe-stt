@@ -40,6 +40,7 @@ declare class STTStream {
     checkFiles(): boolean;
     /**
      * Main inner method (automatically called by {@link STTStream.start})
+     * @returns Lines of transcript
      * @internal
      */
     private inner;
@@ -48,7 +49,7 @@ declare class STTStream {
      * @example
      * See {@link STTStream} for an example
      * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`
-     * @returns Lines of the transcript
+     * @returns Lines of transcript
      */
     start(useConsole?: boolean): Promise<string[]>;
 }

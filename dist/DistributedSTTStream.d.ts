@@ -1,5 +1,5 @@
 import STTStream from "./STTStream";
-import { DistributeListener, ProgressListener, STTStreamOptions } from "./types";
+import { Listeners, STTStreamOptions } from "./types";
 /**
  * A distributed STT stream (for audio files longer than 305 seconds)
  * @example
@@ -46,7 +46,7 @@ declare class DistributedSTTStream extends STTStream {
      * @remarks
      * Single audio file is split up into smaller files of 300 seconds so they can be used with Google's streaming API.
      * Each file is separately streamed and written to the text file when {@link DistributedSTTStream.start} is called
-     * @returns standard output of bash script
+     * @returns Standard output of bash script
      */
     distribute(): Promise<string>;
     /**
@@ -60,7 +60,7 @@ declare class DistributedSTTStream extends STTStream {
      * @param event - Event to listen to
      * @param callback - Function to run when event fires
      */
-    on(event: "distribute", callback: DistributeListener): void;
+    on(event: "distribute", callback: Listeners["DistributeListener"]): void;
     /**
      * Listen to `"progress"` event and run callback functions
      * @remarks
@@ -70,7 +70,7 @@ declare class DistributedSTTStream extends STTStream {
      * @param event - Event to listen to
      * @param callback - Function to run when event fires
      */
-    on(event: "progress", callback: ProgressListener): void;
+    on(event: "progress", callback: Listeners["ProgressListener"]): void;
     /**
      * Set progress
      * @param progress - Progress percentage

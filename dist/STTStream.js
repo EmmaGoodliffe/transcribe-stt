@@ -96,10 +96,11 @@ var STTStream = /** @class */ (function () {
     function STTStream(audioFilename, textFilename, options) {
         this.audioFilename = audioFilename;
         this.textFilename = textFilename;
+        // Save
         this.options = __assign(__assign({}, options), { languageCode: options.languageCode || "en-US" });
-        // Define needed files
+        // Initialise
         this.neededFiles = [audioFilename];
-        // If a text file was passed, append its directory to the needed files
+        // Update
         textFilename && this.neededFiles.push(path_1.dirname(textFilename));
     }
     /**
@@ -107,36 +108,32 @@ var STTStream = /** @class */ (function () {
      * @returns Whether files exist
      */
     STTStream.prototype.checkFiles = function () {
-        // TODO: use .includes method
-        // Find which files exist
+        // Read
         var existStatuses = this.neededFiles.map(function (file) { return fs_1.existsSync(file); });
-        // Find number of files which don't exist
-        var falseN = existStatuses.filter(function (val) { return !val; }).length;
-        // If some files don't exist
-        if (falseN) {
-            // Find bad file
+        // Extract
+        var hasFalse = existStatuses.includes(false);
+        // Check
+        if (hasFalse) {
             var badFileIndex = existStatuses.indexOf(false);
             var badFile = this.neededFiles[badFileIndex];
-            // Throw error
             var reason = ["Not all files exist.", "No file: " + badFile].join(" ");
             throw reason;
         }
-        // Otherwise, return true
+        // Return
         return true;
     };
     /**
      * Main inner method (automatically called by {@link STTStream.start})
+     * @returns Lines of transcript
      * @internal
      */
     STTStream.prototype.inner = function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            // Check if GOOGLE_APPLICATION_CREDENTIALS is defined
+            // Check
             var gac = process.env.GOOGLE_APPLICATION_CREDENTIALS;
             var goodCredentials = gac && typeof gac === "string" && fs_1.existsSync(gac);
-            // If it is not defined
             if (!goodCredentials) {
-                // Throw error
                 var reason = [
                     "Environment variable GOOGLE_APPLICATION_CREDENTIALS is not set to a real file.",
                     "No file: " + gac + ".",
@@ -144,13 +141,11 @@ var STTStream = /** @class */ (function () {
                 ].join(" ");
                 throw reason;
             }
-            // Check if files exist
             _this.checkFiles();
-            // Initialise results
+            // Initialise
             var results = [];
-            // Initialise client
             var client = new speech_1.SpeechClient();
-            // Define request
+            // Define
             var request = {
                 config: {
                     encoding: _this.options.encoding,
@@ -158,13 +153,10 @@ var STTStream = /** @class */ (function () {
                     languageCode: _this.options.languageCode,
                 },
             };
-            // Create read stream for audio file
-            var audioReadStream = fs_1.createReadStream(_this.audioFilename);
-            // Define a read/write stream to handle audio file
             var recogniseStream = client
                 .streamingRecognize(request)
                 .on("error", function (err) {
-                // Handle errors
+                // Handle
                 var reason = [
                     "Error running the STT stream. " + err,
                     "See " + FAQ_URL + " for help on common error messages",
@@ -172,18 +164,17 @@ var STTStream = /** @class */ (function () {
                 reject(reason);
             })
                 .on("data", function (data) {
-                // Get result
+                // Extract
                 var result = data.results[0].alternatives[0].transcript;
-                // Save result
+                // Save
                 results.push(result);
-                // If a text file was passed
                 if (_this.textFilename) {
-                    // Append result to text file
                     try {
+                        // Write
                         fs_1.appendFileSync(_this.textFilename, result + "\n");
                     }
                     catch (err) {
-                        // Handle errors
+                        // Handle
                         if (!err)
                             return;
                         var reason = "Error writing to text file. " + err;
@@ -191,8 +182,11 @@ var STTStream = /** @class */ (function () {
                     }
                 }
             })
+                // Resolve
                 .on("end", function () { return resolve(results); });
-            // Pipe audio file through read/write stream
+            // Read
+            var audioReadStream = fs_1.createReadStream(_this.audioFilename);
+            // Start
             audioReadStream.pipe(recogniseStream);
         });
     };
@@ -201,7 +195,7 @@ var STTStream = /** @class */ (function () {
      * @example
      * See {@link STTStream} for an example
      * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`
-     * @returns Lines of the transcript
+     * @returns Lines of transcript
      */
     STTStream.prototype.start = function (useConsole) {
         if (useConsole === void 0) { useConsole = true; }
@@ -214,16 +208,16 @@ var STTStream = /** @class */ (function () {
                         if (!useConsole) return [3 /*break*/, 2];
                         return [4 /*yield*/, helpers_1.useSpinner(this.inner(), ora_1.default(SPINNER_TEXT.START), SPINNER_TEXT.SUCCESS, SPINNER_TEXT.FAIL)];
                     case 1:
-                        // Run function with spinner wrapper
+                        // Wrap
                         results = _a.sent();
                         return [3 /*break*/, 4];
                     case 2: return [4 /*yield*/, this.inner()];
                     case 3:
-                        // Run function normally
+                        // Start
                         results = _a.sent();
                         _a.label = 4;
                     case 4: 
-                    // Return results
+                    // Return
                     return [2 /*return*/, results];
                 }
             });

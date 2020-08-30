@@ -1,19 +1,6 @@
 import { google } from "@google-cloud/speech/build/protos/protos";
 import { LanguageCode } from "./generated/LanguageCode";
 /**
- * Listener for the progress value
- * @remarks
- * <h2>Parameters</h2>
- * <code>progress</code> - Progress percentage
- * @public
- */
-export declare type ProgressListener = (progress: number) => void | Promise<void>;
-/**
- * Listener for the distribute value
- * @public
- */
-export declare type DistributeListener = () => void | Promise<void>;
-/**
  * Audio encoding
  * @remarks
  * See https://cloud.google.com/speech-to-text/docs/encoding
@@ -21,6 +8,26 @@ export declare type DistributeListener = () => void | Promise<void>;
  */
 export declare type AudioEncoding = keyof typeof google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
 export { LanguageCode };
+/**
+ * Listeners
+ * @public
+ */
+export interface Listeners {
+    /**
+     * Listener for the progress event
+     * @remarks
+     * <h2>Parameters</h2>
+     * <code>progress</code> - Progress percentage
+     */
+    ProgressListener: (progress: number) => void | Promise<void>;
+    /** Listener for the distribute event */
+    DistributeListener: () => void | Promise<void>;
+    /**
+     * Listener for all events
+     * @internal
+     */
+    All: Listeners["ProgressListener"] | Listeners["DistributeListener"];
+}
 /**
  *  Options for an STT stream
  * @public

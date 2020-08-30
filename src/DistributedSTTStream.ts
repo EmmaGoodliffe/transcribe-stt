@@ -2,11 +2,7 @@ import { readdirSync, writeFileSync } from "fs";
 import { extname, resolve } from "path";
 import { runBashScript } from "./helpers";
 import STTStream from "./STTStream";
-import {
-  DistributeListener,
-  ProgressListener,
-  STTStreamOptions,
-} from "./types";
+import { Listeners, STTStreamOptions } from "./types";
 
 // Constants
 const SHARD_LENGTH = 300;
@@ -42,8 +38,8 @@ const SHARD_LENGTH = 300;
  */
 class DistributedSTTStream extends STTStream {
   private progress: number;
-  private progressListeners: ProgressListener[];
-  private distributeListeners: DistributeListener[];
+  private progressListeners: Listeners["ProgressListener"][];
+  private distributeListeners: Listeners["DistributeListener"][];
   /**
    * @param audioFilename - Path to audio file
    * @param audioDirname - Path to output distributed audio directory
@@ -56,13 +52,12 @@ class DistributedSTTStream extends STTStream {
     textFilename: string | null,
     public options: STTStreamOptions,
   ) {
-    // Run super constructor
+    // Super
     super(audioFilename, textFilename, options);
-    // Append audio directory to needed files
+    // Update
     this.neededFiles.push(audioDirname);
-    // Initialise progress
+    // Initialise
     this.progress = -1;
-    // Initialise listeners
     this.progressListeners = [];
     this.distributeListeners = [];
   }
@@ -71,46 +66,44 @@ class DistributedSTTStream extends STTStream {
    * @remarks
    * Single audio file is split up into smaller files of 300 seconds so they can be used with Google's streaming API.
    * Each file is separately streamed and written to the text file when {@link DistributedSTTStream.start} is called
-   * @returns standard output of bash script
+   * @returns Standard output of bash script
    */
   async distribute(): Promise<string> {
-    // Initialise standard output
+    // Initiate
     let stdout = "";
     try {
-      // Run distribute script
+      // Distribute
       stdout = await runBashScript(
         "distribute.sh",
         `"${this.audioFilename}" "${this.audioDirname}" ${SHARD_LENGTH}`,
       );
     } catch (error_) {
+      // Handle
       const error = `${error_}`;
-      // Define known warnings patterns
+      // Define
       const knownWarningPatterns = [
         /End position is after expected end of audio/i,
         /Last 1 position\(s\) not reached/i,
       ];
-      // Handle standard errors
+      // Check
       if (error) {
-        // Check if every error is a known warning
         const errorLines = error.split("\n");
         for (const errorLine of errorLines) {
           let isKnownWarning = false;
           for (const pattern of knownWarningPatterns) {
             isKnownWarning = isKnownWarning || pattern.test(errorLine);
           }
-          // If error is not a known warning and it is full
           if (!isKnownWarning && errorLine.length) {
-            // Throw it
             throw errorLine;
           }
         }
       }
     }
-    // Call every distribute listener
+    // Call
     for (const listener of this.distributeListeners) {
       listener();
     }
-    // Return standard output
+    // Return
     return stdout;
   }
   /**
@@ -124,7 +117,7 @@ class DistributedSTTStream extends STTStream {
    * @param event - Event to listen to
    * @param callback - Function to run when event fires
    */
-  on(event: "distribute", callback: DistributeListener): void;
+  on(event: "distribute", callback: Listeners["DistributeListener"]): void;
   /**
    * Listen to `"progress"` event and run callback functions
    * @remarks
@@ -134,16 +127,18 @@ class DistributedSTTStream extends STTStream {
    * @param event - Event to listen to
    * @param callback - Function to run when event fires
    */
-  on(event: "progress", callback: ProgressListener): void;
-  on(event: string, callback: ProgressListener | DistributeListener): void {
+  on(event: "progress", callback: Listeners["ProgressListener"]): void;
+  on(event: string, callback: Listeners["All"]): void {
     if (event === "progress") {
-      // Add callback to progress listeners
-      this.progressListeners.push(callback as ProgressListener);
+      // Progress
+      this.progressListeners.push(callback as Listeners["ProgressListener"]);
     } else if (event === "distribute") {
-      // Add callback to distribute listeners
-      this.distributeListeners.push(callback as DistributeListener);
+      // Distribute
+      this.distributeListeners.push(
+        callback as Listeners["DistributeListener"],
+      );
     } else {
-      // Throw error
+      // Other
       const reason = `No event ${event}`;
       throw reason;
     }
@@ -154,11 +149,11 @@ class DistributedSTTStream extends STTStream {
    * @internal
    */
   private setProgress(progress: number): void {
-    // If new progress is larger than previous progress
+    // Check
     if (progress > this.progress) {
-      // Save progress
+      // Save
       this.progress = progress;
-      // Call every progress listener
+      // Call
       for (const listener of this.progressListeners) {
         listener(progress);
       }
@@ -166,58 +161,51 @@ class DistributedSTTStream extends STTStream {
   }
   /** {@inheritdoc STTStream.start} */
   async start(useConsole?: boolean): Promise<string[]> {
-    // Check if files exists
+    // Check
     this.checkFiles();
-    // Initialise results
+    // Initialise
     const promises: Promise<string[]>[] = [];
     try {
-      // Distribute audio file
+      // Distribute
       const stdout = await this.distribute();
-      // Log any standard output
+      // Output
       stdout.length && console.warn(`Distribute bash script output: ${stdout}`);
     } catch (err) {
+      // Handle
       throw `Error distributing audio file. ${err}`;
     }
-    // Read audio directory
+    // Read
     const filenames = readdirSync(this.audioDirname);
-    // Get WAV filenames
+    // Extract
     const wavFilenames = filenames.filter(fn => extname(fn) === ".wav");
     const totalN = wavFilenames.length;
-    // Initialise n
+    // Initialise
     let n = 0;
-    // Initialise progress
     this.setProgress(n);
-    // For every WAV path
+    // Start
     wavFilenames.forEach(wavFilename => {
-      // Get full WAV path
       const fullWavFn = resolve(this.audioDirname, wavFilename);
-      // Initialise STT stream
       const stream = new STTStream(fullWavFn, null, this.options);
-      // Start stream
       const promise = stream.start(useConsole);
       promise
         .then(() => {
-          // Increase n
           n++;
-          // Define percentage
           const percentage = ~~((n / totalN) * 100);
-          // Set progress to percentage
           this.setProgress(percentage);
         })
-        // Ignore errors in single promise (caught later in Promise.all)
         .catch(() => {});
-      // Save promise
+      // Save
       promises.push(promise);
     });
-    // Get results
+    // Combine
     const results = await Promise.all(promises);
-    // Flatten results
+    // Parse
     const flattenedResults = results.flat();
-    // Join results
+    // Join
     const joinedResults = flattenedResults.join("\n");
-    // Write joined results to text file
+    // Write
     this.textFilename && writeFileSync(this.textFilename, joinedResults);
-    // Return flattened results
+    // Return
     return flattenedResults;
   }
 }

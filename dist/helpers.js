@@ -39,7 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.runBashScript = exports.useSpinner = void 0;
 var child_process_1 = require("child_process");
 var path_1 = require("path");
-// Exports
+// Functions
 /**
  * Show spinner while a promise is running
  * @param promise - Promise to base spinner on
@@ -57,7 +57,7 @@ exports.useSpinner = function (promise, spinner, successText, failText) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    // Start spinner
+                    // Start
                     spinner.start();
                     _a.label = 1;
                 case 1:
@@ -65,15 +65,14 @@ exports.useSpinner = function (promise, spinner, successText, failText) {
                     return [4 /*yield*/, promise];
                 case 2:
                     result = _a.sent();
-                    // Stop spinner with success
+                    // Output
                     spinner.succeed(successText);
-                    // Return result of promise
+                    // Return
                     return [2 /*return*/, result];
                 case 3:
                     err_1 = _a.sent();
-                    // Stop spinner with failure
+                    // Handle
                     spinner.fail(failText);
-                    // Throw error
                     throw err_1;
                 case 4: return [2 /*return*/];
             }
@@ -88,41 +87,33 @@ exports.useSpinner = function (promise, spinner, successText, failText) {
  * @internal
  */
 exports.runBashScript = function (filename, args) {
-    return new Promise(function (resolve, reject_) {
-        // Define reject function
-        var reject = function (reason) {
+    return new Promise(function (resolve, reject) {
+        // Resolve
+        var relFilename = path_1.resolve(__dirname, "../scripts/bash", "./" + filename);
+        // Define
+        var command = relFilename + " " + args;
+        // Execute
+        child_process_1.exec(command, function (error, stdout, stderr) {
+            // Handle
             var errorPrefix = [
                 "Error running a bash script.",
                 "This is probably because you're environment is not set up correctly.",
                 "Docker will be used soon to enable the app on any environment.",
             ].join(" ");
-            reject_(errorPrefix + " " + reason);
-        };
-        // Define absolute path
-        var relFilename = path_1.resolve(__dirname, "../scripts/bash", path_1.join("./", filename));
-        // Define command
-        var command = relFilename + " " + args;
-        // Execute command
-        child_process_1.exec(command, function (error, stdout, stderr) {
-            // Handle errors
             if (error) {
-                // Check if error was caused by Windows
                 var isWindowsError = stderr.includes("'.' is not recognized as an internal or external command");
-                // If error was caused by Windows
                 if (isWindowsError) {
-                    // Throw explanation error
-                    var errorPrefix = "It looks like you are running Windows which is not supported yet";
-                    var reason = errorPrefix + ". " + error;
+                    var secondErrorPrefix = "It looks like you are running Windows which is not supported yet";
+                    var reason = errorPrefix + " " + secondErrorPrefix + ". " + error;
                     reject(reason);
                 }
                 else {
-                    // Otherwise, throw error
-                    reject("" + error);
+                    var reason = errorPrefix + " " + error;
+                    reject(reason);
                 }
             }
-            // If standard error was thrown, reject it
             stderr.length && reject(stderr);
-            // Resolve standard output
+            // Resolve
             resolve(stdout);
         });
     });

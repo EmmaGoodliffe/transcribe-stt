@@ -61,7 +61,7 @@ export declare class DistributedSTTStream extends STTStream {
      * @remarks
      * Single audio file is split up into smaller files of 300 seconds so they can be used with Google's streaming API.
      * Each file is separately streamed and written to the text file when {@link DistributedSTTStream.start} is called
-     * @returns standard output of bash script
+     * @returns Standard output of bash script
      */
     distribute(): Promise<string>;
     /**
@@ -75,7 +75,7 @@ export declare class DistributedSTTStream extends STTStream {
      * @param event - Event to listen to
      * @param callback - Function to run when event fires
      */
-    on(event: "distribute", callback: DistributeListener): void;
+    on(event: "distribute", callback: Listeners["DistributeListener"]): void;
     /**
      * Listen to `"progress"` event and run callback functions
      * @remarks
@@ -85,7 +85,7 @@ export declare class DistributedSTTStream extends STTStream {
      * @param event - Event to listen to
      * @param callback - Function to run when event fires
      */
-    on(event: "progress", callback: ProgressListener): void;
+    on(event: "progress", callback: Listeners["ProgressListener"]): void;
     /**
      * Set progress
      * @param progress - Progress percentage
@@ -97,12 +97,6 @@ export declare class DistributedSTTStream extends STTStream {
 }
 
 /**
- * Listener for the distribute value
- * @public
- */
-export declare type DistributeListener = () => void | Promise<void>;
-
-/**
  * Language code
  * @remarks
  * See https://cloud.google.com/speech-to-text/docs/languages
@@ -111,13 +105,25 @@ export declare type DistributeListener = () => void | Promise<void>;
 export declare type LanguageCode = "af-ZA" | "sq-AL" | "am-ET" | "ar-DZ" | "ar-BH" | "ar-EG" | "ar-IQ" | "ar-IL" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-MA" | "ar-OM" | "ar-QA" | "ar-SA" | "ar-PS" | "ar-TN" | "ar-AE" | "ar-YE" | "hy-AM" | "az-AZ" | "eu-ES" | "bn-BD" | "bn-IN" | "bs-BA" | "bg-BG" | "my-MM" | "ca-ES" | "yue-Hant-HK" | "zh (cmn-Hans-CN)" | "zh-TW (cmn-Hant-TW)" | "hr-HR" | "cs-CZ" | "da-DK" | "nl-BE" | "nl-NL" | "en-AU" | "en-CA" | "en-GH" | "en-HK" | "en-IN" | "en-IE" | "en-KE" | "en-NZ" | "en-NG" | "en-PK" | "en-PH" | "en-SG" | "en-ZA" | "en-TZ" | "en-GB" | "en-US" | "et-EE" | "fil-PH" | "fi-FI" | "fr-BE" | "fr-CA" | "fr-FR" | "fr-CH" | "gl-ES" | "ka-GE" | "de-AT" | "de-DE" | "de-CH" | "el-GR" | "gu-IN" | "iw-IL" | "hi-IN" | "hu-HU" | "is-IS" | "id-ID" | "it-IT" | "it-CH" | "ja-JP" | "jv-ID" | "kn-IN" | "km-KH" | "ko-KR" | "lo-LA" | "lv-LV" | "lt-LT" | "mk-MK" | "ms-MY" | "ml-IN" | "mr-IN" | "mn-MN" | "ne-NP" | "no-NO" | "fa-IR" | "pl-PL" | "pt-BR" | "pt-PT" | "pa-Guru-IN" | "ro-RO" | "ru-RU" | "sr-RS" | "si-LK" | "sk-SK" | "sl-SI" | "es-AR" | "es-BO" | "es-CL" | "es-CO" | "es-CR" | "es-DO" | "es-EC" | "es-SV" | "es-GT" | "es-HN" | "es-MX" | "es-NI" | "es-PA" | "es-PY" | "es-PE" | "es-PR" | "es-ES" | "es-US" | "es-UY" | "es-VE" | "su-ID" | "sw-KE" | "sw-TZ" | "sv-SE" | "ta-IN" | "ta-MY" | "ta-SG" | "ta-LK" | "te-IN" | "th-TH" | "tr-TR" | "uk-UA" | "ur-IN" | "ur-PK" | "uz-UZ" | "vi-VN" | "zu-ZA";
 
 /**
- * Listener for the progress value
- * @remarks
- * <h2>Parameters</h2>
- * <code>progress</code> - Progress percentage
+ * Listeners
  * @public
  */
-export declare type ProgressListener = (progress: number) => void | Promise<void>;
+export declare interface Listeners {
+    /**
+     * Listener for the progress event
+     * @remarks
+     * <h2>Parameters</h2>
+     * <code>progress</code> - Progress percentage
+     */
+    ProgressListener: (progress: number) => void | Promise<void>;
+    /** Listener for the distribute event */
+    DistributeListener: () => void | Promise<void>;
+    /**
+     * Listener for all events
+     * @internal
+     */
+    All: Listeners["ProgressListener"] | Listeners["DistributeListener"];
+}
 
 /**
  * An STT stream (for audio files shorter than 305 seconds)
@@ -160,6 +166,7 @@ export declare class STTStream {
     checkFiles(): boolean;
     /**
      * Main inner method (automatically called by {@link STTStream.start})
+     * @returns Lines of transcript
      * @internal
      */
     private inner;
@@ -168,7 +175,7 @@ export declare class STTStream {
      * @example
      * See {@link STTStream} for an example
      * @param useConsole - Whether to show a loading spinner and deliver warnings in the console during STT stream. Default `true`
-     * @returns Lines of the transcript
+     * @returns Lines of transcript
      */
     start(useConsole?: boolean): Promise<string[]>;
 }

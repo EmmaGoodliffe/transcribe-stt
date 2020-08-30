@@ -21,13 +21,12 @@ See <a href="#classes">classes</a>
 
 | Interface                                                | Description               |
 | -------------------------------------------------------- | ------------------------- |
+| [Listeners](./transcribe-stt.listeners.md)               | Listeners                 |
 | [STTStreamOptions](./transcribe-stt.sttstreamoptions.md) | Options for an STT stream |
 
 ## Type Aliases
 
-| Type Alias                                                   | Description                       |
-| ------------------------------------------------------------ | --------------------------------- |
-| [AudioEncoding](./transcribe-stt.audioencoding.md)           | Audio encoding                    |
-| [DistributeListener](./transcribe-stt.distributelistener.md) | Listener for the distribute value |
-| [LanguageCode](./transcribe-stt.languagecode.md)             | Language code                     |
-| [ProgressListener](./transcribe-stt.progresslistener.md)     | Listener for the progress value   |
+| Type Alias                                         | Description    |
+| -------------------------------------------------- | -------------- |
+| [AudioEncoding](./transcribe-stt.audioencoding.md) | Audio encoding |
+| [LanguageCode](./transcribe-stt.languagecode.md)   | Language code  |

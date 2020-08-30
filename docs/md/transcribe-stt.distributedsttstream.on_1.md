@@ -9,15 +9,15 @@ Listen to `"progress"` event and run callback functions
 <b>Signature:</b>
 
 ```typescript
-on(event: "progress", callback: ProgressListener): void;
+on(event: "progress", callback: Listeners["ProgressListener"]): void;
 ```
 
 ## Parameters
 
-| Parameter | Type                                                     | Description                      |
-| --------- | -------------------------------------------------------- | -------------------------------- |
-| event     | "progress"                                               | Event to listen to               |
-| callback  | [ProgressListener](./transcribe-stt.progresslistener.md) | Function to run when event fires |
+| Parameter | Type                                                                     | Description                      |
+| --------- | ------------------------------------------------------------------------ | -------------------------------- |
+| event     | "progress"                                                               | Event to listen to               |
+| callback  | [Listeners](./transcribe-stt.listeners.md)<!-- -->\["ProgressListener"\] | Function to run when event fires |
 
 <b>Returns:</b>
 

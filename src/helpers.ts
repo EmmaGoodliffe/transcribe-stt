@@ -1,8 +1,8 @@
 import { exec } from "child_process";
 import { Ora } from "ora";
-import { join, resolve as pathResolve } from "path";
+import { resolve as resolvePath } from "path";
 
-// Exports
+// Functions
 /**
  * Show spinner while a promise is running
  * @param promise - Promise to base spinner on
@@ -18,19 +18,18 @@ export const useSpinner = async <T>(
   successText = "Done",
   failText = "Failed",
 ): Promise<T> => {
-  // Start spinner
+  // Start
   spinner.start();
   try {
-    // Await promise
+    // Await
     const result = await promise;
-    // Stop spinner with success
+    // Output
     spinner.succeed(successText);
-    // Return result of promise
+    // Return
     return result;
   } catch (err) {
-    // Stop spinner with failure
+    // Handle
     spinner.fail(failText);
-    // Throw error
     throw err;
   }
 };
@@ -46,47 +45,39 @@ export const runBashScript = (
   filename: string,
   args: string,
 ): Promise<string> =>
-  new Promise((resolve, reject_) => {
-    // Define reject function
-    const reject = (reason: string) => {
+  new Promise((resolve, reject) => {
+    // Resolve
+    const relFilename = resolvePath(
+      __dirname,
+      "../scripts/bash",
+      `./${filename}`,
+    );
+    // Define
+    const command = `${relFilename} ${args}`;
+    // Execute
+    exec(command, (error, stdout, stderr) => {
+      // Handle
       const errorPrefix = [
         "Error running a bash script.",
         "This is probably because you're environment is not set up correctly.",
         "Docker will be used soon to enable the app on any environment.",
       ].join(" ");
-      reject_(`${errorPrefix} ${reason}`);
-    };
-    // Define absolute path
-    const relFilename = pathResolve(
-      __dirname,
-      "../scripts/bash",
-      join("./", filename),
-    );
-    // Define command
-    const command = `${relFilename} ${args}`;
-    // Execute command
-    exec(command, (error, stdout, stderr) => {
-      // Handle errors
       if (error) {
-        // Check if error was caused by Windows
         const isWindowsError = stderr.includes(
           "'.' is not recognized as an internal or external command",
         );
-        // If error was caused by Windows
         if (isWindowsError) {
-          // Throw explanation error
-          const errorPrefix =
+          const secondErrorPrefix =
             "It looks like you are running Windows which is not supported yet";
-          const reason = `${errorPrefix}. ${error}`;
+          const reason = `${errorPrefix} ${secondErrorPrefix}. ${error}`;
           reject(reason);
         } else {
-          // Otherwise, throw error
-          reject(`${error}`);
+          const reason = `${errorPrefix} ${error}`;
+          reject(reason);
         }
       }
-      // If standard error was thrown, reject it
       stderr.length && reject(stderr);
-      // Resolve standard output
+      // Resolve
       resolve(stdout);
     });
   });
