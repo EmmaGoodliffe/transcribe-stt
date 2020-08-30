@@ -109,6 +109,8 @@ export declare type LanguageCode = "af-ZA" | "sq-AL" | "am-ET" | "ar-DZ" | "ar-B
  * @public
  */
 export declare interface Listeners {
+    /** Listener for the distribute event */
+    DistributeListener: () => void | Promise<void>;
     /**
      * Listener for the progress event
      * @remarks
@@ -116,8 +118,6 @@ export declare interface Listeners {
      * <code>progress</code> - Progress percentage
      */
     ProgressListener: (progress: number) => void | Promise<void>;
-    /** Listener for the distribute event */
-    DistributeListener: () => void | Promise<void>;
     /**
      * Listener for all events
      * @internal

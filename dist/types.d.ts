@@ -13,6 +13,8 @@ export { LanguageCode };
  * @public
  */
 export interface Listeners {
+    /** Listener for the distribute event */
+    DistributeListener: () => void | Promise<void>;
     /**
      * Listener for the progress event
      * @remarks
@@ -20,8 +22,6 @@ export interface Listeners {
      * <code>progress</code> - Progress percentage
      */
     ProgressListener: (progress: number) => void | Promise<void>;
-    /** Listener for the distribute event */
-    DistributeListener: () => void | Promise<void>;
     /**
      * Listener for all events
      * @internal
