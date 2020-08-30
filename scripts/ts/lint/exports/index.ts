@@ -1,29 +1,47 @@
-import { resolve } from "path";
-import { Arguments } from "yargs";
 import findUnused from "./findUnused";
 
-const main = async (argv: Arguments): Promise<void> => {
-  const arg = argv._[0];
-  const baseDirname = resolve(arg);
-  const fix = argv.fix as boolean;
-
-  const unused = (await findUnused(baseDirname)).nonIndexUnused;
-  if (!unused.length) {
-    return;
-  }
+const main = async (
+  tsFiles: string[],
+  fix: boolean,
+  exclude?: string | RegExp,
+): Promise<void> => {
+  const isIncluded = (error: string) => {
+    if (!exclude) return true;
+    if (typeof exclude === "string") {
+      return !error.includes(exclude);
+    } else if (typeof exclude === "object") {
+      return !exclude.test(error);
+    } else {
+      throw "Unknown type of exclude pattern";
+    }
+  };
 
   const reasons: string[] = [];
-  for (const exp of unused) {
-    const name = exp.isDefault ? "default export" : `export ${exp.name}`;
-    const file = exp.exportedFrom;
-    const reason = `Unused ${name} from ${file}`;
-    reasons.push(reason);
+
+  try {
+    const unused = await findUnused(tsFiles);
+    if (!unused.length) {
+      return;
+    }
+
+    for (const exp of unused) {
+      const name = exp.isDefault ? "default export" : `export ${exp.name}`;
+      const file = exp.exportedFrom;
+      const reason = `Unused ${name} from ${file}`;
+      reasons.push(reason);
+    }
+  } catch (err) {
+    if (isIncluded(`${err}`)) {
+      throw err;
+    }
   }
 
-  const suffix = "No fixes available";
-  fix && reasons.push(suffix);
-  const reason = reasons.join("\n");
-  throw reason;
+  const includedReasons = reasons.filter(err => isIncluded(err));
+  if (includedReasons.length) {
+    const suffix = "No fixes available";
+    fix && reasons.push(suffix);
+    throw includedReasons.join("\n");
+  }
 };
 
 export default main;

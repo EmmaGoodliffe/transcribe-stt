@@ -1,5 +1,3 @@
-import { readdirSync } from "fs";
-import { basename, dirname, extname, resolve } from "path";
 import parseImportsAndExports from "./parser";
 
 /** Export statement */
@@ -14,34 +12,12 @@ interface ExpStatement {
   name: string;
 }
 
-/** Result of finding unused exports */
-interface UnusedResult {
-  /** Unused exports */
-  unused: ExpStatement[];
-  /** Unused exports from files other than the `index.ts` in the base directory (so this file can export the module) */
-  nonIndexUnused: ExpStatement[];
-}
-
 /**
  * Find any unused exports in `.ts` files
- * @param baseDirname Diretory `.ts` files are in
+ * @param tsFiles `.ts` files to check
+ * @returns Unused export statements
  */
-const findUnused = async (baseDirname: string): Promise<UnusedResult> => {
-  /**
-   * Checks whether file is the `index.ts` in the base directory
-   * @param filename Path of file to check
-   * @return Whether file is base `index.ts`
-   */
-  const isIndex = (filename: string) => {
-    const filenameIsIndex = basename(filename, ".ts") === "index";
-    const dirnameIsBase = dirname(filename) === resolve(baseDirname);
-    return filenameIsIndex && dirnameIsBase;
-  };
-
-  const tsFiles = readdirSync(baseDirname)
-    .map(fn => resolve(".", baseDirname, fn))
-    .filter(fn => extname(fn) === ".ts");
-
+const findUnused = async (tsFiles: string[]): Promise<ExpStatement[]> => {
   const expStatements: ExpStatement[] = [];
 
   // Exports
@@ -67,8 +43,8 @@ const findUnused = async (baseDirname: string): Promise<UnusedResult> => {
         used: false,
       });
     // Star exports
-    if (starExportsFrom.length && !isIndex(fn)) {
-      throw 'export * from "..." is not supported in files other than the base index.ts';
+    if (starExportsFrom.length) {
+      throw `export * from "..." is not supported yet in ${fn}`;
     }
   }
 
@@ -109,11 +85,7 @@ const findUnused = async (baseDirname: string): Promise<UnusedResult> => {
   }
 
   const unused = expStatements.filter(exp => !exp.used);
-  const nonIndexUnused = unused.filter(exp => !isIndex(exp.exportedFrom));
-  return {
-    unused,
-    nonIndexUnused,
-  };
+  return unused;
 };
 
 export default findUnused;
