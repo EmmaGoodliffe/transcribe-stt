@@ -1,3 +1,4 @@
+import { relative } from "path";
 import parseImportsAndExports from "./parser";
 
 /** Export statement */
@@ -43,8 +44,10 @@ const findUnused = async (tsFiles: string[]): Promise<ExpStatement[]> => {
         used: false,
       });
     // Star exports
-    if (starExportsFrom.length) {
-      throw `export * from "..." is not supported yet in ${fn}`;
+    for (const exp of starExportsFrom) {
+      const from_ = relative(".", exp);
+      const relFn = relative(".", fn);
+      console.log(`Skipping export * from "${from_}" in ${relFn}`);
     }
   }
 

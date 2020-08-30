@@ -18,24 +18,16 @@ const main = async (
 
   const reasons: string[] = [];
 
-  try {
-    const unused = await findUnused(tsFiles);
-    if (!unused.length) {
-      return;
-    }
-
-    for (const exp of unused) {
-      const name = exp.isDefault ? "default export" : `export ${exp.name}`;
-      const file = exp.exportedFrom;
-      const reason = `Unused ${name} from ${file}`;
-      reasons.push(reason);
-    }
-  } catch (err) {
-    if (isIncluded(`${err}`)) {
-      throw err;
-    }
+  const unused = await findUnused(tsFiles);
+  if (!unused.length) {
+    return;
   }
-
+  for (const exp of unused) {
+    const name = exp.isDefault ? "default export" : `export ${exp.name}`;
+    const file = exp.exportedFrom;
+    const reason = `Unused ${name} from ${file}`;
+    reasons.push(reason);
+  }
   const includedReasons = reasons.filter(err => isIncluded(err));
   if (includedReasons.length) {
     const suffix = "No fixes available";

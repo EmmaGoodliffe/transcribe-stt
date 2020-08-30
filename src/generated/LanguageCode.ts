@@ -143,4 +143,3 @@ export type LanguageCode =
   | "uz-UZ"
   | "vi-VN"
   | "zu-ZA";
-export const nothing = 0;

@@ -18,7 +18,7 @@
     "docs": "npm run build && npm run extract && npm run docs:init && npm run docs:generate",
     "eslint:fix": "npm run eslint -- --fix",
     "eslint": "eslint \"./{scripts/ts,src,test}/**/*.ts\"",
-    "extract": "api-extractor run --local --verbose",
+    "extract": "api-extractor run --local",
     "lint:fix": "npm run eslint:fix && npm run prettier:fix && npm run ts:svg:fix && npm run ts:lint:fix",
     "lint": "npm run eslint && npm run prettier && npm run ts:svg && npm run ts:lint",
     "prettier:base": "prettier \"./?(*(.github|docs|etc|temp)/**/)*.{json,md}\"",
