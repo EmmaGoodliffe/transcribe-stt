@@ -16,22 +16,22 @@ const spaces = (n: number) => " ".repeat(n);
  * @return SVG files
  */
 const getSvgFilenames = (dirname: string) => {
-  // If directory doesn't exist, throw error
+  // Check
   const dirExists = existsSync(dirname);
   if (!dirExists) {
     const reason = `${dirname} doesn't exist`;
     throw reason;
   }
-  // Get all SVG filenames in directory
+  // Read
   const filenames = readdirSync(dirname);
+  // Extract
   const svgFilenames = filenames
     .filter(fn => extname(fn) === ".svg")
     .map(fn => resolve(__dirname, dirname, fn));
-  // If there are no SVG files, throw error
+  // Return
   if (!svgFilenames.length) {
     throw `No SVG files in ${dirname}`;
   }
-  // Return SVG filenames
   return svgFilenames;
 };
 
@@ -41,9 +41,9 @@ const getSvgFilenames = (dirname: string) => {
  * @returns Text of file before formatting, and after
  */
 const getFormattedFile = (filename: string): [string, string] => {
-  // Read file
+  // Read
   const before = readFileSync(filename).toString();
-  // Define options
+  // Define
   const options = {
     indentation: spaces(2),
     lineSeparator: "\n",
@@ -51,26 +51,26 @@ const getFormattedFile = (filename: string): [string, string] => {
   };
   // Format
   const after = `${xmlFormat(before, options)}\n`;
-  // Return before, and after
+  // Return
   return [before, after];
 };
 
-// Exports
+// Functions
 /**
  * Check which SVG files in directory need to be formatted
  * @param dirname - Path to directory
- * @returns Files that need formatting
+ * @returns Files which need formatting
  */
 export const check = (dirname: string): string[] => {
-  // Get SVG filenames
+  // Read
   const filenames = getSvgFilenames(dirname);
-  // Find which files need formatting
+  // Extract
   const filesToFormat = filenames.filter(fn => {
     const [before, after] = getFormattedFile(fn);
     const isFormatted = before === after;
     return !isFormatted;
   });
-  // Return files to format
+  // Return
   return filesToFormat;
 };
 
@@ -80,15 +80,14 @@ export const check = (dirname: string): string[] => {
  * @returns Whether any files changed
  */
 export const format = (dirname: string): boolean => {
-  // Get files to format
+  // Read
   const filesToFormat = check(dirname);
-  // Override each file
+  // Write
   for (const fn of filesToFormat) {
     const [, after] = getFormattedFile(fn);
     writeFileSync(fn, after);
   }
-  // Check if files changed
+  // Return
   const filesChanged = filesToFormat.length > 0;
-  // Return if files changed
   return filesChanged;
 };

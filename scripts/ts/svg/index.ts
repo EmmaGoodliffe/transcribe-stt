@@ -12,18 +12,18 @@ const fixing = argv.fix;
 
 // Run
 if (fixing) {
-  // Format directory
+  // Write
   const filesChanged = format(dirname);
-  // Log whether files changed
+  // Output
   if (filesChanged) {
     console.log("Formatted SVG files");
   } else {
     console.log(FORMATTED_ALL_MESSAGE);
   }
 } else {
-  // Find which files need to be formatted
+  // Read
   const filesToFormat = check(dirname);
-  // If there are files to format, throw error
+  // Output
   if (filesToFormat.length > 0) {
     const reason = [
       "Not all SVG files were formatted.",
@@ -31,6 +31,5 @@ if (fixing) {
     ].join(" ");
     throw reason;
   }
-  // Otherwise, log that files were formatted
   console.log(FORMATTED_ALL_MESSAGE);
 }

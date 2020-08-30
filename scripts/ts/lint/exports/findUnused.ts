@@ -1,6 +1,7 @@
 import { relative } from "path";
 import parseImportsAndExports from "./parser";
 
+// Interfaces
 /** Export statement */
 interface ExpStatement {
   /** File being exported from */
@@ -13,16 +14,19 @@ interface ExpStatement {
   name: string;
 }
 
+// Functions
 /**
  * Find any unused exports in `.ts` files
  * @param tsFiles `.ts` files to check
  * @returns Unused export statements
  */
 const findUnused = async (tsFiles: string[]): Promise<ExpStatement[]> => {
+  // Initialise
   const expStatements: ExpStatement[] = [];
 
   // Exports
   for (const fn of tsFiles) {
+    // Parse
     const importsAndExports = await parseImportsAndExports(fn);
     const { defaultExport, namedExports, starExportsFrom } = importsAndExports;
     // Named exports
@@ -53,6 +57,7 @@ const findUnused = async (tsFiles: string[]): Promise<ExpStatement[]> => {
 
   // Imports
   for (const fn of tsFiles) {
+    // Parse
     const {
       imports,
       reExportDefaultExportsFrom,
@@ -87,7 +92,9 @@ const findUnused = async (tsFiles: string[]): Promise<ExpStatement[]> => {
     }
   }
 
+  // Filter
   const unused = expStatements.filter(exp => !exp.used);
+  // Return
   return unused;
 };
 
