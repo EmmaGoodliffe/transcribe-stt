@@ -1,3 +1,8 @@
+/**
+ * Check that there aren't any unused exports in the source files
+ * @packageDocumentation
+ */
+
 import glob from "glob";
 import { resolve } from "path";
 import { argv } from "yargs";

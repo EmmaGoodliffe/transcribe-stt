@@ -5,9 +5,8 @@
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "files": [
-    "dist/**/*.ts",
+    "dist/**/*.d.ts",
     "dist/**/*.js",
-    "dist/**/*.ts",
     "scripts/bash/*.sh"
   ],
   "scripts": {

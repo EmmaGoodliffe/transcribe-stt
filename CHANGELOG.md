@@ -1,6 +1,12 @@
 # Changelog
 
-You can see a summary of everything exported by the module in `etc/transcribe-stt.api.md` at any point in its version history. See the [version history](https://github.com/EmmaGoodliffe/transcribe-stt/releases) on GitHub
+You can see a summary of everything exported by the module in the API report in `etc` at any point in its version history. See the [version history](https://github.com/EmmaGoodliffe/transcribe-stt/releases) on GitHub
+
+## Contents
+
+- [Breaking changes](#breaking-changes)
+- [Deprecated versions](#deprecated-versions)
+- [Versions](#versions)
 
 ## Breaking changes
 

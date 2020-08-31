@@ -1,3 +1,8 @@
+/**
+ * Format SVG files
+ * @packageDocumentation
+ */
+
 import { resolve } from "path";
 import { argv } from "yargs";
 import { check, format } from "./format";
