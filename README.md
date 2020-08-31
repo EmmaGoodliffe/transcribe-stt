@@ -114,7 +114,6 @@ To use an audio file with `transcribe-stt`, it must be a WAV file with mono audi
 
 ## To do
 
-- Create development guide
 - Use docker
 - Document how to change to a WAV file programmatically
 - Allow advanced configuration options documented [here](https://cloud.google.com/speech-to-text/docs/reference/rpc/google.cloud.speech.v1#google.cloud.speech.v1.StreamingRecognitionConfig)
