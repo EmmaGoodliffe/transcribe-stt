@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, rmdirSync, mkdirSync } from "fs";
+import { existsSync, mkdirSync, readFileSync, rmdirSync } from "fs";
 import fetch from "node-fetch";
 import { resolve } from "path";
 import { DistributedSTTStream, STTStream, STTStreamOptions } from "../src";
@@ -27,7 +27,7 @@ export const CONFIG: STTStreamOptions = {
 export const createTextFilename = (): string =>
   resolve(__dirname, `../${TEXT_DIRNAME}/stream${Date.now()}.txt`);
 
-const clean = (s: string) =>
+const normalise = (s: string) =>
   s
     .replace(/\r/g, "")
     .split("\n")
@@ -40,9 +40,11 @@ const delay = (time: number): Promise<void> =>
 
 const update = () => delay(100);
 
-// Empty output text folder
-rmdirSync(TEXT_DIRNAME, { recursive: true });
-mkdirSync(TEXT_DIRNAME);
+beforeAll(async () => {
+  rmdirSync(TEXT_DIRNAME, { recursive: true });
+  mkdirSync(TEXT_DIRNAME);
+  await update();
+});
 
 // Tests
 describe("Environment", () => {
@@ -79,15 +81,20 @@ describe("Environment", () => {
       expect.assertions(2);
       const gac = process.env.GOOGLE_APPLICATION_CREDENTIALS;
       expect(gac).toBeTruthy();
-      if (gac) {
-        expect(existsSync(gac)).toBeTruthy();
-      }
+      expect(existsSync(gac as string)).toBeTruthy();
     },
     TIME_LIMIT,
   );
 });
 
 describe("STTStream", () => {
+  test(".checkFiles", async () => {
+    expect.assertions(1);
+    const stream = new STTStream(AUDIO_FILENAME, null, CONFIG);
+    const passed = stream.checkFiles();
+    expect(passed).toBeTruthy();
+  });
+
   test(
     ".start",
     async () => {
@@ -97,7 +104,7 @@ describe("STTStream", () => {
       const lines = (await stream.start(false)).join("\n");
       await update();
       const transcript = readFileSync(textFilename).toString();
-      expect(clean(lines)).toBe(clean(transcript));
+      expect(normalise(lines)).toBe(normalise(transcript));
     },
     TIME_LIMIT,
   );
@@ -116,12 +123,16 @@ describe("DistributedSTTStream", () => {
         CONFIG,
       );
       const promise = stream.start(false);
-      let eventFiredN = 0;
-      stream.on("distribute", () => {
-        eventFiredN++;
-      });
+      // let eventFiredN = 0;
+      // stream.on("distribute", () => {
+      //   eventFiredN++;
+      // });
+      // await promise;
+      // expect(eventFiredN).toBe(1);
+      const listener = jest.fn();
+      stream.on("distribute", listener);
       await promise;
-      expect(eventFiredN).toBe(1);
+      expect(listener).toBeCalledTimes(1);
     },
     TIME_LIMIT,
   );
@@ -149,7 +160,8 @@ describe("DistributedSTTStream", () => {
       expect(progressPercentages).toEqual(sortedPercentages);
       const uniquePercentages = Array.from(new Set(progressPercentages));
       expect(progressPercentages).toEqual(uniquePercentages);
-      expect(progressPercentages.slice(-1)[0]).toBe(100);
+      const lastValue = progressPercentages.slice(-1)[0];
+      expect(lastValue).toBe(100);
     },
     TIME_LIMIT,
   );
@@ -168,7 +180,7 @@ describe("DistributedSTTStream", () => {
       const lines = (await stream.start(false)).join("\n");
       await update();
       const transcript = readFileSync(textFilename).toString();
-      expect(clean(lines)).toBe(clean(transcript));
+      expect(normalise(lines)).toBe(normalise(transcript));
     },
     TIME_LIMIT,
   );

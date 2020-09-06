@@ -2,8 +2,8 @@ import { resolve } from "path";
 import {
   AUDIO_DIRNAME,
   AUDIO_FILENAME,
-  createTextFilename,
   CONFIG,
+  createTextFilename,
   googleKeyFilename,
   TIME_LIMIT,
 } from "./index.test";

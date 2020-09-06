@@ -23,6 +23,11 @@ Thanks for contributing code!
    ```
    npm i
    ```
+1. Use the beginning of this [guide](https://github.com/EmmaGoodliffe/transcribe-stt/blob/master/README.md#google-authentication) to generate an authentication key from GCP. Save it as `key.json`
+1. Check that your environment is set up correctly
+   ```
+   npm test
+   ```
 1. Write some code using frequent commits. (See the [file tour](#file-tour) for an explanation of how the project works)
 1. Optionally write some tests for your new code
 1. Run a full build
