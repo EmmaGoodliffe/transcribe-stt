@@ -12,13 +12,13 @@ You can see a summary of everything exported by the module in the API report in 
 
 There are breaking changes in these versions
 
-- [`1.0.4`](#1.0.4)
+- [`1.0.4`](#104)
 
 ## Deprecated versions
 
-| Version           | Reason         | Version to update to |
-| ----------------- | -------------- | -------------------- |
-| [`1.0.0`](#1.0.0) | Unstable alpha | `>=1.0.1`            |
+| Version         | Reason         | Version to update to |
+| --------------- | -------------- | -------------------- |
+| [`1.0.0`](#100) | Unstable alpha | `>=1.0.1`            |
 
 ## Versions
 
