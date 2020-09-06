@@ -57,7 +57,7 @@ describe("Errors", () => {
   test(
     "bad audio filename",
     async () => {
-      expect.assertions(2);
+      expect.assertions(4);
       const wrongWavFilename = "./test/wrong.wav";
       process.env.GOOGLE_APPLICATION_CREDENTIALS = googleKeyFilename;
       const stream = new STTStream(wrongWavFilename, null, CONFIG);
@@ -68,13 +68,15 @@ describe("Errors", () => {
         CONFIG,
       );
       await expect(stream.start(false)).rejects.toMatch(ENOENT_PATTERN);
+      expect(() => stream.checkFiles()).toThrow(ENOENT_PATTERN);
       await expect(dStream.start(false)).rejects.toMatch(ENOENT_PATTERN);
+      expect(() => dStream.checkFiles()).toThrow(ENOENT_PATTERN);
     },
     TIME_LIMIT,
   );
 
   test("bad text directory", async () => {
-    expect.assertions(2);
+    expect.assertions(4);
     process.env.GOOGLE_APPLICATION_CREDENTIALS = googleKeyFilename;
     const wrongTextFilename = "./test/wrong/wrong.txt";
     const stream = new STTStream(AUDIO_FILENAME, wrongTextFilename, CONFIG);
@@ -85,13 +87,15 @@ describe("Errors", () => {
       CONFIG,
     );
     await expect(stream.start(false)).rejects.toMatch(ENOENT_PATTERN);
+    expect(() => stream.checkFiles()).toThrow(ENOENT_PATTERN);
     await expect(dStream.start(false)).rejects.toMatch(ENOENT_PATTERN);
+    expect(() => dStream.checkFiles()).toThrow(ENOENT_PATTERN);
   });
 
   test(
     "bad audio directory",
     async () => {
-      expect.assertions(1);
+      expect.assertions(2);
       const textFilename = createTextFilename();
       process.env.GOOGLE_APPLICATION_CREDENTIALS = googleKeyFilename;
       const wrongAudioDirname = "./test/wrong";
@@ -102,6 +106,7 @@ describe("Errors", () => {
         CONFIG,
       );
       await expect(dStream.start(false)).rejects.toMatch(ENOENT_PATTERN);
+      expect(() => dStream.checkFiles()).toThrow(ENOENT_PATTERN);
     },
     TIME_LIMIT,
   );

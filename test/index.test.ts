@@ -88,12 +88,16 @@ describe("Environment", () => {
 });
 
 describe("STTStream", () => {
-  test(".checkFiles", async () => {
-    expect.assertions(1);
-    const stream = new STTStream(AUDIO_FILENAME, null, CONFIG);
-    const passed = stream.checkFiles();
-    expect(passed).toBeTruthy();
-  });
+  test(
+    ".checkFiles",
+    async () => {
+      expect.assertions(1);
+      const stream = new STTStream(AUDIO_FILENAME, null, CONFIG);
+      const passed = stream.checkFiles();
+      expect(passed).toBeTruthy();
+    },
+    TIME_LIMIT,
+  );
 
   test(
     ".start",
@@ -112,6 +116,21 @@ describe("STTStream", () => {
 
 describe("DistributedSTTStream", () => {
   test(
+    ".distribute",
+    async () => {
+      expect.assertions(1);
+      const stream = new DistributedSTTStream(
+        AUDIO_FILENAME,
+        AUDIO_DIRNAME,
+        null,
+        CONFIG,
+      );
+      expect(stream.distribute()).resolves.toBe("");
+    },
+    TIME_LIMIT,
+  );
+
+  test(
     '.on("distribute")',
     async () => {
       expect.assertions(1);
@@ -123,12 +142,6 @@ describe("DistributedSTTStream", () => {
         CONFIG,
       );
       const promise = stream.start(false);
-      // let eventFiredN = 0;
-      // stream.on("distribute", () => {
-      //   eventFiredN++;
-      // });
-      // await promise;
-      // expect(eventFiredN).toBe(1);
       const listener = jest.fn();
       stream.on("distribute", listener);
       await promise;
