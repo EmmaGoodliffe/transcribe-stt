@@ -2,9 +2,9 @@ import { readFileSync } from "fs";
 import { dirname, extname, resolve } from "path";
 import {
   AllExport,
+  File as AST,
   DefaultDeclaration,
   ExportableDeclaration,
-  File as AST,
   isExportableDeclaration,
   NamedExport,
   NamedImport,

@@ -26,7 +26,7 @@
     "test": "jest --detect-open-handles",
     "ts:language-code": "ts-node scripts/ts/LanguageCode && cpy \"scripts/ts/LanguageCode/output/LanguageCode.ts\" \"src/generated\"",
     "ts:lint:fix": "npm run ts:lint -- --fix",
-    "ts:lint": "ts-node scripts/ts/lint \"./src\"",
+    "ts:lint": "ts-node scripts/ts/lint \"./src\" \"./scripts/ts\"",
     "ts:svg:fix": "npm run ts:svg -- --fix",
     "ts:svg": "ts-node scripts/ts/svg \"./docs/assets\"",
     "ts:types": "npm run ts:language-code"
@@ -64,6 +64,7 @@
     "cpy-cli": "^3.1.1",
     "eslint": "^7.6.0",
     "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-prettier": "^3.1.4",
     "glob": "^7.1.6",
     "jest": "^26.4.2",

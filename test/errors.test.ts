@@ -1,4 +1,5 @@
 import { resolve } from "path";
+import { DistributedSTTStream, STTStream } from "../src";
 import {
   AUDIO_DIRNAME,
   AUDIO_FILENAME,
@@ -7,7 +8,6 @@ import {
   googleKeyFilename,
   TIME_LIMIT,
 } from "./index.test";
-import { DistributedSTTStream, STTStream } from "../src";
 
 // Constants
 const CREDENTIALS_PATTERN = /GOOGLE_APPLICATION_CREDENTIALS/;
