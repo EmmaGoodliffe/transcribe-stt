@@ -2,12 +2,12 @@
   "cSpell.words": [
     "ESNEXT",
     "Google's",
+    "linting",
     "parens",
     "programmatically",
     "protos",
     "resample",
     "spec",
     "tslib"
-  ],
-  "cSpell.allowCompoundWords": true
+  ]
 }

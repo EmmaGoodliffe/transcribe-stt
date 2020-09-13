@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, rmdirSync } from "fs";
 import fetch from "node-fetch";
 import { resolve } from "path";
-import { DistributedSTTStream, STTStream, STTStreamOptions } from "../src";
+import { DistributedSTTStream, STTStream } from "../src";
 
 // Prepare environment
 const relGoogleKeyFilename = "../key.json";
@@ -14,18 +14,15 @@ export const AUDIO_DIRNAME = "./test/audio_dist";
 const TEXT_DIRNAME = "./test/text_dist";
 const JSON_URL = "https://jsonplaceholder.typicode.com/users/1/todos";
 export const TIME_LIMIT = 60 * 1000;
-const ENCODING = "LINEAR16";
-const SAMPLE_RATE_HERTZ = 48000;
-const LANGUAGE_CODE = "en-GB";
-export const CONFIG: STTStreamOptions = {
-  encoding: ENCODING,
-  sampleRateHertz: SAMPLE_RATE_HERTZ,
-  languageCode: LANGUAGE_CODE,
+export const CONFIG = {
+  encoding: "LINEAR16" as const,
+  sampleRateHertz: 48000 as const,
+  languageCode: "en-GB" as const,
 };
 
 // Helpers
 export const createTextFilename = (): string =>
-  resolve(__dirname, `../${TEXT_DIRNAME}/stream${Date.now()}.txt`);
+  resolve(__dirname, `../${TEXT_DIRNAME}/${Date.now()}.txt`);
 
 const normalise = (s: string) =>
   s
@@ -40,6 +37,7 @@ const delay = (time: number): Promise<void> =>
 
 const update = () => delay(100);
 
+// Reset
 beforeAll(async () => {
   rmdirSync(TEXT_DIRNAME, { recursive: true });
   mkdirSync(TEXT_DIRNAME);

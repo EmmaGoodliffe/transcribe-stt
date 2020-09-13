@@ -1,8 +1,3 @@
-/**
- * Download supported language codes from documentation to create a union type for them
- * @packageDocumentation
- */
-
 import { writeFileSync } from "fs";
 import fetch from "node-fetch";
 import { relative, resolve } from "path";

@@ -1,12 +1,15 @@
 # Changelog
 
-You can see a summary of everything exported by the module in the API report in `etc` at any point in its version history. See the [version history](https://github.com/EmmaGoodliffe/transcribe-stt/releases) on GitHub
-
 ## Contents
 
+- [API report](#api-report)
 - [Breaking changes](#breaking-changes)
 - [Deprecated versions](#deprecated-versions)
 - [Versions](#versions)
+
+## API report
+
+You can see an automatically generated summary of everything exported by the module in the API report in `etc` at any point in the [version history](https://github.com/EmmaGoodliffe/transcribe-stt/releases). A JSON version of this file is also generated and copied to `docs/input` to be used to generate the reference documentation. These are both created by [API Extractor](https://api-extractor.com/).
 
 ## Breaking changes
 
