@@ -1,12 +1,14 @@
 # `scripts`
 
+Scripts used in development and production
+
 ## `scripts/bash`
 
 Bash scripts used in production
 
 ## `scripts/ts`
 
-TypeScript scripts used in production
+TypeScript scripts used in development
 
 ### `scripts/ts/LanguageCode`
 
