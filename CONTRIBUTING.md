@@ -17,7 +17,7 @@ Issues about bug reports, feature requests and other questions are all welcome
 Thanks for contributing code!
 
 1. Fork the GitHub repo
-1. Install the [NPM] dependencies
+1. Install the [NPM](https://www.npmjs.com/) dependencies
    ```
    npm i
    ```
@@ -38,15 +38,12 @@ Thanks for contributing code!
 
 These are the useful NPM scripts
 
-| Script      | Description                                                |
-| ----------- | ---------------------------------------------------------- |
-| `build:all` | Full build (download, build, generate documentation, lint) |
-| `build`     | Build TypeScript                                           |
-| `docs`      | Generate documentation                                     |
-| `lint:fix`  | Fix linting problems                                       |
-| `lint`      | Lint                                                       |
-| `test`      | Test                                                       |
-| `ts:types`  | Download and re-generate types from [GCP] documentation    |
-
-[gcp]: https://cloud.google.com/
-[npm]: https://www.npmjs.com/
+| Script      | Description                                                        |
+| ----------- | ------------------------------------------------------------------ |
+| `build:all` | Full build (download, build, generate documentation, lint)         |
+| `build`     | Build TypeScript                                                   |
+| `docs`      | Generate documentation                                             |
+| `lint:fix`  | Fix linting problems                                               |
+| `lint`      | Lint                                                               |
+| `test`      | Test                                                               |
+| `ts:types`  | Download types from [GCP](https://cloud.google.com/) documentation |

@@ -2,8 +2,8 @@
 
 # transcribe-stt
 
-[![NPM version](https://img.shields.io/npm/v/transcribe-stt)][npm-package]
-[![Github version](https://img.shields.io/github/package-json/v/EmmaGoodliffe/transcribe-stt?label=github)][github-repo]
+[![NPM version](https://img.shields.io/npm/v/transcribe-stt)](https://www.npmjs.com/package/transcribe-stt)
+[![Github version](https://img.shields.io/github/package-json/v/EmmaGoodliffe/transcribe-stt?label=github)](https://github.com/EmmaGoodliffe/transcribe-stt)
 
 Transcribe audio of any length using Google's Speech to Text API
 
@@ -98,7 +98,7 @@ To stream any audio, you must authenticate yourself with Google. To do this, jus
 
 ## Converting audio to WAV file
 
-To use an audio file with `transcribe-stt`, it must be a WAV file with mono audio. This is a simple guide to converting audio files with an editor, specifically [Audacity] which is free and available on all 3 major operating systems. However, many of the steps will be very similar on any audio editing software
+To use an audio file with `transcribe-stt`, it must be a WAV file with mono audio. This is a simple guide to converting audio files with an editor, specifically [Audacity](https://www.audacityteam.org/) which is free and available on all 3 major operating systems. However, many of the steps will be very similar on any audio editing software
 
 1. Open the editor and import your audio
    > File > Import > Audio...
@@ -118,11 +118,7 @@ To use an audio file with `transcribe-stt`, it must be a WAV file with mono audi
 - Document how to change to a WAV file programmatically
 - Allow advanced configuration options documented [here](https://cloud.google.com/speech-to-text/docs/reference/rpc/google.cloud.speech.v1#google.cloud.speech.v1.StreamingRecognitionConfig)
 - Add `data` event for `DistributedSTTStream`
-- Add full stops after every sentence in documentation
 
 [`dotenv`]: https://www.npmjs.com/package/dotenv
 [`node`]: https://nodejs.org/
-[audacity]: https://www.audacityteam.org/
-[github-repo]: https://github.com/EmmaGoodliffe/transcribe-stt
 [google's speech to text api]: https://cloud.google.com/speech-to-text/
-[npm-package]: https://www.npmjs.com/package/transcribe-stt
