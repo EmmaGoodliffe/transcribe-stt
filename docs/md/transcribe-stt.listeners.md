@@ -2,19 +2,20 @@
 
 [Home](./index.md) &gt; [transcribe-stt](./transcribe-stt.md) &gt; [Listeners](./transcribe-stt.listeners.md)
 
-## Listeners interface
+## Listeners namespace
 
 Listeners
 
 <b>Signature:</b>
 
 ```typescript
-export interface Listeners
+export declare namespace Listeners
 ```
 
-## Properties
+## Type Aliases
 
-| Property                                                               | Type                                                 | Description                       |
-| ---------------------------------------------------------------------- | ---------------------------------------------------- | --------------------------------- |
-| [DistributeListener](./transcribe-stt.listeners.distributelistener.md) | () =&gt; void \| Promise&lt;void&gt;                 | Listener for the distribute event |
-| [ProgressListener](./transcribe-stt.listeners.progresslistener.md)     | (progress: number) =&gt; void \| Promise&lt;void&gt; | Listener for the progress event   |
+| Type Alias                                                             | Description                       |
+| ---------------------------------------------------------------------- | --------------------------------- |
+| [All](./transcribe-stt.listeners.all.md)                               | Listener for any event            |
+| [DistributeListener](./transcribe-stt.listeners.distributelistener.md) | Listener for the distribute event |
+| [ProgressListener](./transcribe-stt.listeners.progresslistener.md)     | Listener for the progress event   |

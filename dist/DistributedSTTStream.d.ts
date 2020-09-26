@@ -60,7 +60,7 @@ declare class DistributedSTTStream extends STTStream {
      * @param event - Event to listen to
      * @param callback - Function to run when event fires
      */
-    on(event: "distribute", callback: Listeners["DistributeListener"]): void;
+    on(event: "distribute", callback: Listeners.DistributeListener): void;
     /**
      * Listen to `"progress"` event and run callback functions
      * @remarks
@@ -70,7 +70,7 @@ declare class DistributedSTTStream extends STTStream {
      * @param event - Event to listen to
      * @param callback - Function to run when event fires
      */
-    on(event: "progress", callback: Listeners["ProgressListener"]): void;
+    on(event: "progress", callback: Listeners.ProgressListener): void;
     /**
      * Set progress
      * @param progress - Progress percentage

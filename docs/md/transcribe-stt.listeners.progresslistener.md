@@ -2,16 +2,12 @@
 
 [Home](./index.md) &gt; [transcribe-stt](./transcribe-stt.md) &gt; [Listeners](./transcribe-stt.listeners.md) &gt; [ProgressListener](./transcribe-stt.listeners.progresslistener.md)
 
-## Listeners.ProgressListener property
+## Listeners.ProgressListener type
 
 Listener for the progress event
 
 <b>Signature:</b>
 
 ```typescript
-ProgressListener: (progress: number) => void | Promise<void>;
+type ProgressListener = (progress: number) => void | Promise<void>;
 ```
-
-## Remarks
-
-<h2>Parameters</h2> <code>progress</code> - Progress percentage

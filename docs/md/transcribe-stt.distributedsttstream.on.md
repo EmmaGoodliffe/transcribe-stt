@@ -9,15 +9,15 @@ Listen to `"distribute"` event and run callback functions
 <b>Signature:</b>
 
 ```typescript
-on(event: "distribute", callback: Listeners["DistributeListener"]): void;
+on(event: "distribute", callback: Listeners.DistributeListener): void;
 ```
 
 ## Parameters
 
-| Parameter | Type                                                                       | Description                      |
-| --------- | -------------------------------------------------------------------------- | -------------------------------- |
-| event     | "distribute"                                                               | Event to listen to               |
-| callback  | [Listeners](./transcribe-stt.listeners.md)<!-- -->\["DistributeListener"\] | Function to run when event fires |
+| Parameter | Type                                                                             | Description                      |
+| --------- | -------------------------------------------------------------------------------- | -------------------------------- |
+| event     | "distribute"                                                                     | Event to listen to               |
+| callback  | [Listeners.DistributeListener](./transcribe-stt.listeners.distributelistener.md) | Function to run when event fires |
 
 <b>Returns:</b>
 

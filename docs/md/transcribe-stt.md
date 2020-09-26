@@ -21,8 +21,13 @@ See <a href="#classes">classes</a>
 
 | Interface                                                | Description               |
 | -------------------------------------------------------- | ------------------------- |
-| [Listeners](./transcribe-stt.listeners.md)               | Listeners                 |
 | [STTStreamOptions](./transcribe-stt.sttstreamoptions.md) | Options for an STT stream |
+
+## Namespaces
+
+| Namespace                                  | Description |
+| ------------------------------------------ | ----------- |
+| [Listeners](./transcribe-stt.listeners.md) | Listeners   |
 
 ## Type Aliases
 

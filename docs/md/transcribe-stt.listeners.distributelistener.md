@@ -2,12 +2,12 @@
 
 [Home](./index.md) &gt; [transcribe-stt](./transcribe-stt.md) &gt; [Listeners](./transcribe-stt.listeners.md) &gt; [DistributeListener](./transcribe-stt.listeners.distributelistener.md)
 
-## Listeners.DistributeListener property
+## Listeners.DistributeListener type
 
 Listener for the distribute event
 
 <b>Signature:</b>
 
 ```typescript
-DistributeListener: () => void | Promise<void>;
+type DistributeListener = () => void | Promise<void>;
 ```
