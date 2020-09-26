@@ -23,7 +23,7 @@
     "prettier:base": "prettier \"./?(*(.github|docs|etc|temp)/**/)*.{json,md}\"",
     "prettier:fix": "npm run prettier:base -- --write",
     "prettier": "npm run prettier:base -- --check",
-    "test": "jest --detect-open-handles",
+    "test": "jest",
     "ts:language-code": "ts-node scripts/ts/LanguageCode && cpy \"scripts/ts/LanguageCode/output/LanguageCode.ts\" \"src/generated\"",
     "ts:lint:fix": "npm run ts:lint -- --fix",
     "ts:lint": "ts-node scripts/ts/lint \"./src\" \"./scripts/ts\"",
@@ -54,8 +54,8 @@
     "ora": "^5.0.0"
   },
   "devDependencies": {
-    "@microsoft/api-documenter": "^7.8.35",
-    "@microsoft/api-extractor": "^7.9.10",
+    "@microsoft/api-documenter": "^7.8.56",
+    "@microsoft/api-extractor": "^7.9.22",
     "@types/jest": "^26.0.9",
     "@types/node": "^14.0.27",
     "@types/node-fetch": "^2.5.7",

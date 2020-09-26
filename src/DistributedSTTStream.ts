@@ -38,8 +38,8 @@ const SHARD_LENGTH = 300;
  */
 class DistributedSTTStream extends STTStream {
   private progress: number;
-  private progressListeners: Listeners["ProgressListener"][];
-  private distributeListeners: Listeners["DistributeListener"][];
+  private progressListeners: Listeners.ProgressListener[];
+  private distributeListeners: Listeners.DistributeListener[];
   /**
    * @param audioFilename - Path to audio file
    * @param audioDirname - Path to output distributed audio directory
@@ -117,7 +117,7 @@ class DistributedSTTStream extends STTStream {
    * @param event - Event to listen to
    * @param callback - Function to run when event fires
    */
-  on(event: "distribute", callback: Listeners["DistributeListener"]): void;
+  on(event: "distribute", callback: Listeners.DistributeListener): void;
   /**
    * Listen to `"progress"` event and run callback functions
    * @remarks
@@ -127,16 +127,14 @@ class DistributedSTTStream extends STTStream {
    * @param event - Event to listen to
    * @param callback - Function to run when event fires
    */
-  on(event: "progress", callback: Listeners["ProgressListener"]): void;
-  on(event: string, callback: Listeners["All"]): void {
+  on(event: "progress", callback: Listeners.ProgressListener): void;
+  on(event: string, callback: Listeners.All): void {
     if (event === "progress") {
       // Progress
-      this.progressListeners.push(callback as Listeners["ProgressListener"]);
+      this.progressListeners.push(callback as Listeners.ProgressListener);
     } else if (event === "distribute") {
       // Distribute
-      this.distributeListeners.push(
-        callback as Listeners["DistributeListener"],
-      );
+      this.distributeListeners.push(callback as Listeners.DistributeListener);
     } else {
       // Other
       const reason = `No event ${event}`;

@@ -1,9 +1,9 @@
-import { existsSync, mkdirSync, readFileSync, rmdirSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 import fetch from "node-fetch";
 import { resolve } from "path";
 import { DistributedSTTStream, STTStream } from "../src";
 
-// Prepare environment
+// Environment
 const relGoogleKeyFilename = "../key.json";
 export const googleKeyFilename = resolve(__dirname, relGoogleKeyFilename);
 process.env.GOOGLE_APPLICATION_CREDENTIALS = googleKeyFilename;
@@ -35,14 +35,7 @@ const normalise = (s: string) =>
 const delay = (time: number): Promise<void> =>
   new Promise(resolve => setTimeout(resolve, time));
 
-const update = () => delay(100);
-
-// Reset
-beforeAll(async () => {
-  rmdirSync(TEXT_DIRNAME, { recursive: true });
-  mkdirSync(TEXT_DIRNAME);
-  await update();
-});
+export const pause = (): Promise<void> => delay(5000);
 
 // Tests
 describe("Environment", () => {
@@ -67,7 +60,7 @@ describe("Environment", () => {
     async () => {
       expect.assertions(1);
       const response = await fetch(JSON_URL);
-      const json: unknown[] = await response.json();
+      const json: never[] = await response.json();
       expect(json.length).toBeTruthy();
     },
     TIME_LIMIT,
@@ -104,7 +97,7 @@ describe("STTStream", () => {
       const textFilename = createTextFilename();
       const stream = new STTStream(AUDIO_FILENAME, textFilename, CONFIG);
       const lines = (await stream.start(false)).join("\n");
-      await update();
+      await pause();
       const transcript = readFileSync(textFilename).toString();
       expect(normalise(lines)).toBe(normalise(transcript));
     },
@@ -123,7 +116,7 @@ describe("DistributedSTTStream", () => {
         null,
         CONFIG,
       );
-      expect(stream.distribute()).resolves.toBe("");
+      await expect(stream.distribute()).resolves.toBe("");
     },
     TIME_LIMIT,
   );
@@ -189,7 +182,7 @@ describe("DistributedSTTStream", () => {
         CONFIG,
       );
       const lines = (await stream.start(false)).join("\n");
-      await update();
+      await pause();
       const transcript = readFileSync(textFilename).toString();
       expect(normalise(lines)).toBe(normalise(transcript));
     },

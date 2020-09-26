@@ -14,27 +14,6 @@ export { LanguageCode };
 
 // Interfaces
 /**
- * Listeners
- * @public
- */
-export interface Listeners {
-  /** Listener for the distribute event */
-  DistributeListener: () => void | Promise<void>;
-  /**
-   * Listener for the progress event
-   * @remarks
-   * <h2>Parameters</h2>
-   * <code>progress</code> - Progress percentage
-   */
-  ProgressListener: (progress: number) => void | Promise<void>;
-  /**
-   * Listener for all events
-   * @internal
-   */
-  All: Listeners["ProgressListener"] | Listeners["DistributeListener"];
-}
-
-/**
  *  Options for an STT stream
  * @public
  */
@@ -45,4 +24,19 @@ export interface STTStreamOptions {
   sampleRateHertz?: number;
   /** BCP-47 language code. Default `"en-US"` */
   languageCode?: LanguageCode;
+}
+
+// Namespaces
+export namespace Listeners {
+  /** Listener for the distribute event */
+  export type DistributeListener = () => void | Promise<void>;
+  /**
+   * Listener for the progress event
+   * @remarks
+   * <h2>Parameters</h2>
+   * <code>progress</code> - Progress percentage
+   */
+  export type ProgressListener = (progress: number) => void | Promise<void>;
+  /** Listener for any event */
+  export type All = DistributeListener | ProgressListener;
 }

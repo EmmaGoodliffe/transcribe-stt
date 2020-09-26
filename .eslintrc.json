@@ -1,7 +1,6 @@
 {
   "extends": [
     "eslint:recommended",
-    "plugin:prettier/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/errors",
@@ -26,6 +25,7 @@
       "error",
       { "allow": ["arrowFunctions"] }
     ],
+    "@typescript-eslint/no-namespace": "off",
     "import/order": [
       "error",
       {
