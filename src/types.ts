@@ -31,6 +31,7 @@ export interface STTStreamOptions {
  * Listeners
  * @public
  */
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace Listeners {
   /** Listener for the distribute event */
   export type DistributeListener = () => void | Promise<void>;
